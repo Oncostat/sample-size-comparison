@@ -1,0 +1,51 @@
+---
+title: Comparaison East/Rpart
+subtitle: Différence de résultats entre les event sizes et samples sizes obtenuent pour des essais cliniques à 2 bras.
+author:
+  - name: Bob Dylan
+    orcid: 0009-0007-1967-8304
+abstract: |
+  {{< lipsum 1 >}}
+papersize: a4
+format: 
+  typst
+keywords:
+  - Quarto
+  - Typst
+  - format
+date: today
+date-format: full
+logo: medium
+brand: brand\_brand.yml
+execute:
+  echo: false
+margin: 
+  x: 1in
+  y: 1in
+lang: "fr"
+---
+
+# 
+
+[Basic Typst doc](https://quarto.org/docs/output-formats/typst.html)
+
+
+Alpha : 0.01, 0.05, 0.10, 0.20, 0.5
+Power : 50%, 80%, 90%, 99%
+
+HR : 0.1, 0.5, 0.7, 0.9, 0.99
+3y-surv : 10%, 30%, 60%, 90%
+
+
+```{r}
+
+```
+
+::: {.block fill="luma(230)" inset="8pt" radius="4pt"}
+
+This is a block with gray background and slightly rounded corners.
+
+:::
+
+
+new thing written about something
