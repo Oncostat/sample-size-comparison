@@ -36,7 +36,9 @@ typography:
       source: google
     - family: Outfit
       source: google
-    - family: Space Mono
+    - family: Cascadia Code
+      source: google
+    - family: Noto Sans Math
       source: google
   base: 
     family: Lato
@@ -46,4 +48,4 @@ typography:
   link:
     color: blue
     decoration: underline
-  monospace: Space Mono
+  monospace: Cascadia Code

@@ -1,6 +1,6 @@
 ---
-title: Comparaison East/Rpact
-subtitle: Différence de résultats entre les event sizes et samples sizes obtenuent pour des essais cliniques à 2 bras.
+title: R vs East & nQuery 
+subtitle: Utilisation de R comme alternative aux logiciels propriétaires East et nQuery pour le calcul de Sample Size.
 author:
   - name: AROCENA Thomas 
     orcid: 0009-0002-7014-220X
@@ -8,7 +8,8 @@ abstract: |
   {{< lipsum 1 >}}
 papersize: a4
 format: 
-  typst
+  typst:
+    mathfont: Noto Sans Math
 keywords:
   - Quarto
   - Typst
@@ -36,45 +37,94 @@ lang: "fr"
 library(gt)
 library(rpact)
 library(tidyverse)
+library(rashnu)
+```
+
+## Comparaison I : Sample size pour tester le hazard ratio dans un groupe à 2 bras.
+
+### Méthode de Schoenfeld
+
+Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
+
+Prenons $\alpha$ l'erreur de type I et $\beta$ l'erreur de type II. Alors, en notant $e$ le nombre d'evènement nécessaire, la formule (simple) de Schoenfeld donne :
+
+$$
+e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
+$${#eq-schoenfeld}
+
+Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$, égale au quantile $(1-x)$ de la distribution normale standard.
+
+### Méthode de Lakatos
+
+blabla 
+
+### Paramètres
+
+On va comparer les resultats de Rpact et de East sur l'ensemble de test suivant :
+
+$\alpha \in \{0.01, 0.05, 0.1, 0.20, 0.49\}$
+
+$\text{power} \in \{0.51, 0.8, 0.9, 0.99\}$
+
+$\text{HR} \in \{0.1, 0.5, 0.7, 0.9, 0.99\}$
+
+$\text{Survie à 3 ans} \in \{0.1, 0.3, 0.6, 0.9\}$
+
+```{r}
+param_list = list(
+  alpha = c(0.01, 0.05, 0.1, 0.20, 0.49),
+  power = c(0.51, 0.8, 0.9, 0.99),
+  hr = c(0.1, 0.5, 0.7, 0.9, 0.99),
+  surv_3y = c(0.1, 0.3, 0.6, 0.9)
+)
+
+param_table <- 
+  param_list |> 
+  expand.grid() |> 
+  as_tibble()
 ```
 
 ```{r}
-#| label: grid_search_params
-#| echo: false
-alpha = c(0.01, 0.05, 0.1, 0.20, 0.5)
-power = c(0.5, 0.8, 0.9, 0.99, NA)
-hr = c(0.1, 0.5, 0.7, 0.9, 0.99)
-surv_3y = c(0.1, 0.3, 0.6, 0.9, NA)
+evaluate_relevancy_one <- function(
+  alpha,
+  power,
+  hr,
+  surv_3y
+){
+  if (alpha >= 0.4 || power <= 0.51 || power >= 0.99 || hr >= 0.99){
+    relevancy <- "low"
+  } else if (alpha >= 0.20 || hr <= 0.1 || hr >= 0.9 || surv_3y >= 0.9){
+    relevancy <- "medium"
+  } else {
+    relevancy <- "high"
+  }
 
-tibble(
-  alpha = alpha,
-  power = power,
-  hr = hr,
-  surv_3y = surv_3y
-) |>
-  gt() |>
-  sub_missing()
+  relevancy
+}
+
+evaluate_relevancy <- Vectorize(evaluate_relevancy_one)
 ```
 
+
 ::: {.block fill="luma(200)" inset="8pt" radius="4pt"}
-
 This is a block with gray background and slightly rounded corners.
-
 :::
 
+### Rpact
 
+On utilise la fonction `getSampleSizeSurvival` pour estimer 
+le nombre d'évènements et de patients nécessaires.
 
 ```{r}
 #| label: rpact_getEventsFixed
 sample_size_info <- getSampleSizeSurvival(
-  alpha = 0.05,
-  sided = 2,
-  beta = 0.1,
+  alpha = 0.05, # Type I error
+  sided = 2, # 2-sided Test
+  beta = 0.1, # Type II error
   typeOfComputation = "Schoenfeld",
   hazardRatio = 0.7,
-  allocationRatioPlanned = 1,
-  dropoutRate1 = 0,
-  dropoutRate2 = 0,
+  pi2 = 0.3,
+       
   followUpTime = 3,
   accrualTime = c(0, 3)
 )
@@ -83,12 +133,424 @@ sample_size_info$eventsFixed
 sample_size_info$nFixed
 ```
 
+```{r}
+#| label: get_sample_size_wrapper
+get_sample_size_wrapper <- function(
+  alpha,
+  power,
+  hr,
+  surv_3y,
+  error = NA_real_
+  ){
+  tryCatch({
+  # Times are in year NOT months
+  sample_size_info <- getSampleSizeSurvival(
+    alpha = alpha,
+    beta = 1 - power,
+    hazardRatio = hr,
+    pi2 = 1 - surv_3y,
+    eventTime = 3, # 3 years survival
+    typeOfComputation = "Schoenfeld",
+    sided = 2,
+    allocationRatioPlanned = 1,
+    dropoutRate1 = 0,
+    dropoutRate2 = 0,
+    followUpTime = 3, # 3 years of follow-up after accrual
+    accrualTime = c(0, 3) # 3 years of accrual
+  )
+
+  return(tibble(
+    e = ceiling(sample_size_info$eventsFixed),
+    n = ceiling(sample_size_info$nFixed)))
+  },
+  error = function(er){
+    return(tibble(e = error, n = error))
+  })
+}
+
+#get_sample_size_wrapper(0.49,0.51,0.1,0.6)
+```
 
 ```{r}
-param_list = list(
-  alpha = c(0.01, 0.05, 0.1, 0.20, 0.5)
-  power = c(0.5, 0.8, 0.9, 0.99)
-  hr = c(0.1, 0.5, 0.7, 0.9, 0.99)
-  surv_3y = c(0.1, 0.3, 0.6, 0.9)
-)
+p_res <- 
+  param_table |> 
+  mutate(
+    nested_res = pmap(param_table,get_sample_size_wrapper)
+    ) |> 
+  unnest(nested_res)
+
+#head(p_res) |> gt()
+#write_csv(p_res, "results/rpact_grid.csv")
+#write_csv2(p_res, "results/rpact_grid.csv")
 ```
+
+
+### East
+
+```{r}
+# As East has problems running the 400 inputs consecutively
+# I ran 4*100 by spliting by power value 
+east_res_dirty <- bind_rows(
+  read_csv("results/east_pwr051.csv"),
+  read_csv("results/east_pwr08.csv"),
+  read_csv("results/east_pwr09.csv"),
+  read_csv("results/east_pwr099.csv")
+)
+
+# Keep only needed input/output
+# and add the survival rate at 3 years that is
+# missing in East output
+east_res <- east_res_dirty |> 
+  select(
+    alpha = "Specified α",
+    power = "Power",
+    hr = "Hazard Ratio (Alt.)",
+    e = "Maximum Events",
+    n = "Sample Size"
+  ) |> 
+    arrange(alpha, power, hr, n) |> 
+    mutate(surv_3y = rep(c(0.1, 0.3, 0.6, 0.9), n()/4)) |> 
+    mutate(power = signif(power, 1))
+```
+
+### nQuery
+
+```{r}
+nquery_res_dirty <- read.csv2("results/nquery_grid.csv", dec = ",")
+
+nquery_res_less_dirty <- data.frame(t(nquery_res_dirty[-1]))
+colnames(nquery_res_less_dirty) <- nquery_res_dirty[,1] 
+
+nquery_res <- 
+  nquery_res_less_dirty |> 
+  tibble() |> 
+  select(
+    alpha = "Test Significance Level, ??",
+    power = "Power (%)?",
+    hr = "Hazard Ratio, h=??/???",
+    lambda1 = "Group 1 Exponential Parameter, ???",
+    e = "Total Number of Events Required, E?",
+    n = "Sample Size per Group, n?"
+  ) |> 
+    mutate(
+      across(
+        c(alpha, power, hr, lambda1),
+        \(x){parse_number(x, locale = locale(decimal_mark = ","))}
+      ),
+      lambda1 = signif(lambda1, 1),
+      surv_3y = case_when(
+        lambda1 == 0.80 ~ 0.1,
+        lambda1 == 0.40 ~ 0.3,
+        lambda1 == 0.20 ~ 0.6,
+        lambda1 == 0.04 ~ 0.9,
+        .default = NA_real_
+      ),
+      across(c(e, n), as.numeric),
+      power = power/100,
+      n = 2*n # introduce an error cause all n will be even.
+    ) |> 
+    select(- lambda1)
+```
+
+
+### Rashnu
+
+```{r}
+lakatos_wrapper <- function(
+  alpha,
+  power,
+  hr,
+  surv_3y,
+  error = NA_real_
+){
+  tryCatch({
+    sample_size_info <- lakatosSampleSize(
+      alpha = alpha,
+      power = power,
+      syear = 3,
+      yrsurv1 = surv_3y,
+      yrsurv2 = surv_3y**hr,
+      alloc = 1,
+      accrualTime = 3,
+      followTime = 3,
+      method = "logrank",
+      side = "two.sided"
+    )
+    return(
+      tibble(
+        e = sample_size_info$Total_expected_event_numbers,
+        n = sample_size_info$Total_sample_size
+      )
+    )},
+
+  error = function(er){
+    return(tibble(e = error, n = error))
+  })
+}
+```
+
+```{r}
+rashnu_res <- 
+  param_table |> 
+  mutate(
+    nested_res = pmap(param_table,lakatos_wrapper)
+    ) |> 
+  unnest(nested_res)
+```
+
+### rpact vs East
+
+```{r}
+combined_res <-
+  p_res |> 
+  inner_join(
+    east_res,
+    by = join_by(alpha, power, hr,surv_3y),
+    suffix = c("_rpact", "_east")
+    ) |> 
+  mutate(
+    e_ratio = e_rpact/e_east,
+    n_ratio = n_rpact/n_east
+  )
+```
+
+```{r}
+combined_res <- 
+  combined_res |> 
+    mutate(relevancy = evaluate_relevancy(alpha, power, hr, surv_3y)) |> 
+    mutate(relevancy = fct_relevel(relevancy,c("low", "medium", "high")))
+```
+
+```{r}
+ggplot(combined_res) + 
+  aes(x = n_rpact, y = n_east, color = n_ratio) +
+  geom_point() +
+  geom_abline() +
+  facet_wrap(~relevancy, scales = "free") +
+  labs(title = "Rpact/East comparaison according to relevancy")
+```
+
+```{r}
+n_ratio_by_relevancy <-
+  combined_res |>
+  group_by(relevancy) |>
+  summarize(
+    min_n_ratio = min(n_ratio),
+    q1_n_ratio = quantile(n_ratio, 0.25),
+    mean_n_ratio = mean(n_ratio),
+    med_n_ratio = median(n_ratio),
+    q3_n_ratio = quantile(n_ratio, 0.75),
+    max_n_ratio = max(n_ratio)
+    )
+```
+
+```{r}
+e_ratio_by_relevancy <-
+  combined_res |>
+  group_by(relevancy) |>
+  summarize(
+    min_e_ratio = min(e_ratio),
+    q1_e_ratio = quantile(e_ratio, 0.25),
+    mean_e_ratio = mean(e_ratio),
+    med_e_ratio = median(e_ratio),
+    q3_e_ratio = quantile(e_ratio, 0.75),
+    max_e_ratio = max(e_ratio)
+    )
+```
+
+```{r}
+gt(n_ratio_by_relevancy)
+gt(e_ratio_by_relevancy)
+```
+
+### rpact vs nQuery
+
+```{r}
+combined_res_2 <-
+  p_res |> 
+  inner_join(
+    nquery_res,
+    by = join_by(alpha, power, hr,surv_3y),
+    suffix = c("_rpact", "_nquery")
+    ) |>
+  mutate(
+    e_ratio = e_rpact/e_nquery,
+    n_ratio = n_rpact/n_nquery
+  )
+```
+
+```{r}
+combined_res_2 <- 
+  combined_res_2 |> 
+    mutate(relevancy = evaluate_relevancy(alpha, power, hr, surv_3y)) |> 
+    mutate(relevancy = fct_relevel(relevancy,c("low", "medium", "high")))
+```
+
+```{r}
+ggplot(combined_res_2) + 
+  aes(x = n_rpact, y = n_nquery, color = n_ratio) +
+  geom_point() +
+  geom_abline() +
+  facet_wrap(~relevancy, scales = "free") +
+  labs(title = "Rpact/nQuery comparaison according to relevancy")
+```
+
+```{r}
+n_ratio_by_relevancy_2 <-
+  combined_res_2 |>
+  group_by(relevancy) |>
+  summarize(
+    min_n_ratio = min(n_ratio),
+    q1_n_ratio = quantile(n_ratio, 0.25),
+    mean_n_ratio = mean(n_ratio),
+    med_n_ratio = median(n_ratio),
+    q3_n_ratio = quantile(n_ratio, 0.75),
+    max_n_ratio = max(n_ratio)
+    )
+```
+
+```{r}
+e_ratio_by_relevancy_2 <-
+  combined_res_2 |>
+  group_by(relevancy) |>
+  summarize(
+    min_e_ratio = min(e_ratio),
+    q1_e_ratio = quantile(e_ratio, 0.25),
+    mean_e_ratio = mean(e_ratio),
+    med_e_ratio = median(e_ratio),
+    q3_e_ratio = quantile(e_ratio, 0.75),
+    max_e_ratio = max(e_ratio)
+    )
+```
+
+```{r}
+gt(n_ratio_by_relevancy_2)
+gt(e_ratio_by_relevancy_2)
+```
+
+### Rashnu vs nQuery
+
+```{r}
+combined_res_3 <-
+  rashnu_res |> 
+  inner_join(
+    nquery_res,
+    by = join_by(alpha, power, hr,surv_3y),
+    suffix = c("_rashnu", "_nquery")
+    ) |> 
+  mutate(
+    e_ratio = e_rashnu/e_nquery,
+    n_ratio = n_rashnu/n_nquery
+  )
+```
+
+```{r}
+combined_res_3 <- 
+  combined_res_3 |> 
+    mutate(relevancy = evaluate_relevancy(alpha, power, hr, surv_3y)) |> 
+    mutate(relevancy = fct_relevel(relevancy,c("low", "medium", "high")))
+```
+
+```{r}
+ggplot(combined_res_3) + 
+  aes(x = n_rashnu, y = n_nquery, color = n_ratio) +
+  geom_point() +
+  geom_abline() +
+  facet_wrap(~relevancy, scales = "free") +
+  labs(title = "Rashnu/nQuery comparaison according to relevancy")
+```
+
+```{r}
+n_ratio_by_relevancy_3 <-
+  combined_res_3 |>
+  group_by(relevancy) |>
+  summarize(
+    min_n_ratio = min(n_ratio),
+    q1_n_ratio = quantile(n_ratio, 0.25),
+    mean_n_ratio = mean(n_ratio),
+    med_n_ratio = median(n_ratio),
+    q3_n_ratio = quantile(n_ratio, 0.75),
+    max_n_ratio = max(n_ratio)
+    )
+```
+
+```{r}
+e_ratio_by_relevancy_3 <-
+  combined_res_3 |>
+  group_by(relevancy) |>
+  summarize(
+    min_e_ratio = min(e_ratio),
+    q1_e_ratio = quantile(e_ratio, 0.25),
+    mean_e_ratio = mean(e_ratio),
+    med_e_ratio = median(e_ratio),
+    q3_e_ratio = quantile(e_ratio, 0.75),
+    max_e_ratio = max(e_ratio)
+    )
+```
+
+### Rpact vs Rashnu
+
+```{r}
+combined_res_4 <-
+  p_res |> 
+  inner_join(
+    rashnu_res,
+    by = join_by(alpha, power, hr,surv_3y),
+    suffix = c("_rpact", "_rashnu")
+    ) |> 
+  mutate(
+    e_ratio = e_rpact/e_rashnu,
+    n_ratio = n_rpact/n_rashnu
+  )
+```
+
+```{r}
+combined_res_4 <- 
+  combined_res_4 |> 
+    mutate(relevancy = evaluate_relevancy(alpha, power, hr, surv_3y)) |> 
+    mutate(relevancy = fct_relevel(relevancy,c("low", "medium", "high")))
+```
+
+```{r}
+ggplot(combined_res_4) + 
+  aes(x = n_rpact, y = n_rashnu, color = n_ratio) +
+  geom_point() +
+  geom_abline() +
+  facet_wrap(~relevancy, scales = "free") +
+  labs(title = "Rpact/Rashnu comparaison according to relevancy")
+```
+
+```{r}
+n_ratio_by_relevancy_4 <-
+  combined_res_4 |>
+  group_by(relevancy) |>
+  summarize(
+    min_n_ratio = min(n_ratio, na.rm = TRUE),
+    q1_n_ratio = quantile(n_ratio, 0.25, na.rm = TRUE),
+    mean_n_ratio = mean(n_ratio, na.rm = TRUE),
+    med_n_ratio = median(n_ratio, na.rm = TRUE),
+    q3_n_ratio = quantile(n_ratio, 0.75, na.rm = TRUE),
+    max_n_ratio = max(n_ratio, na.rm = TRUE)
+    )
+```
+
+```{r}
+e_ratio_by_relevancy_3 <-
+  combined_res_3 |>
+  group_by(relevancy) |>
+  summarize(
+    min_e_ratio = min(e_ratio),
+    q1_e_ratio = quantile(e_ratio, 0.25),
+    mean_e_ratio = mean(e_ratio),
+    med_e_ratio = median(e_ratio),
+    q3_e_ratio = quantile(e_ratio, 0.75),
+    max_e_ratio = max(e_ratio)
+    )
+```
+
+
+
+
+
+
+
