@@ -261,18 +261,21 @@ lakatos_wrapper <- function(
   power,
   hr,
   surv_3y,
+  sur_year = 3,
+  accrualTime = 3,
+  followUpTime = 3, 
   error = NA_real_
 ){
   tryCatch({
     sample_size_info <- lakatosSampleSize(
       alpha = alpha,
       power = power,
-      syear = 3,
+      syear = sur_year,
       yrsurv1 = surv_3y,
       yrsurv2 = surv_3y**hr,
       alloc = 1,
-      accrualTime = 3,
-      followTime = 3,
+      accrualTime = accrualTime,
+      followTime = followUpTime,
       method = "logrank",
       side = "two.sided"
     )
@@ -547,6 +550,46 @@ e_ratio_by_relevancy_3 <-
     max_e_ratio = max(e_ratio)
     )
 ```
+### Rashnu vs Lakatos&Lan paper 
+
+```{r}
+lakatosSampleSize(
+  syear = 10,
+  yrsurv1 = 0.8,
+  yrsurv2 = 0.8**0.667,
+  alloc = 1,
+  accrualTime = 1,
+  followTime = 9,
+  alpha = 0.05,
+  power = 0.9,
+  method = "logrank",
+  side ="two.sided"
+)
+```
+
+```{r}
+lakatos_wrapper(
+  alpha = 0.05,
+  power = 0.9,
+  hr = 0.667,
+  surv_3y = 0.8,
+  accrualTime = 1,
+  followUpTime = 9,
+  sur_year = 10
+  )
+```
+
+### Inter-method comparision
+
+```{r}
+full_combined_res <- 
+  reduce(
+    list(p_res, east_res, nquery_res, rashnu_res),
+    \(x, y){inner_join(x, y, by = join_by(alpha, power, hr,surv_3y))}
+  )
+```
+
+
 
 
 
