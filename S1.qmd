@@ -579,6 +579,18 @@ lakatos_wrapper(
   )
 ```
 
+### Inter-method comparision
+
+```{r}
+full_combined_res <- 
+  reduce(
+    list(p_res, east_res, nquery_res, rashnu_res),
+    \(x, y){inner_join(x, y, by = join_by(alpha, power, hr,surv_3y))}
+  )
+```
+
+
+
 
 
 
