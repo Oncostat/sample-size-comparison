@@ -227,7 +227,7 @@ combined_res <-
 #| label: compute_n_ratio
 
 n_ratio_by_method <- 
-  full_combined_res |> 
+  combined_res |> 
   mutate(
     rpact = n_rpact/n_east,
     nquery = n_nquery/n_east,
