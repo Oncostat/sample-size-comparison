@@ -29,6 +29,9 @@ library(tibble)
 #'
 #' @returns A tibble with e = number of needed event and n = required sample size.
 #'
+#' @references
+#' The formula of Kim & Tsiatis (Biometrics, 1990) is used to calculate the expected number of events
+#' under the alternative (see also Lakatos & Lan, Statistics in Medicine, 1992).
 #' @examples
 #' rpact_wrapper(
 #'   alpha = 0.05,

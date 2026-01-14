@@ -2,6 +2,8 @@ library(rpact)
 library(testthat)
 library(tibble)
 
+source("R/rpact_wrapper.R")
+
 test_that("rpact_wrapper works", {
   expect_error(
     # all parameters should be between 0 and 1

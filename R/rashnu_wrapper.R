@@ -27,6 +27,13 @@ library(tibble)
 #'
 #' @returns A tibble with e = number of needed event and n = required sample size.
 #'
+#' @references 
+#' References
+#' Lakatos E. (1988). Sample sizes based on the log-rank statistic in complex clinical trials. Biometrics, 44, 229–241.
+#' 
+#' Lakatos E, Lan KK. (1992). A comparison of sample size methods for the logrank statistic. Statistics in Medicine, 11(2), 179–191.
+#' 
+#' Web calculator (Superiority): https://nshi.jp/en/js/twosurvyr/
 #' @examples
 #' rashnu_wrapper(
 #'   alpha = 0.05,

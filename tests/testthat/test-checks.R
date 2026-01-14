@@ -1,3 +1,7 @@
+library(testthat)
+
+source("R/checks.R")
+
 test_that("check_probability works", {
   
   # With 0.
