@@ -71,8 +71,8 @@ rashnu_wrapper <- function(
     )
     return(
       tibble(
-        e = sample_size_info$Total_expected_event_numbers,
-        n = sample_size_info$Total_sample_size
+        e = ceiling(sample_size_info$Total_expected_event_numbers),
+        n = ceiling(sample_size_info$Total_sample_size)
       )
     )},
 
