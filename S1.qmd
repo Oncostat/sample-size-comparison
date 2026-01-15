@@ -259,6 +259,165 @@ ggplot(n_nquery_analysis) +
   geom_point()
 ```
 
+### Lakatos and Lan (1992)
+
+```{r}
+#| label: ll_param_table_setup
+
+ll_param_list = list(
+  alpha = 0.05,
+  power = 0.9,
+  hr = c(0.667, 0.5, 0.25),
+  surv_t = c(0.8, 0.2),
+  event_time = 10,
+  accrual_time = c(1, 5, 9),
+  follow_up_time = c(9, 5, 1)
+)
+
+# Get all combinaisons of params with 10 years study duration
+ll_param_table <- 
+  ll_param_list |> 
+  expand.grid() |> 
+  as_tibble() |> 
+  filter(accrual_time + follow_up_time == 10)
+```
+
+
+#### rpact
+```{r}
+#| label: rpact_res_ll
+source("R/rpact_wrapper.R")
+
+rpact_res_ll <- 
+  ll_param_table |> 
+  mutate(
+    nested_res = pmap(ll_param_table, rpact_wrapper)
+    ) |> 
+  unnest(nested_res) |> 
+  rename(e_rpact = e, n_rpact = n)
+
+rpact_res_ll_presentation <-
+  rpact_res_ll |> 
+  select(surv_t, hr, accrual_time, n_rpact) |> 
+  arrange(desc(surv_t), desc(hr))
+```
+#### East
+
+```{r}
+#| label: east_res_ll
+
+east_res_dirty_ll <- read_csv("results/east_lakatos_n_lan.csv")
+
+# Keep only needed input/output
+# and add the survival rate at 3 years that is
+# missing in East output
+east_res_ll <- 
+  east_res_dirty_ll |> 
+  select(
+    alpha = "Specified α",
+    power = "Power",
+    hr = "Hazard Ratio (Alt.)",
+    accrual_time = "Comm. Accr. (Dur.)",
+    e_east = "Maximum Events",
+    n_east = "Sample Size"
+  ) |> 
+    arrange(hr, accrual_time, n_east) |> 
+    mutate(surv_t = rep(c(0.2, 0.8), n()/2)) |> 
+    mutate(power = signif(power, 1))
+
+east_res_ll_presentation <-
+  east_res_ll |> 
+  select(surv_t, hr, accrual_time, n_east) |> 
+  arrange(desc(surv_t), desc(hr)) 
+```
+
+#### nQuery 
+
+```{r}
+#| label: nquery_res_ll
+
+nquery_res_dirty_ll <- read.csv2("results/nquery_lakatos_n_lan.csv", dec = ",")
+
+nquery_res_less_dirty_ll <- data.frame(t(nquery_res_dirty_ll[-1]))
+colnames(nquery_res_less_dirty_ll) <- nquery_res_dirty_ll[,1] 
+
+nquery_res_ll <- 
+  nquery_res_less_dirty_ll |> 
+  tibble() |> 
+  select(
+    alpha = "Test Significance Level, ??",
+    power = "Power (%)?",
+    hr = "Hazard Ratio, h=??/???",
+    lambda1 = "Group 1 Exponential Parameter, ???",
+    accrual_time = "Length of Accrual Period, a?",
+    e_nquery = "Total Number of Events Required, E?",
+    n_nquery = "Sample Size per Group, n?"
+  ) |> 
+    mutate(
+      across(
+        c(alpha, power, hr, lambda1),
+        \(x){parse_number(x, locale = locale(decimal_mark = ","))}
+      ),
+      lambda1 = signif(lambda1, 1),
+      hr = signif(hr, 3),
+      accrual_time = as.numeric(accrual_time),
+      surv_t = case_when(
+        lambda1 == 0.2 ~ 0.2,
+        lambda1 == 0.02 ~ 0.8,
+        .default = NA_real_
+      ),
+      across(c(e_nquery, n_nquery), as.numeric),
+      power = power/100,
+      n_nquery = 2*n_nquery # introduce an error cause all n will be even.
+    ) |> 
+    select(-lambda1)
+
+
+nquery_res_ll_presentation <-
+  nquery_res_ll |> 
+  select(surv_t, hr, accrual_time, n_nquery) |> 
+  arrange(desc(surv_t), desc(hr))
+```
+
+#### Rashnu
+
+```{r}
+#| label: rashnu_res_ll
+source("R/rpact_wrapper.R")
+
+rashnu_res_ll <- 
+  ll_param_table |> 
+  mutate(
+    nested_res = pmap(ll_param_table, rashnu_wrapper)
+    ) |> 
+  unnest(nested_res) |> 
+  rename(e_rashnu = e, n_rashnu = n)
+
+rashnu_res_ll_presentation <-
+  rashnu_res_ll |> 
+  select(surv_t, hr, accrual_time, n_rashnu) |> 
+  arrange(desc(surv_t), desc(hr))
+```
+
+#### Comparision
+
+```{r}
+#| label: combined_res_ll
+combined_res_ll <- 
+  reduce(
+    list(
+      rpact_res_ll_presentation,
+      east_res_ll_presentation,
+      nquery_res_ll_presentation,
+      rashnu_res_ll_presentation),
+    \(x, y){inner_join(x, y, by = join_by(hr, surv_t, accrual_time))}
+  )
+
+combined_res_ll  |> gt(rowname_col = c("surv_t", "hr", "accrual_time"))
+```
+
+
+
 
 
 
