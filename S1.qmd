@@ -147,7 +147,7 @@ east_res <- east_res_dirty |>
 ```{r}
 #| label: nquery_res
 
-nquery_res_dirty <- read.csv2("results/nquery_grid.csv", dec = ",")
+nquery_res_dirty <- read.csv2("results/nquery_grid_fixed.csv", dec = ",")
 
 nquery_res_less_dirty <- data.frame(t(nquery_res_dirty[-1]))
 colnames(nquery_res_less_dirty) <- nquery_res_dirty[,1] 
@@ -159,28 +159,28 @@ nquery_res <-
     alpha = "Test Significance Level, ??",
     power = "Power (%)?",
     hr = "Hazard Ratio, h=??/???",
-    lambda1 = "Group 1 Exponential Parameter, ???",
+    lambda2 = "Group 2 Exponential Parameter, ???", # Group 2 is the control arm
     e_nquery = "Total Number of Events Required, E?",
     n_nquery = "Sample Size per Group, n?"
   ) |> 
     mutate(
       across(
-        c(alpha, power, hr, lambda1),
+        c(alpha, power, hr, lambda2),
         \(x){parse_number(x, locale = locale(decimal_mark = ","))}
       ),
-      lambda1 = signif(lambda1, 1),
+      lambda2 = signif(lambda2, 1),
       surv_t = case_when(
-        lambda1 == 0.80 ~ 0.1,
-        lambda1 == 0.40 ~ 0.3,
-        lambda1 == 0.20 ~ 0.6,
-        lambda1 == 0.04 ~ 0.9,
+        lambda2 == 0.80 ~ 0.1,
+        lambda2 == 0.40 ~ 0.3,
+        lambda2 == 0.20 ~ 0.6,
+        lambda2 == 0.04 ~ 0.9,
         .default = NA_real_
       ),
       across(c(e_nquery, n_nquery), as.numeric),
       power = power/100,
       n_nquery = 2*n_nquery # introduce an error cause all n will be even.
     ) |> 
-    select(- lambda1)
+    select(- lambda2)
 ```
 
 
@@ -245,6 +245,14 @@ n_ratio_by_method <-
 ```
 
 ```{r}
+ggplot(n_ratio_by_method) +
+  aes(x = n_east, y = n_ratio, color = method) +
+  geom_point() +
+  geom_hline(yintercept=1) +
+  facet_wrap(~relevancy, scales = "free")
+```
+
+```{r}
 #| label: n_nquery_analysis
 n_nquery_analysis <- 
   n_ratio_by_method |> 
@@ -301,6 +309,7 @@ rpact_res_ll_presentation <-
   select(surv_t, hr, accrual_time, n_rpact) |> 
   arrange(desc(surv_t), desc(hr))
 ```
+
 #### East
 
 ```{r}
@@ -400,23 +409,6 @@ rashnu_res_ll_presentation <-
 ```
 
 #### Comparision
-
-```{r}
-#| label: combined_res_ll
-combined_res_ll <- 
-  reduce(
-    list(
-      rpact_res_ll_presentation,
-      east_res_ll_presentation,
-      nquery_res_ll_presentation,
-      rashnu_res_ll_presentation,
-      design_table),
-    \(x, y){inner_join(x, y, by = join_by(hr, surv_t, accrual_time))}
-  )
-
-combined_res_ll  |> gt(rowname_col = c("surv_t", "hr", "accrual_time"))
-```
-
 ```{r}
 
 design_table = tribble(
@@ -447,52 +439,59 @@ design_table = tribble(
 )
 ```
 
+```{r}
+#| label: combined_res_ll
+combined_res_ll <- 
+  reduce(
+    list(
+      rpact_res_ll_presentation,
+      east_res_ll_presentation,
+      nquery_res_ll_presentation,
+      rashnu_res_ll_presentation,
+      design_table),
+    \(x, y){inner_join(x, y, by = join_by(hr, surv_t, accrual_time))}
+  )
+
+combined_res_ll  |> gt(rowname_col = c("surv_t", "hr", "accrual_time"))
+```
+
 ## Comparison II : Group sequential design
+
+```{r}
+#| label: param_table_gs
+param_list_gs = list(
+  alpha = c(0.01, 0.05, 0.1),
+  power = c(0.7, 0.8, 0.9),
+  hr = c(0.3, 0.6, 0.9),
+  surv_t = c(0.2, 0.5, 0.8) # Survival at 3-year
+)
+# accrual_time 3, Study duration 6
+# Efficacy: Lan-DeMets OF
+# Futility: Lan-DeMets OF
+
+# Get all combinaisons of params
+param_table_gs <- 
+  param_list_gs |> 
+  expand.grid() |> 
+  as_tibble()
+```
 
 ### Rpact
 
 see [rpact doc](https://www.rpact.org/vignettes/planning/rpact_survival_examples/#sample-size-calculation-for-trials-with-interim-analyses)
 
 ```{r}
-design <- getDesignGroupSequential(
-    sided = 2, 
-    alpha = 0.05, 
-    beta = 0.2,
-    informationRates = c(0.25, 0.5, 0.75, 1),
-    typeOfDesign = "asOF",
-    typeBetaSpending = "bsOF",
-    gammaB = 2.5,
-    bindingFutility = FALSE,
-)
-```
+#| label: rpact_res_gs
+#| cache: true
+source("R/rpact_wrapper.R")
 
-```{r}
-rpact_gsdesign <- 
-  getDesignGroupSequential(
-    sided = 2,
-    alpha = 0.05,
-    beta = 0.1,
-    kMax = 4, 
-    informationRates = c(0.25, 0.5, 0.75, 1), # also the values by default.
-    typeOfDesign = "asOF",
-    typeBetaSpending = "bsOF", 
-    bindingFutility = FALSE
-  )
-```
-
-```{r}
-sample_size_info_gs = getSampleSizeSurvival(
-  design = rpact_gsdesign,
-  hazardRatio = 0.6,
-  pi2 = 0.2,
-  eventTime = 3,
-  typeOfComputation = "Schoenfeld",
-  followUpTime = 3,
-  accrualTime = c(0, 3),
-  allocationRatioPlanned = 1,
-  dropoutRate1 = 0,
-  dropoutRate2 = 0
-)
+rpact_res_gs <- 
+  param_table_gs |> 
+  mutate(
+    nested_res = pmap(param_table_gs, rpact_gs_wrapper)
+    ) |> 
+  unnest(nested_res) |> 
+  rename(e_rpact = e, n_rpact = n)
 ```
 
 ### East
@@ -516,7 +515,7 @@ east_res_garbage <-
 
 # east_res_garbage <- east_res_garbage[!duplicated(as.list(east_res_garbage))]
 
-east_res_less_garbage <-
+east_res_gs <-
   east_res_garbage |> 
   select(
     alpha = Alpha__AAA,
@@ -525,5 +524,27 @@ east_res_less_garbage <-
     surv_t = CumPercSurvCtrl__AAAMAA_AE, #In percentages
     e_east = TotSmplSiz__AB,
     n_east = A1x0__ABBE_BA
+  ) |> 
+  mutate(surv_t = surv_t/100)
+```
+
+### Comparision
+
+```{r}
+#| label: combined_res_gs
+combined_res_gs <- 
+  reduce(
+    list(rpact_res_gs, east_res_gs),
+    \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   )
+```
+
+
+```{r}
+rpact_gs_wrapper(0.05,0.9,0.8,0.5,2,beta_spending = "none")
+```
+
+
+```{r}
+rpact_wrapper(0.05,0.9,0.8,0.5)
 ```
