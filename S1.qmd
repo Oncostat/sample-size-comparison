@@ -538,13 +538,3 @@ combined_res_gs <-
     \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   )
 ```
-
-
-```{r}
-rpact_gs_wrapper(0.05,0.9,0.8,0.5,2,beta_spending = "none") |> summary()
-```
-
-
-```{r}
-rpact_wrapper(0.05,0.9,0.8,0.5)
-```

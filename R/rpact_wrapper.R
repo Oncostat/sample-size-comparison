@@ -152,8 +152,8 @@ rpact_gs_wrapper <- function(
   )
 
   return(tibble(
-    e = ceiling(sample_size_info$eventsFixed),
-    n = ceiling(sample_size_info$nFixed)))
+    e = ceiling(sample_size_info$maxNumberOfEvents),
+    n = ceiling(sample_size_info$maxNumberOfSubjects)))
   },
 
   error = function(er){

@@ -1,5 +1,5 @@
 source("R/checks.R")
-library(purrr)
+library(dplyr)
 #' Evaluate the relevancy of parameters.
 #' 
 #' Evaluate if the parameters are realistic in real-life clinical
@@ -15,35 +15,30 @@ library(purrr)
 #' @returns One of `c("low", "medium", "high")`.
 #'
 #' @examples
-#' evaluate_relevancy_one(
+#' evaluate_relevancy(
 #'   alpha = 0.05,
 #'   power = 0.9,
 #'   hr = 0.8
 #' )
-evaluate_relevancy_one <- function(
+evaluate_relevancy <- function(
   alpha,
   power,
   hr
 ){
   # Check that all parameters are between 0 and 1 (excluded).
-  map(c(alpha, power, hr), check_probability)
+  check_probability(c(alpha, power, hr))
 
-  # Not really relevant parameters
-  if (alpha >= 0.4 || power <= 0.51 || power >= 0.99 || hr >= 0.99){
-    relevancy <- "low"
+  relevancy = case_when(
+  # Not really relevant parameter
+  alpha >= 0.4 | power <= 0.51 | power >= 0.99 | hr >= 0.99 ~ "low",
   # Quite extreme paramters but could occur in some specific trials
-  } else if (alpha >= 0.20 || hr <= 0.1 || hr >= 0.9){
-    relevancy <- "medium"
+  alpha >= 0.20 | hr <= 0.1 | hr >= 0.9 ~ "medium",
   # Common parameters used in clinical trials
-  } else {
-    relevancy <- "high"
-  }
+  .default = "high"
+  )
 
   relevancy
 }
-
-#' Vectorized version of evaluate_relevancy_one.
-evaluate_relevancy <- Vectorize(evaluate_relevancy_one)
 
 # See https://github.com/dasonk/docstring for package like documentation.
 # https://cran.r-project.org/web/packages/docstring/vignettes/docstring_intro.html 

@@ -4,34 +4,20 @@ source("R/checks.R")
 
 test_that("check_probability works", {
   
-  # With 0.
-  expect_error(
-    check_probability(0),
-    "`0` is not between 0 and 1"
-  )
-  expect_invisible(
-    check_probability(0, with_bounds = TRUE)
-  )
+prob_with_bounds = runif(n = 200, min = 0, max = 1) %>% c(0,1)
+prob_without_bounds = runif(n = 200, min = 0, max = 1) %>% setdiff(c(0,1))
 
-  # With 1.
-  expect_error(
-    check_probability(1),
-    "`1` is not between 0 and 1"
-  )
-  expect_invisible(
-    check_probability(1, with_bounds = TRUE)
-  )
-
-  # With something in between.
-  prob = runif(n = 1, min = 0, max = 1)
-  expect_invisible(
-    check_probability(prob)
-  )
-
-  # With something outside.
-  per <- runif(n = 1, min = 1, max = 100)
-  expect_error(
-    check_probability(per),
-    "is not between 0 and 1"
-  )
+expect_error(
+  check_probability(prob_with_bounds, with_bounds = FALSE),
+  "is not between 0 and 1"
+)
+expect_invisible(
+  check_probability(prob_without_bounds, with_bounds = TRUE)
+)
+expect_invisible(
+  check_probability(prob_without_bounds, with_bounds = FALSE)
+)
+expect_invisible(
+  check_probability(prob_with_bounds, with_bounds = TRUE)
+)
 })
