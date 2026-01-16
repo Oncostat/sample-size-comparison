@@ -147,7 +147,7 @@ east_res <- east_res_dirty |>
 ```{r}
 #| label: nquery_res
 
-nquery_res_dirty <- read.csv2("results/nquery_grid.csv", dec = ",")
+nquery_res_dirty <- read.csv2("results/nquery_grid_fixed.csv", dec = ",")
 
 nquery_res_less_dirty <- data.frame(t(nquery_res_dirty[-1]))
 colnames(nquery_res_less_dirty) <- nquery_res_dirty[,1] 
@@ -159,28 +159,28 @@ nquery_res <-
     alpha = "Test Significance Level, ??",
     power = "Power (%)?",
     hr = "Hazard Ratio, h=??/???",
-    lambda1 = "Group 1 Exponential Parameter, ???",
+    lambda2 = "Group 2 Exponential Parameter, ???", # Group 2 is the control arm
     e_nquery = "Total Number of Events Required, E?",
     n_nquery = "Sample Size per Group, n?"
   ) |> 
     mutate(
       across(
-        c(alpha, power, hr, lambda1),
+        c(alpha, power, hr, lambda2),
         \(x){parse_number(x, locale = locale(decimal_mark = ","))}
       ),
-      lambda1 = signif(lambda1, 1),
+      lambda2 = signif(lambda2, 1),
       surv_t = case_when(
-        lambda1 == 0.80 ~ 0.1,
-        lambda1 == 0.40 ~ 0.3,
-        lambda1 == 0.20 ~ 0.6,
-        lambda1 == 0.04 ~ 0.9,
+        lambda2 == 0.80 ~ 0.1,
+        lambda2 == 0.40 ~ 0.3,
+        lambda2 == 0.20 ~ 0.6,
+        lambda2 == 0.04 ~ 0.9,
         .default = NA_real_
       ),
       across(c(e_nquery, n_nquery), as.numeric),
       power = power/100,
       n_nquery = 2*n_nquery # introduce an error cause all n will be even.
     ) |> 
-    select(- lambda1)
+    select(- lambda2)
 ```
 
 
@@ -242,6 +242,14 @@ n_ratio_by_method <-
   ) |> 
   select(c(alpha, power, hr, surv_t, relevancy, n_east, rpact, nquery, rashnu)) |> 
   pivot_longer(c(rpact, nquery, rashnu), names_to = "method", values_to = "n_ratio")
+```
+
+```{r}
+ggplot(n_ratio_by_method) +
+  aes(x = n_east, y = n_ratio, color = method) +
+  geom_point() +
+  geom_hline(yintercept=1) +
+  facet_wrap(~relevancy, scales = "free")
 ```
 
 ```{r}

@@ -90,3 +90,73 @@ rpact_wrapper <- function(
     return(tibble(e = error, n = error))
   })
 }
+
+
+
+
+rpact_gs_wrapper <- function(
+  alpha,
+  power,
+  hr,
+  surv_t,
+  k = 4,
+  alpha_spending = c("asOF", "asP", "noEarlyEfficacy"),
+  beta_spending = c( "bsOF", "bsP", "none"),
+  equally_spaced = TRUE,
+  manual_information_rates = NA,
+  binding_futility = FALSE,
+  event_time = 3, 
+  accrual_time = 3,
+  follow_up_time = 3,
+  sided = 2,
+  computation = c("Schoenfeld", "Freedman", "HsiehFreedman"),
+  allocation_ratio = 1,
+  dropout_rate_1 = 0,
+  dropout_rate_2 = 0,
+  futility_bounds_scale = c("zValue", "pValue", "reverseCondPower", "condPowerAtObserved",
+    "predictivePower"),
+  error = NA_real_
+  ){
+  # Check that those parameters are between 0 and 1 (excluded).
+  map(c(alpha, power, hr, surv_t), check_probability)
+  # Check that those parameters are between 0 and 1 (included).
+  map(
+    c(dropout_rate_1, dropout_rate_2), 
+    \(x) check_probability(x, with_bounds = TRUE)
+  )
+  computation <- arg_match(computation)
+
+  tryCatch({
+  # Times are in year NOT months
+  sample_size_info <- getSampleSizeSurvival(
+    design = getDesignGroupSequential(
+      sided = sided,
+      alpha = alpha,
+      beta = 1-power,
+      kMax = k, 
+      informationRates = ifelse(equally_spaced, NA_real_, manual_information_rates), # also the values by default.
+      typeOfDesign = alpha_spending,
+      typeBetaSpending = beta_spending, 
+      bindingFutility = binding_futility,
+      futilityBoundsScale = futility_bounds_scale
+    ),
+    hazardRatio = hr,
+    pi2 = 1 - surv_t,
+    eventTime = event_time,
+    typeOfComputation = computation,
+    followUpTime = follow_up_time,
+    accrualTime = c(0, accrual_time),
+    allocationRatioPlanned = allocation_ratio,
+    dropoutRate1 = dropout_rate_1,
+    dropoutRate2 = dropout_rate_2
+  )
+
+  return(tibble(
+    e = ceiling(sample_size_info$eventsFixed),
+    n = ceiling(sample_size_info$nFixed)))
+  },
+
+  error = function(er){
+    return(tibble(e = error, n = error))
+  })
+}
