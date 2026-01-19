@@ -1,8 +1,3 @@
-source("R/checks.R")
-library(purrr)
-library(rlang)
-library(rashnu)
-library(tibble)
 #' Wrapper around rashnu's `lakatosSampleSize`.
 #'
 #' @param alpha Type I error, a numerical value in ]0, 1[.
@@ -42,7 +37,7 @@ library(tibble)
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rashnu_wrapper <- function(
+rashnu_wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -86,4 +81,4 @@ rashnu_wrapper <- function(
   error = function(er){
     return(tibble(e = error, n = error))
   })
-}
+})

@@ -1,5 +1,3 @@
-source("R/checks.R")
-library(dplyr)
 #' Evaluate the relevancy of parameters.
 #' 
 #' Evaluate if the parameters are realistic in real-life clinical

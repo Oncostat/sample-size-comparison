@@ -21,6 +21,7 @@ color:
     grayblue20: "#D9D9DE"
     grayblue10: "#F1F1F3"
   background: white
+  foreground: grayblue90
   primary: grayblue
 
 logo:

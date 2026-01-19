@@ -1,8 +1,3 @@
-source("R/checks.R")
-library(purrr)
-library(rlang)
-library(rpact)
-library(tibble)
 #' Wrapper around rpact's `getSampleSizeSurvival`.
 #'
 #' @param alpha Type I error, a numerical value in ]0, 1[.
@@ -40,7 +35,7 @@ library(tibble)
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rpact_wrapper <- function(
+rpact_wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -89,12 +84,10 @@ rpact_wrapper <- function(
   error = function(er){
     return(tibble(e = error, n = error))
   })
-}
+})
 
 
-
-
-rpact_gs_wrapper <- function(
+rpact_gs_wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -159,4 +152,4 @@ rpact_gs_wrapper <- function(
   error = function(er){
     return(tibble(e = error, n = error))
   })
-}
+})
