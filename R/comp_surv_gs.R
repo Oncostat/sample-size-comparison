@@ -1,5 +1,5 @@
 # Params ----
-param_list_gs = list(
+param_list_surv_gs = list(
   alpha = c(0.01, 0.05, 0.1),
   power = c(0.7, 0.8, 0.9),
   hr = c(0.3, 0.6, 0.9),
@@ -10,29 +10,29 @@ param_list_gs = list(
 # Futility: Lan-DeMets OF
 
 # Get all combinaisons of params
-param_table_gs <- 
-  param_list_gs |> 
+param_table_surv_gs <- 
+  param_list_surv_gs |> 
   expand.grid() |> 
   as_tibble()
 
 # Methods ----
 ## Rpact ----
 #see [rpact doc](https://www.rpact.org/vignettes/planning/rpact_survival_examples/#sample-size-calculation-for-trials-with-interim-analyses)
-rpact_res_gs <- 
-  param_table_gs |> 
+rpact_res_surv_gs <- 
+  param_table_surv_gs |> 
   mutate(
-    nested_res = pmap(param_table_gs, rpact_gs_wrapper)
+    nested_res = pmap(param_table_surv_gs, rpact_gs_wrapper)
   ) |> 
   unnest(nested_res) |> 
   rename(e_rpact = e, n_rpact = n)
 
 ## East ----
-filelist <- list.files(path = "results/East_gsdesign", full.names = TRUE)
+filelist_east_surv_gs <- list.files(path = "data-raw/East_gsdesign", full.names = TRUE)
 
-east_res_gs_raw <- read_csv(filelist)
+east_res_surv_gs_raw <- read_csv(filelist_east_surv_gs)
 
-east_res_gs <-
-  east_res_gs_raw |> 
+east_res_surv_gs <-
+  east_res_surv_gs_raw |> 
   select(
     alpha = Alpha__AAA,
     power = Power__AAA,
@@ -44,8 +44,8 @@ east_res_gs <-
   mutate(surv_t = surv_t/100)
 
 # Comparision ----
-combined_res_gs <- 
+combined_res_surv_gs <- 
   reduce(
-    list(rpact_res_gs, east_res_gs),
+    list(rpact_res_surv_gs, east_res_surv_gs),
     \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   )

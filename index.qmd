@@ -44,6 +44,10 @@ Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$,
 #### Lakatos
 Chaine de Markov, mouvement brownien.
 ### Comparaison des résultats
+```{r}
+combined_res
+combined_res_ll
+```
 
 ## Groupes Sequential Design
 ### Lan-DeMets spending functions

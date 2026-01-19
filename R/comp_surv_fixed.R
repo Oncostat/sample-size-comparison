@@ -1,6 +1,6 @@
 # Params ----
 # List of parameters for grid search
-param_list = list(
+param_list_surv_fixed = list(
   alpha = c(0.01, 0.05, 0.1, 0.20, 0.49),
   power = c(0.51, 0.8, 0.9, 0.99),
   hr = c(0.1, 0.5, 0.7, 0.9, 0.99),
@@ -8,14 +8,14 @@ param_list = list(
 )
 
 # Get all combinaisons of params
-param_table <- param_list |> expand.grid() |> as_tibble()
+param_table_surv_fixed <- param_list_surv_fixed |> expand.grid() |> as_tibble()
 
 # Methods ----
 ## Rpact ----
-rpact_res <- 
-  param_table |> 
+rpact_res_surv_fixed <- 
+  param_table_surv_fixed |> 
   mutate(
-    nested_res = pmap(param_table, rpact_wrapper)
+    nested_res = pmap(param_table_surv_fixed, rpact_wrapper)
   ) |> 
   unnest(nested_res) |> 
   rename(e_rpact = e, n_rpact = n)
@@ -23,15 +23,15 @@ rpact_res <-
 ## East ---- 
 # As East has problems running the 400 inputs consecutively
 # I ran 4*100 by spliting by power value 
-east_res_raw <- bind_rows(
+east_res_surv_fixed_raw <- bind_rows(
   read_csv("data-raw/east_pwr051.csv"),
   read_csv("data-raw/east_pwr08.csv"),
   read_csv("data-raw/east_pwr09.csv"),
   read_csv("data-raw/east_pwr099.csv")
 )
 
-east_res <- 
-  east_res_raw |> 
+east_res_surv_fixed <- 
+  east_res_surv_fixed_raw |> 
   select(
     alpha = "Specified α",
     power = "Power",
@@ -45,13 +45,13 @@ east_res <-
 
 
 ## nQuery ----
-nquery_res_raw <- read.csv2("data-raw/nquery_grid_fixed.csv", dec = ",")
+nquery_res_surv_fixed_raw <- read.csv2("data-raw/nquery_grid_fixed.csv", dec = ",")
 
-nquery_res_transposed <- data.frame(t(nquery_res_raw[-1]))
-colnames(nquery_res_transposed) <- nquery_res_raw[,1] 
+nquery_res_surv_fixed_transposed <- data.frame(t(nquery_res_surv_fixed_raw[-1]))
+colnames(nquery_res_surv_fixed_transposed) <- nquery_res_surv_fixed_raw[,1] 
 
-nquery_res <- 
-  nquery_res_transposed |> 
+nquery_res_surv_fixed <- 
+  nquery_res_surv_fixed_transposed |> 
   tibble() |> 
   select(
     alpha = "Test Significance Level, ??",
@@ -79,26 +79,30 @@ nquery_res <-
 
 
 ## Rashnu ----
-rashnu_res <- 
-  param_table |> 
+rashnu_res_surv_fixed <- 
+  param_table_surv_fixed |> 
   mutate(
-    nested_res = pmap(param_table, rashnu_wrapper)
+    nested_res = pmap(param_table_surv_fixed, rashnu_wrapper)
   ) |> 
   unnest(nested_res) |> 
   rename(e_rashnu = e, n_rashnu = n)
 
 # Combined results ----
-combined_res <- 
+combined_res_surv_fixed <- 
   reduce(
-    list(rpact_res, east_res, nquery_res, rashnu_res),
+    list(
+      rpact_res_surv_fixed,
+      east_res_surv_fixed, 
+      nquery_res_surv_fixed, 
+      rashnu_res_surv_fixed),
     \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   ) |> 
   mutate(relevancy = evaluate_relevancy(alpha, power, hr)) |> 
   mutate(relevancy = fct_relevel(relevancy, c("low", "medium", "high")))
 
 # Tables and figures ----
-n_ratio_by_method <- 
-  combined_res |> 
+n_ratio_by_method_surv_fixed <- 
+  combined_res_surv_fixed |> 
   mutate(
     rpact = n_rpact/n_east,
     nquery = n_nquery/n_east,
@@ -107,8 +111,8 @@ n_ratio_by_method <-
   select(c(alpha, power, hr, surv_t, relevancy, n_east, rpact, nquery, rashnu)) |> 
   pivot_longer(c(rpact, nquery, rashnu), names_to = "method", values_to = "n_ratio")
 
-p_n_ratio_by_method <-
-  ggplot(n_ratio_by_method) +
+p_n_ratio_by_method_surv_fixed <-
+  ggplot(n_ratio_by_method_surv_fixed) +
   aes(x = n_east, y = n_ratio, color = method) +
   geom_point() +
   geom_hline(yintercept=1) +

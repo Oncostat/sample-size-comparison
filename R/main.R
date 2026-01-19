@@ -3,7 +3,7 @@ source("R/init.R")
 
 # Survival sample size comparison ----
 ## Fixed ----
-source("R/comparision-1.R")
+source("R/comp_surv_fixed.R")
 source("R/lakatos_n_lan.R")
 ## Group-sequential design ----
 source("R/comp_surv_gs.R")
