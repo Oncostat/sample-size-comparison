@@ -52,7 +52,7 @@ rashnu_wrapper <- memoise(function(
   error = NA_real_
 ){
   # Check that those parameters are between 0 and 1 (excluded).
-  map(c(alpha, power, hr, surv_t), check_probability)
+  check_probability(c(alpha, power, hr, surv_t))
 
   method <- arg_match(method)
 

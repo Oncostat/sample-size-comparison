@@ -111,12 +111,10 @@ rpact_gs_wrapper <- memoise(function(
   error = NA_real_
   ){
   # Check that those parameters are between 0 and 1 (excluded).
-  map(c(alpha, power, hr, surv_t), check_probability)
+  check_probability(c(alpha, power, hr, surv_t))
   # Check that those parameters are between 0 and 1 (included).
-  map(
-    c(dropout_rate_1, dropout_rate_2), 
-    \(x) check_probability(x, with_bounds = TRUE)
-  )
+  check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
+  
   computation <- arg_match(computation)
 
   tryCatch({
