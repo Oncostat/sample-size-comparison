@@ -59,3 +59,9 @@ combined_res_surv_gs <-
     list(rpact_res_surv_gs, gsdesign2_res_surv_gs, east_res_surv_gs),
     \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   )
+
+p_pairs <-
+  combined_res_surv_gs |> 
+  select(starts_with("n_")) |> 
+  ggpairs() +
+  labs(title = "GS-Design Sample-Size by method")

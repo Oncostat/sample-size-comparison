@@ -114,7 +114,6 @@ rpact_gs_wrapper <- memoise(function(
   check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
   
   computation <- arg_match(computation)
-
   tryCatch({
   # Times are in year NOT months
   sample_size_info <- getSampleSizeSurvival(
@@ -149,3 +148,26 @@ rpact_gs_wrapper <- memoise(function(
     return(tibble(e = error, n = error))
   })
 })
+
+rpact_bin_wrapper <- function(
+  alpha,
+  power,
+  pi_c,
+  delta_pi,
+  sided = 2,
+  error = NA_real_
+){
+  tryCatch({
+  sample_size_info <- getSampleSizeRates(
+    alpha = alpha,
+    beta = 1 - power, 
+    pi1 = pi_c, 
+    pi2 = pi_c + delta_pi,
+    sided = sided
+  )
+   return(ceiling(sample_size_info$nFixed))
+  },
+   error = function(er){
+    return(error)
+  })   
+}

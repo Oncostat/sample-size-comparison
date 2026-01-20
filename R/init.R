@@ -7,6 +7,7 @@ library(cli)
 library(rlang)
 library(memoise)
 library(gsDesign2)
+library(GGally)
 
 select = dplyr::select # Also a function select in MASS
 
