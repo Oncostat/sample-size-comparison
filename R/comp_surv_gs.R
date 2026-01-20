@@ -26,6 +26,15 @@ rpact_res_surv_gs <-
   unnest(nested_res) |> 
   rename(e_rpact = e, n_rpact = n)
 
+## gsDesign2 ----
+gsdesign2_res_surv_gs <-
+  param_table_surv_gs |> 
+  mutate(
+    nested_res = pmap(param_table_surv_gs, gsdesign2_wrapper_gs)
+  ) |> 
+  unnest(nested_res) |> 
+  rename(e_gsdesign2 = e, n_gsdesign2 = n)
+
 ## East ----
 filelist_east_surv_gs <- list.files(path = "data-raw/East_gsdesign", full.names = TRUE)
 
@@ -43,9 +52,10 @@ east_res_surv_gs <-
   ) |> 
   mutate(surv_t = surv_t/100)
 
+
 # Comparision ----
 combined_res_surv_gs <- 
   reduce(
-    list(rpact_res_surv_gs, east_res_surv_gs),
+    list(rpact_res_surv_gs, gsdesign2_res_surv_gs, east_res_surv_gs),
     \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   )
