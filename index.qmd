@@ -6,17 +6,49 @@ author:
     orcid: 0009-0002-7014-220X
 abstract: |
   {{< lipsum 1 >}}
-papersize: a4
+brand: brand\_brand.yml
 format: 
   html
 date: today
 date-format: full
-logo:
-  width: 1in
-  padding: 0.375in
-  location: left-top
-brand: brand\_brand.yml
 execute:
   echo: false
 lang: "fr"
 ---
+
+```{r}
+source("R/main.R")
+```
+
+Le but est de légitimer l'utilisation de R comme alternative au logiciel propriétaire East et nQuery en faisant une comparaison des différents logiciels et des écarts entre les résultats
+
+# Calcul de Sample Size dans le cas d'un outcome binaire
+## Fixed
+## GS
+
+# Calcul de Sample Size dans le cas d'un outcome de survie
+## Fixed 
+### Algorithmes
+#### Méthode de Schoenfeld
+
+Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
+
+Prenons $\alpha$ l'erreur de type I et $\beta$ l'erreur de type II. Alors, en notant $e$ le nombre d'evènement nécessaire, la formule (simple) de Schoenfeld donne :
+
+$$
+e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
+$${#eq-schoenfeld}
+
+Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$, égale au quantile $(1-x)$ de la distribution normale standard.
+
+#### Lakatos
+Chaine de Markov, mouvement brownien.
+### Comparaison des résultats
+```{r}
+combined_res
+combined_res_ll
+```
+
+## Groupes Sequential Design
+### Lan-DeMets spending functions
+### Comparaison des résultats

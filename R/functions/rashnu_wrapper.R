@@ -1,8 +1,3 @@
-source("R/checks.R")
-library(purrr)
-library(rlang)
-library(rashnu)
-library(tibble)
 #' Wrapper around rashnu's `lakatosSampleSize`.
 #'
 #' @param alpha Type I error, a numerical value in ]0, 1[.
@@ -42,7 +37,7 @@ library(tibble)
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rashnu_wrapper <- function(
+rashnu$surv$fixed$wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -57,7 +52,7 @@ rashnu_wrapper <- function(
   error = NA_real_
 ){
   # Check that those parameters are between 0 and 1 (excluded).
-  map(c(alpha, power, hr, surv_t), check_probability)
+  check_probability(c(alpha, power, hr, surv_t))
 
   method <- arg_match(method)
 
@@ -86,4 +81,4 @@ rashnu_wrapper <- function(
   error = function(er){
     return(tibble(e = error, n = error))
   })
-}
+})

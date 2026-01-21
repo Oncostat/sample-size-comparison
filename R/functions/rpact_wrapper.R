@@ -1,8 +1,3 @@
-source("R/checks.R")
-library(purrr)
-library(rlang)
-library(rpact)
-library(tibble)
 #' Wrapper around rpact's `getSampleSizeSurvival`.
 #'
 #' @param alpha Type I error, a numerical value in ]0, 1[.
@@ -40,7 +35,7 @@ library(tibble)
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rpact_wrapper <- function(
+rpact$surv$fixed$wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -55,13 +50,11 @@ rpact_wrapper <- function(
   dropout_rate_2 = 0,
   error = NA_real_
   ){
-  # Check that those parameters are between 0 and 1 (excluded).
-  map(c(alpha, power, hr, surv_t), check_probability)
+   # Check that those parameters are between 0 and 1 (excluded).
+  check_probability(c(alpha, power, hr, surv_t))
   # Check that those parameters are between 0 and 1 (included).
-  map(
-    c(dropout_rate_1, dropout_rate_2), 
-    \(x) check_probability(x, with_bounds = TRUE)
-  )
+  check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
+  
   computation <- arg_match(computation)
 
   tryCatch({
@@ -89,12 +82,10 @@ rpact_wrapper <- function(
   error = function(er){
     return(tibble(e = error, n = error))
   })
-}
+})
 
 
-
-
-rpact_gs_wrapper <- function(
+rpact$surv$gs$wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -118,14 +109,11 @@ rpact_gs_wrapper <- function(
   error = NA_real_
   ){
   # Check that those parameters are between 0 and 1 (excluded).
-  map(c(alpha, power, hr, surv_t), check_probability)
+  check_probability(c(alpha, power, hr, surv_t))
   # Check that those parameters are between 0 and 1 (included).
-  map(
-    c(dropout_rate_1, dropout_rate_2), 
-    \(x) check_probability(x, with_bounds = TRUE)
-  )
+  check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
+  
   computation <- arg_match(computation)
-
   tryCatch({
   # Times are in year NOT months
   sample_size_info <- getSampleSizeSurvival(
@@ -159,4 +147,27 @@ rpact_gs_wrapper <- function(
   error = function(er){
     return(tibble(e = error, n = error))
   })
+})
+
+rpact$bin$fixed$wrapper <- function(
+  alpha,
+  power,
+  pi_c,
+  delta_pi,
+  sided = 2,
+  error = NA_real_
+){
+  tryCatch({
+  sample_size_info <- getSampleSizeRates(
+    alpha = alpha,
+    beta = 1 - power, 
+    pi1 = pi_c, 
+    pi2 = pi_c + delta_pi,
+    sided = sided
+  )
+   return(ceiling(sample_size_info$nFixed))
+  },
+   error = function(er){
+    return(error)
+  })   
 }
