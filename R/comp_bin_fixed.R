@@ -71,7 +71,7 @@ nquery$bin$fixed$res <-
   )
 
 ## Comparison
-combined_res_bin_fixed <- 
+combined$bin$fixed$res <- 
   reduce(
     list(
       rpact$bin$fixed$res,

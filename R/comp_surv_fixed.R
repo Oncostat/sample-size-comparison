@@ -94,7 +94,7 @@ rashnu$surv$fixed$res <-
   rename(e_rashnu = e, n_rashnu = n)
 
 # Combined results ----
-combined_res_surv_fixed <- 
+combined$surv$fixed$res <- 
   reduce(
     list(
       rpact$surv$fixed$res,
@@ -108,7 +108,7 @@ combined_res_surv_fixed <-
 
 # Tables and figures ----
 n_ratio_by_method_surv_fixed <- 
-  combined_res_surv_fixed |> 
+  combined$surv$fixed$res |> 
   mutate(
     rpact = n_rpact/n_east,
     nquery = n_nquery/n_east,

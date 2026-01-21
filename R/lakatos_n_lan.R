@@ -136,7 +136,7 @@ representation_ll <- function(data_ll){
   arrange(desc(surv_t), desc(hr))
 }
 
-combined_res_ll <- 
+combined$surv$fixed$res_lnl <- 
   list(rpact$surv$fixed$res_lnl, east$surv$fixed$res_lnl, nquery$surv$fixed$res_lnl, rashnu$surv$fixed$res_lnl, design_table) |> 
   map(representation_ll) |> 
   reduce(\(x, y){inner_join(x, y, by = join_by(hr, surv_t, accrual_time))})

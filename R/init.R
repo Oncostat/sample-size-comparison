@@ -11,15 +11,13 @@ library(GGally)
 
 select = dplyr::select # Also a function select in MASS
 
-# RDS List
-rds_list <- lst()
-
 # List to export
 params <- lst()
 rpact <- lst()
 east <- lst()
 nquery <- lst()
 rashnu <- lst()
+combined <- lst()
 
 # Source functions
 source("R/functions/checks.R")

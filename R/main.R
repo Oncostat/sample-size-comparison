@@ -13,3 +13,8 @@ source("R/comp_bin_fixed.R")
 ## Group-sequential design ----
 source("R/comp_bin_gs.R")
 
+
+# RDS List
+rds_list <- lst(params, rpact, east, nquery, rashnu, combined)
+write_rds(rds_list, "everything.rds")
+
