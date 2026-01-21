@@ -37,7 +37,7 @@
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rashnu_wrapper <- memoise(function(
+rashnu$surv$fixed$wrapper <- memoise(function(
   alpha,
   power,
   hr,

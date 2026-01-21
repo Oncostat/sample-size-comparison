@@ -29,7 +29,7 @@ design_table = tribble(
 )
 
 # Params ----
-param_list_ll = list(
+params$surv$fixed$list_lnl = list(
   alpha = 0.05,
   power = 0.9,
   hr = c(0.667, 0.5, 0.25),
@@ -40,8 +40,8 @@ param_list_ll = list(
 )
 
 # Get all combinaisons of params with 10 years study duration
-param_table_ll <- 
-  param_list_ll |> 
+params$surv$fixed$table_lnl <- 
+  params$surv$fixed$list_lnl |> 
   expand.grid() |> 
   as_tibble() |> 
   filter(accrual_time + follow_up_time == 10)
@@ -49,19 +49,19 @@ param_table_ll <-
 # Methods ----
 
 ## Rpact ----
-rpact_res_ll <- 
-  param_table_ll |> 
+rpact$surv$fixed$res_lnl <- 
+  params$surv$fixed$table_lnl |> 
   mutate(
-    nested_res = pmap(param_table_ll, rpact_wrapper)
+    nested_res = pmap(params$surv$fixed$table_lnl, rpact$surv$fixed$wrapper)
     ) |> 
   unnest(nested_res) |> 
   rename(e_rpact = e, n_rpact = n)
 
 ## East ----
-east_res_raw_ll <- read_csv("data-raw/east_lakatos_n_lan.csv")
+east$surv$fixed$raw_lnl <- read_csv("data-raw/east_lakatos_n_lan.csv")
 
-east_res_ll <- 
-  east_res_raw_ll |> 
+east$surv$fixed$res_lnl <- 
+  east$surv$fixed$raw_lnl |> 
   select(
     alpha = "Specified α",
     power = "Power",
@@ -72,16 +72,19 @@ east_res_ll <-
   ) |> 
   arrange(hr, accrual_time, n_east) |> 
   mutate(surv_t = rep(c(0.2, 0.8), n()/2)) |> 
-  mutate(power = signif(power, 1))
+  mutate(
+    across(c(alpha, power, hr, accrual_time),
+    \(x){closest(x, params$surv$fixed$list_lnl[[cur_column()]])})
+  )
 
 ## nQuery ----
-nquery_res_raw_ll <- read.csv2("data-raw/nquery_lakatos_n_lan.csv", dec = ",")
+nquery$surv$fixed$raw_lnl <- read.csv2("data-raw/nquery_lakatos_n_lan.csv", dec = ",")
 
-nquery_res_transpose_ll <- data.frame(t(nquery_res_raw_ll[-1]))
-colnames(nquery_res_transpose_ll) <- nquery_res_raw_ll[,1] 
+transposed <- data.frame(t(nquery$surv$fixed$raw_lnl[-1]))
+colnames(transposed) <- nquery$surv$fixed$raw_lnl[,1] 
 
-nquery_res_ll <- 
-  nquery_res_transpose_ll |> 
+nquery$surv$fixed$res_lnl <- 
+  transposed |> 
   tibble() |> 
   select(
     alpha = "Test Significance Level, ??",
@@ -109,14 +112,18 @@ nquery_res_ll <-
     power = power/100,
     n_nquery = 2*n_nquery # introduce an error cause all n will be even.
   ) |> 
-  select(-lambda1)
+  select(-lambda1) |> 
+  mutate(
+    across(c(alpha, power, hr, accrual_time),
+    \(x){closest(x, params$surv$fixed$list_lnl[[cur_column()]])})
+  )
 
 
 ## Rashnu ----
-rashnu_res_ll <- 
-  param_table_ll |> 
+rashnu$surv$fixed$res_lnl <- 
+  params$surv$fixed$table_lnl |> 
   mutate(
-    nested_res = pmap(param_table_ll, rashnu_wrapper)
+    nested_res = pmap(params$surv$fixed$table_lnl, rashnu$surv$fixed$wrapper)
   ) |> 
   unnest(nested_res) |> 
   rename(e_rashnu = e, n_rashnu = n)
@@ -130,7 +137,7 @@ representation_ll <- function(data_ll){
 }
 
 combined_res_ll <- 
-  list(rpact_res_ll, east_res_ll, nquery_res_ll, rashnu_res_ll, design_table) |> 
+  list(rpact$surv$fixed$res_lnl, east$surv$fixed$res_lnl, nquery$surv$fixed$res_lnl, rashnu$surv$fixed$res_lnl, design_table) |> 
   map(representation_ll) |> 
   reduce(\(x, y){inner_join(x, y, by = join_by(hr, surv_t, accrual_time))})
 

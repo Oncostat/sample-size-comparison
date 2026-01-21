@@ -35,7 +35,7 @@
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rpact_wrapper <- memoise(function(
+rpact$surv$fixed$wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -85,7 +85,7 @@ rpact_wrapper <- memoise(function(
 })
 
 
-rpact_gs_wrapper <- memoise(function(
+rpact$surv$gs$wrapper <- memoise(function(
   alpha,
   power,
   hr,
@@ -149,7 +149,7 @@ rpact_gs_wrapper <- memoise(function(
   })
 })
 
-rpact_bin_wrapper <- function(
+rpact$bin$fixed$wrapper <- function(
   alpha,
   power,
   pi_c,

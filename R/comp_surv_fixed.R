@@ -1,6 +1,6 @@
 # Params ----
 # List of parameters for grid search
-param_list_surv_fixed = list(
+params$surv$fixed$list = list(
   alpha = c(0.01, 0.05, 0.1, 0.20, 0.49),
   power = c(0.51, 0.8, 0.9, 0.99),
   hr = c(0.1, 0.5, 0.7, 0.9, 0.99),
@@ -8,14 +8,14 @@ param_list_surv_fixed = list(
 )
 
 # Get all combinaisons of params
-param_table_surv_fixed <- param_list_surv_fixed |> expand.grid() |> as_tibble()
+params$surv$fixed$table <- params$surv$fixed$list |> expand.grid() |> as_tibble()
 
 # Methods ----
 ## Rpact ----
-rpact_res_surv_fixed <- 
-  param_table_surv_fixed |> 
+rpact$surv$fixed$res <- 
+  params$surv$fixed$table |> 
   mutate(
-    nested_res = pmap(param_table_surv_fixed, rpact_wrapper)
+    nested_res = pmap(params$surv$fixed$table, rpact$surv$fixed$wrapper)
   ) |> 
   unnest(nested_res) |> 
   rename(e_rpact = e, n_rpact = n)
@@ -23,15 +23,15 @@ rpact_res_surv_fixed <-
 ## East ---- 
 # As East has problems running the 400 inputs consecutively
 # I ran 4*100 by spliting by power value 
-east_res_surv_fixed_raw <- bind_rows(
+east$surv$fixed$raw <- bind_rows(
   read_csv("data-raw/east_pwr051.csv"),
   read_csv("data-raw/east_pwr08.csv"),
   read_csv("data-raw/east_pwr09.csv"),
   read_csv("data-raw/east_pwr099.csv")
 )
 
-east_res_surv_fixed <- 
-  east_res_surv_fixed_raw |> 
+east$surv$fixed$res <- 
+  east$surv$fixed$raw |> 
   select(
     alpha = "Specified α",
     power = "Power",
@@ -41,17 +41,19 @@ east_res_surv_fixed <-
   ) |> 
   arrange(alpha, power, hr, n_east) |> 
   mutate(surv_t = rep(c(0.1, 0.3, 0.6, 0.9), n()/4)) |> 
-  mutate(power = signif(power, 1))
-
+  mutate(
+    across(names(params$surv$fixed$list),
+    \(x){closest(x, params$surv$fixed$list[[cur_column()]])})
+  )
 
 ## nQuery ----
-nquery_res_surv_fixed_raw <- read.csv2("data-raw/nquery_grid_fixed.csv", dec = ",")
+nquery$surv$fixed$raw <- read.csv2("data-raw/nquery_grid_fixed.csv", dec = ",")
 
-nquery_res_surv_fixed_transposed <- data.frame(t(nquery_res_surv_fixed_raw[-1]))
-colnames(nquery_res_surv_fixed_transposed) <- nquery_res_surv_fixed_raw[,1] 
+transposed <- data.frame(t(nquery$surv$fixed$raw[-1]))
+colnames(transposed) <- nquery$surv$fixed$raw[,1] 
 
-nquery_res_surv_fixed <- 
-  nquery_res_surv_fixed_transposed |> 
+nquery$surv$fixed$res <- 
+  transposed |> 
   tibble() |> 
   select(
     alpha = "Test Significance Level, ??",
@@ -75,14 +77,18 @@ nquery_res_surv_fixed <-
     power = power/100,
     n_nquery = 2*n_nquery # introduce an error cause all n will be even.
   ) |> 
-  select(- lambda2)
+  select(-lambda2) |> 
+  mutate(
+    across(names(params$surv$fixed$list),
+    \(x){closest(x, params$surv$fixed$list[[cur_column()]])})
+  )
 
 
 ## Rashnu ----
-rashnu_res_surv_fixed <- 
-  param_table_surv_fixed |> 
+rashnu$surv$fixed$res <- 
+  params$surv$fixed$table |> 
   mutate(
-    nested_res = pmap(param_table_surv_fixed, rashnu_wrapper)
+    nested_res = pmap(params$surv$fixed$table, rashnu$surv$fixed$wrapper)
   ) |> 
   unnest(nested_res) |> 
   rename(e_rashnu = e, n_rashnu = n)
@@ -91,9 +97,9 @@ rashnu_res_surv_fixed <-
 combined_res_surv_fixed <- 
   reduce(
     list(
-      rpact_res_surv_fixed,
-      east_res_surv_fixed, 
-      nquery_res_surv_fixed, 
+      rpact$surv$fixed$res,
+      east$surv$fixed$res, 
+      nquery$surv$fixed$res, 
       rashnu_res_surv_fixed),
     \(x, y){inner_join(x, y, by = join_by(alpha, power, hr, surv_t))}
   ) |> 
