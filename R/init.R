@@ -23,11 +23,6 @@ source("R/functions/evaluate_relevancy.R")
 source("R/functions/rpact_wrapper.R")
 source("R/functions/rashnu_wrapper.R")
 source("R/functions/gsdesign2_wrapper.R")
-
-boxx(
-  "SSC",
-  float = "center",
-  col = "blue",
-  border_style = "double",
-  padding = c(0, 15, 0, 15)
-)
+source("R/new_methods.R")
+source("R/ssc_design.R")
+source("R/ssc_results.R")

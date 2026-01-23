@@ -1,5 +1,6 @@
 cli_rule(center = "Survival group-sequential design")
 # Params ----
+params <- lst()
 params$list = list(
   alpha = c(0.01, 0.05, 0.1),
   power = c(0.7, 0.8, 0.9),
@@ -106,7 +107,7 @@ cli_alert_success("Combined results")
 cli_alert_success("Tables & figures")
 
 # Put into the scc object
-ssc$surv$gs$res <- lst(rpact, east, gsdesign2, nquery)
+ssc$surv$gs$res <- lst(rpact, east, gsdesign2)
 ssc$surv$gs$raw <- lst("east" = east_raw)
 ssc$surv$gs$params <- params
 ssc$surv$gs$combined <- combined
