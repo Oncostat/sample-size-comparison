@@ -1,4 +1,4 @@
-cli_rule(center = "Survival fixed design")
+cli_rule(center = "Binary fixed design")
 # Params ----
 params <- lst()
 params$list <- list(
