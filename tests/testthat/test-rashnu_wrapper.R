@@ -16,14 +16,14 @@ test_that("rashnu_wrapper works", {
     regexp = "`90` is not between 0 and 1"
   )
 
-  # Realistic parameters 
-  alpha =  runif(n = 1, min = 0, max = 0.1)
+  # Realistic parameters
+  alpha = runif(n = 1, min = 0, max = 0.1)
   power = runif(n = 1, min = 0.7, max = 0.9)
   hr = runif(n = 1, min = 0.2, max = 0.9)
   surv_t = runif(n = 1, min = 0.2, max = 0.9)
 
   # equal to getSampleSizeSurvival with accrual = 3 and minimal follow-up time = 3.
-  sample_size_info <- 
+  sample_size_info <-
     lakatosSampleSize(
       alpha = alpha,
       power = power,
@@ -34,13 +34,12 @@ test_that("rashnu_wrapper works", {
       accrualTime = 3,
       followTime = 3,
     )
-  
+
   expect_equal(
     rashnu_wrapper(alpha, power, hr, surv_t),
     tibble(
-    e = ceiling(sample_size_info$Total_expected_event_numbers),
-    n = ceiling(sample_size_info$Total_sample_size))
+      e = ceiling(sample_size_info$Total_expected_event_numbers),
+      n = ceiling(sample_size_info$Total_sample_size)
+    )
   )
-
 })
-
