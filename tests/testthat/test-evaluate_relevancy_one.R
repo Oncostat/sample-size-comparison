@@ -7,21 +7,23 @@ test_that("evaluate_relevancy_one works", {
       alpha = 0.05,
       power = 90,
       hr = 0.7
-  ), 
-  regex = "`90` is not between 0 and 1")
+    ),
+    regex = "`90` is not between 0 and 1"
+  )
 
   expect_in(
-  evaluate_relevancy_one(
-      alpha =  runif(n = 1, min = 0, max = 1),
+    evaluate_relevancy_one(
+      alpha = runif(n = 1, min = 0, max = 1),
       power = runif(n = 1, min = 0, max = 1),
       hr = runif(n = 1, min = 0, max = 1)
-  ),
-  c("low", "medium", "high"))
+    ),
+    c("low", "medium", "high")
+  )
 })
 
 
 test_that("evaluate_relevancy works", {
-  alpha =  runif(n = 3, min = 0, max = 1)
+  alpha = runif(n = 3, min = 0, max = 1)
   power = runif(n = 3, min = 0, max = 1)
   hr = runif(n = 3, min = 0, max = 1)
   expect_equal(

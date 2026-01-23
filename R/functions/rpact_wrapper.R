@@ -35,12 +35,13 @@
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rpact$surv$fixed$wrapper <- memoise(function(
+#'
+wrapper$rpact_surv_fixed <- memoise(function(
   alpha,
   power,
   hr,
   surv_t,
-  event_time = 3, 
+  event_time = 3,
   accrual_time = 3,
   follow_up_time = 3,
   sided = 2,
@@ -49,54 +50,56 @@ rpact$surv$fixed$wrapper <- memoise(function(
   dropout_rate_1 = 0,
   dropout_rate_2 = 0,
   error = NA_real_
-  ){
-   # Check that those parameters are between 0 and 1 (excluded).
+) {
+  # Check that those parameters are between 0 and 1 (excluded).
   check_probability(c(alpha, power, hr, surv_t))
   # Check that those parameters are between 0 and 1 (included).
   check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
-  
+
   computation <- arg_match(computation)
 
-  tryCatch({
-  # Times are in year NOT months
-  sample_size_info <- getSampleSizeSurvival(
-    alpha = alpha,
-    beta = 1 - power,
-    hazardRatio = hr,
-    pi2 = 1 - surv_t,
-    eventTime = event_time,
-    typeOfComputation = computation,
-    sided = sided,
-    followUpTime = follow_up_time,
-    accrualTime = c(0, accrual_time),
-    allocationRatioPlanned = allocation_ratio,
-    dropoutRate1 = dropout_rate_1,
-    dropoutRate2 = dropout_rate_2,
+  tryCatch(
+    {
+      # Times are in year NOT months
+      sample_size_info <- getSampleSizeSurvival(
+        alpha = alpha,
+        beta = 1 - power,
+        hazardRatio = hr,
+        pi2 = 1 - surv_t,
+        eventTime = event_time,
+        typeOfComputation = computation,
+        sided = sided,
+        followUpTime = follow_up_time,
+        accrualTime = c(0, accrual_time),
+        allocationRatioPlanned = allocation_ratio,
+        dropoutRate1 = dropout_rate_1,
+        dropoutRate2 = dropout_rate_2,
+      )
+
+      return(tibble(
+        e = ceiling(sample_size_info$eventsFixed),
+        n = ceiling(sample_size_info$nFixed)
+      ))
+    },
+
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
   )
-
-  return(tibble(
-    e = ceiling(sample_size_info$eventsFixed),
-    n = ceiling(sample_size_info$nFixed)))
-  },
-
-  error = function(er){
-    return(tibble(e = error, n = error))
-  })
 })
 
-
-rpact$surv$gs$wrapper <- memoise(function(
+wrapper$rpact_surv_gs <- memoise(function(
   alpha,
   power,
   hr,
   surv_t,
   k = 4,
   alpha_spending = c("asOF", "asP", "noEarlyEfficacy"),
-  beta_spending = c( "bsOF", "bsP", "none"),
+  beta_spending = c("bsOF", "bsP", "none"),
   equally_spaced = TRUE,
   manual_information_rates = NA,
   binding_futility = FALSE,
-  event_time = 3, 
+  event_time = 3,
   accrual_time = 3,
   follow_up_time = 3,
   sided = 2,
@@ -104,70 +107,84 @@ rpact$surv$gs$wrapper <- memoise(function(
   allocation_ratio = 1,
   dropout_rate_1 = 0,
   dropout_rate_2 = 0,
-  futility_bounds_scale = c("zValue", "pValue", "reverseCondPower", "condPowerAtObserved",
-    "predictivePower"),
+  futility_bounds_scale = c(
+    "zValue",
+    "pValue",
+    "reverseCondPower",
+    "condPowerAtObserved",
+    "predictivePower"
+  ),
   error = NA_real_
-  ){
+) {
   # Check that those parameters are between 0 and 1 (excluded).
   check_probability(c(alpha, power, hr, surv_t))
   # Check that those parameters are between 0 and 1 (included).
   check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
-  
+
   computation <- arg_match(computation)
-  tryCatch({
-  # Times are in year NOT months
-  sample_size_info <- getSampleSizeSurvival(
-    design = getDesignGroupSequential(
-      sided = sided,
-      alpha = alpha,
-      beta = 1-power,
-      kMax = k, 
-      informationRates = ifelse(equally_spaced, NA_real_, manual_information_rates), # also the values by default.
-      typeOfDesign = alpha_spending,
-      typeBetaSpending = beta_spending, 
-      bindingFutility = binding_futility,
-      futilityBoundsScale = futility_bounds_scale
-    ),
-    hazardRatio = hr,
-    pi2 = 1 - surv_t,
-    eventTime = event_time,
-    typeOfComputation = computation,
-    followUpTime = follow_up_time,
-    accrualTime = c(0, accrual_time),
-    allocationRatioPlanned = allocation_ratio,
-    dropoutRate1 = dropout_rate_1,
-    dropoutRate2 = dropout_rate_2
+  tryCatch(
+    {
+      # Times are in year NOT months
+      sample_size_info <- getSampleSizeSurvival(
+        design = getDesignGroupSequential(
+          sided = sided,
+          alpha = alpha,
+          beta = 1 - power,
+          kMax = k,
+          informationRates = ifelse(
+            equally_spaced,
+            NA_real_,
+            manual_information_rates
+          ), # also the values by default.
+          typeOfDesign = alpha_spending,
+          typeBetaSpending = beta_spending,
+          bindingFutility = binding_futility,
+          futilityBoundsScale = futility_bounds_scale
+        ),
+        hazardRatio = hr,
+        pi2 = 1 - surv_t,
+        eventTime = event_time,
+        typeOfComputation = computation,
+        followUpTime = follow_up_time,
+        accrualTime = c(0, accrual_time),
+        allocationRatioPlanned = allocation_ratio,
+        dropoutRate1 = dropout_rate_1,
+        dropoutRate2 = dropout_rate_2
+      )
+
+      return(tibble(
+        e = ceiling(sample_size_info$maxNumberOfEvents),
+        n = ceiling(sample_size_info$maxNumberOfSubjects)
+      ))
+    },
+
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
   )
-
-  return(tibble(
-    e = ceiling(sample_size_info$maxNumberOfEvents),
-    n = ceiling(sample_size_info$maxNumberOfSubjects)))
-  },
-
-  error = function(er){
-    return(tibble(e = error, n = error))
-  })
 })
 
-rpact$bin$fixed$wrapper <- function(
+wrapper$rpact_bin_fixed <- function(
   alpha,
   power,
   pi_c,
   delta_pi,
   sided = 2,
   error = NA_real_
-){
-  tryCatch({
-  sample_size_info <- getSampleSizeRates(
-    alpha = alpha,
-    beta = 1 - power, 
-    pi1 = pi_c, 
-    pi2 = pi_c + delta_pi,
-    sided = sided
+) {
+  tryCatch(
+    {
+      sample_size_info <- getSampleSizeRates(
+        alpha = alpha,
+        beta = 1 - power,
+        pi1 = pi_c,
+        pi2 = pi_c + delta_pi,
+        sided = sided
+      )
+      return(ceiling(sample_size_info$nFixed))
+    },
+    error = function(er) {
+      return(error)
+    }
   )
-   return(ceiling(sample_size_info$nFixed))
-  },
-   error = function(er){
-    return(error)
-  })   
 }

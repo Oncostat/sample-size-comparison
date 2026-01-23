@@ -22,12 +22,12 @@
 #'
 #' @returns A tibble with e = number of needed event and n = required sample size.
 #'
-#' @references 
+#' @references
 #' References
 #' Lakatos E. (1988). Sample sizes based on the log-rank statistic in complex clinical trials. Biometrics, 44, 229–241.
-#' 
+#'
 #' Lakatos E, Lan KK. (1992). A comparison of sample size methods for the logrank statistic. Statistics in Medicine, 11(2), 179–191.
-#' 
+#'
 #' Web calculator (Superiority): https://nshi.jp/en/js/twosurvyr/
 #' @examples
 #' rashnu_wrapper(
@@ -37,12 +37,12 @@
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-rashnu$surv$fixed$wrapper <- memoise(function(
+wrapper$rashnu_surv_fixed <- memoise(function(
   alpha,
   power,
   hr,
   surv_t,
-  event_time = 3, 
+  event_time = 3,
   accrual_time = 3,
   follow_up_time = 3,
   sided = 2,
@@ -50,35 +50,37 @@ rashnu$surv$fixed$wrapper <- memoise(function(
   method = c("logrank", "gehan", "tarone-ware"),
   b = 24,
   error = NA_real_
-){
+) {
   # Check that those parameters are between 0 and 1 (excluded).
   check_probability(c(alpha, power, hr, surv_t))
 
   method <- arg_match(method)
 
-  tryCatch({
-    sample_size_info <- lakatosSampleSize(
-      alpha = alpha,
-      power = power,
-      syear = event_time,
-      yrsurv1 = surv_t,
-      yrsurv2 = surv_t**hr,
-      side = ifelse(sided == 2, "two.sided", "one.sided"),
-      accrualTime = accrual_time,
-      followTime = follow_up_time,
-      alloc = allocation_ratio,
-      method = method,
-      b = b
-
-    )
-    return(
-      tibble(
-        e = ceiling(sample_size_info$Total_expected_event_numbers),
-        n = ceiling(sample_size_info$Total_sample_size)
+  tryCatch(
+    {
+      sample_size_info <- lakatosSampleSize(
+        alpha = alpha,
+        power = power,
+        syear = event_time,
+        yrsurv1 = surv_t,
+        yrsurv2 = surv_t**hr,
+        side = ifelse(sided == 2, "two.sided", "one.sided"),
+        accrualTime = accrual_time,
+        followTime = follow_up_time,
+        alloc = allocation_ratio,
+        method = method,
+        b = b
       )
-    )},
+      return(
+        tibble(
+          e = ceiling(sample_size_info$Total_expected_event_numbers),
+          n = ceiling(sample_size_info$Total_sample_size)
+        )
+      )
+    },
 
-  error = function(er){
-    return(tibble(e = error, n = error))
-  })
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
+  )
 })
