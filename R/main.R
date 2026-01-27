@@ -1,3 +1,6 @@
+# Initialisation ----
+source("R/init.R")
+
 boxx(
   "SSC",
   float = "center",
@@ -5,8 +8,7 @@ boxx(
   border_style = "double",
   padding = c(0, 15, 0, 15)
 )
-# Initialisation ----
-source("R/init.R")
+
 # Survival sample size comparison ----
 cli_h1("SSC Survival")
 source("R/comp_surv_fixed.R")

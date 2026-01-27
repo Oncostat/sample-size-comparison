@@ -12,7 +12,7 @@ ssc_results <-
     constructor = function(
       tbl,
       design,
-      method = c("rpact", "nquery", "east", "rashnu", "gsdesign2", "combined")
+      method = c("rpact", "nquery", "east", "rashnu", "gsdesign2", "bbssr", "combined")
     ) {
       method <- arg_match(method)
       new_object(
