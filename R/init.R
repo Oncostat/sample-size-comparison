@@ -1,4 +1,5 @@
 # load packages
+suppressPackageStartupMessages(suppressWarnings({
 library(tidyverse)
 library(gt)
 library(cli)
@@ -6,8 +7,7 @@ library(rlang)
 library(memoise)
 library(GGally)
 library(S7)
-
-# select = dplyr::select # Also a function select in MASS
+}))
 
 # List to export
 ssc <- lst()
