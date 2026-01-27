@@ -37,7 +37,7 @@
 #'   surv_t = 0.6,
 #'   event_time = 3
 #' )
-wrapper$rashnu_surv_fixed <- memoise(function(
+wrapper$rashnu_surv_fixed <- function(
   alpha,
   power,
   hr,
@@ -58,7 +58,7 @@ wrapper$rashnu_surv_fixed <- memoise(function(
 
   tryCatch(
     {
-      sample_size_info <- lakatosSampleSize(
+      sample_size_info <- rashnu::lakatosSampleSize(
         alpha = alpha,
         power = power,
         syear = event_time,
@@ -83,4 +83,4 @@ wrapper$rashnu_surv_fixed <- memoise(function(
       return(tibble(e = error, n = error))
     }
   )
-})
+}

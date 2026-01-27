@@ -36,7 +36,7 @@
 #'   event_time = 3
 #' )
 #'
-wrapper$rpact_surv_fixed <- memoise(function(
+wrapper$rpact_surv_fixed <- function(
   alpha,
   power,
   hr,
@@ -61,7 +61,7 @@ wrapper$rpact_surv_fixed <- memoise(function(
   tryCatch(
     {
       # Times are in year NOT months
-      sample_size_info <- getSampleSizeSurvival(
+      sample_size_info <- rpact::getSampleSizeSurvival(
         alpha = alpha,
         beta = 1 - power,
         hazardRatio = hr,
@@ -86,9 +86,9 @@ wrapper$rpact_surv_fixed <- memoise(function(
       return(tibble(e = error, n = error))
     }
   )
-})
+}
 
-wrapper$rpact_surv_gs <- memoise(function(
+wrapper$rpact_surv_gs <- function(
   alpha,
   power,
   hr,
@@ -125,8 +125,8 @@ wrapper$rpact_surv_gs <- memoise(function(
   tryCatch(
     {
       # Times are in year NOT months
-      sample_size_info <- getSampleSizeSurvival(
-        design = getDesignGroupSequential(
+      sample_size_info <- rpact::getSampleSizeSurvival(
+        design = rpact::getDesignGroupSequential(
           sided = sided,
           alpha = alpha,
           beta = 1 - power,
@@ -162,7 +162,7 @@ wrapper$rpact_surv_gs <- memoise(function(
       return(tibble(e = error, n = error))
     }
   )
-})
+}
 
 wrapper$rpact_bin_fixed <- function(
   alpha,
@@ -174,7 +174,7 @@ wrapper$rpact_bin_fixed <- function(
 ) {
   tryCatch(
     {
-      sample_size_info <- getSampleSizeRates(
+      sample_size_info <- rpact::getSampleSizeRates(
         alpha = alpha,
         beta = 1 - power,
         pi1 = pi_c,

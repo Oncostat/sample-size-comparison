@@ -18,14 +18,14 @@ wrapper$gsdesign2_surv_fixed <- function(
 
   tryCatch(
     {
-      enroll_rate <- define_enroll_rate(duration = accrual_time, rate = 1)
-      fail_rate <- define_fail_rate(
+      enroll_rate <- gsDesign2::define_enroll_rate(duration = accrual_time, rate = 1)
+      fail_rate <- gsDesign2::define_fail_rate(
         duration = event_time,
         fail_rate = 1 - surv_t,
         hr = hr,
         dropout_rate = dropout_rate
       )
-      fd <- fixed_design_ahr(
+      fd <- gsDesign2::fixed_design_ahr(
         enroll_rate = enroll_rate,
         fail_rate = fail_rate,
         alpha = alpha / sided, # always 1-sided
@@ -70,8 +70,8 @@ wrapper$gsdesign2_surv_gs <- function(
 
   tryCatch(
     {
-      enroll_rate <- define_enroll_rate(duration = accrual_time, rate = 1)
-      fail_rate <- define_fail_rate(
+      enroll_rate <- gsDesign2::define_enroll_rate(duration = accrual_time, rate = 1)
+      fail_rate <- gsDesign2::define_fail_rate(
         duration = event_time,
         fail_rate = 1 - surv_t,
         hr = hr,
@@ -86,7 +86,7 @@ wrapper$gsdesign2_surv_gs <- function(
       } else {
         manual_information_rates
       }
-      gsd <- gs_design_ahr(
+      gsd <- gsDesign2::gs_design_ahr(
         enroll_rate = enroll_rate,
         fail_rate = fail_rate,
         ratio = allocation_ratio,
