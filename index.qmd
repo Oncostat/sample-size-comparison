@@ -17,6 +17,8 @@ lang: "fr"
 ---
 
 ```{r}
+#| label: main.R
+#| message: false
 source("R/main.R")
 ```
 
@@ -43,10 +45,27 @@ Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$,
 
 #### Lakatos
 Chaine de Markov, mouvement brownien.
+
 ### Comparaison des résultats
+
 ```{r}
-combined_res
-combined_res_ll
+#| label: gt_ratio_surv_fixed
+#| message: false
+ssc$surv$fixed$combined |> 
+  get_tbl() |> 
+  mutate(
+    "N Rpact/East" := n_rpact/n_east,
+    "N nQuery/East" := n_nquery/n_east,
+    "N Rashnu/East" := n_rashnu/n_east
+  ) |> 
+  crosstable::crosstable(by = relevancy) |> 
+  filter(str_starts(label, "N ")) |> 
+  select(-.id) |> 
+  gt(rowname_col = c("label", "variable")) |> 
+  tab_header(
+    title = md("**SSC** survival fixed design ratio by relevancy"),
+    subtitle = "Sample size ratios by method with East as reference"
+  )
 ```
 
 ## Groupes Sequential Design
