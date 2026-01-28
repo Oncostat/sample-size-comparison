@@ -11,7 +11,7 @@ wrapper$bbssr_bin_fixed <- function(
   tryCatch(
     {
       sample_size_info <- BinarySampleSize(
-        alpha = alpha/sided,
+        alpha = alpha / sided,
         tar.power = power,
         p1 = pi_c + delta_pi,
         p2 = pi_c,
