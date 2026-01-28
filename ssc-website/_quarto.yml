@@ -1,0 +1,49 @@
+project:
+  type: website
+
+website:
+  favicon: SCC-HexSticker.png
+  open-graph: true
+  title: "ssc-website"
+  sidebar:
+    logo: SCC-HexSticker.png
+    style: "docked"
+    search: true
+    contents:
+      - text: "Introduction"
+        href: surv/survival-methods.qmd
+      - section: "Survival endpoints"
+        href: surv/survival-endpoint.qmd
+        contents:
+          - surv/survival-methods.qmd
+          - surv/survival-fixed.qmd
+          - surv/survival-gs.qmd
+      - section: "Binary endpoints"
+        href: bin/binary-endpoints.qmd
+        contents:
+          - bin/binary-methods.qmd
+          - bin/binary-fixed.qmd
+          - bin/binary-gs.qmd
+    tools:
+      - icon: globe
+        href: https://oncostat.github.io/
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/Oncostat/sample-size-comparison
+          - text: Report a Bug
+            href:  https://github.com/Oncostat/sample-size-comparison/issues/new
+
+brand: ../brand/_brand.yml
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+
+

@@ -1,0 +1,26 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "surv/survival-methods.html",
+    "href": "surv/survival-methods.html",
+    "title": "Sample Size computation methods for survival endpoints",
+    "section": "",
+    "text": "Méthode de Schoenfeld\nLe calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.\n\n\nLakatos\nChaine de Markov, mouvement brownien.",
+    "crumbs": [
+      "Introduction"
+    ]
+  }
+]

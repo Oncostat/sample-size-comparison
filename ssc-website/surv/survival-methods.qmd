@@ -1,0 +1,22 @@
+---
+title: Sample Size computation methods for survival endpoints
+format: 
+  html
+execute:
+  echo: false
+---
+
+## Méthode de Schoenfeld
+
+Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
+
+Prenons $\alpha$ l'erreur de type I et $\beta$ l'erreur de type II. Alors, en notant $e$ le nombre d'evènement nécessaire, la formule (simple) de Schoenfeld donne :
+
+$$
+e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
+$${#eq-schoenfeld}
+
+Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$, égale au quantile $(1-x)$ de la distribution normale standard.
+
+## Lakatos
+Chaine de Markov, mouvement brownien.
