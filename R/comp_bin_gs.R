@@ -2,13 +2,13 @@ cli_rule(center = "Binary group-sequential design")
 # Params ----
 params <- lst()
 params$list <- list(
-  alpha = c(0.01, 0.05, 0.1, 0.20, 0.49),
+  alpha = c(0.005, 0.025, 0.05, 0.1, 0.245), #one-sided
   power = c(0.51, 0.8, 0.9, 0.99),
   pi_c = c(0.1, 0.3, 0.5, 0.8, 0.9),
   delta_pi = c(0.05, 0.15, 0.25, 0.49)
 )
 
-params$additional <- list(sided = 2, k = 4, equally_spaced = TRUE)
+params$additional <- list(sided = 1, k = 4, equally_spaced = TRUE)
 
 params$table <-
   params$list |>
@@ -17,7 +17,7 @@ params$table <-
   filter(delta_pi + pi_c < 1)
 
 # Design ----
-design_bin_fixed_pooled <- ssc_design(
+design_bin_gs_pooled <- ssc_design(
   endpoint = "binary",
   type = "gs",
   params = params
@@ -25,12 +25,12 @@ design_bin_fixed_pooled <- ssc_design(
 cli_alert_success("Params & design")
 
 ## Rpact ----
-# rpact_wrapper <- partial(wrapper$rpact_bin_gs, !!!params$additional)
-# rpact <-
-#   params$table |>
-#   mutate(n = pmap(params$table, rpact_wrapper, .progress = TRUE)) |>
-#   unnest(n) |>
-#   ssc_results(design = design_bin_fixed_pooled, method = "rpact")
+rpact_wrapper <- partial(wrapper$rpact_bin_gs, !!!params$additional)
+rpact <-
+  params$table |>
+  mutate(n = pmap(params$table, rpact_wrapper, .progress = TRUE)) |>
+  unnest(n) |>
+  ssc_results(design = design_bin_gs_pooled, method = "rpact")
 # cli_alert_success("Rpact results")
 
 ## East ----
@@ -50,66 +50,31 @@ east <-
   select(
     alpha = Alpha__AAA,
     power = Power__AAA,
-    pi_c = "πc",
-    delta_pi = "δ1",
-    n = "Sample Size"
+    pi_c = CtrlProp__AAAD,
+    delta_pi = EffParam__AB,
+    n = RoundSmplSiz__AB
   ) |>
-  mutate(alpha = 2 * alpha) |> #One-sided test
   mutate(
     across(names(params$list), \(x) {
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "east")
+  ssc_results(design = design_bin_gs_pooled, method = "east")
 cli_alert_success("East results")
-
-## nQuery ----
-nquery_raw <- read.csv2("data-raw/nquery_bin_fixed_pooled.csv")
-
-transposed <- data.frame(t(nquery_raw[-1]))
-colnames(transposed) <- nquery_raw[, 1]
-
-nquery <-
-  transposed |>
-  tibble() |>
-  select(
-    alpha = "Test Significance Level, ??",
-    power = "Power (%)?",
-    pi_c = "Group 2 Proportion, ???", #Group2 is control groupe
-    delta_pi = "Difference between Proportions, D = ?? - ???",
-    n_1 = "Group 1 Sample Size, n??",
-    n_2 = "Group 2 Sample Size, n??"
-  ) |>
-  mutate(
-    across(c(alpha, power, pi_c, delta_pi), \(x) {
-      parse_number(x, locale = locale(decimal_mark = ","))
-    }),
-    across(c(n_1, n_2), as.numeric),
-    power = power / 100,
-    n = n_1 + n_2
-  ) |>
-  select(-c(n_1, n_2)) |>
-  mutate(
-    across(names(params$list), \(x) {
-      closest(x, params$list[[cur_column()]])
-    })
-  ) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "nquery")
-cli_alert_success("nQuery results")
 
 ## Comparison
 combined <-
-  lst(rpact, east, nquery) |>
+  lst(rpact, east) |>
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "combined")
+  ssc_results(design = design_bin_gs_pooled, method = "combined")
 cli_alert_success("Combined results")
 
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-ssc$bin$fixed$res <- lst(rpact, east, nquery)
-ssc$bin$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
-ssc$bin$fixed$params <- params
-ssc$bin$fixed$combined <- combined
+ssc$bin$gs$res <- lst(rpact, east)
+ssc$bin$gs$raw <- lst("east" = east_raw)
+ssc$bin$gs$params <- params
+ssc$bin$gs$combined <- combined

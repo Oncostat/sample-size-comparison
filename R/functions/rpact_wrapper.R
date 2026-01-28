@@ -188,3 +188,53 @@ wrapper$rpact_bin_fixed <- function(
     }
   )
 }
+
+wrapper$rpact_bin_gs <- function(
+  alpha,
+  power,
+  pi_c,
+  delta_pi,
+  sided = 1,
+  k = 4,
+  alpha_spending = c("asOF", "asP", "noEarlyEfficacy"),
+  beta_spending = c("bsOF", "bsP", "none"),
+  equally_spaced = TRUE,
+  manual_information_rates = NA,
+  binding_futility = FALSE,
+  futility_bounds_scale = c(
+    "zValue",
+    "pValue",
+    "reverseCondPower",
+    "condPowerAtObserved",
+    "predictivePower"
+  ),
+  error = NA_real_
+) {
+  tryCatch(
+    {sample_size_info <- rpact::getSampleSizeRates(
+        design = rpact::getDesignGroupSequential(
+          sided = sided,
+          alpha = alpha,
+          beta = 1 - power,
+          kMax = k,
+          informationRates = ifelse(
+            equally_spaced,
+            NA_real_,
+            manual_information_rates
+          ), # also the values by default.
+          typeOfDesign = alpha_spending,
+          typeBetaSpending = beta_spending,
+          bindingFutility = binding_futility,
+          futilityBoundsScale = futility_bounds_scale
+        ),
+        pi1 = pi_c,
+        pi2 = pi_c + delta_pi
+      )
+      return(ceiling(sample_size_info$maxNumberOfSubjects))
+    },
+    error = function(er) {
+      return(error)
+    }
+  )
+}
+
