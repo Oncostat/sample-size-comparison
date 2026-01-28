@@ -18,7 +18,10 @@ wrapper$gsdesign2_surv_fixed <- function(
 
   tryCatch(
     {
-      enroll_rate <- gsDesign2::define_enroll_rate(duration = accrual_time, rate = 1)
+      enroll_rate <- gsDesign2::define_enroll_rate(
+        duration = accrual_time,
+        rate = 1
+      )
       fail_rate <- gsDesign2::define_fail_rate(
         duration = event_time,
         fail_rate = 1 - surv_t,
@@ -70,7 +73,10 @@ wrapper$gsdesign2_surv_gs <- function(
 
   tryCatch(
     {
-      enroll_rate <- gsDesign2::define_enroll_rate(duration = accrual_time, rate = 1)
+      enroll_rate <- gsDesign2::define_enroll_rate(
+        duration = accrual_time,
+        rate = 1
+      )
       fail_rate <- gsDesign2::define_fail_rate(
         duration = event_time,
         fail_rate = 1 - surv_t,
