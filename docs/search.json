@@ -1,0 +1,81 @@
+[
+  {
+    "objectID": "surv/survival-methods.html",
+    "href": "surv/survival-methods.html",
+    "title": "Sample Size computation methods for survival endpoints",
+    "section": "",
+    "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "surv/survival-methods.html#méthode-de-schoenfeld",
+    "href": "surv/survival-methods.html#méthode-de-schoenfeld",
+    "title": "Sample Size computation methods for survival endpoints",
+    "section": "",
+    "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "surv/survival-methods.html#lakatos",
+    "href": "surv/survival-methods.html#lakatos",
+    "title": "Sample Size computation methods for survival endpoints",
+    "section": "Lakatos",
+    "text": "Lakatos\nChaine de Markov, mouvement brownien.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index-old.html",
+    "href": "index-old.html",
+    "title": "R vs East & nQuery",
+    "section": "",
+    "text": "Le but est de légitimer l’utilisation de R comme alternative au logiciel propriétaire East et nQuery en faisant une comparaison des différents logiciels et des écarts entre les résultats"
+  },
+  {
+    "objectID": "index-old.html#fixed",
+    "href": "index-old.html#fixed",
+    "title": "R vs East & nQuery",
+    "section": "Fixed",
+    "text": "Fixed"
+  },
+  {
+    "objectID": "index-old.html#gs",
+    "href": "index-old.html#gs",
+    "title": "R vs East & nQuery",
+    "section": "GS",
+    "text": "GS"
+  },
+  {
+    "objectID": "index-old.html#fixed-1",
+    "href": "index-old.html#fixed-1",
+    "title": "R vs East & nQuery",
+    "section": "Fixed",
+    "text": "Fixed\n\nAlgorithmes\n\nMéthode de Schoenfeld\nLe calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.\n\n\nLakatos\nChaine de Markov, mouvement brownien.\n\n\n\nComparaison des résultats\n\n\n\n\n\n\n\n\nSSC survival fixed design ratio by relevancy\n\n\nSample size ratios by method with East as reference\n\n\n\nlow\nmedium\nhigh\n\n\n\n\nN Rpact/East\nMin / Max\n0.8 / 5.4\n0.8 / 1.0\n1.0 / 1.0\n\n\nMed [IQR]\n1.0 [1.0;1.0]\n1.0 [1.0;1.0]\n1.0 [1.0;1.0]\n\n\nMean (std)\n1.1 (0.8)\n1.0 (0.04)\n1.0 (0.004)\n\n\nN (NA)\n240 (32)\n80 (0)\n48 (0)\n\n\nN nQuery/East\nMin / Max\n1.0 / 2.8\n1.0 / 2.8\n1.0 / 1.1\n\n\nMed [IQR]\n1.0 [1.0;1.0]\n1.0 [1.0;1.7]\n1.0 [1.0;1.0]\n\n\nMean (std)\n1.1 (0.4)\n1.4 (0.6)\n1.0 (0.03)\n\n\nN (NA)\n180 (92)\n80 (0)\n48 (0)\n\n\nN Rashnu/East\nMin / Max\n1.0 / 1.9\n1.0 / 1.9\n1.0 / 1.1\n\n\nMed [IQR]\n1.0 [1.0;1.0]\n1.0 [1.0;1.3]\n1.0 [1.0;1.0]\n\n\nMean (std)\n1.0 (0.2)\n1.2 (0.3)\n1.0 (0.02)\n\n\nN (NA)\n240 (32)\n80 (0)\n48 (0)"
+  },
+  {
+    "objectID": "index-old.html#groupes-sequential-design",
+    "href": "index-old.html#groupes-sequential-design",
+    "title": "R vs East & nQuery",
+    "section": "Groupes Sequential Design",
+    "text": "Groupes Sequential Design\n\nLan-DeMets spending functions\n\n\nComparaison des résultats"
+  }
+]

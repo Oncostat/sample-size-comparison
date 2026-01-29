@@ -8,7 +8,7 @@
 
 <meta name="author" content="AROCENA Thomas">
 
-<title>R vs East &amp; nQuery</title>
+<title>R vs East &amp; nQuery – ssc-website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,17 +24,51 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-66cbe2cd6f02abf52110611e217871ea.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-6511081ec78f60b13d7f68661a53b00f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./SCC-HexSticker.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-66cbe2cd6f02abf52110611e217871ea.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-92f36ef38c993ac9caafe3bd6899045a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
+  }
+}</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -66,12 +100,161 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="R vs East &amp; nQuery – ssc-website">
+<meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta property="og:site_name" content="ssc-website">
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R vs East &amp; nQuery</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./SCC-HexSticker.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://oncostat.github.io/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-globe"></i></a>
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Oncostat/sample-size-comparison">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Oncostat/sample-size-comparison/issues/new">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./surv/survival-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Survival endpoints</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./surv/survival-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample Size computation methods for survival endpoints</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">survival-fixed.html</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./surv/survival-gs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">survival-gs.html</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Binary endpoints</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bin/binary-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">binary-methods.html</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">binary-fixed.html</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bin/binary-gs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">binary-gs.html</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#calcul-de-sample-size-dans-le-cas-dun-outcome-binaire" id="toc-calcul-de-sample-size-dans-le-cas-dun-outcome-binaire" class="nav-link active" data-scroll-target="#calcul-de-sample-size-dans-le-cas-dun-outcome-binaire">Calcul de Sample Size dans le cas d’un outcome binaire</a>
+  <ul class="collapse">
+  <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
+  <li><a href="#gs" id="toc-gs" class="nav-link" data-scroll-target="#gs">GS</a></li>
+  </ul></li>
+  <li><a href="#calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie" id="toc-calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie" class="nav-link" data-scroll-target="#calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie">Calcul de Sample Size dans le cas d’un outcome de survie</a>
+  <ul class="collapse">
+  <li><a href="#fixed-1" id="toc-fixed-1" class="nav-link" data-scroll-target="#fixed-1">Fixed</a>
+  <ul class="collapse">
+  <li><a href="#algorithmes" id="toc-algorithmes" class="nav-link" data-scroll-target="#algorithmes">Algorithmes</a></li>
+  <li><a href="#comparaison-des-résultats" id="toc-comparaison-des-résultats" class="nav-link" data-scroll-target="#comparaison-des-résultats">Comparaison des résultats</a></li>
+  </ul></li>
+  <li><a href="#groupes-sequential-design" id="toc-groupes-sequential-design" class="nav-link" data-scroll-target="#groupes-sequential-design">Groupes Sequential Design</a>
+  <ul class="collapse">
+  <li><a href="#lan-demets-spending-functions" id="toc-lan-demets-spending-functions" class="nav-link" data-scroll-target="#lan-demets-spending-functions">Lan-DeMets spending functions</a></li>
+  <li><a href="#comparaison-des-résultats-1" id="toc-comparaison-des-résultats-1" class="nav-link" data-scroll-target="#comparaison-des-résultats-1">Comparaison des résultats</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -94,7 +277,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">mardi 27 janvier 2026</p>
+      <p class="date">jeudi 29 janvier 2026</p>
     </div>
   </div>
   
@@ -146,23 +329,23 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
 <h3 class="anchored" data-anchor-id="comparaison-des-résultats">Comparaison des résultats</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="tamuajjzas" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tamuajjzas table {
+<div id="nvzmjlmrwk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nvzmjlmrwk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tamuajjzas thead, #tamuajjzas tbody, #tamuajjzas tfoot, #tamuajjzas tr, #tamuajjzas td, #tamuajjzas th {
+#nvzmjlmrwk thead, #nvzmjlmrwk tbody, #nvzmjlmrwk tfoot, #nvzmjlmrwk tr, #nvzmjlmrwk td, #nvzmjlmrwk th {
   border-style: none;
 }
 
-#tamuajjzas p {
+#nvzmjlmrwk p {
   margin: 0;
   padding: 0;
 }
 
-#tamuajjzas .gt_table {
+#nvzmjlmrwk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -188,12 +371,12 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-left-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_caption {
+#nvzmjlmrwk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tamuajjzas .gt_title {
+#nvzmjlmrwk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -205,7 +388,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-bottom-width: 0;
 }
 
-#tamuajjzas .gt_subtitle {
+#nvzmjlmrwk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -217,7 +400,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-top-width: 0;
 }
 
-#tamuajjzas .gt_heading {
+#nvzmjlmrwk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -229,13 +412,13 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-right-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_bottom_border {
+#nvzmjlmrwk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_col_headings {
+#nvzmjlmrwk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -250,7 +433,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-right-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_col_heading {
+#nvzmjlmrwk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -270,7 +453,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   overflow-x: hidden;
 }
 
-#tamuajjzas .gt_column_spanner_outer {
+#nvzmjlmrwk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -282,15 +465,15 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   padding-right: 4px;
 }
 
-#tamuajjzas .gt_column_spanner_outer:first-child {
+#nvzmjlmrwk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tamuajjzas .gt_column_spanner_outer:last-child {
+#nvzmjlmrwk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tamuajjzas .gt_column_spanner {
+#nvzmjlmrwk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -302,11 +485,11 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   width: 100%;
 }
 
-#tamuajjzas .gt_spanner_row {
+#nvzmjlmrwk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tamuajjzas .gt_group_heading {
+#nvzmjlmrwk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -332,7 +515,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   text-align: left;
 }
 
-#tamuajjzas .gt_empty_group_heading {
+#nvzmjlmrwk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -347,15 +530,15 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   vertical-align: middle;
 }
 
-#tamuajjzas .gt_from_md > :first-child {
+#nvzmjlmrwk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tamuajjzas .gt_from_md > :last-child {
+#nvzmjlmrwk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tamuajjzas .gt_row {
+#nvzmjlmrwk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -374,7 +557,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   overflow-x: hidden;
 }
 
-#tamuajjzas .gt_stub {
+#nvzmjlmrwk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -387,7 +570,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   padding-right: 5px;
 }
 
-#tamuajjzas .gt_stub_row_group {
+#nvzmjlmrwk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -401,15 +584,15 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   vertical-align: top;
 }
 
-#tamuajjzas .gt_row_group_first td {
+#nvzmjlmrwk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tamuajjzas .gt_row_group_first th {
+#nvzmjlmrwk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tamuajjzas .gt_summary_row {
+#nvzmjlmrwk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -419,16 +602,16 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   padding-right: 5px;
 }
 
-#tamuajjzas .gt_first_summary_row {
+#nvzmjlmrwk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_first_summary_row.thick {
+#nvzmjlmrwk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tamuajjzas .gt_last_summary_row {
+#nvzmjlmrwk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -438,7 +621,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-bottom-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_grand_summary_row {
+#nvzmjlmrwk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -448,7 +631,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   padding-right: 5px;
 }
 
-#tamuajjzas .gt_first_grand_summary_row {
+#nvzmjlmrwk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -458,7 +641,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-top-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_last_grand_summary_row_top {
+#nvzmjlmrwk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -468,11 +651,11 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-bottom-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_striped {
+#nvzmjlmrwk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tamuajjzas .gt_table_body {
+#nvzmjlmrwk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -481,7 +664,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-bottom-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_footnotes {
+#nvzmjlmrwk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -495,7 +678,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-right-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_footnote {
+#nvzmjlmrwk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -504,7 +687,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   padding-right: 5px;
 }
 
-#tamuajjzas .gt_sourcenotes {
+#nvzmjlmrwk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -518,7 +701,7 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   border-right-color: #D3D3D3;
 }
 
-#tamuajjzas .gt_sourcenote {
+#nvzmjlmrwk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -526,72 +709,72 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   padding-right: 5px;
 }
 
-#tamuajjzas .gt_left {
+#nvzmjlmrwk .gt_left {
   text-align: left;
 }
 
-#tamuajjzas .gt_center {
+#nvzmjlmrwk .gt_center {
   text-align: center;
 }
 
-#tamuajjzas .gt_right {
+#nvzmjlmrwk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tamuajjzas .gt_font_normal {
+#nvzmjlmrwk .gt_font_normal {
   font-weight: normal;
 }
 
-#tamuajjzas .gt_font_bold {
+#nvzmjlmrwk .gt_font_bold {
   font-weight: bold;
 }
 
-#tamuajjzas .gt_font_italic {
+#nvzmjlmrwk .gt_font_italic {
   font-style: italic;
 }
 
-#tamuajjzas .gt_super {
+#nvzmjlmrwk .gt_super {
   font-size: 65%;
 }
 
-#tamuajjzas .gt_footnote_marks {
+#nvzmjlmrwk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tamuajjzas .gt_asterisk {
+#nvzmjlmrwk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tamuajjzas .gt_indent_1 {
+#nvzmjlmrwk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tamuajjzas .gt_indent_2 {
+#nvzmjlmrwk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tamuajjzas .gt_indent_3 {
+#nvzmjlmrwk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tamuajjzas .gt_indent_4 {
+#nvzmjlmrwk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tamuajjzas .gt_indent_5 {
+#nvzmjlmrwk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tamuajjzas .katex-display {
+#nvzmjlmrwk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tamuajjzas div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nvzmjlmrwk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -702,12 +885,13 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
 </section>
 <section id="comparaison-des-résultats-1" class="level3">
 <h3 class="anchored" data-anchor-id="comparaison-des-résultats-1">Comparaison des résultats</h3>
+
+
 </section>
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
