@@ -1,0 +1,19 @@
+---
+title: "Survival Endpoints"
+---
+
+For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function $S_c(t)$ that represent the probability of survival at time $t$. We want to prove that a treatment is helpful. There are three ways to express that that are equivalent : 
+
+- Difference at a certain time: $S_e(\tau) = S_c(\tau) + 0.1$ at time $\tau$, people in the treatment group survive 10% more.
+- Median survival : $S_c(t_c) = 0.5$ and $S_e(t_c + 1) = 0.5$, the median survival time, the time at which half the patients died is one year later for the treatment group.
+- Hazard ratio : $S_e(t) = S_e(t)^\text{HR}$, where HR is the hazard ratio.
+
+The proportional hazard assumption assume that $\forall t, \exists r\in \mathbb{R}^+_*, r = \frac{\log(S_e(t))}{\log(S_c(t))}$
+
+We will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in [](survival-methods.qmd)
+
+We will then compare the results of different softwares and R package in the case of a trial without any interim analysis in [](survival-fixed.qmd)
+
+Finally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in [](survival-gs.qmd)
+
+

@@ -1,7 +1,11 @@
 ---
 title: "Sample Size Comparison: R as an alternative to East and nQuery ?"
+bibliography: references.bibtex
 ---
+
+@Halabi_Michiels_2020 is a book
 
 This is a Quarto website.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+

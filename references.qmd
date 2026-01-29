@@ -1,0 +1,6 @@
+---
+bibliography: references.bibtex
+nocite: |
+  @*
+---
+
