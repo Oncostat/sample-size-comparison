@@ -27,11 +27,11 @@ The article of the comparison is available [here](https://oncostat.github.io/sam
 ```
 
 
-| Endpoints  | Design Type      | Computation | Methods                       | Progression    |
-|:-----------|:----------------:|------------:|:------------------------------|:---------------|
-| Survival   | Fixed            |             | 🟧East, 🟦nQuery, 🟥Rpact, 🟪Rashnu   | 🟢 DONE  |
-| Survival   | Group-Sequential |             | 🟧East, 🟦nQuery, 🟥Rpact, 🟫gsDesign2| 🟢 DONE  |
-| Binary     | Fixed            | Exact       | 🟧East, 🟦nQuery, 🟨bbssr           | 🟢 DONE     |
-| Binary     | Fixed            | Pooled      | 🟧East, 🟦nQuery, 🟥Rpact, 🟨bbssr    | 🟢 DONE   |
-| Binary     | Fixed            | Unpooled    | 🟧East, 🟦nQuery                  | 🟡 IN PROGRESS |
-| Binary     | Group-Sequential | Pooled      | 🟧East, 🟥Rpact                   | 🟡 IN PROGRESS |
+| Endpoints  | Design Type      | Computation | Software           | R package            | Progression     |
+|:-----------|:----------------:|------------:|:-------------------|:---------------------|:----------------|
+| Survival   | Fixed            |             | 🟧East, 🟦nQuery  | 🟥Rpact, 🟪Rashnu    | 🟢 DONE        |
+| Survival   | Group-Sequential |             | 🟧East, 🟦nQuery  | 🟥Rpact, 🟫gsDesign2 | 🟢 DONE        |
+| Binary     | Fixed            | Exact       | 🟧East, 🟦nQuery  | 🟨bbssr              | 🟢 DONE        |
+| Binary     | Fixed            | Pooled      | 🟧East, 🟦nQuery  | 🟥Rpact, 🟨bbssr     | 🟢 DONE        |
+| Binary     | Fixed            | Unpooled    | 🟧East, 🟦nQuery  |                       | 🟡 IN PROGRESS |
+| Binary     | Group-Sequential | Pooled      | 🟧East            | 🟥Rpact               | 🟡 IN PROGRESS |
