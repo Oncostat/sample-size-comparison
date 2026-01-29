@@ -23,3 +23,10 @@ source("R/comp_bin_gs.R")
 # rds_list <- lst(params, rpact, east, nquery, rashnu, combined)
 #write_rds(rds_list, "everything.rds")
 # write_rds(ssc, "ssc.rds")
+
+# USING BETTER COMMENTS TO COLORS COMMENTS
+#* IMPORTANT : IN GREEN AND BOLD
+#? QUESTION IN BLUE
+#! An alert
+# TODO : here is a todo (can open github issue/ delegate to coding agent)
+#
