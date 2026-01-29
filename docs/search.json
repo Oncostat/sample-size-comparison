@@ -6,7 +6,8 @@
     "section": "",
     "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
     "crumbs": [
-      "Introduction"
+      "Survival endpoints",
+      "Sample Size computation methods for survival endpoints"
     ]
   },
   {
@@ -16,7 +17,8 @@
     "section": "",
     "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
     "crumbs": [
-      "Introduction"
+      "Survival endpoints",
+      "Sample Size computation methods for survival endpoints"
     ]
   },
   {
@@ -26,22 +28,19 @@
     "section": "Lakatos",
     "text": "Lakatos\nChaine de Markov, mouvement brownien.",
     "crumbs": [
-      "Introduction"
+      "Survival endpoints",
+      "Sample Size computation methods for survival endpoints"
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "ssc-website",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
+    "text": "References\n\nAnderson, Keaven, Yujie Zhao, Yilong Zhang, John Blischak, Yihui Xie, Nan Xiao, and Jianxiao Yang. 2026. gsDesign2: Group Sequential Design with Non-Constant Effect. https://merck.github.io/gsDesign2/.\n\n\nChoi, Sungho. 2025. Rashnu: Balanced Sample Size and Power Calculation Tools. https://zarathucorp.github.io/rashnu/.\n\n\nCollett, D. 2023. Modelling Survival Data in Medical Research. Chapman & Hall/CRC.\n\n\nHomma, Gosuke. 2025. Bbssr: Blinded Sample Size Re-Estimation for Binary Endpoints. https://github.com/gosukehommaEX/bbssr.\n\n\nJohnson, Logan, and Chi-Rong Li. n.d. “R Vs EAST Vs SAS: Group Sequential Design.” R Vs East VS SAS: Group Sequential Design. https://psiaims.github.io/CAMIS/Comp/r-east_gsd_tte.html.\n\n\nLakatos, Edward. 1988. “Sample Sizes Based on the Log-Rank Statistic in Complex Clinical Trials.” Biometrics 44 (1): 229. https://doi.org/10.2307/2531910.\n\n\nLakatos, Edward, and K. K. Lan. 1992. “A Comparison of Sample Size Methods for the Logrank Statistic.” Statistics in Medicine 11 (2): 179–91. https://doi.org/10.1002/sim.4780110205.\n\n\nLan, K. K., and David L. DeMets. 1983. “Discrete Sequential Boundaries for Clinical Trials.” Biometrika 70 (3): 659. https://doi.org/10.2307/2336502.\n\n\nTextbook of Clinical Trials in Oncology: A Statistical Perspective. 2020. CRC PRESS.\n\n\nWassmer, Gernot, and Friedrich Pahlke. 2025. Rpact: Confirmatory Adaptive Clinical Trial Design and Analysis. https://doi.org/10.32614/CRAN.package.rpact.",
+    "crumbs": [
+      "References"
+    ]
   },
   {
     "objectID": "index-old.html",
@@ -77,5 +76,32 @@
     "title": "R vs East & nQuery",
     "section": "Groupes Sequential Design",
     "text": "Groupes Sequential Design\n\nLan-DeMets spending functions\n\n\nComparaison des résultats"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
+    "section": "",
+    "text": "Textbook of Clinical Trials in Oncology: A Statistical Perspective (2020) is a book\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n\n\n\nReferences\n\nTextbook of Clinical Trials in Oncology: A Statistical Perspective. 2020. CRC PRESS.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "surv/survival-endpoint.html",
+    "href": "surv/survival-endpoint.html",
+    "title": "Survival Endpoints",
+    "section": "",
+    "text": "For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in \nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in \nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in",
+    "crumbs": [
+      "Survival endpoints"
+    ]
   }
 ]
