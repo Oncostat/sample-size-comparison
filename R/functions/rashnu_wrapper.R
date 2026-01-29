@@ -84,3 +84,16 @@ wrapper$rashnu_surv_fixed <- function(
     }
   )
 }
+
+# Another way to do one-sample (Rashnu has potential).
+# rashnu::oneSurvSampleSize(
+#     survTime = 3,
+#     p1 = 0.2,
+#     p2 = 0.2**0.6,
+#     accrualTime = 3,
+#     followTime = 3,
+#     alpha = 0.05,
+#     power = 0.8,
+#     side = "two.sided",
+#     method = "arcsin"
+# )
