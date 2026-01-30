@@ -37,10 +37,11 @@ cli_alert_success("Rpact results")
 ## East ----
 east_raw <-
   c(
-    "data-raw/east_bin_fixed_pooled_dp_005.csv",
-    "data-raw/east_bin_fixed_pooled_dp_015.csv",
-    "data-raw/east_bin_fixed_pooled_dp_025.csv",
-    "data-raw/east_bin_fixed_pooled_dp_049.csv"
+    "data-raw/east_bin_oa_pi01.csv",
+    "data-raw/east_bin_oa_pi03.csv",
+    "data-raw/east_bin_oa_pi05.csv",
+    "data-raw/east_bin_oa_pi08.csv",
+    "data-raw/east_bin_oa_pi09.csv"
   ) |>
   read_csv(name_repair = "unique_quiet", show_col_types = FALSE) |>
   bind_rows()
@@ -50,21 +51,22 @@ east <-
   select(
     alpha = "Specified α",
     power = "Power",
-    pi_c = "πc",
-    delta_pi = "δ1",
+    pi_c = "π0",
+    pi_e = "π1",
     n = "Sample Size"
   ) |>
-  mutate(alpha = 2 * alpha) |> #One-sided test
+  mutate(delta_pi = pi_e - pi_c) |> 
   mutate(
     across(names(params$list), \(x) {
       closest(x, params$list[[cur_column()]])
     })
   ) |>
+  select(-pi_e) |> 
   ssc_results(design = design_bin_fixed_pooled, method = "east")
 cli_alert_success("East results")
 
 ## nQuery ----
-nquery_raw <- read.csv2("data-raw/nquery_bin_fixed_pooled.csv")
+nquery_raw <- read.csv2("data-raw/nquery_bin_one_arm.csv")
 
 transposed <- data.frame(t(nquery_raw[-1]))
 colnames(transposed) <- nquery_raw[, 1]
@@ -75,20 +77,19 @@ nquery <-
   select(
     alpha = "Test Significance Level, ??",
     power = "Power (%)?",
-    pi_c = "Group 2 Proportion, ???", #Group2 is control groupe
-    delta_pi = "Difference between Proportions, D = ?? - ???",
-    n_1 = "Group 1 Sample Size, n??",
-    n_2 = "Group 2 Sample Size, n??"
+    pi_c = "Null Hypothesis Proportion, ???",
+    pi_e = "Alternative Proportion, ???",
+    n = "Sample Size, n?"
   ) |>
   mutate(
-    across(c(alpha, power, pi_c, delta_pi), \(x) {
+    across(c(alpha, power, pi_c, pi_e), \(x) {
       parse_number(x, locale = locale(decimal_mark = ","))
     }),
-    across(c(n_1, n_2), as.numeric),
+    n = as.numeric(n),
     power = power / 100,
-    n = n_1 + n_2
+    delta_pi = pi_e - pi_c
   ) |>
-  select(-c(n_1, n_2)) |>
+  select(-pi_e) |>
   mutate(
     across(names(params$list), \(x) {
       closest(x, params$list[[cur_column()]])
@@ -109,7 +110,7 @@ cli_alert_success("Combined results")
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-ssc$bin$fixed$res <- lst(rpact, east, nquery)
-ssc$bin$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
-ssc$bin$fixed$params <- params
-ssc$bin$fixed$combined <- combined
+ssc$bin$one_arm$res <- lst(rpact, east, nquery)
+ssc$bin$one_arm$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
+ssc$bin$one_arm$params <- params
+ssc$bin$one_arm$combined <- combined
