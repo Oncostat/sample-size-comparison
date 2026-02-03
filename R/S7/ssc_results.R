@@ -19,6 +19,8 @@ ssc_results <-
         "rashnu",
         "gsdesign2",
         "bbssr",
+        "oa2s",
+        "sssas",
         "combined"
       )
     ) {

@@ -17,9 +17,14 @@ wrapper <- lst()
 source("R/functions/checks.R")
 source("R/functions/helpers.R")
 source("R/functions/evaluate_relevancy.R")
+
 source("R/functions/rpact_wrapper.R")
 source("R/functions/rashnu_wrapper.R")
 source("R/functions/gsdesign2_wrapper.R")
+source("R/functions/oa2s_wrapper.R")
+source("R/functions/bbssr_wrapper.R")
+source("R/functions/sssas_wrapper.R")
+
 
 # Memoise wrappers
 wrapper = map(
