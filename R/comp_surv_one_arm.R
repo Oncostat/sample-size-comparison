@@ -46,7 +46,7 @@ sssas <-
   ) |>
   unnest(nested_res) |> 
   ssc_results(design = design_surv_one_arm, method = "sssas")
-cli_alert_success("OneArm2stage results")
+cli_alert_success("SampleSizeSingleArmSurvival results")
 
 ## Rashnu ----
 rashnu_wrapper <- partial(wrapper$rashnu_surv_one_arm, !!!params$additional)
