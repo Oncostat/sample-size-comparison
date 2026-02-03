@@ -37,11 +37,11 @@ cli_alert_success("Rpact results")
 ## East ----
 east_raw <-
   c(
-    "data-raw/east_bin_oa_pi01.csv",
-    "data-raw/east_bin_oa_pi03.csv",
-    "data-raw/east_bin_oa_pi05.csv",
-    "data-raw/east_bin_oa_pi08.csv",
-    "data-raw/east_bin_oa_pi09.csv"
+    "data-raw/east_bin_oa_pi_01.csv",
+    "data-raw/east_bin_oa_pi_03.csv",
+    "data-raw/east_bin_oa_pi_05.csv",
+    "data-raw/east_bin_oa_pi_08.csv",
+    "data-raw/east_bin_oa_pi_09.csv"
   ) |>
   read_csv(name_repair = "unique_quiet", show_col_types = FALSE) |>
   bind_rows()
