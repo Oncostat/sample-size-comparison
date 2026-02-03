@@ -48,6 +48,18 @@ rashnu <-
   ssc_results(design = design_surv_fixed, method = "rashnu")
 cli_alert_success("Rashnu results")
 
+## GsDesign2
+gsdesign2_wrapper <- partial(wrapper$gsdesign2_surv_fixed, !!!params$additional)
+gsdesign2 <- 
+  params$table |>
+  mutate(
+    nested_res = pmap_vec(params$table, gsdesign2_wrapper, .progress = TRUE)
+  ) |>
+  unnest(nested_res) |>
+  ssc_results(design = design_surv_fixed, method = "gsdesign2")
+cli_alert_success("GsDesign2 results")
+
+
 ## East ----
 # As East has problems running the 400 inputs consecutively
 # I ran 4*100 by spliting by power value
@@ -124,7 +136,7 @@ cli_alert_success("nQuery results")
 
 # Combined results ----
 combined <-
-  lst(rpact, east, nquery, rashnu) |>
+  lst(rpact, east, nquery, rashnu, gsdesign2) |>
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(
