@@ -1,10 +1,10 @@
-wrapper$oa2s <- function( # wont use cause it takes ACCRUAL RATE not period.
+wrapper$oa2s <- function(
   alpha, 
   power,
   surv_t,
   hr,
   event_time = 3,
-  accrual_rate = 3,
+  accrual_time = 3,
   follow_up_time = 3,
   sided = 2,
   error = NA_real_
@@ -18,11 +18,11 @@ wrapper$oa2s <- function( # wont use cause it takes ACCRUAL RATE not period.
         x0 = event_time,
         hr = hr,
         tf = follow_up_time,
-        rate = accrual_rate, #???
+        ta = accrual_time,
         alpha = alpha/2 * sided, #always two-sided
         beta = 1 - power
       )
-      return(sample_size_info)
+      return(tibble(e = NA_real_, n = sample_size_info$Single_stage$nsingle))
     },
 
     error = function(er) {

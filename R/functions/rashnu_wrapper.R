@@ -85,6 +85,44 @@ wrapper$rashnu_surv_fixed <- function(
   )
 }
 
+wrapper$rashnu_surv_one_arm <- function(
+  alpha, 
+  power,
+  surv_t,
+  hr,
+  event_time = 3,
+  accrual_time = 3,
+  follow_up_time = 3,
+  sided = 2,
+  method = c("arcsin", "log-log", "logit", "log", "log-swog", "identity"),
+  error = NA_real_
+){
+
+  method <- arg_match(method)
+
+  tryCatch(
+    {
+      # Times are in year NOT months
+      sample_size_info <- rashnu::oneSurvSampleSize(
+        survTime = event_time,
+        p1 = surv_t,
+        p2 = surv_t**hr,
+        accrualTime = accrual_time,
+        followTime = follow_up_time,
+        alpha = alpha/sided,
+        power = power,
+        side = ifelse(sided==2, "two.sided", "one.sided"),
+        method = method
+    )
+      return(tibble(e = NA_real_, n = sample_size_info[1]))
+    },
+
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
+  )
+}
+
 # Another way to do one-sample (Rashnu has potential).
 # rashnu::oneSurvSampleSize(
 #     survTime = 3,
