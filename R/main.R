@@ -18,6 +18,7 @@ source("R/comp_surv_one_arm.R")
 # Binary sample size comparison ----
 cli_h1("SSC Binary")
 source("R/comp_bin_fixed.R")
+source("R/comp_bin_fixed_exact.R")
 source("R/comp_bin_gs.R")
 source("R/comp_bin_one_arm.R")
 

@@ -25,7 +25,7 @@ design_bin_fixed_exact <- ssc_design(
 )
 cli_alert_success("Params & design")
 
-## Rpact ----
+## bbssr ----
 bbssr_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional)
 bbssr <-
   params$table |>
