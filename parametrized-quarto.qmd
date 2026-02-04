@@ -1,0 +1,90 @@
+---
+params:
+  endpoint: "surv"
+  design_type: "fixed"
+  computation: null
+  one_armed: false
+---
+
+```{r}
+#| label: load-tidyverse
+#| echo: false
+#| message: false
+#| warning: false
+source("R/init.R")
+```
+
+```{r}
+#| label: params-setup
+#| echo: false
+#| message: false
+clean_design_info <- read_rds("clean_design_info.rds")
+
+endpoint <- params$endpoint
+str_endpoint <- clean_design_info[[endpoint]]
+
+design_type <- params$design_type
+str_design_type <- clean_design_info[[design_type]]
+
+computation <- params$computation
+one_armed <- params$one_armed
+```
+
+```{r}
+#| label: load-ssc
+#| echo: false
+scc <- read_rds("ssc.rds")
+```
+
+
+Analysis of the `{r} paste0(str_endpoint, " ", str_design_type)` design!
+
+```{r}
+#| label: get-data
+#| echo: false
+data <- scc[[params$endpoint]][[params$design_type]]
+tbl_combined <- get_tbl(data$combined)
+```
+
+```{r}
+#| label: plot-tbl-combined
+#| echo: false
+pivoted <- tbl_combined |> 
+    pivot_longer(
+        cols = starts_with("n_"),
+        values_to = "n",
+        names_to = "method"
+    ) |> 
+    pivot_longer(
+        cols = starts_with("e_"),
+        values_to = "e",
+        names_to = "method_2"
+    )
+
+ggplot(filter(pivoted, relevancy == "high")) +
+    aes(x = e, y = n, color = method) +
+    geom_point()
+```
+
+```{r}
+#| label: bobobbo
+#| echo: false
+ratio_by_method <- tbl_combined |> 
+    filter(relevancy == "high") |> 
+    mutate(nQuery = n_nquery/n_east) |> 
+    mutate(Rpact = n_rpact/n_east) |> 
+    mutate(Rashnu = n_rashnu/n_east) |> 
+    select(n_east, relevancy, nQuery, Rpact, Rashnu) |> 
+    pivot_longer(
+        cols = c(nQuery, Rpact, Rashnu),
+        values_to = "n_ratio",
+        names_to = "method"
+    )
+
+ggplot(ratio_by_method) +
+    aes(x = n_east, y = n_ratio, color = method) +
+    geom_point() +
+    geom_hline(yintercept = 1, color = "blue") +
+    geom_hline(yintercept = 1.1, color = "blue", linetype = "dashed") +
+    geom_hline(yintercept = 0.9, color = "blue", linetype = "dashed")
+```
