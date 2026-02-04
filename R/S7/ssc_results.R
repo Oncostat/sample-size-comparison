@@ -31,6 +31,21 @@ ssc_results <-
         design = design,
         method = method
       )
+    },
+    # VALIDATOR
+    validator = function(self) {
+      if (nrow(self@tbl) > nrow(self@design@params$table)){
+        "@tbl has to much rows according to the parameters."
+      }
+      params_names <- names(self@design@params$list)
+      cond_duplicate <- 
+        self@tbl |> 
+        select(any_of(params_names)) |> 
+        duplicated() |> 
+        any()
+      if (cond_duplicate) {
+        "@tbl should not contains any duplicate of input combinaisons."
+      }
     }
   )
 
@@ -46,7 +61,6 @@ method(show_params, ssc_results) <- function(x) {
 method(get_endpoint, ssc_results) <- function(x) {
   x |> get_design() |> get_endpoint()
 }
-
 
 method(print, ssc_results) <- function(x) {
   design <- get_design(x)
