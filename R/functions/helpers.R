@@ -1,13 +1,10 @@
-# closest <- function(a, x, na.rm = FALSE){
-#   FUN <- function(a, x, na.rm = FALSE){
-#     if(na.rm){ x <- x[!is.na(x)]}
-#     mdist <- min(abs(x-a))
-#     if(is.na(mdist)){res <- NA} else {res <- x[(abs(x-a) - mdist) == 0]}
-#     return(res)
-#     }
-#   res <- mapply(FUN=FUN, a = a, MoreArgs = list(x=x, na.rm=na.rm))
-#   return(res)
-# }
+#' Replace values to the closest in a given vector
+#'
+#' @param a The vector of numericals to approx
+#' @param x The vector of values used for approximation
+#' 
+#' @examples
+#' closest(c(1.2, 1.7, 2.1), 1:2)
 closest <- function(a, x) {
   return(x[unlist(imap(a, ~ which.min(abs(. - x))))])
 }
