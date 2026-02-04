@@ -17,7 +17,7 @@ params$table <-
   filter(delta_pi + pi_c < 1)
 
 # Design ----
-design_bin_fixed_pooled <- ssc_design(
+design_bin_one_arm <- ssc_design(
   endpoint = "binary",
   type = "fixed",
   params = params,
@@ -31,9 +31,10 @@ rpact <-
   params$table |>
   mutate(n = pmap(params$table, rpact_wrapper, .progress = TRUE)) |>
   unnest(n) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "rpact")
+  ssc_results(design = design_bin_one_arm, method = "rpact")
 cli_alert_success("Rpact results")
 
+# TODO: hardcode cases with far from input power.
 ## East ----
 east_raw <-
   c(
@@ -55,14 +56,22 @@ east <-
     pi_e = "π1",
     n = "Sample Size"
   ) |>
-  mutate(delta_pi = pi_e - pi_c) |> 
+  mutate(delta_pi = pi_e - pi_c) |>  
+  select(-pi_e) |> 
+  mutate(power = case_when(
+      power < 0.80 ~ 0.51,
+      power < 0.90 ~ 0.8,
+      power < 0.99 ~ 0.9,
+      .default = 0.99
+    )
+  ) |>
+  distinct(alpha, power, pi_c, delta_pi, .keep_all = TRUE) |> 
   mutate(
     across(names(params$list), \(x) {
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  select(-pi_e) |> 
-  ssc_results(design = design_bin_fixed_pooled, method = "east")
+  ssc_results(design = design_bin_one_arm, method = "east")
 cli_alert_success("East results")
 
 ## nQuery ----
@@ -95,7 +104,7 @@ nquery <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "nquery")
+  ssc_results(design = design_bin_one_arm, method = "nquery")
 cli_alert_success("nQuery results")
 
 ## Comparison
@@ -104,7 +113,7 @@ combined <-
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "combined")
+  ssc_results(design = design_bin_one_arm, method = "combined")
 cli_alert_success("Combined results")
 
 # Tables & figures

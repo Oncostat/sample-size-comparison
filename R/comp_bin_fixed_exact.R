@@ -2,7 +2,7 @@ cli_rule(center = "Binary fixed design, exact computation")
 # Params ----
 params <- lst()
 params$list <- list(
-  alpha = c(0.01, 0.05, 0.1, 0.20, 0.49),
+  alpha = c(0.01, 0.05, 0.1, 0.2, 0.49),
   power = c(0.51, 0.8, 0.9, 0.99),
   pi_c = c(0.1, 0.3, 0.5, 0.8, 0.9),
   delta_pi = c(0.05, 0.15, 0.25, 0.49)
@@ -55,11 +55,14 @@ east <-
     n = "Sample Size"
   ) |>
   mutate(alpha = 2 * alpha) |> #One-sided test
-  mutate(
-    across(names(params$list), \(x) {
-      closest(x, params$list[[cur_column()]])
-    })
-  ) |>
+  arrange(alpha, pi_c, delta_pi, power)  |> 
+  mutate(power = case_when(
+      power < 0.75 ~ 0.51,
+      power < 0.88 ~ 0.8,
+      power < 0.95 ~ 0.9,
+      .default = 0.99
+    )
+  ) |> 
   ssc_results(design = design_bin_fixed_exact, method = "east")
 cli_alert_success("East results")
 
