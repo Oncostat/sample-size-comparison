@@ -21,6 +21,7 @@ source("R/comp_bin_fixed_pooled.R")
 source("R/comp_bin_fixed_exact.R")
 source("R/comp_bin_gs.R")
 source("R/comp_bin_one_arm.R")
+source("R/comp_bin_one_arm_exact.R")
 
 # RDS List
 # rds_list <- lst(params, rpact, east, nquery, rashnu, combined)

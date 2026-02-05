@@ -21,6 +21,7 @@ ssc_results <-
         "bbssr",
         "oa2s",
         "sssas",
+        "ahern",
         "combined"
       )
     ) {

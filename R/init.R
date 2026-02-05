@@ -24,6 +24,7 @@ source("R/functions/gsdesign2_wrapper.R")
 source("R/functions/oa2s_wrapper.R")
 source("R/functions/bbssr_wrapper.R")
 source("R/functions/sssas_wrapper.R")
+source("R/functions/ahern_wrapper.R")
 
 
 # Memoise wrappers
