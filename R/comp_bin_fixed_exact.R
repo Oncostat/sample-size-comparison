@@ -29,8 +29,7 @@ cli_alert_success("Params & design")
 bbssr_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional)
 bbssr <-
   params$table |>
-  mutate(n = pmap(params$table, bbssr_wrapper, .progress = TRUE)) |>
-  unnest(n) |>
+  mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
   ssc_results(design = design_bin_fixed_exact, method = "bbssr")
 cli_alert_success("bbssr results")
 
@@ -113,7 +112,7 @@ cli_alert_success("Combined results")
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-# ssc$bin$fixed$res <- lst(rpact, east, nquery)
-# ssc$bin$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
-# ssc$bin$fixed$params <- params
-# ssc$bin$fixed$combined <- combined
+ssc$bin$fixed_exact$res <- lst(bbssr, east, nquery)
+ssc$bin$fixed_exact$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
+ssc$bin$fixed_exact$params <- params
+ssc$bin$fixed_exact$combined <- combined

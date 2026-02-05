@@ -17,6 +17,7 @@ params$additional <- list(
 )
 # Get all combinaisons of params
 params$table <- params$list |> expand.grid() |> as_tibble()
+
 # Design ----
 design_surv_fixed <- ssc_design(
   endpoint = "survival",
@@ -58,7 +59,6 @@ gsdesign2 <-
   unnest(nested_res) |>
   ssc_results(design = design_surv_fixed, method = "gsdesign2")
 cli_alert_success("GsDesign2 results")
-
 
 ## East ----
 # As East has problems running the 400 inputs consecutively
@@ -188,7 +188,7 @@ cli_alert_success("Combined results")
 cli_alert_success("Tables & figures")
 
 # Put into the scc object
-ssc$surv$fixed$res <- lst(rpact, east, rashnu, nquery)
+ssc$surv$fixed$res <- lst(rpact, rashnu, gsdesign2, east, nquery)
 ssc$surv$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$surv$fixed$params <- params
 ssc$surv$fixed$combined <- combined

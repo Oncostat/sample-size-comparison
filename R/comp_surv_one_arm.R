@@ -16,6 +16,7 @@ params$additional <- list(
 )
 # Get all combinaisons of params
 params$table <- params$list |> expand.grid() |> as_tibble()
+
 # Design ----
 design_surv_one_arm <- ssc_design(
   endpoint = "survival",
@@ -37,7 +38,7 @@ oa2s <-
   ssc_results(design = design_surv_one_arm, method = "oa2s")
 cli_alert_success("OneArm2stage results")
 
-## bbssr ----
+## SampleSizeSingleArmSurvival ----
 sssas_wrapper <- partial(wrapper$sssas, !!!params$additional)
 sssas <-
   params$table |>
@@ -98,7 +99,7 @@ cli_alert_success("nQuery results")
 
 # Combined results ----
 combined <-
-  lst(oa2s, sssas, nquery, rashnu) |>
+  lst(oa2s, sssas, rashnu, nquery) |>
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(
@@ -111,40 +112,9 @@ combined <-
 cli_alert_success("Combined results")
 
 # Tables and figures ----
-# n_ratio_by_method_surv_fixed <-
-#   combined |>
-#   mutate(
-#     rpact = n_rpact / n_east,
-#     nquery = n_nquery / n_east,
-#     rashnu = n_rashnu / n_east
-#   ) |>
-#   select(c(
-#     alpha,
-#     power,
-#     hr,
-#     surv_t,
-#     relevancy,
-#     n_east,
-#     rpact,
-#     nquery,
-#     rashnu
-#   )) |>
-#   pivot_longer(
-#     c(rpact, nquery, rashnu),
-#     names_to = "method",
-#     values_to = "n_ratio"
-#   )
-
-# p_n_ratio_by_method_surv_fixed <-
-#   ggplot(n_ratio_by_method_surv_fixed) +
-#   aes(x = n_east, y = n_ratio, color = method) +
-#   geom_point() +
-#   geom_hline(yintercept = 1) +
-#   facet_wrap(~relevancy, scales = "free") +
-#   labs(
-#     title = "N ratio according to method and relevancy",
-#     subtitle = "base sample size from East"
-#   )
 cli_alert_success("Tables & figures")
 
-# Put into the scc object
+ssc$surv$one_arm$res <- lst(oa2s, sssas, rashnu, nquery)
+ssc$surv$one_arm$raw <- lst("nquery" = nquery_raw)
+ssc$surv$one_arm$params <- params
+ssc$surv$one_arm$combined <- combined

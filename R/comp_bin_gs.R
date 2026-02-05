@@ -29,8 +29,7 @@ cli_alert_success("Params & design")
 rpact_wrapper <- partial(wrapper$rpact_bin_gs, !!!params$additional)
 rpact <-
   params$table |>
-  mutate(n = pmap(params$table, rpact_wrapper, .progress = TRUE)) |>
-  unnest(n) |>
+  mutate(n = pmap_vec(params$table, rpact_wrapper, .progress = TRUE)) |>
   ssc_results(design = design_bin_gs_pooled, method = "rpact")
 # cli_alert_success("Rpact results")
 

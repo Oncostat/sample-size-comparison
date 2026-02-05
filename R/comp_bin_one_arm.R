@@ -17,7 +17,7 @@ params$table <-
   filter(delta_pi + pi_c < 1)
 
 # Design ----
-design_bin_one_arm <- ssc_design(
+design_bin_one_arm_pooled <- ssc_design(
   endpoint = "binary",
   type = "fixed",
   params = params,
@@ -29,9 +29,8 @@ cli_alert_success("Params & design")
 rpact_wrapper <- partial(wrapper$rpact_bin_one_arm, !!!params$additional)
 rpact <-
   params$table |>
-  mutate(n = pmap(params$table, rpact_wrapper, .progress = TRUE)) |>
-  unnest(n) |>
-  ssc_results(design = design_bin_one_arm, method = "rpact")
+  mutate(n = pmap_vec(params$table, rpact_wrapper, .progress = TRUE)) |>
+  ssc_results(design = design_bin_one_arm_pooled, method = "rpact")
 cli_alert_success("Rpact results")
 
 # TODO: hardcode cases with far from input power.
@@ -71,7 +70,7 @@ east <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  ssc_results(design = design_bin_one_arm, method = "east")
+  ssc_results(design = design_bin_one_arm_pooled, method = "east")
 cli_alert_success("East results")
 
 ## nQuery ----
@@ -104,7 +103,7 @@ nquery <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  ssc_results(design = design_bin_one_arm, method = "nquery")
+  ssc_results(design = design_bin_one_arm_pooled, method = "nquery")
 cli_alert_success("nQuery results")
 
 ## Comparison
@@ -113,13 +112,13 @@ combined <-
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
-  ssc_results(design = design_bin_one_arm, method = "combined")
+  ssc_results(design = design_bin_one_arm_pooled, method = "combined")
 cli_alert_success("Combined results")
 
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-ssc$bin$one_arm$res <- lst(rpact, east, nquery)
-ssc$bin$one_arm$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
-ssc$bin$one_arm$params <- params
-ssc$bin$one_arm$combined <- combined
+ssc$bin$one_arm_pooled$res <- lst(rpact, east, nquery)
+ssc$bin$one_arm_pooled$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
+ssc$bin$one_arm_pooled$params <- params
+ssc$bin$one_arm_pooled$combined <- combined

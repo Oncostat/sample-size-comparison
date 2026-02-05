@@ -29,8 +29,7 @@ cli_alert_success("Params & design")
 rpact_wrapper <- partial(wrapper$rpact_bin_fixed, !!!params$additional)
 rpact <-
   params$table |>
-  mutate(n = pmap(params$table, rpact_wrapper, .progress = TRUE)) |>
-  unnest(n) |>
+  mutate(n = pmap_vec(params$table, rpact_wrapper, .progress = TRUE)) |>
   ssc_results(design = design_bin_fixed_pooled, method = "rpact")
 cli_alert_success("Rpact results")
 
@@ -110,7 +109,7 @@ cli_alert_success("Combined results")
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-ssc$bin$fixed$res <- lst(rpact, east, nquery)
-ssc$bin$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
-ssc$bin$fixed$params <- params
-ssc$bin$fixed$combined <- combined
+ssc$bin$fixed_pooled$res <- lst(rpact, east, nquery)
+ssc$bin$fixed_pooled$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
+ssc$bin$fixed_pooled$params <- params
+ssc$bin$fixed_pooled$combined <- combined

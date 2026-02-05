@@ -30,8 +30,8 @@ ahern_wrapper <- partial(wrapper$ahern, !!!params$additional)
 ahern <-
   params$table |>
   mutate(n = pmap(params$table, ahern_wrapper, .progress = TRUE)) |>
-  unnest(n) |>
-  ssc_results(design = design_bin_one_arm, method = "rpact")
+  unnest(n) |> 
+  ssc_results(design = design_bin_one_arm_exact, method = "ahern")
 cli_alert_success("Rpact results")
 
 ## East ----
@@ -84,3 +84,8 @@ cli_alert_success("Combined results")
 
 # Tables & figures
 cli_alert_success("Tables & figures")
+
+ssc$bin$one_arm_exact$res <- lst(ahern, east)
+ssc$bin$one_arm_exact$raw <- lst("east" = east_raw)
+ssc$bin$one_arm_exact$params <- params
+ssc$bin$one_arm_exact$combined <- combined

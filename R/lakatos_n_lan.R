@@ -78,6 +78,17 @@ rashnu <-
   ssc_results(design = design_surv_fixed_lnl, method = "rashnu")
 cli_alert_success("Rashnu results")
 
+## GsDesign2
+gsdesign2_wrapper <- partial(wrapper$gsdesign2_surv_fixed, !!!params$additional)
+gsdesign2 <- 
+  params$table |>
+  mutate(
+    nested_res = pmap_vec(params$table, gsdesign2_wrapper, .progress = TRUE)
+  ) |>
+  unnest(nested_res) |>
+  ssc_results(design = design_surv_fixed_lnl, method = "gsdesign2")
+cli_alert_success("GsDesign2 results")
+
 ## East ----
 east_raw <- read_csv(
   "data-raw/east_lakatos_n_lan.csv",
@@ -163,7 +174,7 @@ representation_ll <- function(data_ll) {
 }
 
 combined <-
-  lst(rpact, east, nquery, rashnu) |>
+  lst(rpact, rashnu, gsdesign2, east, nquery) |>
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   map(representation_ll) |>
@@ -178,7 +189,7 @@ cli_alert_success("Combined results")
 cli_alert_success("Tables & figures")
 
 # Put into the scc object
-ssc$surv$fixed$res_lnl <- lst(rpact, east, rashnu, nquery)
+ssc$surv$fixed$res_lnl <- lst(rpact, rashnu, gsdesign2, east, nquery)
 ssc$surv$fixed$raw_lnl <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$surv$fixed$params_lnl <- params
 ssc$surv$fixed$combined_lnl <- combined
