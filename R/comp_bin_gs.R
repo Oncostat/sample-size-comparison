@@ -31,7 +31,7 @@ rpact <-
   params$table |>
   mutate(n = pmap_vec(params$table, rpact_wrapper, .progress = TRUE)) |>
   ssc_results(design = design_bin_gs_pooled, method = "rpact")
-# cli_alert_success("Rpact results")
+cli_alert_success("Rpact results")
 
 ## East ----
 filelist_east <- list.files(

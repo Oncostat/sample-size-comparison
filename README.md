@@ -15,11 +15,14 @@ The article of the comparison is available
 
 ### Designs & compared method
 
-| Endpoints | Design Type | Computation | Software | R package | Progression |
-|:---|:--:|---:|:---|:---|:---|
-| Survival | Fixed |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟪Rashnu | 🟢 DONE |
-| Survival | Group-Sequential |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟫gsDesign2 | 🟢 DONE |
-| Binary | Fixed | Exact | 🟧East, 🟦nQuery | 🟨bbssr | 🟢 DONE |
-| Binary | Fixed | Pooled | 🟧East, 🟦nQuery | 🟥Rpact, 🟨bbssr | 🟢 DONE |
-| Binary | Fixed | Unpooled | 🟧East, 🟦nQuery |  | 🟡 IN PROGRESS |
-| Binary | Group-Sequential | Pooled | 🟧East | 🟥Rpact | 🟡 IN PROGRESS |
+| Endpoints | Design Type | Computation | Software | R package |
+|:---|:---|---:|:---|:---|
+| Survival | Two-arm Fixed |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟪Rashnu, 🟫gsDesign2 |
+| Survival | One-arm Fixed |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟪Rashnu |
+| Survival | Two-arm Group-Sequential |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟫gsDesign2 |
+| Binary | Two-arm Fixed | Exact | 🟧East, 🟦nQuery | 🟨bbssr |
+| Binary | Two-arm Fixed | Pooled | 🟧East, 🟦nQuery | 🟥Rpact, 🟨bbssr |
+| Binary | Two-arm Fixed | Unpooled | 🟧East, 🟦nQuery |  |
+| Binary | One-arm Fixed | Exact | 🟧East | A’Hern(no package) |
+| Binary | One-arm Fixed | Non_exact? | 🟧East, 🟦nQuery | 🟥Rpact |
+| Binary | Two-arm Group-Sequential | Pooled | 🟧East | 🟥Rpact |

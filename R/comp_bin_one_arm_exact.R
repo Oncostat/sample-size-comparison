@@ -32,7 +32,7 @@ ahern <-
   mutate(n = pmap(params$table, ahern_wrapper, .progress = TRUE)) |>
   unnest(n) |> 
   ssc_results(design = design_bin_one_arm_exact, method = "ahern")
-cli_alert_success("Rpact results")
+cli_alert_success("A'Hern results")
 
 ## East ----
 filelist_east <- list.files(
