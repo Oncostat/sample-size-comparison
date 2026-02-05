@@ -35,15 +35,16 @@ bbssr <-
 cli_alert_success("bbssr results")
 
 ## East ----
-east_raw <-
-  c(
-    "data-raw/east_bin_fixed_exact_dp_005.csv",
-    "data-raw/east_bin_fixed_exact_dp_015.csv",
-    "data-raw/east_bin_fixed_exact_dp_025.csv",
-    "data-raw/east_bin_fixed_exact_dp_049.csv"
-  ) |>
-  read_csv(name_repair = "unique_quiet", show_col_types = FALSE) |>
-  bind_rows()
+filelist_east <- list.files(
+  path = "data-raw/East_bin_fixed_exact",
+  full.names = TRUE
+)
+
+east_raw <- read_csv(
+  filelist_east,
+  name_repair = "unique_quiet",
+  show_col_types = FALSE
+)
 
 east <-
   east_raw |>

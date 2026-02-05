@@ -56,7 +56,7 @@ cli_alert_success("Gsdesign2 results")
 
 ## East ----
 filelist_east <- list.files(
-  path = "data-raw/East_gsdesign",
+  path = "data-raw/East_surv_gsdesign",
   full.names = TRUE
 )
 

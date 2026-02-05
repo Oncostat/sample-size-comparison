@@ -63,15 +63,16 @@ cli_alert_success("GsDesign2 results")
 ## East ----
 # As East has problems running the 400 inputs consecutively
 # I ran 4*100 by spliting by power value
-east_raw <-
-  c(
-    "data-raw/east_pwr051.csv",
-    "data-raw/east_pwr08.csv",
-    "data-raw/east_pwr09.csv",
-    "data-raw/east_pwr099.csv"
-  ) |>
-  read_csv(name_repair = "unique_quiet", show_col_types = FALSE) |>
-  bind_rows()
+filelist_east <- list.files(
+  path = "data-raw/East_surv_fixed",
+  full.names = TRUE
+)
+
+east_raw <- read_csv(
+  filelist_east,
+  name_repair = "unique_quiet",
+  show_col_types = FALSE
+)
 
 east <-
   east_raw |>

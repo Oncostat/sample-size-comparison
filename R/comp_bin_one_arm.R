@@ -36,16 +36,16 @@ cli_alert_success("Rpact results")
 
 # TODO: hardcode cases with far from input power.
 ## East ----
-east_raw <-
-  c(
-    "data-raw/east_bin_oa_pi_01.csv",
-    "data-raw/east_bin_oa_pi_03.csv",
-    "data-raw/east_bin_oa_pi_05.csv",
-    "data-raw/east_bin_oa_pi_08.csv",
-    "data-raw/east_bin_oa_pi_09.csv"
-  ) |>
-  read_csv(name_repair = "unique_quiet", show_col_types = FALSE) |>
-  bind_rows()
+filelist_east <- list.files(
+  path = "data-raw/East_bin_one_arm_pooled",
+  full.names = TRUE
+)
+
+east_raw <- read_csv(
+  filelist_east,
+  name_repair = "unique_quiet",
+  show_col_types = FALSE
+)
 
 east <-
   east_raw |>

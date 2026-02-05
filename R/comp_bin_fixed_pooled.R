@@ -35,15 +35,16 @@ rpact <-
 cli_alert_success("Rpact results")
 
 ## East ----
-east_raw <-
-  c(
-    "data-raw/east_bin_fixed_pooled_dp_005.csv",
-    "data-raw/east_bin_fixed_pooled_dp_015.csv",
-    "data-raw/east_bin_fixed_pooled_dp_025.csv",
-    "data-raw/east_bin_fixed_pooled_dp_049.csv"
-  ) |>
-  read_csv(name_repair = "unique_quiet", show_col_types = FALSE) |>
-  bind_rows()
+filelist_east <- list.files(
+  path = "data-raw/East_bin_fixed_pooled",
+  full.names = TRUE
+)
+
+east_raw <- read_csv(
+  filelist_east,
+  name_repair = "unique_quiet",
+  show_col_types = FALSE
+)
 
 east <-
   east_raw |>

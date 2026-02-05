@@ -20,7 +20,8 @@ params$table <-
 design_bin_gs_pooled <- ssc_design(
   endpoint = "binary",
   type = "gs",
-  params = params
+  params = params,
+  computation = "pooled"
 )
 cli_alert_success("Params & design")
 
