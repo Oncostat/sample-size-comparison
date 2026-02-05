@@ -40,11 +40,18 @@ ssc_results <-
       params_names <- names(self@design@params$list)
       cond_duplicate <- 
         self@tbl |> 
-        select(any_of(params_names)) |> 
+        select(all_of(params_names)) |> 
         duplicated() |> 
         any()
       if (cond_duplicate) {
         "@tbl should not contains any duplicate of input combinaisons."
+      }
+      cond_in_params <-
+        self@tbl |> 
+        anti_join(self@design@params$table, by = params_names) |> 
+        nrow()
+      if (cond_in_params > 0){
+        "@tbl should not contain an input combinaison not in @params$table."
       }
     }
   )

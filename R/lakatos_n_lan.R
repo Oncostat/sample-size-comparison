@@ -75,7 +75,6 @@ rashnu <-
     nested_res = pmap(params$table, rashnu_wrapper, .progress = TRUE)
   ) |>
   unnest(nested_res) |>
-  rename(e = e, n = n) |>
   ssc_results(design = design_surv_fixed_lnl, method = "rashnu")
 cli_alert_success("Rashnu results")
 
@@ -102,6 +101,7 @@ east <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
+  mutate(follow_up_time = 10 - accrual_time) |> 
   ssc_results(design = design_surv_fixed_lnl, method = "east")
 cli_alert_success("East results")
 
@@ -151,13 +151,14 @@ nquery <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
+  mutate(follow_up_time = 10 - accrual_time) |> 
   ssc_results(design = design_surv_fixed_lnl, method = "nquery")
 cli_alert_success("nQuery results")
 
 # Comparison ----
 representation_ll <- function(data_ll) {
   data_ll |>
-    select(surv_t, hr, accrual_time, starts_with("n_")) |>
+    select(surv_t, hr, accrual_time, follow_up_time, starts_with("n_")) |>
     arrange(desc(surv_t), desc(hr))
 }
 
@@ -167,7 +168,7 @@ combined <-
   add_name_as_suffix(c("e", "n")) |>
   map(representation_ll) |>
   reduce(\(x, y) {
-    full_join(x, y, by = join_by(hr, surv_t, accrual_time))
+    full_join(x, y, by = join_by(hr, surv_t, accrual_time, follow_up_time))
   }) |>
   full_join(design_table, by = join_by(hr, surv_t, accrual_time)) |>
   ssc_results(design = design_surv_fixed_lnl, method = "combined")
