@@ -3,9 +3,9 @@ wrapper$gsdesign2_surv_fixed <- function(
   power,
   hr,
   surv_t,
-  event_time = 3,
-  accrual_time = 3,
-  follow_up_time = 3,
+  event_time,
+  accrual_time,
+  follow_up_time,
   sided = 2,
   allocation_ratio = 1,
   dropout_rate = 0,
@@ -23,8 +23,8 @@ wrapper$gsdesign2_surv_fixed <- function(
         rate = 1
       )
       fail_rate <- gsDesign2::define_fail_rate(
-        duration = event_time,
-        fail_rate = 1 - surv_t,
+        duration = Inf, #consider lambda and HR constant during trial.
+        fail_rate = -log(surv_t)/event_time, # get lambda from surv-t and event_time
         hr = hr,
         dropout_rate = dropout_rate
       )
@@ -33,7 +33,7 @@ wrapper$gsdesign2_surv_fixed <- function(
         fail_rate = fail_rate,
         alpha = alpha / sided, # always 1-sided
         power = power,
-        study_duration = event_time + follow_up_time,
+        study_duration = accrual_time + follow_up_time,
         ratio = allocation_ratio
       )
 
@@ -78,8 +78,8 @@ wrapper$gsdesign2_surv_gs <- function(
         rate = 1
       )
       fail_rate <- gsDesign2::define_fail_rate(
-        duration = event_time,
-        fail_rate = 1 - surv_t,
+        duration = Inf, #consider lambda and HR constant during trial.
+        fail_rate = -log(surv_t)/event_time, # get lambda from surv-t and event_time
         hr = hr,
         dropout_rate = dropout_rate
       )
