@@ -1,4 +1,4 @@
-cli_rule(center = "Binary fixed design")
+cli_rule(center = "Binary fixed design, pooled computation")
 # Params ----
 params <- lst()
 params$list <- list(
@@ -31,6 +31,14 @@ rpact <-
   params$table |>
   mutate(n = pmap_vec(params$table, rpact_wrapper, .progress = TRUE)) |>
   ssc_results(design = design_bin_fixed_pooled, method = "rpact")
+cli_alert_success("Rpact results")
+
+## Rpact ----
+bbssr_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!list(params$additional, test = 'Z-pool'))
+bbssr <-
+  params$table |>
+  mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
+  ssc_results(design = design_bin_fixed_pooled, method = "bbssr")
 cli_alert_success("Rpact results")
 
 ## East ----
@@ -99,7 +107,7 @@ cli_alert_success("nQuery results")
 
 ## Comparison
 combined <-
-  lst(rpact, east, nquery) |>
+  lst(rpact, bbssr, east, nquery) |>
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
@@ -109,7 +117,7 @@ cli_alert_success("Combined results")
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-ssc$bin$fixed_pooled$res <- lst(rpact, east, nquery)
+ssc$bin$fixed_pooled$res <- lst(rpact, bbssr, east, nquery)
 ssc$bin$fixed_pooled$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$bin$fixed_pooled$params <- params
 ssc$bin$fixed_pooled$combined <- combined
