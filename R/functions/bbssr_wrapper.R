@@ -4,6 +4,7 @@ wrapper$bbssr_bin_fixed <- function(
   pi_c,
   delta_pi,
   sided = 2,
+  allocation_ratio = 1,
   test = c('Fisher', 'Chisq', 'Fisher-midP', 'Z-pool', 'Boschloo'),
   error = NA_real_
 ) {
@@ -15,7 +16,7 @@ wrapper$bbssr_bin_fixed <- function(
         tar.power = power,
         p1 = pi_c + delta_pi,
         p2 = pi_c,
-        r = 1,
+        r = allocation_ratio,
         Test = test
       )
       return(ceiling(sample_size_info$N))

@@ -34,7 +34,10 @@ rpact <-
 cli_alert_success("Rpact results")
 
 ## Rpact ----
-bbssr_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!list(params$additional, test = 'Z-pool'))
+bbssr_wrapper <- 
+  wrapper$bbssr_bin_fixed |> 
+  partial(!!!params$additional) |> 
+  partial(test = "Z-pool")
 bbssr <-
   params$table |>
   mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
