@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -33,14 +33,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="../SCC-HexSticker.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5d2e30ad26079c1dae90a1fd11eba2b9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a35d343c8bdbcb87d3b82ed68e48a46c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -83,7 +84,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -129,7 +130,8 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../SCC-HexSticker.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../SCC-HexSticker.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../SCC-HexSticker.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://oncostat.github.io/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-globe"></i></a>
@@ -274,6 +276,15 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
 <section id="lakatos" class="level2">
 <h2 class="anchored" data-anchor-id="lakatos">Lakatos</h2>
 <p>Chaine de Markov, mouvement brownien.</p>
+<p>rpact : The formula of Kim &amp; Tsiatis (Biometrics, 1990) is used to calculate the expected number of events under the alternative (see also Lakatos &amp; Lan, Statistics in Medicine, 1992). These formulas are generalized to piecewise survival times and non-constant piecewise accrual over time.</p>
+<p>gsDesign2 : Computes fixed design sample size (given power) or power (given sample size) by: fixed_design_ahr() - Average hazard ratio method. fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990). fixed_design_mb() - Weighted logrank test with Magirr-Burman weights. fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986). fixed_design_maxcombo() - MaxCombo method. fixed_design_rmst() - RMST method. fixed_design_milestone() - Milestone method. Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.</p>
+<p>rashnu : lakatosSampleSize : Lakatos two_prop_size: on sait pas oneSurvSampleSize : Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp.&nbsp;236–237, Example 6.3.1.</p>
+<p>Andersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp.&nbsp;176–287, Section IV.1–3.</p>
+<p>Bie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.</p>
+<p>Borgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.</p>
+<p>Nagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355</p>
+<p>Binary : The Fisher exact test : east, nQuery, bbssr The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery</p>
+<p>https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm</p>
 
 
 </section>
@@ -330,13 +341,14 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
