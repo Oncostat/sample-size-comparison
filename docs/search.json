@@ -1,45 +1,33 @@
 [
   {
-    "objectID": "surv/survival-methods.html",
-    "href": "surv/survival-methods.html",
-    "title": "Sample Size computation methods for survival endpoints",
+    "objectID": "survival-fixed.html",
+    "href": "survival-fixed.html",
+    "title": "Two-arms Fixed Design with Time-to-Event endpoint.",
     "section": "",
-    "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
+    "text": "Survival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:",
     "crumbs": [
       "Survival endpoints",
-      "Sample Size computation methods for survival endpoints"
+      "Two-arms Fixed Design with Time-to-Event endpoint."
     ]
   },
   {
-    "objectID": "surv/survival-methods.html#méthode-de-schoenfeld",
-    "href": "surv/survival-methods.html#méthode-de-schoenfeld",
-    "title": "Sample Size computation methods for survival endpoints",
+    "objectID": "surv/survival-endpoint.html",
+    "href": "surv/survival-endpoint.html",
+    "title": "Survival Endpoints",
     "section": "",
-    "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
+    "text": "For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in \nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in \nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in",
     "crumbs": [
-      "Survival endpoints",
-      "Sample Size computation methods for survival endpoints"
+      "Survival endpoints"
     ]
   },
   {
-    "objectID": "surv/survival-methods.html#lakatos",
-    "href": "surv/survival-methods.html#lakatos",
-    "title": "Sample Size computation methods for survival endpoints",
-    "section": "Lakatos",
-    "text": "Lakatos\nChaine de Markov, mouvement brownien.\nrpact : The formula of Kim & Tsiatis (Biometrics, 1990) is used to calculate the expected number of events under the alternative (see also Lakatos & Lan, Statistics in Medicine, 1992). These formulas are generalized to piecewise survival times and non-constant piecewise accrual over time.\ngsDesign2 : Computes fixed design sample size (given power) or power (given sample size) by: fixed_design_ahr() - Average hazard ratio method. fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990). fixed_design_mb() - Weighted logrank test with Magirr-Burman weights. fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986). fixed_design_maxcombo() - MaxCombo method. fixed_design_rmst() - RMST method. fixed_design_milestone() - Milestone method. Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.\nrashnu : lakatosSampleSize : Lakatos two_prop_size: on sait pas oneSurvSampleSize : Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp. 236–237, Example 6.3.1.\nAndersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp. 176–287, Section IV.1–3.\nBie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.\nBorgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.\nNagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355\nBinary : The Fisher exact test : east, nQuery, bbssr The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery\nhttps://stattools.crab.org/Calculators/oneNonParametricSurvival.htm",
-    "crumbs": [
-      "Survival endpoints",
-      "Sample Size computation methods for survival endpoints"
-    ]
-  },
-  {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "ssc-website",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "References\n\nAnderson, Keaven, Yujie Zhao, Yilong Zhang, John Blischak, Yihui Xie, Nan Xiao, and Jianxiao Yang. 2026. gsDesign2: Group Sequential Design with Non-Constant Effect. https://merck.github.io/gsDesign2/.\n\n\nChoi, Sungho. 2025. Rashnu: Balanced Sample Size and Power Calculation Tools. https://zarathucorp.github.io/rashnu/.\n\n\nCollett, D. 2023. Modelling Survival Data in Medical Research. Chapman & Hall/CRC.\n\n\nHomma, Gosuke. 2025. Bbssr: Blinded Sample Size Re-Estimation for Binary Endpoints. https://github.com/gosukehommaEX/bbssr.\n\n\nJohnson, Logan, and Chi-Rong Li. n.d. “R Vs EAST Vs SAS: Group Sequential Design.” R Vs East VS SAS: Group Sequential Design. https://psiaims.github.io/CAMIS/Comp/r-east_gsd_tte.html.\n\n\nLakatos, Edward. 1988. “Sample Sizes Based on the Log-Rank Statistic in Complex Clinical Trials.” Biometrics 44 (1): 229. https://doi.org/10.2307/2531910.\n\n\nLakatos, Edward, and K. K. Lan. 1992. “A Comparison of Sample Size Methods for the Logrank Statistic.” Statistics in Medicine 11 (2): 179–91. https://doi.org/10.1002/sim.4780110205.\n\n\nLan, K. K., and David L. DeMets. 1983. “Discrete Sequential Boundaries for Clinical Trials.” Biometrika 70 (3): 659. https://doi.org/10.2307/2336502.\n\n\nOba, Koji, and Aya Kuchiba. 2020. “Section II.7.” In Textbook of Clinical Trials in Oncology: A Statistical Perspective, 113–32. CRC PRESS.\n\n\nTextbook of Clinical Trials in Oncology: A Statistical Perspective. 2020. CRC PRESS.\n\n\nWassmer, Gernot, and Friedrich Pahlke. 2025. Rpact: Confirmatory Adaptive Clinical Trial Design and Analysis. https://doi.org/10.32614/CRAN.package.rpact.",
+    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites.",
     "crumbs": [
-      "References"
+      "About"
     ]
   },
   {
@@ -78,30 +66,46 @@
     "text": "Groupes Sequential Design\n\nLan-DeMets spending functions\n\n\nComparaison des résultats"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "ssc-website",
     "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
-    "section": "",
-    "text": "Textbook of Clinical Trials in Oncology: A Statistical Perspective (2020) is a book\nThis is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n\n\nAttaching package: 'plotly'\n\n\nThe following object is masked from 'package:ggplot2':\n\n    last_plot\n\n\nThe following object is masked from 'package:stats':\n\n    filter\n\n\nThe following object is masked from 'package:graphics':\n\n    layout\n\n\n\nsurv_fixed &lt;- ssc$surv$fixed$combined |&gt; get_tbl()\np &lt;- ggplot(surv_fixed) +\n    aes(x = n_east, y = n_rpact) +\n    geom_point()\n    \nplotly::ggplotly(p)\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\n\n\n\n\n\nWarning: Ignoring 32 observations\n\n\n\n\n\n\n\n\n\n\nReferences\n\nTextbook of Clinical Trials in Oncology: A Statistical Perspective. 2020. CRC PRESS.",
+    "text": "References\n\nAnderson, Keaven, Yujie Zhao, Yilong Zhang, John Blischak, Yihui Xie, Nan Xiao, and Jianxiao Yang. 2026. gsDesign2: Group Sequential Design with Non-Constant Effect. https://merck.github.io/gsDesign2/.\n\n\nChoi, Sungho. 2025. Rashnu: Balanced Sample Size and Power Calculation Tools. https://zarathucorp.github.io/rashnu/.\n\n\nCollett, D. 2023. Modelling Survival Data in Medical Research. Chapman & Hall/CRC.\n\n\nHomma, Gosuke. 2025. Bbssr: Blinded Sample Size Re-Estimation for Binary Endpoints. https://github.com/gosukehommaEX/bbssr.\n\n\nJohnson, Logan, and Chi-Rong Li. n.d. “R Vs EAST Vs SAS: Group Sequential Design.” R Vs East VS SAS: Group Sequential Design. https://psiaims.github.io/CAMIS/Comp/r-east_gsd_tte.html.\n\n\nLakatos, Edward. 1988. “Sample Sizes Based on the Log-Rank Statistic in Complex Clinical Trials.” Biometrics 44 (1): 229. https://doi.org/10.2307/2531910.\n\n\nLakatos, Edward, and K. K. Lan. 1992. “A Comparison of Sample Size Methods for the Logrank Statistic.” Statistics in Medicine 11 (2): 179–91. https://doi.org/10.1002/sim.4780110205.\n\n\nLan, K. K., and David L. DeMets. 1983. “Discrete Sequential Boundaries for Clinical Trials.” Biometrika 70 (3): 659. https://doi.org/10.2307/2336502.\n\n\nOba, Koji, and Aya Kuchiba. 2020. “Section II.7.” In Textbook of Clinical Trials in Oncology: A Statistical Perspective, 113–32. CRC PRESS.\n\n\nTextbook of Clinical Trials in Oncology: A Statistical Perspective. 2020. CRC PRESS.\n\n\nWassmer, Gernot, and Friedrich Pahlke. 2025. Rpact: Confirmatory Adaptive Clinical Trial Design and Analysis. https://doi.org/10.32614/CRAN.package.rpact.",
     "crumbs": [
-      "Introduction"
+      "References"
     ]
   },
   {
-    "objectID": "surv/survival-endpoint.html",
-    "href": "surv/survival-endpoint.html",
-    "title": "Survival Endpoints",
+    "objectID": "surv/survival-methods.html",
+    "href": "surv/survival-methods.html",
+    "title": "Sample Size computation methods for survival endpoints",
     "section": "",
-    "text": "For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in \nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in \nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in",
+    "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
     "crumbs": [
-      "Survival endpoints"
+      "Survival endpoints",
+      "Sample Size computation methods for survival endpoints"
+    ]
+  },
+  {
+    "objectID": "surv/survival-methods.html#méthode-de-schoenfeld",
+    "href": "surv/survival-methods.html#méthode-de-schoenfeld",
+    "title": "Sample Size computation methods for survival endpoints",
+    "section": "",
+    "text": "Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
+    "crumbs": [
+      "Survival endpoints",
+      "Sample Size computation methods for survival endpoints"
+    ]
+  },
+  {
+    "objectID": "surv/survival-methods.html#lakatos",
+    "href": "surv/survival-methods.html#lakatos",
+    "title": "Sample Size computation methods for survival endpoints",
+    "section": "Lakatos",
+    "text": "Lakatos\nChaine de Markov, mouvement brownien.\nrpact : The formula of Kim & Tsiatis (Biometrics, 1990) is used to calculate the expected number of events under the alternative (see also Lakatos & Lan, Statistics in Medicine, 1992). These formulas are generalized to piecewise survival times and non-constant piecewise accrual over time.\ngsDesign2 : Computes fixed design sample size (given power) or power (given sample size) by: fixed_design_ahr() - Average hazard ratio method. fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990). fixed_design_mb() - Weighted logrank test with Magirr-Burman weights. fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986). fixed_design_maxcombo() - MaxCombo method. fixed_design_rmst() - RMST method. fixed_design_milestone() - Milestone method. Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.\nrashnu : lakatosSampleSize : Lakatos two_prop_size: on sait pas oneSurvSampleSize : Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp. 236–237, Example 6.3.1.\nAndersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp. 176–287, Section IV.1–3.\nBie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.\nBorgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.\nNagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355\nBinary : The Fisher exact test : east, nQuery, bbssr The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery\nhttps://stattools.crab.org/Calculators/oneNonParametricSurvival.htm",
+    "crumbs": [
+      "Survival endpoints",
+      "Sample Size computation methods for survival endpoints"
     ]
   }
 ]
