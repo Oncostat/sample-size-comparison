@@ -83,8 +83,7 @@ wrapper$gsdesign2_surv_gs <- function(
         hr = hr,
         dropout_rate = dropout_rate
       )
-      upar <- list(sf = gsDesign::sfLDOF, total_spend = alpha / 2, param = NULL)
-      lpar <- list(sf = gsDesign::sfLDOF, total_spend = alpha / 2, param = NULL)
+      par <- list(sf = gsDesign::sfLDOF, total_spend = alpha / 2, param = NULL, timing = NULL)
       trial_duration <- accrual_time + follow_up_time # Planned trial duration
       # Information fraction at analyses
       info_frac <- if (equally_spaced) {
@@ -103,10 +102,10 @@ wrapper$gsdesign2_surv_gs <- function(
         # Use NULL information for Type I error, H1 information for power
         info_scale = "h0_h1_info", # Default
         # Function and parameter(s) for upper spending bound
-        upper = gs_spending_bound,
-        upar = upar,
-        lower = gs_spending_bound,
-        lpar = lpar,
+        upper = gsDesign2::gs_spending_bound,
+        upar = par,
+        lower = gsDesign2::gs_spending_bound,
+        lpar = par,
         # Symmetric designs use binding bounds
         binding = binding_futility,
         h1_spending = FALSE # Use null hypothesis spending for lower bound
