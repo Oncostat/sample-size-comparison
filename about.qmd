@@ -2,4 +2,25 @@
 title: "About"
 ---
 
-About this site
+This project is part of an internship at INSERM's Oncostat.
+The Oncostat team ressources:
+
+- [Website](https://oncostat.github.io/)
+- [GitHub](https://github.com/oncostat)
+- [Gustave Roussy's website](https://www.gustaveroussy.fr/fr/oncostat)
+- [CESP's website](https://cesp.inserm.fr/fr/equipe/oncostat)
+- [Hal](https://inserm.hal.science/ONCOSTAT)
+
+The website is build with Quarto. To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+
+```{r}
+#| column: screen
+#| echo: false
+longitude <- 2.3486887844529427
+lattitude <- 48.79549511936336
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=longitude, lat=lattitude, popup="Where the Oncostat team makes magic")
+```

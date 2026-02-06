@@ -17,7 +17,7 @@ website:
         href: surv/survival-endpoint.qmd
         contents:
           - surv/survival-methods.qmd
-          - surv/survival-fixed.qmd
+          - survival-fixed.qmd
           - surv/survival-gs.qmd
       - section: "Binary endpoints"
         href: bin/binary-endpoints.qmd
@@ -25,8 +25,10 @@ website:
           - bin/binary-methods.qmd
           - bin/binary-fixed.qmd
           - bin/binary-gs.qmd
-      - section: "References"
+      - text: "References"
         href: references.qmd
+      - text: "About"
+        href: about.qmd
     tools:
       - icon: globe
         href: https://oncostat.github.io/
