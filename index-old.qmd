@@ -12,6 +12,7 @@ format:
 date: today
 date-format: full
 execute:
+  eval: false
   echo: false
 lang: "fr"
 ---
