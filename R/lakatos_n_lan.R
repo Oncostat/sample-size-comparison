@@ -132,31 +132,31 @@ nquery <-
     alpha = "Test Significance Level, ??",
     power = "Power (%)?",
     hr = "Hazard Ratio, h=??/???",
-    lambda1 = "Group 1 Exponential Parameter, ???",
+    lambda2 = "Group 2 Exponential Parameter, ???",
     accrual_time = "Length of Accrual Period, a?",
     e = "Total Number of Events Required, E?",
     n = "Sample Size per Group, n?"
   ) |>
   mutate(
     across(
-      c(alpha, power, hr, lambda1),
+      c(alpha, power, hr, lambda2),
       \(x) {
         parse_number(x, locale = locale(decimal_mark = ","))
       }
     ),
-    lambda1 = signif(lambda1, 1),
+    lambda2 = signif(lambda2, 1),
     hr = signif(hr, 3),
     accrual_time = as.numeric(accrual_time),
     surv_t = case_when(
-      lambda1 == 0.2 ~ 0.2,
-      lambda1 == 0.02 ~ 0.8,
+      lambda2 == 0.2 ~ 0.2,
+      lambda2 == 0.02 ~ 0.8,
       .default = NA_real_
     ),
     across(c(e, n), as.numeric),
     power = power / 100,
     n = 2 * n # introduce an error cause all n will be even.
   ) |>
-  select(-lambda1) |>
+  select(-lambda2) |>
   mutate(
     across(c(alpha, power, hr, accrual_time), \(x) {
       closest(x, params$list[[cur_column()]])
