@@ -192,3 +192,5 @@ ssc$surv$fixed$res <- lst(rpact, rashnu, gsdesign2, east, nquery)
 ssc$surv$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$surv$fixed$params <- params
 ssc$surv$fixed$combined <- combined
+
+# write_rds(combined, "surv/s-fixed.rds")
