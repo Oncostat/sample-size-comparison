@@ -1,0 +1,67 @@
+---
+title: "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints"
+# bibliography: references.bibtex
+---
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+source("../quarto-setup.R")
+```
+
+```{r}
+#| echo: false
+surv_fixed <- read_rds("s-fixed.rds")
+params <- get_params(surv_fixed)
+tbl <- get_tbl(surv_fixed)
+```
+
+```{r}
+shared_tbl <- 
+  tbl |> 
+  mutate(across(names(params$list), as_factor)) |> 
+  SharedData$new()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+card(
+  height = 300,
+  full_screen = TRUE,
+  card_header("Survival fixed sample size",
+    tooltip(
+        bs_icon("info-circle"),
+        "East is considered the references"
+    )),
+  layout_sidebar(
+    fillable = TRUE,
+    sidebar = sidebar(
+      filter_checkbox("relevancy", "Relevancy:", shared_tbl, ~ relevancy),
+      filter_checkbox("alpha", "Alpha (Type I error):", shared_tbl, ~ alpha),
+      filter_checkbox("power", "Power:", shared_tbl, ~ power),
+      filter_checkbox("hr", "Hazard ratio :", shared_tbl, ~ hr),
+      filter_checkbox("surv_t", "Survival probability at 3 years:", shared_tbl, ~ surv_t)
+    ),
+    plot_ly(shared_tbl) |> 
+        add_trace(
+        x = ~ n_east,
+        y = ~ n_rpact,
+        color = ~ relevancy,
+        type = "scatter",
+        mode = "markers"
+    ), 
+    plot_ly(shared_tbl) |> 
+        add_trace(
+            x = ~ n_east,
+            y = ~ n_nquery,
+            color = ~ relevancy,
+            type = "scatter",
+            mode = "markers"
+        ),
+    datatable(shared_tbl)
+  )
+)
+```
