@@ -5,3 +5,22 @@ bibliography: references.bibtex
 
 <!-- @Halabi_Michiels_2020 is a book -->
 
+```{mermaid}
+flowchart TB
+  A[[Clinical Trial Design]] --> AA[Time-to-Event Endpoints]
+    AA ---> AAA(Two-Arms)
+      AAA --> AAAA([Fixed Design])
+      AAA --> AAAB([Group-Sequential Design])
+    AA ----> AAB([One Arm])
+  A --> AB[Binary Endpoints]
+    AB --> ABA(Two-Arms)
+      ABA --> ABAA(Fixed Design)
+        ABAA --> ABAAA([Exact Computation])
+        ABAA --> ABAAB([Z-pooled])
+        ABAA --> ABAAC([Z-unpooled])
+      ABA --> ABAB(Group-Sequential Design)
+        ABAB --> ABABA([Z-pooled])
+    AB ---> ABB(One-Arm)
+      ABB --> ABBA([Exact Computation])
+      ABB --> ABBB([Non-exact Computation])
+```
