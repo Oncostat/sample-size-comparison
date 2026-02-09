@@ -33,7 +33,7 @@ rpact <-
   ssc_results(design = design_bin_fixed_pooled, method = "rpact")
 cli_alert_success("Rpact results")
 
-## Rpact ----
+## bbssr ----
 bbssr_wrapper <- 
   wrapper$bbssr_bin_fixed |> 
   partial(!!!params$additional) |> 
@@ -42,7 +42,7 @@ bbssr <-
   params$table |>
   mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
   ssc_results(design = design_bin_fixed_pooled, method = "bbssr")
-cli_alert_success("Rpact results")
+cli_alert_success("bbssr results")
 
 ## East ----
 filelist_east <- list.files(
