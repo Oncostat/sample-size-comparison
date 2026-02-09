@@ -4,11 +4,7 @@
     "href": "survival-fixed.html",
     "title": "Two-arms Fixed Design with Time-to-Event endpoint.",
     "section": "",
-    "text": "Survival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:",
-    "crumbs": [
-      "Survival endpoints",
-      "Two-arms Fixed Design with Time-to-Event endpoint."
-    ]
+    "text": "Survival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:"
   },
   {
     "objectID": "surv/survival-endpoint.html",
@@ -25,7 +21,7 @@
     "href": "index.html",
     "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
     "section": "",
-    "text": "flowchart TB\n  A[[Clinical Trial Design]] --&gt; AA[Time-to-Event Endpoints]\n    AA ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA(Two-Arms)\n      ABA --&gt; ABAA(Fixed Design)\n        ABAA --&gt; ABAAA([Exact Computation])\n        ABAA --&gt; ABAAB([Z-pooled])\n        ABAA --&gt; ABAAC([Z-unpooled])\n      ABA --&gt; ABAB(Group-Sequential Design)\n        ABAB --&gt; ABABA([Z-pooled])\n    AB ---&gt; ABB(One-Arm)\n      ABB --&gt; ABBA([Exact Computation])\n      ABB --&gt; ABBB([Non-exact Computation])",
+    "text": "Endpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact\n\n\n\n\n\n\n\n\nflowchart TB\n  A[[Clinical Trial Design]] --&gt; AA[Time-to-Event Endpoints]\n    AA ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA(Two-Arms)\n      ABA --&gt; ABAA(Fixed Design)\n        ABAA --&gt; ABAAA([Exact Computation])\n        ABAA --&gt; ABAAB([Z-pooled])\n        ABAA --&gt; ABAAC([Z-unpooled])\n      ABA --&gt; ABAB(Group-Sequential Design)\n        ABAB --&gt; ABABA([Z-pooled])\n    AB ---&gt; ABB(One-Arm)\n      ABB --&gt; ABBA([Exact Computation])\n      ABB --&gt; ABBB([Non-exact Computation])",
     "crumbs": [
       "Introduction"
     ]
@@ -100,7 +96,11 @@
     "href": "surv/survival-fixed.html",
     "title": "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints",
     "section": "",
-    "text": "shared_tbl &lt;- \n  tbl |&gt; \n  mutate(across(names(params$list), as_factor)) |&gt; \n  SharedData$new()\n\n\n\n\n\nSurvival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\nlow\n\n\n\n\n\nmedium\n\n\n\n\n\nhigh\n\n\n\n\n\n\nAlpha (Type I error):\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n0.49\n\n\n\n\n\n\nPower:\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.1\n\n\n\n\n\n0.5\n\n\n\n\n\n0.7\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\nSurvival probability at 3 years:\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9"
+    "text": "Survival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\nlow\n\n\n\n\n\nmedium\n\n\n\n\n\nhigh\n\n\n\n\n\n\nAlpha (Type I error):\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n0.49\n\n\n\n\n\n\nPower:\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.1\n\n\n\n\n\n0.5\n\n\n\n\n\n0.7\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\nSurvival probability at 3 years:\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9",
+    "crumbs": [
+      "Survival endpoints",
+      "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints"
+    ]
   },
   {
     "objectID": "surv/survival-methods.html",
