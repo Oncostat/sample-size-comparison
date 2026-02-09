@@ -17,7 +17,7 @@ website:
         href: surv/survival-endpoint.qmd
         contents:
           - surv/survival-methods.qmd
-          - survival-fixed.qmd
+          - surv/survival-fixed.qmd
           - surv/survival-gs.qmd
       - section: "Binary endpoints"
         href: bin/binary-endpoints.qmd
@@ -43,6 +43,12 @@ brand: ../brand/_brand.yml
 
 format:
   html:
+    code-line-numbers: true
+    highlight-style: github
+    code-block-border-left: "#31BAE9"
+    code-fold: true
+    execute:
+      echo: false
     theme:
       - cosmo
       - brand

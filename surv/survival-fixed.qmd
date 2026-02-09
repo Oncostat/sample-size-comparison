@@ -26,7 +26,6 @@ shared_tbl <-
 ```
 
 ```{r}
-#| echo: false
 #| warning: false
 card(
   height = 300,
