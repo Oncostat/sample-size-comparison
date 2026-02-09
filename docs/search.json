@@ -15,9 +15,19 @@
     "href": "surv/survival-endpoint.html",
     "title": "Survival Endpoints",
     "section": "",
-    "text": "For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in \nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in \nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in",
+    "text": "flowchart TB\n    AA[Time-to-Event Endpoints] ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints",
     "crumbs": [
       "Survival endpoints"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
+    "section": "",
+    "text": "flowchart TB\n  A[[Clinical Trial Design]] --&gt; AA[Time-to-Event Endpoints]\n    AA ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA(Two-Arms)\n      ABA --&gt; ABAA(Fixed Design)\n        ABAA --&gt; ABAAA([Exact Computation])\n        ABAA --&gt; ABAAB([Z-pooled])\n        ABAA --&gt; ABAAC([Z-unpooled])\n      ABA --&gt; ABAB(Group-Sequential Design)\n        ABAB --&gt; ABABA([Z-pooled])\n    AB ---&gt; ABB(One-Arm)\n      ABB --&gt; ABBA([Exact Computation])\n      ABB --&gt; ABBB([Non-exact Computation])",
+    "crumbs": [
+      "Introduction"
     ]
   },
   {
@@ -28,6 +38,16 @@
     "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites.",
     "crumbs": [
       "About"
+    ]
+  },
+  {
+    "objectID": "bin/binary-endpoints.html",
+    "href": "bin/binary-endpoints.html",
+    "title": "Binary Endpoints",
+    "section": "",
+    "text": "flowchart TB\n  AB[Binary Endpoints] --&gt; ABA(Two-Arms)\n    ABA --&gt; ABAA(Fixed Design)\n      ABAA --&gt; ABAAA([Exact Computation])\n      ABAA --&gt; ABAAB([Z-pooled])\n      ABAA --&gt; ABAAC([Z-unpooled])\n    ABA --&gt; ABAB(Group-Sequential Design)\n      ABAB --&gt; ABABA([Z-pooled])\n  AB ---&gt; ABB(One-Arm)\n    ABB --&gt; ABBA([Exact Computation])\n    ABB --&gt; ABBB([Non-exact Computation])",
+    "crumbs": [
+      "Binary endpoints"
     ]
   },
   {
@@ -74,6 +94,13 @@
     "crumbs": [
       "References"
     ]
+  },
+  {
+    "objectID": "surv/survival-fixed.html",
+    "href": "surv/survival-fixed.html",
+    "title": "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints",
+    "section": "",
+    "text": "shared_tbl &lt;- \n  tbl |&gt; \n  mutate(across(names(params$list), as_factor)) |&gt; \n  SharedData$new()\n\n\n\n\n\nSurvival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\nlow\n\n\n\n\n\nmedium\n\n\n\n\n\nhigh\n\n\n\n\n\n\nAlpha (Type I error):\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n0.49\n\n\n\n\n\n\nPower:\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.1\n\n\n\n\n\n0.5\n\n\n\n\n\n0.7\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\nSurvival probability at 3 years:\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9"
   },
   {
     "objectID": "surv/survival-methods.html",

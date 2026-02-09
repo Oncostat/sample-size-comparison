@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>binary-endpoints – ssc-website</title>
+<title>Binary Endpoints – ssc-website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,10 +69,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="ssc-website">
+<meta property="og:title" content="Binary Endpoints – ssc-website">
 <meta property="og:site_name" content="ssc-website">
 </head>
 
@@ -214,11 +217,49 @@ ul.task-list li input[type="checkbox"] {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Binary Endpoints</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+  AB[Binary Endpoints] --&gt; ABA(Two-Arms)
+    ABA --&gt; ABAA(Fixed Design)
+      ABAA --&gt; ABAAA([Exact Computation])
+      ABAA --&gt; ABAAB([Z-pooled])
+      ABAA --&gt; ABAAC([Z-unpooled])
+    ABA --&gt; ABAB(Group-Sequential Design)
+      ABAB --&gt; ABABA([Z-pooled])
+  AB ---&gt; ABB(One-Arm)
+    ABB --&gt; ABBA([Exact Computation])
+    ABB --&gt; ABBB([Non-exact Computation])
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 
 
 
