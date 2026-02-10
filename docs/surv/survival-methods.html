@@ -245,7 +245,31 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#méthode-de-schoenfeld" id="toc-méthode-de-schoenfeld" class="nav-link active" data-scroll-target="#méthode-de-schoenfeld">Méthode de Schoenfeld</a></li>
+  <li><a href="#determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method" id="toc-determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method" class="nav-link active" data-scroll-target="#determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method">Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)</a>
+  <ul class="collapse">
+  <li><a href="#asymptotic-behavior-of-the-log-rank-statistic" id="toc-asymptotic-behavior-of-the-log-rank-statistic" class="nav-link" data-scroll-target="#asymptotic-behavior-of-the-log-rank-statistic">Asymptotic Behavior of the Log-Rank Statistic</a></li>
+  <li><a href="#power-requirement-and-required-number-of-events" id="toc-power-requirement-and-required-number-of-events" class="nav-link" data-scroll-target="#power-requirement-and-required-number-of-events">Power Requirement and Required Number of Events</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  <li><a href="#from-required-number-of-events-to-sample-size" id="toc-from-required-number-of-events-to-sample-size" class="nav-link" data-scroll-target="#from-required-number-of-events-to-sample-size">From Required Number of Events to Sample Size</a>
+  <ul class="collapse">
+  <li><a href="#event-probability-for-an-individual-subject" id="toc-event-probability-for-an-individual-subject" class="nav-link" data-scroll-target="#event-probability-for-an-individual-subject">Event Probability for an Individual Subject</a></li>
+  <li><a href="#expected-number-of-events-in-the-trial" id="toc-expected-number-of-events-in-the-trial" class="nav-link" data-scroll-target="#expected-number-of-events-in-the-trial">Expected Number of Events in the Trial</a></li>
+  <li><a href="#incorporating-accrual-over-time" id="toc-incorporating-accrual-over-time" class="nav-link" data-scroll-target="#incorporating-accrual-over-time">Incorporating Accrual Over Time</a></li>
+  <li><a href="#exponential-survival-model" id="toc-exponential-survival-model" class="nav-link" data-scroll-target="#exponential-survival-model">Exponential Survival Model</a></li>
+  <li><a href="#determination-of-sample-size" id="toc-determination-of-sample-size" class="nav-link" data-scroll-target="#determination-of-sample-size">Determination of Sample Size</a></li>
+  <li><a href="#conceptual-interpretation" id="toc-conceptual-interpretation" class="nav-link" data-scroll-target="#conceptual-interpretation">Conceptual Interpretation</a></li>
+  </ul></li>
+  <li><a href="#generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos" id="toc-generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos" class="nav-link" data-scroll-target="#generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos">Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos</a>
+  <ul class="collapse">
+  <li><a href="#expected-number-of-events-as-a-function-of-calendar-time" id="toc-expected-number-of-events-as-a-function-of-calendar-time" class="nav-link" data-scroll-target="#expected-number-of-events-as-a-function-of-calendar-time">Expected Number of Events as a Function of Calendar Time</a></li>
+  <li><a href="#kimtsiatis-information-framework" id="toc-kimtsiatis-information-framework" class="nav-link" data-scroll-target="#kimtsiatis-information-framework">Kim–Tsiatis Information Framework</a></li>
+  <li><a href="#lakatos-extension-to-general-accrual-and-survival-models" id="toc-lakatos-extension-to-general-accrual-and-survival-models" class="nav-link" data-scroll-target="#lakatos-extension-to-general-accrual-and-survival-models">Lakatos’ Extension to General Accrual and Survival Models</a></li>
+  <li><a href="#conceptual-implication" id="toc-conceptual-implication" class="nav-link" data-scroll-target="#conceptual-implication">Conceptual Implication</a></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  </ul></li>
+  <li><a href="#méthode-de-schoenfeld" id="toc-méthode-de-schoenfeld" class="nav-link" data-scroll-target="#méthode-de-schoenfeld">Méthode de Schoenfeld</a></li>
   <li><a href="#lakatos" id="toc-lakatos" class="nav-link" data-scroll-target="#lakatos">Lakatos</a></li>
   </ul>
 </nav>
@@ -272,6 +296,255 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Draft made with ChatGPT
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Methods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.</p>
+</div>
+</div>
+<section id="determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method" class="level2">
+<h2 class="anchored" data-anchor-id="determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method">Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)</h2>
+<p>Consider a two-arm randomized clinical trial with a time-to-event endpoint analyzed using the log-rank test or, equivalently, the score test from the Cox proportional hazards model. Let <span class="math inline">\(\lambda_1(t)\)</span> and <span class="math inline">\(\lambda_2(t)\)</span> denote the hazard functions in the two treatment groups. Under the proportional hazards assumption,</p>
+<p><span class="math display">\[
+\lambda_2(t) = \lambda_1(t)\exp(\theta),
+\]</span></p>
+<p>where <span class="math inline">\(\theta = \log(\mathrm{HR})\)</span> is the log hazard ratio under the alternative hypothesis.</p>
+<hr>
+<section id="asymptotic-behavior-of-the-log-rank-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-behavior-of-the-log-rank-statistic">Asymptotic Behavior of the Log-Rank Statistic</h3>
+<p>Let <span class="math inline">\(U\)</span> denote the score statistic for testing the null hypothesis<br>
+<span class="math inline">\(H_0: \theta = 0\)</span>. Under standard regularity conditions and for large samples, the log-rank statistic is asymptotically normally distributed:</p>
+<p><span class="math display">\[
+U \;\overset{approx}{\sim}\; \mathcal{N}\!\left(E_\theta(U), \; \mathrm{Var}_0(U)\right).
+\]</span></p>
+<p>Under proportional hazards and equal allocation between treatment groups, Schoenfeld showed that the variance of the partial likelihood estimator <span class="math inline">\(\hat{\theta}\)</span> can be approximated by</p>
+<p><span class="math display">\[
+\mathrm{Var}(\hat{\theta}) \;\approx\; \frac{4}{e},
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> denotes the total number of observed events across both groups.</p>
+<p>This approximation reflects the fact that each observed event contributes a fixed amount of information to the estimation of <span class="math inline">\(\theta\)</span>, depending only on the relative sizes of the risk sets and not on the baseline hazard function.</p>
+<hr>
+</section>
+<section id="power-requirement-and-required-number-of-events" class="level3">
+<h3 class="anchored" data-anchor-id="power-requirement-and-required-number-of-events">Power Requirement and Required Number of Events</h3>
+<p>To achieve power <span class="math inline">\(1 - \beta\)</span> at a two-sided significance level <span class="math inline">\(\alpha\)</span>, the standardized Wald (or score) statistic must satisfy</p>
+<p><span class="math display">\[
+\frac{|\theta|}{\sqrt{\mathrm{Var}(\hat{\theta})}}
+\;\ge\;
+z_{1-\alpha/2} + z_{1-\beta},
+\]</span></p>
+<p>where <span class="math inline">\(z_{1-\alpha/2}\)</span> and <span class="math inline">\(z_{1-\beta}\)</span> denote the corresponding quantiles of the standard normal distribution (<a href="https://en.wikipedia.org/wiki/Standard_score">z-score</a>).</p>
+<p>Substituting the variance approximation yields</p>
+<p><span class="math display">\[
+|\theta| \sqrt{\frac{e}{4}}
+\;\ge\;
+z_{1-\alpha/2} + z_{1-\beta}.
+\]</span></p>
+<p>Solving for <span class="math inline">\(e\)</span> gives the required number of events:</p>
+<p><span class="math display">\[
+e
+\;=\;
+\frac{4\,(z_{1-\alpha/2} + z_{1-\beta})^2}{\theta^2}
+\;=\;
+\frac{4\,(z_{1-\alpha/2} + z_{1-\beta})^2}{\left(\log \mathrm{HR}\right)^2}.
+\]</span></p>
+<hr>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<p>The Schoenfeld formula specifies the <strong>minimum number of events</strong> required for the log-rank test to detect a given hazard ratio with pre-specified type I error and power under the proportional hazards assumption. The required number of events depends only on:</p>
+<ul>
+<li>the targeted effect size <span class="math inline">\(\theta = \log(\mathrm{HR})\)</span>,</li>
+<li>the type I error rate <span class="math inline">\(\alpha\)</span>,</li>
+<li>the type II error rate <span class="math inline">\(\beta\)</span>,</li>
+<li>the allocation ratio between treatment groups.</li>
+</ul>
+<p>It does <strong>not</strong> depend on the accrual pattern, follow-up duration, censoring mechanism, or the form of the baseline hazard. These design features affect the calendar time and total sample size needed to observe the required number of events, but not the number of events itself.</p>
+<hr>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<ul>
+<li>Schoenfeld, D. (1983). <em>Sample-Size Formula for the Proportional-Hazards Regression Model</em>. <strong>Biometrics</strong>, 39(2), 499–503.<br>
+</li>
+<li>Cox, D. R. (1972). <em>Regression Models and Life-Tables</em>. <strong>Journal of the Royal Statistical Society, Series B</strong>, 34(2), 187–220.</li>
+</ul>
+</section>
+</section>
+<section id="from-required-number-of-events-to-sample-size" class="level2">
+<h2 class="anchored" data-anchor-id="from-required-number-of-events-to-sample-size">From Required Number of Events to Sample Size</h2>
+<p>The Schoenfeld method determines the number of events required to achieve a specified type I error rate and power for comparing two survival distributions under the proportional hazards assumption. To complete the trial design, this required number of events must be translated into a total sample size. This step requires explicit assumptions on the accrual process, survival distributions, and censoring mechanisms.</p>
+<hr>
+<section id="event-probability-for-an-individual-subject" class="level3">
+<h3 class="anchored" data-anchor-id="event-probability-for-an-individual-subject">Event Probability for an Individual Subject</h3>
+<p>Let <span class="math inline">\(T\)</span> denote the event time and <span class="math inline">\(C\)</span> the censoring time for a randomly selected subject. An event is observed if <span class="math inline">\(T \le C\)</span>. The probability that a subject experiences the event during the study is therefore</p>
+<p><span class="math display">\[
+p = \Pr(T \le C).
+\]</span></p>
+<p>Under independent censoring, this probability can be written as</p>
+<p><span class="math display">\[
+p = \int_0^\infty S_C(t)\, dF_T(t),
+\]</span></p>
+<p>where <span class="math inline">\(F_T\)</span> is the distribution function of the event time and <span class="math inline">\(S_C\)</span> is the survival function of the censoring time.</p>
+<p>In the simplest case of no censoring other than administrative censoring at time <span class="math inline">\(\tau\)</span>,</p>
+<p><span class="math display">\[
+p = 1 - S_T(\tau).
+\]</span></p>
+<hr>
+</section>
+<section id="expected-number-of-events-in-the-trial" class="level3">
+<h3 class="anchored" data-anchor-id="expected-number-of-events-in-the-trial">Expected Number of Events in the Trial</h3>
+<p>Let <span class="math inline">\(N\)</span> denote the total number of randomized subjects. Assuming independence across subjects, the expected total number of observed events is</p>
+<p><span class="math display">\[
+E(D) = N \times \bar{p},
+\]</span></p>
+<p>where <span class="math inline">\(\bar{p}\)</span> is the average probability of observing an event across treatment groups.</p>
+<p>For a two-group trial with allocation proportions <span class="math inline">\(\pi_1\)</span> and <span class="math inline">\(\pi_2\)</span>, and group-specific event probabilities <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>,</p>
+<p><span class="math display">\[
+E(D) = N \left( \pi_1 p_1 + \pi_2 p_2 \right).
+\]</span></p>
+<p>The required sample size is then obtained by solving</p>
+<p><span class="math display">\[
+E(D) \ge e,
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> is the required number of events derived from the Schoenfeld formula.</p>
+<hr>
+</section>
+<section id="incorporating-accrual-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="incorporating-accrual-over-time">Incorporating Accrual Over Time</h3>
+<p>In most clinical trials, subjects are accrued over a finite accrual period rather than simultaneously. Let <span class="math inline">\(A\)</span> denote the accrual time and <span class="math inline">\(\tau\)</span> the total study duration. If subjects enter the study at time <span class="math inline">\(U \sim \text{Uniform}(0, A)\)</span>, the event probability becomes conditional on the entry time:</p>
+<p><span class="math display">\[
+p = \Pr(T \le \tau - U).
+\]</span></p>
+<p>Taking expectation over the accrual distribution yields</p>
+<p><span class="math display">\[
+p = \frac{1}{A} \int_0^A \left[ 1 - S_T(\tau - u) \right] \, du.
+\]</span></p>
+<p>This formulation shows that staggered entry reduces the average event probability relative to fixed follow-up.</p>
+<hr>
+</section>
+<section id="exponential-survival-model" class="level3">
+<h3 class="anchored" data-anchor-id="exponential-survival-model">Exponential Survival Model</h3>
+<p>Under an exponential survival model with hazard rate <span class="math inline">\(\lambda\)</span>,</p>
+<p><span class="math display">\[
+S_T(t) = \exp(-\lambda t),
+\]</span></p>
+<p>the average event probability under uniform accrual simplifies to</p>
+<p><span class="math display">\[
+p = 1 - \frac{1}{A} \int_0^A \exp\!\left[-\lambda(\tau - u)\right] du
+= 1 - \frac{1 - \exp(-\lambda \tau)}{\lambda A}.
+\]</span></p>
+<p>Group-specific hazards <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> yield corresponding event probabilities <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>.</p>
+<hr>
+</section>
+<section id="determination-of-sample-size" class="level3">
+<h3 class="anchored" data-anchor-id="determination-of-sample-size">Determination of Sample Size</h3>
+<p>Combining the above elements, the required sample size is obtained as</p>
+<p><span class="math display">\[
+N = \frac{e}{\pi_1 p_1 + \pi_2 p_2}.
+\]</span></p>
+<p>Thus, the total sample size depends on:</p>
+<ul>
+<li>the required number of events <span class="math inline">\(e\)</span>,</li>
+<li>the allocation proportions,</li>
+<li>the assumed survival distributions,</li>
+<li>the accrual pattern,</li>
+<li>the censoring mechanism.</li>
+</ul>
+<p>Unlike the required number of events, which depends only on the targeted effect size and error rates, the required sample size is <strong>design-specific</strong> and sensitive to assumptions about follow-up and event rates.</p>
+<hr>
+</section>
+<section id="conceptual-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="conceptual-interpretation">Conceptual Interpretation</h3>
+<p>The separation between determining the required number of events and determining the required sample size reflects a fundamental principle of survival trial design. Statistical power is governed by the amount of information, measured by the number of events, while the total number of subjects controls how quickly that information is accumulated.</p>
+<p>This two-step approach underlies event-driven designs, in which study duration and sample size are chosen to ensure that the target number of events is observed.</p>
+<hr>
+</section>
+</section>
+<section id="generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos" class="level2">
+<h2 class="anchored" data-anchor-id="generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos">Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos</h2>
+<p>The derivations above express the expected number of observed events as a simple product of the total sample size and an average event probability. While this formulation is sufficient under strong simplifying assumptions (e.g., exponential survival, uniform accrual, administrative censoring only), it becomes inadequate when survival and accrual processes vary over calendar time.</p>
+<p>Kim and Tsiatis (1990) and Lakatos (1988) generalize this framework by modeling the <strong>accumulation of events as a stochastic process evolving over calendar time</strong>, rather than as a fixed expectation at a single analysis time.</p>
+<hr>
+<section id="expected-number-of-events-as-a-function-of-calendar-time" class="level3">
+<h3 class="anchored" data-anchor-id="expected-number-of-events-as-a-function-of-calendar-time">Expected Number of Events as a Function of Calendar Time</h3>
+<p>Let <span class="math inline">\(D(t)\)</span> denote the total number of observed events by calendar time <span class="math inline">\(t\)</span>. The key object of interest is the expected event count</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\},
+\]</span></p>
+<p>where the expectation is taken under the alternative hypothesis <span class="math inline">\(\theta = \log(\mathrm{HR})\)</span>.</p>
+<p>For a two-group trial, this expectation can be expressed as</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\}
+=
+\sum_{k=1}^{2}
+\int_0^t
+E_\theta\!\left[ Y_k(u) \right]
+\lambda_k(u)\, du,
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(Y_k(u)\)</span> is the number of subjects at risk in group <span class="math inline">\(k\)</span> at time <span class="math inline">\(u\)</span>,</li>
+<li><span class="math inline">\(\lambda_k(u)\)</span> is the hazard function in group <span class="math inline">\(k\)</span>.</li>
+</ul>
+<p>This formulation shows that the expected number of events depends on the <strong>entire history of accrual, survival, and censoring up to time <span class="math inline">\(t\)</span></strong>.</p>
+<hr>
+</section>
+<section id="kimtsiatis-information-framework" class="level3">
+<h3 class="anchored" data-anchor-id="kimtsiatis-information-framework">Kim–Tsiatis Information Framework</h3>
+<p>Kim and Tsiatis (1990) derived expressions for the expectation and variance of the log-rank statistic as functions of calendar time. Under proportional hazards, their results imply that the information accumulated by time <span class="math inline">\(t\)</span> is proportional to the expected number of events:</p>
+<p><span class="math display">\[
+I(t) \;\propto\; E_\theta\{D(t)\}.
+\]</span></p>
+<p>Consequently, the target number of events <span class="math inline">\(e\)</span> obtained from the Schoenfeld method defines a target information level, and the design problem becomes finding the calendar time <span class="math inline">\(t\)</span> (and corresponding sample size) such that</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\} = e.
+\]</span></p>
+<p>This approach replaces the static expectation <span class="math inline">\(E(D)\)</span> with a <strong>time-indexed event accumulation process</strong>, enabling explicit modeling of interim analyses and information fractions.</p>
+<hr>
+</section>
+<section id="lakatos-extension-to-general-accrual-and-survival-models" class="level3">
+<h3 class="anchored" data-anchor-id="lakatos-extension-to-general-accrual-and-survival-models">Lakatos’ Extension to General Accrual and Survival Models</h3>
+<p>Lakatos further extended the Kim–Tsiatis framework by allowing:</p>
+<ul>
+<li>non-constant and piecewise-defined hazard functions,</li>
+<li>non-uniform and time-dependent accrual rates,</li>
+<li>independent random censoring and drop-out.</li>
+</ul>
+<p>In this setting, the risk process <span class="math inline">\(Y_k(t)\)</span> is governed by a multi-state stochastic model, and the expected event count is obtained through numerical integration over small time intervals:</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\}
+=
+\sum_{k=1}^{2}
+\int_0^t
+\bar{Y}_k(u)\, \lambda_k(u)\, du,
+\]</span></p>
+<p>where <span class="math inline">\(\bar{Y}_k(u)\)</span> denotes the expected number of subjects at risk at time <span class="math inline">\(u\)</span>, accounting for staggered entry and censoring.</p>
+<p>This formulation provides a general and flexible mapping between calendar time, sample size, and expected information, subsuming simpler exponential and uniform-accrual models as special cases.</p>
+<hr>
+</section>
+<section id="conceptual-implication" class="level3">
+<h3 class="anchored" data-anchor-id="conceptual-implication">Conceptual Implication</h3>
+<p>The progression from simple event probabilities to the Kim–Tsiatis and Lakatos formulations reflects a shift from <strong>static</strong> to <strong>dynamic</strong> modeling of information. While the required number of events is determined solely by the targeted effect size and error rates, the translation of this requirement into sample size and study duration depends on the full temporal structure of the trial.</p>
+<p>Thus, Kim–Tsiatis and Lakatos provide the mathematical foundation for event-driven designs by generalizing the expectation <span class="math inline">\(E(D)\)</span> into a continuous-time information accumulation process.</p>
+<hr>
+</section>
+<section id="references-1" class="level3">
+<h3 class="anchored" data-anchor-id="references-1">References</h3>
+<ul>
+<li>Kim, K., &amp; Tsiatis, A. A. (1990). <em>Study duration for clinical trials with survival response and interim analysis</em>. <strong>Biometrics</strong>, 46, 81–92.<br>
+</li>
+<li>Lakatos, E. (1988). <em>Sample sizes based on the log-rank statistic in complex clinical trials</em>. <strong>Journal of the American Statistical Association</strong>, 83(402), 289–301.</li>
+</ul>
+</section>
+</section>
 <section id="méthode-de-schoenfeld" class="level2">
 <h2 class="anchored" data-anchor-id="méthode-de-schoenfeld">Méthode de Schoenfeld</h2>
 <p>Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.</p>
