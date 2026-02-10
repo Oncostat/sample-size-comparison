@@ -1,10 +1,311 @@
 ---
 title: Sample Size computation methods for survival endpoints
-format: 
-  html
 execute:
   echo: false
 ---
+
+::: {.callout-caution}
+## Draft made with ChatGPT
+Methods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.
+:::
+
+## Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)
+
+Consider a two-arm randomized clinical trial with a time-to-event endpoint analyzed using the log-rank test or, equivalently, the score test from the Cox proportional hazards model. Let $\lambda_1(t)$ and $\lambda_2(t)$ denote the hazard functions in the two treatment groups. Under the proportional hazards assumption,
+
+$$
+\lambda_2(t) = \lambda_1(t)\exp(\theta),
+$$
+
+where $\theta = \log(\mathrm{HR})$ is the log hazard ratio under the alternative hypothesis.
+
+---
+
+### Asymptotic Behavior of the Log-Rank Statistic
+
+Let $U$ denote the score statistic for testing the null hypothesis  
+$H_0: \theta = 0$. Under standard regularity conditions and for large samples, the log-rank statistic is asymptotically normally distributed:
+
+$$
+U \;\overset{approx}{\sim}\; \mathcal{N}\!\left(E_\theta(U), \; \mathrm{Var}_0(U)\right).
+$$
+
+Under proportional hazards and equal allocation between treatment groups, Schoenfeld showed that the variance of the partial likelihood estimator $\hat{\theta}$ can be approximated by
+
+$$
+\mathrm{Var}(\hat{\theta}) \;\approx\; \frac{4}{e},
+$$
+
+where $e$ denotes the total number of observed events across both groups.
+
+This approximation reflects the fact that each observed event contributes a fixed amount of information to the estimation of $\theta$, depending only on the relative sizes of the risk sets and not on the baseline hazard function.
+
+---
+
+### Power Requirement and Required Number of Events
+
+To achieve power $1 - \beta$ at a two-sided significance level $\alpha$, the standardized Wald (or score) statistic must satisfy
+
+$$
+\frac{|\theta|}{\sqrt{\mathrm{Var}(\hat{\theta})}}
+\;\ge\;
+z_{1-\alpha/2} + z_{1-\beta},
+$$
+
+where $z_{1-\alpha/2}$ and $z_{1-\beta}$ denote the corresponding quantiles of the standard normal distribution ([z-score](https://en.wikipedia.org/wiki/Standard_score)).
+
+Substituting the variance approximation yields
+
+$$
+|\theta| \sqrt{\frac{e}{4}}
+\;\ge\;
+z_{1-\alpha/2} + z_{1-\beta}.
+$$
+
+Solving for $e$ gives the required number of events:
+
+$$
+e
+\;=\;
+\frac{4\,(z_{1-\alpha/2} + z_{1-\beta})^2}{\theta^2}
+\;=\;
+\frac{4\,(z_{1-\alpha/2} + z_{1-\beta})^2}{\left(\log \mathrm{HR}\right)^2}.
+$$
+
+---
+
+### Interpretation
+
+The Schoenfeld formula specifies the **minimum number of events** required for the log-rank test to detect a given hazard ratio with pre-specified type I error and power under the proportional hazards assumption. The required number of events depends only on:
+
+- the targeted effect size $\theta = \log(\mathrm{HR})$,
+- the type I error rate $\alpha$,
+- the type II error rate $\beta$,
+- the allocation ratio between treatment groups.
+
+It does **not** depend on the accrual pattern, follow-up duration, censoring mechanism, or the form of the baseline hazard. These design features affect the calendar time and total sample size needed to observe the required number of events, but not the number of events itself.
+
+---
+
+### References
+
+- Schoenfeld, D. (1983). *Sample-Size Formula for the Proportional-Hazards Regression Model*. **Biometrics**, 39(2), 499–503.  
+- Cox, D. R. (1972). *Regression Models and Life-Tables*. **Journal of the Royal Statistical Society, Series B**, 34(2), 187–220.
+
+## From Required Number of Events to Sample Size
+
+The Schoenfeld method determines the number of events required to achieve a specified type I error rate and power for comparing two survival distributions under the proportional hazards assumption. To complete the trial design, this required number of events must be translated into a total sample size. This step requires explicit assumptions on the accrual process, survival distributions, and censoring mechanisms.
+
+---
+
+### Event Probability for an Individual Subject
+
+Let $T$ denote the event time and $C$ the censoring time for a randomly selected subject. An event is observed if $T \le C$. The probability that a subject experiences the event during the study is therefore
+
+$$
+p = \Pr(T \le C).
+$$
+
+Under independent censoring, this probability can be written as
+
+$$
+p = \int_0^\infty S_C(t)\, dF_T(t),
+$$
+
+where $F_T$ is the distribution function of the event time and $S_C$ is the survival function of the censoring time.
+
+In the simplest case of no censoring other than administrative censoring at time $\tau$,
+
+$$
+p = 1 - S_T(\tau).
+$$
+
+---
+
+### Expected Number of Events in the Trial
+
+Let $N$ denote the total number of randomized subjects. Assuming independence across subjects, the expected total number of observed events is
+
+$$
+E(D) = N \times \bar{p},
+$$
+
+where $\bar{p}$ is the average probability of observing an event across treatment groups.
+
+For a two-group trial with allocation proportions $\pi_1$ and $\pi_2$, and group-specific event probabilities $p_1$ and $p_2$,
+
+$$
+E(D) = N \left( \pi_1 p_1 + \pi_2 p_2 \right).
+$$
+
+The required sample size is then obtained by solving
+
+$$
+E(D) \ge e,
+$$
+
+where $e$ is the required number of events derived from the Schoenfeld formula.
+
+---
+
+### Incorporating Accrual Over Time
+
+In most clinical trials, subjects are accrued over a finite accrual period rather than simultaneously. Let $A$ denote the accrual time and $\tau$ the total study duration. If subjects enter the study at time $U \sim \text{Uniform}(0, A)$, the event probability becomes conditional on the entry time:
+
+$$
+p = \Pr(T \le \tau - U).
+$$
+
+Taking expectation over the accrual distribution yields
+
+$$
+p = \frac{1}{A} \int_0^A \left[ 1 - S_T(\tau - u) \right] \, du.
+$$
+
+This formulation shows that staggered entry reduces the average event probability relative to fixed follow-up.
+
+---
+
+### Exponential Survival Model
+
+Under an exponential survival model with hazard rate $\lambda$,
+
+$$
+S_T(t) = \exp(-\lambda t),
+$$
+
+the average event probability under uniform accrual simplifies to
+
+$$
+p = 1 - \frac{1}{A} \int_0^A \exp\!\left[-\lambda(\tau - u)\right] du
+= 1 - \frac{1 - \exp(-\lambda \tau)}{\lambda A}.
+$$
+
+Group-specific hazards $\lambda_1$ and $\lambda_2$ yield corresponding event probabilities $p_1$ and $p_2$.
+
+---
+
+### Determination of Sample Size
+
+Combining the above elements, the required sample size is obtained as
+
+$$
+N = \frac{e}{\pi_1 p_1 + \pi_2 p_2}.
+$$
+
+Thus, the total sample size depends on:
+
+- the required number of events $e$,
+- the allocation proportions,
+- the assumed survival distributions,
+- the accrual pattern,
+- the censoring mechanism.
+
+Unlike the required number of events, which depends only on the targeted effect size and error rates, the required sample size is **design-specific** and sensitive to assumptions about follow-up and event rates.
+
+---
+
+### Conceptual Interpretation
+
+The separation between determining the required number of events and determining the required sample size reflects a fundamental principle of survival trial design. Statistical power is governed by the amount of information, measured by the number of events, while the total number of subjects controls how quickly that information is accumulated.
+
+This two-step approach underlies event-driven designs, in which study duration and sample size are chosen to ensure that the target number of events is observed.
+
+---
+
+## Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos
+
+The derivations above express the expected number of observed events as a simple product of the total sample size and an average event probability. While this formulation is sufficient under strong simplifying assumptions (e.g., exponential survival, uniform accrual, administrative censoring only), it becomes inadequate when survival and accrual processes vary over calendar time.
+
+Kim and Tsiatis (1990) and Lakatos (1988) generalize this framework by modeling the **accumulation of events as a stochastic process evolving over calendar time**, rather than as a fixed expectation at a single analysis time.
+
+---
+
+### Expected Number of Events as a Function of Calendar Time
+
+Let $D(t)$ denote the total number of observed events by calendar time $t$. The key object of interest is the expected event count
+
+$$
+E_\theta\{D(t)\},
+$$
+
+where the expectation is taken under the alternative hypothesis $\theta = \log(\mathrm{HR})$.
+
+For a two-group trial, this expectation can be expressed as
+
+$$
+E_\theta\{D(t)\}
+=
+\sum_{k=1}^{2}
+\int_0^t
+E_\theta\!\left[ Y_k(u) \right]
+\lambda_k(u)\, du,
+$$
+
+where:
+
+- $Y_k(u)$ is the number of subjects at risk in group $k$ at time $u$,
+- $\lambda_k(u)$ is the hazard function in group $k$.
+
+This formulation shows that the expected number of events depends on the **entire history of accrual, survival, and censoring up to time $t$**.
+
+---
+
+### Kim–Tsiatis Information Framework
+
+Kim and Tsiatis (1990) derived expressions for the expectation and variance of the log-rank statistic as functions of calendar time. Under proportional hazards, their results imply that the information accumulated by time $t$ is proportional to the expected number of events:
+
+$$
+I(t) \;\propto\; E_\theta\{D(t)\}.
+$$
+
+Consequently, the target number of events $e$ obtained from the Schoenfeld method defines a target information level, and the design problem becomes finding the calendar time $t$ (and corresponding sample size) such that
+
+$$
+E_\theta\{D(t)\} = e.
+$$
+
+This approach replaces the static expectation $E(D)$ with a **time-indexed event accumulation process**, enabling explicit modeling of interim analyses and information fractions.
+
+---
+
+### Lakatos’ Extension to General Accrual and Survival Models
+
+Lakatos further extended the Kim–Tsiatis framework by allowing:
+
+- non-constant and piecewise-defined hazard functions,
+- non-uniform and time-dependent accrual rates,
+- independent random censoring and drop-out.
+
+In this setting, the risk process $Y_k(t)$ is governed by a multi-state stochastic model, and the expected event count is obtained through numerical integration over small time intervals:
+
+$$
+E_\theta\{D(t)\}
+=
+\sum_{k=1}^{2}
+\int_0^t
+\bar{Y}_k(u)\, \lambda_k(u)\, du,
+$$
+
+where $\bar{Y}_k(u)$ denotes the expected number of subjects at risk at time $u$, accounting for staggered entry and censoring.
+
+This formulation provides a general and flexible mapping between calendar time, sample size, and expected information, subsuming simpler exponential and uniform-accrual models as special cases.
+
+---
+
+### Conceptual Implication
+
+The progression from simple event probabilities to the Kim–Tsiatis and Lakatos formulations reflects a shift from **static** to **dynamic** modeling of information. While the required number of events is determined solely by the targeted effect size and error rates, the translation of this requirement into sample size and study duration depends on the full temporal structure of the trial.
+
+Thus, Kim–Tsiatis and Lakatos provide the mathematical foundation for event-driven designs by generalizing the expectation $E(D)$ into a continuous-time information accumulation process.
+
+---
+
+### References
+
+- Kim, K., & Tsiatis, A. A. (1990). *Study duration for clinical trials with survival response and interim analysis*. **Biometrics**, 46, 81–92.  
+- Lakatos, E. (1988). *Sample sizes based on the log-rank statistic in complex clinical trials*. **Journal of the American Statistical Association**, 83(402), 289–301.
+
 
 ## Méthode de Schoenfeld
 
@@ -58,4 +359,3 @@ The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact
 The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery
 
 https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm
-
