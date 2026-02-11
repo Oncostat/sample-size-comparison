@@ -3,6 +3,12 @@ title: "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints"
 # bibliography: references.bibtex
 ---
 
+::: {.callout-caution}
+## Draft made with ChatGPT
+Methods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.
+:::
+
+
 ```{r}
 #| label: setup
 #| echo: false
@@ -91,11 +97,6 @@ This classification was not used to filter results but rather to **contextualize
 
 ---
 
-::: {.callout-caution}
-## Draft made with ChatGPT
-Methods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.
-:::
-
 ### Scope of the comparison
 
 For each of the 400 scenarios, all methods and software implementations were used to compute:
@@ -105,12 +106,44 @@ For each of the 400 scenarios, all methods and software implementations were use
 
 The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
 
+
+```{r}
+n_ratios <-
+  tbl |> 
+  drop_na(n_east) |> 
+  mutate(
+    rpact = n_rpact/n_east,
+    nquery = n_nquery/n_east,
+    gsdesign2 = n_gsdesign2/n_east,
+    rashnu = n_rashnu/n_east
+  ) |> 
+  select(-c("n_rpact", "n_nquery", "n_rashnu", "n_gsdesign2"), -starts_with("e_")) |> 
+  pivot_longer(
+    cols = c("rpact", "nquery", "gsdesign2", "rashnu"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+datatable(n_ratios)
+```
+
 ```{r}
 shared_tbl <- 
   tbl |> 
   mutate(across(names(params$list), as_factor)) |> 
   SharedData$new()
 ```
+
+::: {.panel-tabset}
+
+## Tab1
+
+Some content for **tabset1**
+
+## Tab2
+
+Some content for **tabset2**
+
+:::
 
 ```{r}
 #| warning: false

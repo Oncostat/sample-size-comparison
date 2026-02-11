@@ -178,5 +178,292 @@
       "Survival endpoints",
       "Sample Size computation methods for survival endpoints"
     ]
+  },
+  {
+    "objectID": "presentation/presentation.html#example-slide",
+    "href": "presentation/presentation.html#example-slide",
+    "title": "Comparison of Sample Size and Event Calculations Across Methods",
+    "section": "Example slide",
+    "text": "Example slide\nThis is a subtitle\nHere we have some text that may run over several lines of the slide frame, depending on how long it is.\n\nfirst item\n\nA sub item\n\n\nNext, we’ll brief review some theme-specific components.\n\nNote that all of the standard Reveal.js features can be used with this theme, even if we don’t highlight them here."
+  },
+  {
+    "objectID": "presentation/presentation.html#additional-theme-classes",
+    "href": "presentation/presentation.html#additional-theme-classes",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Additional theme classes",
+    "text": "Additional theme classes\nSome extra things you can do with the clean theme\nSpecial classes for emphasis\n\n.alert class for default emphasis, e.g. important note.\n.fg class for custom colour, e.g. important note.\n.bg class for custom background, e.g. important note.\n\nCross-references\n\n.button class provides a Beamer-like button, e.g. Summary"
+  },
+  {
+    "objectID": "presentation/presentation.html#want-more",
+    "href": "presentation/presentation.html#want-more",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Want more?",
+    "text": "Want more?\nSee our longer demo slides\nWe’ve deliberarely kept this template lean, to get you up and running as fast as possible.\nWe provide a separate demo template, with more examples for integrating code, tables, figures, etc.\n\nSee the live demo slides here."
+  },
+  {
+    "objectID": "presentation/presentation.html#sec-summary",
+    "href": "presentation/presentation.html#sec-summary",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Summary",
+    "text": "Summary\nA minimalist and elegant presentation theme\nThe Quarto reveal.js clean theme aims to be a minimalist and elegant presention theme. Here are some options to get you started:\nAdd the theme to an existing project.\nquarto install extension grantmcdermott/quarto-revealjs-clean\n… or, create a new project using this slide deck as a lean template.\nquarto use template grantmcdermott/quarto-revealjs-clean\n… or, create a new project using the demo slide deck as a full template.\nquarto use template grantmcdermott/quarto-revealjs-clean-demo"
+  },
+  {
+    "objectID": "presentation/presentation.html#motivations",
+    "href": "presentation/presentation.html#motivations",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Motivations",
+    "text": "Motivations\nWhy R for sample size calculation ?\n\ndo all analysis in R without having to use an external tool\nshare code to someone (better than share an East of nQuery project)\navoid problem with export\nfree and open-source code, allows to open issue, ask new feature, fork the code\n\n-&gt; R packages need validation to get the same credibility and trust as proprietary softwares like East and nQuery"
+  },
+  {
+    "objectID": "presentation/presentation.html#motivations-1",
+    "href": "presentation/presentation.html#motivations-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Motivations",
+    "text": "Motivations\nWhy a comparision between R packages and East and nQuery ?\n\nEast and nQuery already have great credibility and trust\nEast and nQuery are widely used among statistian, especially here at Oncostat\nProve that for a same design proprietary softwares and R packages give quite similar results derivates that trust into those packages."
+  },
+  {
+    "objectID": "presentation/presentation.html#scope-of-the-comparison",
+    "href": "presentation/presentation.html#scope-of-the-comparison",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Scope of the comparison",
+    "text": "Scope of the comparison\nExplored clinical trials\n\n\n\n\n\nflowchart TB\n  A[Clinical Trial Design] --&gt; AA[Time-to-Event Endpoints]\n    AA --&gt; AAA[Two-Arms]\n      AAA --&gt; AAAA[Fixed Design]\n      AAA --&gt; AAAB[Group-Sequential Design]\n    AA --&gt; AAB[One Arm]\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA[Two-Arms]\n      ABA --&gt; ABAA[Fixed Design]\n        ABAA --&gt; ABAAA[Exact Computation]\n        ABAA --&gt; ABAAB[Z-pooled]\n        ABAA --&gt; ABAAC[Z-unpooled]\n      ABA --&gt; ABAB[Group-Sequential Design]\n        ABAB --&gt; ABABA[Z-pooled]\n    AB --&gt; ABB[One-Arm]\n      ABB --&gt; ABBA[Exact Computation]\n      ABB --&gt; ABBB[Non-exact Computation]"
+  },
+  {
+    "objectID": "presentation/presentation.html#motivations-2",
+    "href": "presentation/presentation.html#motivations-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Motivations",
+    "text": "Motivations\nSomething else\nHere we have some text that may run over several lines of the slide frame, depending on how long it is.\n\nfirst item\n\nA sub item\n\n\nNext, we’ll brief review some theme-specific components.\n\nNote that all of the standard Reveal.js features can be used with this theme, even if we don’t highlight them here."
+  },
+  {
+    "objectID": "presentation/presentation.html#scope-of-the-comparison-1",
+    "href": "presentation/presentation.html#scope-of-the-comparison-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Scope of the comparison",
+    "text": "Scope of the comparison\nExplored methods per clinical trials\n\nMethods compared for each design\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟦nQuery\noa2s, sssas, 🟪Rashnu\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-fixed-design",
+    "href": "presentation/presentation.html#two-arm-fixed-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm fixed design",
+    "text": "Two-Arm fixed design\nMethods compared\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nSoftware\nR package\n\n\n\n\nSurvival\nTwo-arm Fixed\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\n\nI would like to put the names of each functions\nEast : STT0 (no the good one) nQuery : ARO3FJ\n\nrpact::getSampleSizeSurvival()\nrashnu::lakatosSampleSize()\ngsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before"
+  },
+  {
+    "objectID": "presentation/presentation.html#quick-theorical-background",
+    "href": "presentation/presentation.html#quick-theorical-background",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Quick theorical background",
+    "text": "Quick theorical background\nRequired input\n\nTo compute required number of event we need:\n\n\\(\\alpha\\): Type I error\npower (\\(1-\\beta\\)): jsp\nhazard ratio: \\(\\lambda_2/\\lambda_1\\)\n\nIn addition, to compute sample size we need:\n\nSurvival probability of control group at a certain time \\(t\\)\nAccrual time\nFollow-up time\nDropout rate"
+  },
+  {
+    "objectID": "presentation/presentation.html#quick-theorical-background-1",
+    "href": "presentation/presentation.html#quick-theorical-background-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Quick theorical background",
+    "text": "Quick theorical background\nSchoenfeld formula\n\\[\ne = \\frac{4 (z_{1-\\alpha/2} + z_{1-\\beta})^2}{(\\log(HR))^2}\n\\]\nOther formula “Freedman” and “Hsieh-Freedman”"
+  },
+  {
+    "objectID": "presentation/presentation.html#quick-theorical-background-2",
+    "href": "presentation/presentation.html#quick-theorical-background-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Quick theorical background",
+    "text": "Quick theorical background\nFrom required events to sample size\nBasic idea : \\(n = e/\\mathbb{P}(event)\\)"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-fixed-design-1",
+    "href": "presentation/presentation.html#two-arm-fixed-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm fixed design",
+    "text": "Two-Arm fixed design\nMoving parameters\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nControl-group survival probability at 3 years:\n\\(S_c(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-fixed-design-2",
+    "href": "presentation/presentation.html#two-arm-fixed-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm fixed design",
+    "text": "Two-Arm fixed design\nAdditional parameters\n\n\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nAllocation ratio (experimental : control): 1 : 1\n\nTest sidedness: two-sided logrank test"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-fixed-design-3",
+    "href": "presentation/presentation.html#two-arm-fixed-design-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm fixed design",
+    "text": "Two-Arm fixed design\nResults I\nSome graphs"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-fixed-design-4",
+    "href": "presentation/presentation.html#two-arm-fixed-design-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm fixed design",
+    "text": "Two-Arm fixed design\nResults II\nSome other graphs"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nGroup-sequential design meaning\nInterim analysis We consider 4 looks equally spaced by information\n\n25% of events\n50% of events\n75% of events\n100% of events"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design-1",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nLan & DeMets Spending function\nWhat is a spending function, why ? We choose alpha-spending function and beta spending function with O’Brien Flemming -like spending"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design-2",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nCompared method\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nSoftware\nR package\n\n\n\n\nSurvival\nTwo-arm Group-Sequential\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\n\nEast : JEANBOB\nnQuery : MICHMICHEL\n\nrpact::getDesignGroupSequential()\nrpact::getSampleSizeSurvival() \ngsDesign2::gs_design_ahr()"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design-3",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nResults I\nSome results"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design-4",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nResults II\nSome other results"
+  },
+  {
+    "objectID": "presentation/presentation.html#one-arm-fixed-design",
+    "href": "presentation/presentation.html#one-arm-fixed-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm fixed design",
+    "text": "One-Arm fixed design\nCompared method\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nSoftware\nR package\n\n\n\n\nSurvival\nOne-arm Fixed\n🟦nQuery\noa2s1, sssas2, 🟪Rashnu\n\n\n\nnQuery : ROBERTJEAN\n\nOneArm2stage::phase2.TTE()\nSampleSizeSingleArmSurvival::calcSampleSizeArcsine()\nrashnu::oneSurvSampleSize()\n\nOneArm2stageSampleSizeSingleArmSurvival"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design-5",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design-5",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nResults I\nSome results"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-group-sequential-design-6",
+    "href": "presentation/presentation.html#two-arm-group-sequential-design-6",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Group sequential design",
+    "text": "Two-Arm Group sequential design\nResults II\nSome other results"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arm-fixed-design-5",
+    "href": "presentation/presentation.html#two-arm-fixed-design-5",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arm Fixed design",
+    "text": "Two-Arm Fixed design\nQuick theorical background\nHere we have some text that may run over several lines of the slide frame, depending on how long it is.\n\nfirst item\n\nA sub item\n\n\nNext, we’ll brief review some theme-specific components.\n\nNote that all of the standard Reveal.js features can be used with this theme, even if we don’t highlight them here."
+  },
+  {
+    "objectID": "presentation/presentation.html#one-arm-fixed-design-1",
+    "href": "presentation/presentation.html#one-arm-fixed-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm fixed design",
+    "text": "One-Arm fixed design\nResults I\nSome results"
+  },
+  {
+    "objectID": "presentation/presentation.html#one-arm-fixed-design-2",
+    "href": "presentation/presentation.html#one-arm-fixed-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm fixed design",
+    "text": "One-Arm fixed design\nResults II\nSome other results"
+  },
+  {
+    "objectID": "presentation/presentation.html#quick-theorical-background-3",
+    "href": "presentation/presentation.html#quick-theorical-background-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Quick theorical background",
+    "text": "Quick theorical background\nRequired input\n\nTo compute sample size we need:\n\n\\(\\alpha\\): Type I error\npower (\\(1-\\beta\\)): jsp\nExpected response proportion in control group\nExpected response proportion in experimental group"
+  },
+  {
+    "objectID": "presentation/presentation.html#quick-theorical-background-4",
+    "href": "presentation/presentation.html#quick-theorical-background-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Quick theorical background",
+    "text": "Quick theorical background\nDifferent computation for variance\nPooled, Unpooled, Exact computation Binomial approximation ?"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arms-fixed-design",
+    "href": "presentation/presentation.html#two-arms-fixed-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms Fixed Design",
+    "text": "Two-Arms Fixed Design\nMethod compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n\n\n\n\nEAST: efezfjizejf\nNQUERY: ‘“gigjejrgk’\n\nbbssr::BinarySampleSize(Test = c('Chisq', 'Fisher', 'Fisher-midP', 'Z-pool', 'Boschloo'))\nrpact::getSampleSizeRates()"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arms-fixed-design-1",
+    "href": "presentation/presentation.html#two-arms-fixed-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Two-Arms Fixed Design",
+    "text": "Two-Arms Fixed Design\nResults for Exact computation\nSome results"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arms-fixed-design-2",
+    "href": "presentation/presentation.html#two-arms-fixed-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Two-Arms Fixed Design",
+    "text": "Two-Arms Fixed Design\nResults pooled computation\nSome other results"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arms-group-sequential-design",
+    "href": "presentation/presentation.html#two-arms-group-sequential-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Two-Arms Group-Sequential Design",
+    "text": "Two-Arms Group-Sequential Design\nMethod compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact, can add gsdesign2\n\n\n\nEAST: efezfjizejf\nNQUERY: ‘“gigjejrgk’\n\nrpact::getSampleSizeRates()\ngsDesign2::gs_design_rd() # &lt;- not done for the moment"
+  },
+  {
+    "objectID": "presentation/presentation.html#two-arms-group-sequential-design-1",
+    "href": "presentation/presentation.html#two-arms-group-sequential-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Two-Arms Group-Sequential Design",
+    "text": "Two-Arms Group-Sequential Design\nResults\nThis is results"
+  },
+  {
+    "objectID": "presentation/presentation.html#one-arm-fixed-design-3",
+    "href": "presentation/presentation.html#one-arm-fixed-design-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm fixed Design",
+    "text": "One-Arm fixed Design\nMethod compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\n\n\nrpact::getSampleSizeRates()"
+  },
+  {
+    "objectID": "presentation/presentation.html#one-arm-fixed-design-4",
+    "href": "presentation/presentation.html#one-arm-fixed-design-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " One-Arm fixed Design",
+    "text": "One-Arm fixed Design\nMethod compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\n\n\nrpact::getSampleSizeRates()"
+  },
+  {
+    "objectID": "presentation/presentation.html#what-we-learnt",
+    "href": "presentation/presentation.html#what-we-learnt",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "What we learnt",
+    "text": "What we learnt\nNot much"
+  },
+  {
+    "objectID": "presentation/presentation.html#limitation",
+    "href": "presentation/presentation.html#limitation",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Limitation",
+    "text": "Limitation\nEach tools has it own limitations"
+  },
+  {
+    "objectID": "presentation/presentation.html#method-compared",
+    "href": "presentation/presentation.html#method-compared",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": " Method compared",
+    "text": "Method compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n\n\n\n\nEAST: efezfjizejf\nNQUERY: ‘“gigjejrgk’\n\nbbssr::BinarySampleSize(Test = c('Chisq', 'Fisher', 'Fisher-midP', 'Z-pool', 'Boschloo'))\nrpact::getSampleSizeRates()"
+  },
+  {
+    "objectID": "presentation/presentation.html#one-arm-fixed-design-5",
+    "href": "presentation/presentation.html#one-arm-fixed-design-5",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm fixed Design",
+    "text": "One-Arm fixed Design\nResults"
   }
 ]
