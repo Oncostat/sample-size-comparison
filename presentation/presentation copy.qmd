@@ -1,0 +1,415 @@
+---
+title: "Comparison of Sample Size Calculations Across Methods"
+subtitle: "R as an alternative to East and nQuery"
+format:
+  clean-revealjs:
+    title-slide-attributes:
+        data-state: "hide-menubar"
+    transition: slide
+    background-transition: fade
+    controls-layout: bottom-right
+    menu: false
+    section-divs: false
+    margin: 0.2
+    simplemenu:
+        barhtml:
+          header: 
+            "<div class='menubar'>
+              <a href='#'>
+                <img class='logo' src='../SCC-HexSticker.png' width='70' style='margin:0px 10px'>
+              </a>
+              <ul class='menu'></ul>
+            <div>"
+        scale: 0.67
+revealjs-plugins:
+  - simplemenu
+author:
+  - name: Arocena Thomas
+    orcid: 0009-0002-7014-220X
+    email: arocena.thomas@gmail.com
+    affiliations: Oncostat
+date: last-modified
+---
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+source("../quarto-setup.R")
+ssc <- read_rds("../ssc.rds")
+```
+
+## Table of Contents {data-state="hide-menubar"}
+<ul class="menu"><ul>
+
+<!-- # Introduction {background-color="#202B3E"} -->
+# Introduction {data-stack-name="Introduction"}
+A paragraph with some text and a [link](http://hakim.se).
+
+## Motivations
+### Why {{< fa brands r-project >}} for sample size calculation ?
+
+- do all analysis in {{< fa brands r-project >}} without having to use an external tool
+- share code to someone (better than share an East of nQuery project)
+- avoid problem with export
+- free and open-source code, allows to open issue, ask new feature, fork the code
+
+-> {{< fa brands r-project >}} packages need validation to get the same credibility and trust as proprietary softwares like East and nQuery
+
+
+## Scope of the comparison
+### Explored methods per clinical trials
+
+| Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
+| Survival   | Two-arm Fixed            |             | East, nQuery       | Rpact, Rashnu, gsDesign2         |
+| Survival   | One-arm Fixed            |             | nQuery             | oa2s, sssas, Rashnu              |
+| Survival   | Two-arm Group-Sequential |             | East, nQuery       | Rpact, gsDesign2                 |
+| Binary     | Two-arm Fixed            | Exact       | East, nQuery       | bbssr                            |
+| Binary     | Two-arm Fixed            | Pooled      | East, nQuery       | Rpact, bbssr                     |
+| Binary     | Two-arm Fixed            | Unpooled    | East, nQuery       |                                  |
+| Binary     | One-arm Fixed            | Exact       | East               | A'Hern(no package)               |
+| Binary     | One-arm Fixed            | Non_exact?  | East, nQuery       | Rpact                            |
+| Binary     | Two-arm Group-Sequential | Pooled      | East               | Rpact                            |
+
+## Scope of the comparison
+### Explored clinical trials
+```{mermaid}
+flowchart TB
+  A[Clinical Trial Design] --> AA[Time-to-Event Endpoints]
+    AA --> AAA[Two-Arms]
+      AAA --> AAAA[Fixed Design]
+      AAA --> AAAB[Group-Sequential Design]
+    AA --> AAB[One Arm]
+  A --> AB[Binary Endpoints]
+    AB --> ABA[Two-Arms]
+      ABA --> ABAA[Fixed Design]
+        ABAA --> ABAAA[Exact Computation]
+        ABAA --> ABAAB[Z-pooled]
+        ABAA --> ABAAC[Z-unpooled]
+      ABA --> ABAB[Group-Sequential Design]
+        ABAB --> ABABA[Z-pooled]
+    AB --> ABB[One-Arm]
+      ABB --> ABBA[Exact Computation]
+      ABB --> ABBB[Non-exact Computation]
+```
+
+# Time-to-event endpoints {data-stack-name="Time-to-Event"}
+
+## Quick theorical background {auto-animate=true}
+### Required input
+
+- To compute required number of event we need:
+  - $\alpha$: Type I error
+  - power ($1-\beta$): jsp
+  - hazard ratio: $\lambda_2/\lambda_1$
+
+- In addition, to compute sample size we need:
+  - Survival probability of control group at a certain time $t$
+  - Accrual time
+  - Follow-up time
+  - Dropout rate
+
+## Quick theorical background
+### Schoenfeld formula
+
+$$
+e = \frac{4 (z_{1-\alpha/2} + z_{1-\beta})^2}{(\log(HR))^2}
+$$
+
+Other formula "Freedman" and "Hsieh-Freedman"
+
+---
+
+## Two-Arms fixed design
+### Methods compared
+
+| Endpoints  | Design Type              | Software       | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:---------------|:-----------------------------------|
+| Survival   | Two-arm Fixed            | East, nQuery   | Rpact, Rashnu, gsDesign2           |
+
+
+::: {style="font-size: 70%;"}
+
+- East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
+- nQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+rpact::getSampleSizeSurvival()
+rashnu::lakatosSampleSize()
+gsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before
+```
+
+## Two-Arms fixed design
+### Results
+
+```{r}
+#| echo: false
+surv_fixed <- ssc$surv$fixed$combined
+params <- get_params(surv_fixed)
+tbl <- get_tbl(surv_fixed)
+```
+
+```{r}
+#| echo: false
+n_ratios <-
+  tbl |> 
+  drop_na(n_east) |> 
+  mutate(
+    rpact = n_rpact/n_east,
+    nquery = n_nquery/n_east,
+    gsdesign2 = n_gsdesign2/n_east,
+    rashnu = n_rashnu/n_east
+  ) |> 
+  select(-c("n_rpact", "n_nquery", "n_rashnu", "n_gsdesign2"), -starts_with("e_")) |> 
+  pivot_longer(
+    cols = c("rpact", "nquery", "gsdesign2", "rashnu"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio <-
+  n_ratios |> 
+  group_by(relevancy, method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
+  ) |> 
+  tab_stubhead(label = "Pertinence") |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#ffa194ff")
+    ),
+    location = cells_row_groups("low")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0e292ff")
+    ),
+    location = cells_row_groups("medium")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#a7ffc4ff")
+    ),
+    location = cells_row_groups("high")
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio |> 
+tab_options(
+  table.width = pct(100),
+  table.font.size = pct(45)
+) 
+```
+
+## Two-Arms fixed design
+### Results II
+
+```{r}
+ggplot(n_ratios) +
+aes(x = n_east, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+facet_wrap( ~ relevancy, scales = "free") +
+labs(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
+  x = "Proportion",
+  y = "Sample size de East"
+) +
+theme_minimal()
+```
+
+## Two-Arms group sequential design
+### Methods compared
+
+| Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
+| Survival   | Two-arm Group-Sequential |             | East, nQuery       | Rpact, gsDesign2                 |
+
+
+::: {style="font-size: 70%;"}
+
+- East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
+- nQuery : STT12 / Group Sequential Two Sample Log-Rank Test
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+rpact::getSampleSizeSurvival()
+gsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before
+```
+
+
+## One-Arm design
+
+# Vertical slide 1 {data-stack-name="Vertical"}
+
+## Vertical slide 2
+
+# Global options {data-stack-name="Options"}
+
+The options below have user configurable options. In a regular Reveal.js presentation, these can be set through JavaScript, but Quarto makes it configurable through YAML options.
+
+::: columns
+::: {.column style="font-size: 2rem"}
+1. menubarclass
+2. menuclass
+3. activeclass
+4. activeelement
+:::
+
+::: {.column style="font-size: 2rem"}
+5. barhtml
+7. flat
+8. scale
+
+:::
+:::
+
+## Option 1: menubarclass
+
+The menubarclass option sets the classname of menubars.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      menubarclass: "menubar"
+```
+<p class="small">Simplemenu will show the menubar(s) on all pages. If you do not want to show the menubar on certain pages, use data-state="hide-menubar" on that section. This behaviour also works when exporting to PDF using the Reveal.js ?print-pdf option.</p>
+
+
+## Option 2: menuclass
+
+The menuclass option sets the classname of the menu.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      menuclass: "menu"
+```
+Simplemenu looks inside this menu for list items (LI's).
+
+## Option 3: activeclass
+
+The activeclass option is the class an active menuitem gets.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      activeclass: "active"
+```
+
+## Option 4: activeelement
+
+The activeelement option sets the item that gets the active class.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      activeelement: "li"
+```
+You may want to change it to the anchor inside the li, like this: `activeelement: "a"`.
+
+## Option 5: barhtml
+
+You can add the HTML for the header (and/or footer) through this option. This way you no longer need to edit the template.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      barhtml:
+        header: "<div class='menubar'><ul class='menu'></ul></div>"
+        footer: ""
+```
+
+## Option 5: barhtml (Continued)
+
+You can also move the slide number or the controls to your header or footer. If they are nested there manually, or through the `barhtml` option, they will then display inside that header or footer.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      barhtml:
+        header: ""
+        footer: "<div class='menubar'><ul class='menu'></ul><div class='slide-number'></div></div>"
+```
+
+## Option 6: flat
+
+Sometimes you’ll want to limit your presentation to horizontal slides only. To still use ‘chapters’, you can use the `flat` option. By default, it is set to `false`, but you can set it to `true`. Then, when a data-name is set for a slide, any following slides will keep that menu name.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      flat: true
+```
+To stop inheriting the previous slide menu name, start a new named section, or add `data-sm="false"` to your slide.
+
+
+## Option 7: scale
+
+When you have a lot of subjects/chapters in your menubar, they might not all fit in a row. You can then tweak the scale in the options. Simplemenu copies the Reveal.js (slide) scaling and adds a `scale` option on top of that.
+
+``` yaml
+format:
+  revealjs:
+    ...
+    simplemenu:
+      scale: 0.67
+```
+It is set to be two-thirds of the main scaling.
+
+# More demos {data-name="More demos"}
+
+For more demos go to the [Simplemenu plugin](https://github.com/Martinomagnifico/reveal.js-simplemenu) for Reveal.js. 
+Not all of the options in the regular plugin are available in the Quarto plugin.
