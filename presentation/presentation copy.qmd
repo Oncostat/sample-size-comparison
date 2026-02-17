@@ -11,6 +11,7 @@ format:
     menu: false
     section-divs: false
     margin: 0.2
+    width: 1200
     simplemenu:
         barhtml:
           header: 
@@ -20,7 +21,8 @@ format:
               </a>
               <ul class='menu'></ul>
             <div>"
-        scale: 0.67
+        scale: 0.60
+mermaid-format: svg
 revealjs-plugins:
   - simplemenu
 author:
@@ -65,7 +67,7 @@ A paragraph with some text and a [link](http://hakim.se).
 |:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
 | Survival   | Two-arm Fixed            |             | East, nQuery       | Rpact, Rashnu, gsDesign2         |
 | Survival   | One-arm Fixed            |             | nQuery             | oa2s, sssas, Rashnu              |
-| Survival   | Two-arm Group-Sequential |             | East, nQuery       | Rpact, gsDesign2                 |
+| Survival   | Two-arm Group-Sequential |             | East               | Rpact, gsDesign2                 |
 | Binary     | Two-arm Fixed            | Exact       | East, nQuery       | bbssr                            |
 | Binary     | Two-arm Fixed            | Pooled      | East, nQuery       | Rpact, bbssr                     |
 | Binary     | Two-arm Fixed            | Unpooled    | East, nQuery       |                                  |
@@ -76,26 +78,624 @@ A paragraph with some text and a [link](http://hakim.se).
 ## Scope of the comparison
 ### Explored clinical trials
 ```{mermaid}
+%%| fig-width: 10
+---
+config:
+  theme: neutral
+---
 flowchart TB
   A[Clinical Trial Design] --> AA[Time-to-Event Endpoints]
     AA --> AAA[Two-Arms]
-      AAA --> AAAA[Fixed Design]
-      AAA --> AAAB[Group-Sequential Design]
-    AA --> AAB[One Arm]
+      AAA --> AAAA([Fixed Design])
+      AAA --> AAAB([Group-Sequential Design])
+    AA --> AAB([One Arm])
   A --> AB[Binary Endpoints]
     AB --> ABA[Two-Arms]
       ABA --> ABAA[Fixed Design]
-        ABAA --> ABAAA[Exact Computation]
-        ABAA --> ABAAB[Z-pooled]
-        ABAA --> ABAAC[Z-unpooled]
+        ABAA --> ABAAA([Exact Computation])
+        ABAA --> ABAAB([Z-pooled])
+        ABAA --> ABAAC([Z-unpooled])
       ABA --> ABAB[Group-Sequential Design]
-        ABAB --> ABABA[Z-pooled]
+        ABAB --> ABABA([Z-pooled])
     AB --> ABB[One-Arm]
-      ABB --> ABBA[Exact Computation]
-      ABB --> ABBB[Non-exact Computation]
+      ABB --> ABBA([Exact Computation])
+      ABB --> ABBB([Non-exact Computation])
+```
+
+# Binary endpoints {data-stack-name="Binary"}
+
+```{mermaid}
+%%| fig-width: 10
+---
+config:
+  theme: neutral
+---
+flowchart TB
+  AB[Binary Endpoints] --> ABA[Two-Arms]
+      ABA --> ABAA[Fixed Design]
+        ABAA --> ABAAA([Exact Computation])
+        ABAA --> ABAAB([Z-pooled])
+        ABAA --> ABAAC([Z-unpooled])
+      ABA --> ABAB[Group-Sequential Design]
+        ABAB --> ABABA([Z-pooled])
+    AB --> ABB[One-Arm]
+      ABB --> ABBA([Exact Computation])
+      ABB --> ABBB([Non-exact Computation])
+```
+
+## Quick theorical background {auto-animate=true}
+### Required input
+
+- To compute required number of event we need:
+  - $\alpha$: Type I error
+  - power ($1-\beta$): jsp
+  - Proportion of control group $\pi_c$
+  - Proportion of experimental group $\pi_e$
+
+## Quick theorical background
+### formula
+[Pooled/Unpooled Z-test](https://en.wikipedia.org/wiki/Two-proportion_Z-test)
+[Fisher Exact](https://en.wikipedia.org/wiki/Fisher%27s_exact_test)
+
+---
+
+## Two-Arms fixed design
+### Methods compared
+
+| Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
+| Binary     | Two-arm Fixed            | Exact       | East, nQuery       | bbssr                            |
+| Binary     | Two-arm Fixed            | Pooled      | East, nQuery       | Rpact, (bbssr)                   |
+| Binary     | Two-arm Fixed            | Unpooled    | East, nQuery       |                                  |
+
+
+::: {style="font-size: 70%;"}
+
+- East: Difference of Proportions test [PN-2S-DI]
+- nQuery : PTT36 / Inequality Tests for Difference of Two Proportions
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+bbssr::BinarySampleSize()
+rpact::getSampleSizeRates()
+```
+
+## Two-Arms fixed design
+### Results
+
+```{r}
+#| echo: false
+bin_fixed_exact <- ssc$bin$fixed_exact$combined
+bin_fixed_pooled <- ssc$bin$fixed_pooled$combined
+tbl_exact <- get_tbl(bin_fixed_exact)
+tbl_pooled <- get_tbl(bin_fixed_pooled)
+```
+
+```{r}
+#| echo: false
+n_ratios_pooled <-
+  tbl_pooled |> 
+  drop_na(n_east) |> 
+  mutate(
+    rpact = n_rpact/n_east,
+    nquery = n_nquery/n_east,
+  ) |> 
+  select(-c("n_rpact", "n_nquery", "n_bbssr")) |> 
+  pivot_longer(
+    cols = c("rpact", "nquery"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+
+n_ratios_exact <-
+  tbl_exact |> 
+  drop_na(n_east) |> 
+  mutate(
+    bbssr = n_bbssr/n_east,
+    nquery = n_nquery/n_east,
+  ) |> 
+  select(-c("n_nquery", "n_bbssr")) |> 
+  pivot_longer(
+    cols = c("bbssr", "nquery"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio_pooled <-
+  n_ratios_pooled |> 
+  group_by(method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes par rapport aux valeurs de East"
+  ) |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio_exact <-
+  n_ratios_exact |> 
+  group_by(method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes par rapport aux valeurs de East"
+  ) |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  )
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {style="font-size: 70%;"}
+
+[*pooled*]{.fg style="--col: #8a8aa1ff"}
+
+:::
+
+```{r}
+#| echo: false
+gt_ratio_pooled
+```
+
+```{r}
+ggplot(n_ratios_pooled) +
+aes(x = n_east, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+labs(
+  x = "Sample size de East",
+  y = "Proportion"
+) +
+theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+::: {style="font-size: 70%;"}
+
+[*exact*]{.fg style="--col: #8a8aa1ff"}
+
+:::
+
+```{r}
+gt_ratio_exact
+```
+
+```{r}
+ggplot(n_ratios_exact) +
+aes(x = n_east, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+labs(x = "Sample size de East", y = NULL) +
+theme_minimal() 
+```
+
+:::
+
+::::
+
+## Two-Arms fixed design
+### Results II
+
+```{r}
+ggplot(n_ratios_pooled) +
+aes(x = n_east, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+labs(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes par rapport aux valeurs de East",
+  x = "Sample size de East",
+  y = "Proportion"
+) +
+theme_minimal()
+```
+
+## Two-Arms group sequential design
+### Methods compared
+
+| Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
+| Survival   | Two-arm Group-Sequential |             | East               | Rpact, gsDesign2                 |
+
+
+::: {style="font-size: 70%;"}
+
+- East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+rpact::getSampleSizeSurvival()
+gsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before
+```
+
+## Two-Arms group sequential design
+### Results I
+
+```{r}
+#| echo: false
+surv_gs <- read_rds("../surv_gs.rds")
+tbl <- get_tbl(surv_gs)
+```
+
+
+```{r}
+#| echo: false
+n_ratios <-
+  tbl |> 
+  drop_na(n_east) |> 
+  mutate(
+    rpact = n_rpact/n_east,
+    gsdesign2 = n_gsdesign2/n_east,
+  ) |> 
+  select(-c("n_rpact", "n_gsdesign2"), -starts_with("e_")) |> 
+  pivot_longer(
+    cols = c("rpact", "gsdesign2"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio <-
+  n_ratios |> 
+  group_by(relevancy, method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
+  ) |> 
+  tab_stubhead(label = "Pertinence") |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0e292ff")
+    ),
+    location = cells_row_groups("medium")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#a7ffc4ff")
+    ),
+    location = cells_row_groups("high")
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio
+```
+
+## Two-Arms group sequential design
+### Results II
+
+```{r}
+ggplot(n_ratios) +
+aes(x = n_east, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+facet_wrap( ~ relevancy, scales = "free") +
+labs(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
+  x = "Sample size de East",
+  y = "Proportion"
+) +
+theme_minimal()
+```
+
+## Two-Arms group sequential design
+### Results III
+
+```{r}
+tbl  |>  
+filter(
+  alpha == 0.05, 
+  power == 0.9, 
+  hr  == 0.6, 
+  relevancy == "high"
+) |> 
+mutate(
+  ratio_rpact = signif(n_rpact/n_east, digit = 3),
+  ratio_gsdesign2 = signif(n_gsdesign2/n_east, digit = 3)
+) |> 
+select(-c(starts_with("e_"), relevancy, alpha, power, hr)) |> 
+rename(
+  "Survie à 3 ans" := surv_t,
+  "Rpact" := n_rpact,
+  "East" := n_east,
+  "gsDesign2" := n_gsdesign2,
+  "Rpact/East" := ratio_rpact,
+  "gsDesign2/East" := ratio_gsdesign2
+) |> 
+gt() |> 
+tab_header(
+    title = "Sample Size dans des cas pertinents",
+    subtitle = "α = 0.05, β = 0.1 et HR = 0.6"
+) |> 
+tab_spanner(
+    label = "Sample Size",
+    columns = c("Rpact", "East", "gsDesign2")
+) |> 
+tab_style(
+    style = list(
+      cell_fill(color = "#c1dae2ff")
+    ),
+    location = cells_body(
+      columns = c("Rpact", "East", "gsDesign2")
+    )
+) |> 
+tab_spanner(
+    label = "Ratio",
+    columns = c("Rpact/East", "gsDesign2/East")
+) |> 
+tab_style(
+    style = list(
+      cell_fill(color = "#c8e2c1ff")
+    ),
+    location = cells_body(
+      columns = c("Rpact/East", "gsDesign2/East")
+    )
+  )
+```
+
+## One-Arm design
+### Methods compared
+
+| Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
+| Survival   | One-arm Fixed            |             | nQuery             | oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu|
+
+::: {style="font-size: 70%;"}
+
+- nQuery : SOT1 / One Sample Log-Rank Test with Accrual
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+OneArm2stage::phase2.TTE() # Version with accrual time
+SampleSizeSingleArmSurvival::calcSampleSizeArcsine()
+rashnu::oneSurvSampleSize()
+```
+
+## One-Arm design
+### Results I
+
+```{r}
+surv_one_arm <- 
+  get_tbl(ssc$surv$one_arm$combined) |> 
+  mutate(relevancy = evaluate_relevancy(alpha, power, hr)) |> 
+  mutate(relevancy = fct_relevel(relevancy, c("low", "medium", "high"))) |> 
+  filter(n_nquery < 200000)
+```
+
+```{r}
+#| echo: false
+n_ratios <-
+  surv_one_arm |> 
+  drop_na(n_nquery) |> 
+  mutate(
+    oa2s = n_oa2s/n_nquery,
+    rashnu = n_rashnu/n_nquery,
+    sssas = n_sssas/n_nquery
+  ) |> 
+  select(-c("n_oa2s", "n_rashnu", "n_sssas"), -starts_with("e_")) |> 
+  pivot_longer(
+    cols = c("oa2s", "rashnu", "sssas"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio <-
+  n_ratios |> 
+  group_by(relevancy, method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery"
+  ) |> 
+  tab_stubhead(label = "Pertinence") |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#ffa194ff")
+    ),
+    location = cells_row_groups("low")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0e292ff")
+    ),
+    location = cells_row_groups("medium")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#a7ffc4ff")
+    ),
+    location = cells_row_groups("high")
+  ) |> 
+  tab_footnote(
+    footnote = "OneArm2stage",
+    locations = cells_stub(rows = "oa2s")
+  ) |> 
+  tab_footnote(
+    footnote = "SampleSizeSingleArmSurvival",
+    locations = cells_stub(rows = "sssas")
+  ) 
+```
+
+```{r}
+#| echo: false
+gt_ratio
+```
+
+## One-Arm design
+### Results II
+
+```{r}
+ggplot(n_ratios) +
+aes(x = n_nquery, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+facet_wrap( ~ relevancy, scales = "free") +
+labs(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery",
+  x = "Sample size de nQuery",
+  y = "Proportion"
+) +
+theme_minimal()
+```
+
+```{r}
+#| eval: false
+dt_one_arm <-
+  surv_one_arm |> 
+  rename(
+    oa2s = n_oa2s,
+    sssas = n_sssas,
+    rashnu = n_rashnu,
+    nquery = n_nquery
+  ) |> 
+  filter(
+    alpha == 0.05,
+    power == 0.9,
+    hr == 0.7
+  ) |> 
+  pivot_longer(
+    cols = c("oa2s", "sssas", "rashnu", "nquery"),
+    names_to = "method",
+    values_to = "N"
+  )
+
+ggplot(dt_one_arm) +
+aes(x = as.factor(surv_t), y = N, color = method) +
+geom_point() +
+labs(
+  title = "Sample Size en fonction de la survie à 3 ans",
+  subtitle = "α = 0.05, β = 0.1 et HR = 0.6",
+  x = "Survie à 3 ans",
+  y = "Sample Size"
+) +
+theme_minimal()
 ```
 
 # Time-to-event endpoints {data-stack-name="Time-to-Event"}
+
+```{mermaid}
+%%| fig-width: 10
+---
+config:
+  theme: neutral
+---
+flowchart TB
+  AA[Time-to-Event Endpoints] --> AAA[Two-Arms]
+    AAA --> AAAA([Fixed Design])
+    AAA --> AAAB([Group-Sequential Design])
+  AA --> AAB([One Arm])
+```
 
 ## Quick theorical background {auto-animate=true}
 ### Required input
@@ -247,8 +847,8 @@ facet_wrap( ~ relevancy, scales = "free") +
 labs(
   title = "Proportions des sample sizes",
   subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
-  x = "Proportion",
-  y = "Sample size de East"
+  x = "Sample size de East",
+  y = "Proportion"
 ) +
 theme_minimal()
 ```
@@ -258,13 +858,12 @@ theme_minimal()
 
 | Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
 |:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
-| Survival   | Two-arm Group-Sequential |             | East, nQuery       | Rpact, gsDesign2                 |
+| Survival   | Two-arm Group-Sequential |             | East               | Rpact, gsDesign2                 |
 
 
 ::: {style="font-size: 70%;"}
 
 - East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
-- nQuery : STT12 / Group Sequential Two Sample Log-Rank Test
 
 :::
 
@@ -275,8 +874,321 @@ rpact::getSampleSizeSurvival()
 gsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before
 ```
 
+## Two-Arms group sequential design
+### Results I
+
+```{r}
+#| echo: false
+surv_gs <- read_rds("../surv_gs.rds")
+tbl <- get_tbl(surv_gs)
+```
+
+```{r}
+#| echo: false
+n_ratios <-
+  tbl |> 
+  drop_na(n_east) |> 
+  mutate(
+    rpact = n_rpact/n_east,
+    gsdesign2 = n_gsdesign2/n_east,
+  ) |> 
+  select(-c("n_rpact", "n_gsdesign2"), -starts_with("e_")) |> 
+  pivot_longer(
+    cols = c("rpact", "gsdesign2"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio <-
+  n_ratios |> 
+  group_by(relevancy, method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
+  ) |> 
+  tab_stubhead(label = "Pertinence") |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0e292ff")
+    ),
+    location = cells_row_groups("medium")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#a7ffc4ff")
+    ),
+    location = cells_row_groups("high")
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio
+```
+
+## Two-Arms group sequential design
+### Results II
+
+```{r}
+ggplot(n_ratios) +
+aes(x = n_east, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+facet_wrap( ~ relevancy, scales = "free") +
+labs(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
+  x = "Sample size de East",
+  y = "Proportion"
+) +
+theme_minimal()
+```
+
+## Two-Arms group sequential design
+### Results III
+
+```{r}
+tbl  |>  
+filter(
+  alpha == 0.05, 
+  power == 0.9, 
+  hr  == 0.6, 
+  relevancy == "high"
+) |> 
+mutate(
+  ratio_rpact = signif(n_rpact/n_east, digit = 3),
+  ratio_gsdesign2 = signif(n_gsdesign2/n_east, digit = 3)
+) |> 
+select(-c(starts_with("e_"), relevancy, alpha, power, hr)) |> 
+rename(
+  "Survie à 3 ans" := surv_t,
+  "Rpact" := n_rpact,
+  "East" := n_east,
+  "gsDesign2" := n_gsdesign2,
+  "Rpact/East" := ratio_rpact,
+  "gsDesign2/East" := ratio_gsdesign2
+) |> 
+gt() |> 
+tab_header(
+    title = "Sample Size dans des cas pertinents",
+    subtitle = "α = 0.05, β = 0.1 et HR = 0.6"
+) |> 
+tab_spanner(
+    label = "Sample Size",
+    columns = c("Rpact", "East", "gsDesign2")
+) |> 
+tab_style(
+    style = list(
+      cell_fill(color = "#c1dae2ff")
+    ),
+    location = cells_body(
+      columns = c("Rpact", "East", "gsDesign2")
+    )
+) |> 
+tab_spanner(
+    label = "Ratio",
+    columns = c("Rpact/East", "gsDesign2/East")
+) |> 
+tab_style(
+    style = list(
+      cell_fill(color = "#c8e2c1ff")
+    ),
+    location = cells_body(
+      columns = c("Rpact/East", "gsDesign2/East")
+    )
+  )
+```
 
 ## One-Arm design
+### Methods compared
+
+| Endpoints  | Design Type              | Computation | Software           | {{< fa brands r-project >}} package|
+|:-----------|:-------------------------|:------------|:-------------------|:---------------------------------|
+| Survival   | One-arm Fixed            |             | nQuery             | oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu|
+
+::: {style="font-size: 70%;"}
+
+- nQuery : SOT1 / One Sample Log-Rank Test with Accrual
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+OneArm2stage::phase2.TTE() # Version with accrual time
+SampleSizeSingleArmSurvival::calcSampleSizeArcsine()
+rashnu::oneSurvSampleSize()
+```
+
+## One-Arm design
+### Results I
+
+```{r}
+surv_one_arm <- 
+  get_tbl(ssc$surv$one_arm$combined) |> 
+  mutate(relevancy = evaluate_relevancy(alpha, power, hr)) |> 
+  mutate(relevancy = fct_relevel(relevancy, c("low", "medium", "high"))) |> 
+  filter(n_nquery < 200000)
+```
+
+```{r}
+#| echo: false
+n_ratios <-
+  surv_one_arm |> 
+  drop_na(n_nquery) |> 
+  mutate(
+    oa2s = n_oa2s/n_nquery,
+    rashnu = n_rashnu/n_nquery,
+    sssas = n_sssas/n_nquery
+  ) |> 
+  select(-c("n_oa2s", "n_rashnu", "n_sssas"), -starts_with("e_")) |> 
+  pivot_longer(
+    cols = c("oa2s", "rashnu", "sssas"),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+```
+
+```{r}
+#| echo: false
+gt_ratio <-
+  n_ratios |> 
+  group_by(relevancy, method)  |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  gt(rowname_col = c("method")) |> 
+  tab_header(
+    title = "Proportions des sample sizes",
+    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery"
+  ) |> 
+  tab_stubhead(label = "Pertinence") |>  
+  tab_style(
+    style = list(
+      cell_fill(color = "#9A2515"),
+      cell_text(style = "italic", color = "white")
+      ),
+    locations = cells_body(
+      rows = (Q1 < 0.9 | Q3 > 1.1)
+    )
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#ffa194ff")
+    ),
+    location = cells_row_groups("low")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0e292ff")
+    ),
+    location = cells_row_groups("medium")
+  ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#a7ffc4ff")
+    ),
+    location = cells_row_groups("high")
+  ) |> 
+  tab_footnote(
+    footnote = "OneArm2stage",
+    locations = cells_stub(rows = "oa2s")
+  ) |> 
+  tab_footnote(
+    footnote = "SampleSizeSingleArmSurvival",
+    locations = cells_stub(rows = "sssas")
+  ) 
+```
+
+```{r}
+#| echo: false
+gt_ratio
+```
+
+## One-Arm design
+### Results II
+
+```{r}
+ggplot(n_ratios) +
+aes(x = n_nquery, y = n_ratio, color = method) +
+geom_point() +
+geom_smooth(se = FALSE) +
+geom_hline(yintercept = 0.9, linetype = "dashed") +
+geom_hline(yintercept = 1) +
+geom_hline(yintercept = 1.1,  linetype = "dashed") +
+facet_wrap( ~ relevancy, scales = "free") +
+labs(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery",
+  x = "Sample size de nQuery",
+  y = "Proportion"
+) +
+theme_minimal()
+```
+
+```{r}
+#| eval: false
+dt_one_arm <-
+  surv_one_arm |> 
+  rename(
+    oa2s = n_oa2s,
+    sssas = n_sssas,
+    rashnu = n_rashnu,
+    nquery = n_nquery
+  ) |> 
+  filter(
+    alpha == 0.05,
+    power == 0.9,
+    hr == 0.7
+  ) |> 
+  pivot_longer(
+    cols = c("oa2s", "sssas", "rashnu", "nquery"),
+    names_to = "method",
+    values_to = "N"
+  )
+
+ggplot(dt_one_arm) +
+aes(x = as.factor(surv_t), y = N, color = method) +
+geom_point() +
+labs(
+  title = "Sample Size en fonction de la survie à 3 ans",
+  subtitle = "α = 0.05, β = 0.1 et HR = 0.6",
+  x = "Survie à 3 ans",
+  y = "Sample Size"
+) +
+theme_minimal()
+```
 
 # Vertical slide 1 {data-stack-name="Vertical"}
 
