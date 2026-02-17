@@ -14,3 +14,5 @@ suppressPackageStartupMessages(suppressWarnings({
 source("../R/S7/generics.R")
 source("../R/S7/ssc_design.R")
 source("../R/S7/ssc_results.R")
+source("../R/functions/checks.R")
+source("../R/functions/evaluate_relevancy.R")

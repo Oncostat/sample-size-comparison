@@ -95,6 +95,8 @@ combined <-
       full_join(x, y, by = join_by(alpha, power, hr, surv_t))
     }
   ) |>
+  mutate(relevancy = evaluate_relevancy(alpha, power, hr)) |>
+  mutate(relevancy = fct_relevel(relevancy, c("low", "medium", "high"))) |>
   ssc_results(design = design_surv_gs, method = "combined")
 cli_alert_success("Combined results")
 
