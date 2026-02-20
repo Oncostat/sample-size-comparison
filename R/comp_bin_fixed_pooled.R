@@ -34,15 +34,15 @@ rpact <-
 cli_alert_success("Rpact results")
 
 ## bbssr ----
-bbssr_wrapper <- 
-  wrapper$bbssr_bin_fixed |> 
-  partial(!!!params$additional) |> 
-  partial(test = "Z-pool")
-bbssr <-
-  params$table |>
-  mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
-  ssc_results(design = design_bin_fixed_pooled, method = "bbssr")
-cli_alert_success("bbssr results")
+# bbssr_wrapper <- 
+#   wrapper$bbssr_bin_fixed |> 
+#   partial(!!!params$additional) |> 
+#   partial(test = "Z-pool")
+# bbssr <-
+#   params$table |>
+#   mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
+#   ssc_results(design = design_bin_fixed_pooled, method = "bbssr")
+# cli_alert_success("bbssr results")
 
 ## East ----
 filelist_east <- list.files(
@@ -110,10 +110,16 @@ cli_alert_success("nQuery results")
 
 ## Comparison
 combined <-
-  lst(rpact, bbssr, east, nquery) |>
+  lst(
+    rpact, 
+    # bbssr, 
+    east, 
+    nquery) |>
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
+  mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |>
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_fixed_pooled, method = "combined")
 cli_alert_success("Combined results")
 
@@ -121,12 +127,12 @@ cli_alert_success("Combined results")
 cli_alert_success("Tables & figures")
 
 ssc$bin$fixed_pooled$res <- 
-lst(
-rpact, 
+  lst(
+    rpact, 
     # bbssr, 
-east, 
-nquery
-)
+    east, 
+    nquery
+  )
 ssc$bin$fixed_pooled$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$bin$fixed_pooled$params <- params
 ssc$bin$fixed_pooled$combined <- combined
