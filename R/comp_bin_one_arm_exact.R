@@ -31,6 +31,8 @@ ahern <-
   params$table |>
   mutate(n = pmap(params$table, ahern_wrapper, .progress = TRUE)) |>
   unnest(n) |> 
+  mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |>
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_one_arm_exact, method = "ahern")
 cli_alert_success("A'Hern results")
 

@@ -108,6 +108,8 @@ combined <-
     }
   ) |> 
   select(where(~ !all(is.na(.)))) |> 
+  mutate(relevancy = evaluate_relevancy_surv(alpha, power, hr)) |>
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_one_arm, method = "combined")
 cli_alert_success("Combined results")
 

@@ -120,7 +120,13 @@ cli_alert_success("Combined results")
 # Tables & figures
 cli_alert_success("Tables & figures")
 
-ssc$bin$fixed_pooled$res <- lst(rpact, bbssr, east, nquery)
+ssc$bin$fixed_pooled$res <- 
+lst(
+rpact, 
+    # bbssr, 
+east, 
+nquery
+)
 ssc$bin$fixed_pooled$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$bin$fixed_pooled$params <- params
 ssc$bin$fixed_pooled$combined <- combined

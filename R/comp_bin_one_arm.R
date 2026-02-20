@@ -112,6 +112,8 @@ combined <-
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
+  mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |>
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_one_arm_pooled, method = "combined")
 cli_alert_success("Combined results")
 
