@@ -11,6 +11,7 @@ format:
     menu: true
     section-divs: false
     margin: 0.12
+    widescreen: true
     width: 1200
     theme: theme.scss
     incremental: true
@@ -50,10 +51,10 @@ lang: fr
 #| echo: false
 #| message: false
 #| warning: false
-source("../quarto-setup.R")
-ssc <- read_rds("../ssc2.rds")
-ssc$bin$fixed_exact <- read_rds("../ssc.rds")$bin$fixed_exact
+source("presentation-setup.R")
+theme_set(theme_clean())
 ```
+
 
 <!-- # Introduction {background-color="#202B3E"} -->
 # Introduction {data-stack-name="Introduction"}
@@ -225,9 +226,81 @@ rpact::getSampleSizeRates()
 ### Résultats en pooled
 
 ```{r}
-#| echo: false
-bin_fixed_exact <- ssc$bin$fixed_exact$combined
+#| label: nr_bin_2_fixed_pooled
+nr_bin_2_fixed_pooled <- 
+  ssc$bin$fixed_pooled$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
+```
+
+:::: {.columns}
+::: {.column width="35%"}
+::: {.fragment}
+```{r}
+#| label: gt_n_ratio(nr_bin_2_fixed_pooled)
+#| tbl-widths: 9
+gt_n_ratio(nr_bin_2_fixed_pooled, title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
+```
+::: 
+:::
+::: {.column width="65%"}
+::: {.fragment}
+```{r}
+#| label: plot_n_ratio(nr_bin_2_fixed_pooled)
+#| fig-height: 7
+plot_n_ratio(nr_bin_2_fixed_pooled, title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
+```
+:::
+:::
+::::
+
+## Essai à 2 bras fixe
+### Résultats en exact
+
+```{r}
+#| label: nr_bin_2_fixed_exact
+nr_bin_2_fixed_exact <- 
+  ssc$bin$fixed_exact$combined |> 
+  get_tbl() |> 
+  mutate(
+    relevancy = case_when(
+        alpha > 0.2 | power < 0.6 | power >= 0.99 ~ "low",
+        alpha > 0.02 & alpha < 0.15 & power > 0.75  ~ "high",
+        .default = "medium"
+    )
+  ) |> 
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |> 
+  get_n_ratio()
+```
+
+:::: {.columns}
+::: {.column width="35%"}
+::: {.fragment}
+```{r}
+#| label: gt_n_ratio(nr_bin_2_fixed_exact)
+#| tbl-widths: 9
+gt_n_ratio(nr_bin_2_fixed_exact, title = "N-Ratio Binaire à 2-Bras fixe, exact")
+```
+::: 
+:::
+::: {.column width="65%"}
+::: {.fragment}
+```{r}
+#| label: plot_n_ratio(nr_bin_2_fixed_exact)
+#| fig-height: 7
+plot_n_ratio(nr_bin_2_fixed_exact, title = "N-Ratio Binaire à 2-Bras fixe, exact")
+```
+:::
+:::
+::::
+
+
+## Essai à 2 bras fixe
+### Résultats en pooled
+
+```{r}
 bin_fixed_pooled <- ssc$bin$fixed_pooled$combined
+bin_fixed_exact <- ssc$bin$fixed_exact$combined
 tbl_exact <- get_tbl(bin_fixed_exact) |> 
   mutate(
   relevancy = case_when(
@@ -254,6 +327,11 @@ n_ratios_pooled <-
     names_to = "method",
     values_to = "n_ratio"
   )
+
+nr_bin2_fixed_pooled <- 
+  ssc$bin$fixed_pooled$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
 
 n_ratios_exact <-
   tbl_exact |> 
@@ -283,11 +361,13 @@ gt_ratio_pooled <-
     Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
     Max = max(n_ratio, na.rm = TRUE)
   ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+  mutate(across(where(is.numeric), ~ signif(., digit = 2))) |>
   gt(rowname_col = c("method")) |> 
+  gt_theme_clean() |> 
+  # gt(rowname_col = c("method")) |> 
   tab_header(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes par rapport aux valeurs de East"
+    title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance",
+    subtitle = "Par rapport aux valeurs de East"
   ) |>  
   tab_stubhead(label = "Pertinence") |>  
   tab_style(
@@ -375,11 +455,8 @@ gt_ratio_exact <-
 ::: {.fragment}
 ```{r}
 #| echo: false
-gt_ratio_pooled |> 
-tab_options(
-  table.width = pct(100),
-  table.font.size = pct(45)
-) 
+#| tbl-widths: 9
+gt_ratio_pooled
 ```
 ::: 
 :::
@@ -388,38 +465,49 @@ tab_options(
 
 ::: {.fragment}
 ```{r}
+#| fig-height: 7
 p <- 
   ggplot(n_ratios_pooled) +
-  aes(
-    x = n_east,
-    y = n_ratio, 
-    color = method, 
-    "alp" = alpha, 
-    "power" = power,
-    "pi_c" = pi_c,
-    "delta_pi" = delta_pi
-  ) +
+  aes(x = n_east, y = n_ratio, color = method) +
   geom_point() +
   geom_smooth(se = FALSE) +
-  geom_hline(yintercept = 0.9, linetype = "dashed") +
+  geom_hline(yintercept = 1 - er_rate, linetype = "dashed") +
   geom_hline(yintercept = 1) +
-  geom_hline(yintercept = 1.1,  linetype = "dashed") +
-  facet_wrap( ~ relevancy, scales = "free") +
+  geom_hline(yintercept = 1 + er_rate,  linetype = "dashed") +
   labs(
-    x = "Sample size de East",
-    y = "Proportion"
+    title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance",
+    subtitle = "Par rapport à East",
+    x = "N East",
+    y = "N-Ratio"
   ) +
-  theme_minimal() +
   theme(legend.position = "bottom") +
-  scale_colour_brewer(palette = "Set1")
+  scale_color_clean() +
+  facet_relevancy()
 
-plotly::ggplotly(p, width = 750, height = 500)
+p
 ```
 :::
 
 :::
 
 ::::
+
+## Test
+
+```{r}
+#| fig-height: 7
+p <- nr_bin2_fixed_pooled |> 
+  plot_n_ratio(title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
+
+p
+```
+
+## Test 2
+
+```{r}
+nr_bin2_fixed_pooled |> 
+  gt_n_ratio(title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
+```
 
 ## Essai à 2 bras fixe
 ### Résultats en exact I
@@ -441,7 +529,14 @@ gt_ratio_exact
 ::: {.fragment}
 ```{r}
 p <- ggplot(n_ratios_exact) +
-  aes(x = n_nquery, y = n_ratio, color = method) +
+  aes(
+    x = n_nquery,
+    y = n_ratio,
+    color = method,
+    "alp" = alpha, 
+    "power" = power,
+    "pi_c" = pi_c,
+    "delta_pi" = delta_pi) +
   geom_point() +
   geom_smooth(se = FALSE) +
   geom_hline(yintercept = 0.9, linetype = "dashed") +
@@ -718,7 +813,7 @@ gt_ratio <-
   mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
   gt(rowname_col = c("method")) |> 
   tab_header(
-    title = "Proportions des sample sizes",
+    title = "N Ratio 1-Bras",
     subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery"
   ) |>  
   tab_stubhead(label = "Pertinence") |>  
@@ -733,19 +828,19 @@ gt_ratio <-
   ) |> 
   tab_style(
     style = list(
-      cell_fill(color = "#ffa194ff")
+      cell_fill(color = color_low)
     ),
     location = cells_row_groups("low")
   ) |> 
   tab_style(
     style = list(
-      cell_fill(color = "#f0e292ff")
+      cell_fill(color = color_medium)
     ),
     location = cells_row_groups("medium")
   ) |> 
   tab_style(
     style = list(
-      cell_fill(color = "#a7ffc4ff")
+      cell_fill(color = color_high)
     ),
     location = cells_row_groups("high")
   )
@@ -761,14 +856,14 @@ gt_ratio
 ::: {.column width="65%"}
 ::: {.fragment}
 ```{r}
-ggplot(n_ratios) +
+p <- ggplot(n_ratios) +
 aes(x = n_east, y = n_ratio, color = method) +
 geom_point() +
 geom_smooth(se = FALSE) +
 geom_hline(yintercept = 0.9, linetype = "dashed") +
 geom_hline(yintercept = 1) +
 geom_hline(yintercept = 1.1,  linetype = "dashed") +
-facet_wrap( ~ relevancy, scales = "free") +
+ggh4x::facet_wrap2( ~ relevancy, strip = relevancy_strips, scales = "free") +
 labs(
   title = "Proportions des sample sizes",
   subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery",
@@ -776,6 +871,8 @@ labs(
   y = "Proportion"
 ) +
 theme_minimal()
+
+p
 ```
 :::
 :::
