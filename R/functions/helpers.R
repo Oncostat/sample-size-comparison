@@ -20,6 +20,6 @@ add_name_as_suffix <- function(list, columns) {
   new_list <- map2(
     list,
     names(list),
-    \(val, n_val) rename_with(val, ~ paste0(., "_", n_val), any_of(columns))
+    \(val, num_val) rename_with(val, ~ paste0(., "_", num_val), any_of(columns))
   )
 }
