@@ -262,34 +262,249 @@
     "text": "Summary\nA minimalist and elegant presentation theme\nThe Quarto reveal.js clean theme aims to be a minimalist and elegant presention theme. Here are some options to get you started:\nAdd the theme to an existing project.\nquarto install extension grantmcdermott/quarto-revealjs-clean\n… or, create a new project using this slide deck as a lean template.\nquarto use template grantmcdermott/quarto-revealjs-clean\n… or, create a new project using the demo slide deck as a full template.\nquarto use template grantmcdermott/quarto-revealjs-clean-demo"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
-    "section": "",
-    "text": "Endpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact\n\n\n\n\n\n\n\n\nflowchart TB\n  A[[Clinical Trial Design]] --&gt; AA[Time-to-Event Endpoints]\n    AA ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA(Two-Arms)\n      ABA --&gt; ABAA(Fixed Design)\n        ABAA --&gt; ABAAA([Exact Computation])\n        ABAA --&gt; ABAAB([Z-pooled])\n        ABAA --&gt; ABAAC([Z-unpooled])\n      ABA --&gt; ABAB(Group-Sequential Design)\n        ABAB --&gt; ABABA([Z-pooled])\n    AB ---&gt; ABB(One-Arm)\n      ABB --&gt; ABBA([Exact Computation])\n      ABB --&gt; ABBB([Non-exact Computation])",
-    "crumbs": [
-      "Introduction"
-    ]
+    "objectID": "presentation/presentation-en.html#table-of-contents",
+    "href": "presentation/presentation-en.html#table-of-contents",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Table of Contents",
+    "text": "Table of Contents"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites.",
-    "crumbs": [
-      "About"
-    ]
+    "objectID": "presentation/presentation-en.html#motivations",
+    "href": "presentation/presentation-en.html#motivations",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Motivations",
+    "text": "Motivations\nWhy  for sample size calculation ?\n\ndo all analysis in  without having to use an external tool\nshare code to someone (better than share an East of nQuery project)\navoid problem with export\nfree and open-source code, allows to open issue, ask new feature, fork the code\n\n-&gt;  packages need validation to get the same credibility and trust as proprietary softwares like East and nQuery"
   },
   {
-    "objectID": "bin/binary-endpoints.html",
-    "href": "bin/binary-endpoints.html",
-    "title": "Binary Endpoints",
-    "section": "",
-    "text": "flowchart TB\n  AB[Binary Endpoints] --&gt; ABA(Two-Arms)\n    ABA --&gt; ABAA(Fixed Design)\n      ABAA --&gt; ABAAA([Exact Computation])\n      ABAA --&gt; ABAAB([Z-pooled])\n      ABAA --&gt; ABAAC([Z-unpooled])\n    ABA --&gt; ABAB(Group-Sequential Design)\n      ABAB --&gt; ABABA([Z-pooled])\n  AB ---&gt; ABB(One-Arm)\n    ABB --&gt; ABBA([Exact Computation])\n    ABB --&gt; ABBB([Non-exact Computation])",
-    "crumbs": [
-      "Binary endpoints"
-    ]
+    "objectID": "presentation/presentation-en.html#scope-of-the-comparison",
+    "href": "presentation/presentation-en.html#scope-of-the-comparison",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Scope of the comparison",
+    "text": "Scope of the comparison\nExplored methods per clinical trials\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nSurvival\nTwo-arm Fixed\n\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\nnQuery\noa2s, sssas, Rashnu\n\n\nSurvival\nTwo-arm Group-Sequential\n\nEast\nRpact, gsDesign2\n\n\nBinary\nTwo-arm Fixed\nExact\nEast, nQuery\nbbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\nEast, nQuery\nRpact, bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\nEast, nQuery\n\n\n\nBinary\nOne-arm Fixed\nExact\nEast\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\nEast, nQuery\nRpact\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\nEast\nRpact"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#scope-of-the-comparison-1",
+    "href": "presentation/presentation-en.html#scope-of-the-comparison-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Scope of the comparison",
+    "text": "Scope of the comparison\nExplored clinical trials\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nClinical Trial Design\n\n\n\n\n\n\n\nTime-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\nBinary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#quick-theorical-background",
+    "href": "presentation/presentation-en.html#quick-theorical-background",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Quick theorical background",
+    "text": "Quick theorical background\nRequired input\n\nTo compute required number of event we need:\n\n\\(\\alpha\\): Type I error\npower (\\(1-\\beta\\)): jsp\nProportion of control group \\(\\pi_c\\)\nProportion of experimental group \\(\\pi_e\\)"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#quick-theorical-background-1",
+    "href": "presentation/presentation-en.html#quick-theorical-background-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Quick theorical background",
+    "text": "Quick theorical background\nformula\nPooled/Unpooled Z-test Fisher Exact"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-fixed-design",
+    "href": "presentation/presentation-en.html#two-arms-fixed-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms fixed design",
+    "text": "Two-Arms fixed design\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nBinary\nTwo-arm Fixed\nExact\nEast, nQuery\nbbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\nEast, nQuery\nRpact, (bbssr)\n\n\nBinary\nTwo-arm Fixed\nUnpooled\nEast, nQuery\n\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\nnQuery : PTT36 / Inequality Tests for Difference of Two Proportions\n\n\n\nbbssr::BinarySampleSize()\nrpact::getSampleSizeRates()"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-fixed-design-1",
+    "href": "presentation/presentation-en.html#two-arms-fixed-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms fixed design",
+    "text": "Two-Arms fixed design\nResults\n\n\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes par rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.991\n1\n1\n1\n1\n1.01\n\n\nrpact\n1.000\n1\n1\n1\n1\n1.00\n\n\nmedium\n\n\nnquery\n0.994\n1\n1\n1\n1\n1.00\n\n\nrpact\n1.000\n1\n1\n1\n1\n1.00\n\n\nlow\n\n\nnquery\n0.875\n1\n1\n1\n1\n1.11\n\n\nrpact\n1.000\n1\n1\n1\n1\n1.00"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-fixed-design-2",
+    "href": "presentation/presentation-en.html#two-arms-fixed-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms fixed design",
+    "text": "Two-Arms fixed design\nResults II\n\n\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes par rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nbbssr\n0.811\n0.972\n0.979\n0.992\n1.000\n1.05\n\n\neast\n0.640\n0.856\n0.897\n0.915\n0.955\n1.00\n\n\nmedium\n\n\nbbssr\n0.800\n0.969\n0.978\n0.991\n0.999\n1.03\n\n\neast\n0.600\n0.869\n0.925\n0.944\n0.989\n1.07\n\n\nlow\n\n\nbbssr\n0.786\n0.971\n0.981\n0.993\n1.000\n1.05\n\n\neast\n0.571\n0.827\n0.894\n0.916\n0.966\n1.07"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-group-sequential-design",
+    "href": "presentation/presentation-en.html#two-arms-group-sequential-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms group sequential design",
+    "text": "Two-Arms group sequential design\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\nEast\nRpact\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\n\n\n\nrpact::getSampleSizeRates()"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-group-sequential-design-1",
+    "href": "presentation/presentation-en.html#two-arms-group-sequential-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms group sequential design",
+    "text": "Two-Arms group sequential design\nResults I\n\n\n\n\n\n\n\n\nProportions Rpact/East\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East\n\n\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\n0.947\n0.999\n0.997\n1\n1\n1.00\n\n\nmedium\n\n\n1.000\n1.000\n1.000\n1\n1\n1.02\n\n\nlow\n\n\n0.941\n0.999\n0.999\n1\n1\n1.06"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#one-arm-design",
+    "href": "presentation/presentation-en.html#one-arm-design",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm design",
+    "text": "One-Arm design\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nBinary\nOne-arm Fixed\nExact\nEast\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\nEast, nQuery\nRpact\n\n\n\n\n\nEast : Single Proportion test [PN-1S-SP]\nnQuery : POT0 / Chi Square Test for One Proportion\n\n\n\nrpact::getSampleSizeRates(group = 1)"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#one-arm-design-1",
+    "href": "presentation/presentation-en.html#one-arm-design-1",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm design",
+    "text": "One-Arm design\nResults I\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1\n1\n1\n1\n1\n1\n\n\nrpact\n1\n1\n1\n1\n1\n1\n\n\nmedium\n\n\nnquery\n1\n1\n1\n1\n1\n1\n\n\nrpact\n1\n1\n1\n1\n1\n1\n\n\nlow\n\n\nnquery\n1\n1\n1\n1\n1\n1\n\n\nrpact\n1\n1\n1\n1\n1\n1"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#one-arm-design-2",
+    "href": "presentation/presentation-en.html#one-arm-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm design",
+    "text": "One-Arm design\nResults II\n\n\n\n\n\n\n\n\nProportions A'Hern/East\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East\n\n\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\n0.333\n0.881\n0.92\n0.943\n1\n1.67"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#quick-theorical-background-2",
+    "href": "presentation/presentation-en.html#quick-theorical-background-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Quick theorical background",
+    "text": "Quick theorical background\nRequired input\n\nTo compute required number of event we need:\n\n\\(\\alpha\\): Type I error\npower (\\(1-\\beta\\)): jsp\nhazard ratio: \\(\\lambda_2/\\lambda_1\\)\n\nIn addition, to compute sample size we need:\n\nSurvival probability of control group at a certain time \\(t\\)\nAccrual time\nFollow-up time\nDropout rate"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#quick-theorical-background-3",
+    "href": "presentation/presentation-en.html#quick-theorical-background-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Quick theorical background",
+    "text": "Quick theorical background\nSchoenfeld formula\n\\[\ne = \\frac{4 (z_{1-\\alpha/2} + z_{1-\\beta})^2}{(\\log(HR))^2}\n\\]\nOther formula “Freedman” and “Hsieh-Freedman”"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-fixed-design-3",
+    "href": "presentation/presentation-en.html#two-arms-fixed-design-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms fixed design",
+    "text": "Two-Arms fixed design\nMethods compared\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nSoftware\n package\n\n\n\n\nSurvival\nTwo-arm Fixed\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\nnQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival\n\n\n\nrpact::getSampleSizeSurvival()\nrashnu::lakatosSampleSize()\ngsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-fixed-design-4",
+    "href": "presentation/presentation-en.html#two-arms-fixed-design-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms fixed design",
+    "text": "Two-Arms fixed design\nResults\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.995\n1.000\n1.000\n1.000\n1.00\n1.01\n\n\nnquery\n0.997\n1.000\n1.010\n1.000\n1.01\n1.03\n\n\nrashnu\n0.995\n0.998\n1.000\n1.000\n1.00\n1.02\n\n\nrpact\n0.995\n0.997\n0.999\n1.000\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.984\n1.000\n1.010\n1.000\n1.01\n1.05\n\n\nnquery\n1.000\n1.000\n1.030\n1.020\n1.04\n1.11\n\n\nrashnu\n0.996\n1.000\n1.010\n1.010\n1.02\n1.07\n\n\nrpact\n0.984\n0.992\n0.996\n0.998\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.846\n1.000\n1.210\n1.000\n1.07\n5.44\n\n\nnquery\n0.985\n1.000\n1.260\n1.010\n1.13\n2.84\n\n\nrashnu\n0.963\n0.998\n1.090\n1.000\n1.03\n1.87\n\n\nrpact\n0.778\n0.999\n1.120\n1.000\n1.00\n5.44"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-fixed-design-5",
+    "href": "presentation/presentation-en.html#two-arms-fixed-design-5",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms fixed design",
+    "text": "Two-Arms fixed design\nResults II"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-group-sequential-design-2",
+    "href": "presentation/presentation-en.html#two-arms-group-sequential-design-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms group sequential design",
+    "text": "Two-Arms group sequential design\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nSurvival\nTwo-arm Group-Sequential\n\nEast\nRpact, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\n\n\n\nrpact::getSampleSizeSurvival()\ngsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-group-sequential-design-3",
+    "href": "presentation/presentation-en.html#two-arms-group-sequential-design-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms group sequential design",
+    "text": "Two-Arms group sequential design\nResults I\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.931\n0.940\n0.966\n0.959\n0.989\n1.020\n\n\nrpact\n1.020\n1.020\n1.050\n1.040\n1.080\n1.100\n\n\nmedium\n\n\ngsdesign2\n0.893\n0.927\n0.946\n0.947\n0.966\n1.020\n\n\nrpact\n0.969\n0.992\n1.030\n1.030\n1.050\n1.110\n\n\nlow\n\n\ngsdesign2\n0.858\n0.887\n0.907\n0.908\n0.925\n0.957\n\n\nrpact\n0.759\n0.770\n0.852\n0.846\n0.925\n0.967"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-group-sequential-design-4",
+    "href": "presentation/presentation-en.html#two-arms-group-sequential-design-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms group sequential design",
+    "text": "Two-Arms group sequential design\nResults II"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#two-arms-group-sequential-design-5",
+    "href": "presentation/presentation-en.html#two-arms-group-sequential-design-5",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Two-Arms group sequential design",
+    "text": "Two-Arms group sequential design\nResults III\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSample Size dans des cas pertinents\n\n\nα = 0.05, β = 0.1 et HR = 0.6\n\n\nSurvie à 3 ans\n\nSample Size\n\n\nRatio\n\n\n\nRpact\nEast\ngsDesign2\nRpact/East\ngsDesign2/East"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#one-arm-design-3",
+    "href": "presentation/presentation-en.html#one-arm-design-3",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm design",
+    "text": "One-Arm design\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nSurvival\nOne-arm Fixed\n\nnQuery\noa2s1, sssas2, Rashnu\n\n\n\n\n\nnQuery : SOT1 / One Sample Log-Rank Test with Accrual\n\n\n\nOneArm2stage::phase2.TTE() # Version with accrual time\nSampleSizeSingleArmSurvival::calcSampleSizeArcsine()\nrashnu::oneSurvSampleSize()\n\nOneArm2stageSampleSizeSingleArmSurvival"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#one-arm-design-4",
+    "href": "presentation/presentation-en.html#one-arm-design-4",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm design",
+    "text": "One-Arm design\nResults I\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s1\n0.668\n0.743\n0.784\n0.786\n0.820\n0.921\n\n\nrashnu\n1.460\n1.560\n1.670\n1.630\n1.760\n2.010\n\n\nsssas2\n1.220\n1.290\n1.370\n1.320\n1.420\n1.590\n\n\nmedium\n\n\noa2s1\n0.494\n0.667\n0.782\n0.807\n0.884\n1.040\n\n\nrashnu\n1.300\n1.450\n1.610\n1.590\n1.740\n2.170\n\n\nsssas2\n1.100\n1.220\n1.310\n1.290\n1.400\n1.590\n\n\nlow\n\n\noa2s1\n0.219\n0.655\n1.140\n0.857\n1.100\n14.300\n\n\nrashnu\n0.667\n1.570\n2.120\n1.860\n2.180\n16.700\n\n\nsssas2\n0.547\n1.330\n1.720\n1.490\n1.700\n13.700\n\n\n\n1 OneArm2stage\n\n\n2 SampleSizeSingleArmSurvival"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#one-arm-design-5",
+    "href": "presentation/presentation-en.html#one-arm-design-5",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "One-Arm design",
+    "text": "One-Arm design\nResults II"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#vertical-slide-2",
+    "href": "presentation/presentation-en.html#vertical-slide-2",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Vertical slide 2",
+    "text": "Vertical slide 2"
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-1-menubarclass",
+    "href": "presentation/presentation-en.html#option-1-menubarclass",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 1: menubarclass",
+    "text": "Option 1: menubarclass\nThe menubarclass option sets the classname of menubars.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      menubarclass: \"menubar\"\n\nSimplemenu will show the menubar(s) on all pages. If you do not want to show the menubar on certain pages, use data-state=“hide-menubar” on that section. This behaviour also works when exporting to PDF using the Reveal.js ?print-pdf option."
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-2-menuclass",
+    "href": "presentation/presentation-en.html#option-2-menuclass",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 2: menuclass",
+    "text": "Option 2: menuclass\nThe menuclass option sets the classname of the menu.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      menuclass: \"menu\"\nSimplemenu looks inside this menu for list items (LI’s)."
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-3-activeclass",
+    "href": "presentation/presentation-en.html#option-3-activeclass",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 3: activeclass",
+    "text": "Option 3: activeclass\nThe activeclass option is the class an active menuitem gets.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      activeclass: \"active\""
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-4-activeelement",
+    "href": "presentation/presentation-en.html#option-4-activeelement",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 4: activeelement",
+    "text": "Option 4: activeelement\nThe activeelement option sets the item that gets the active class.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      activeelement: \"li\"\nYou may want to change it to the anchor inside the li, like this: activeelement: \"a\"."
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-5-barhtml",
+    "href": "presentation/presentation-en.html#option-5-barhtml",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 5: barhtml",
+    "text": "Option 5: barhtml\nYou can add the HTML for the header (and/or footer) through this option. This way you no longer need to edit the template.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      barhtml:\n        header: \"&lt;div class='menubar'&gt;&lt;ul class='menu'&gt;&lt;/ul&gt;&lt;/div&gt;\"\n        footer: \"\""
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-5-barhtml-continued",
+    "href": "presentation/presentation-en.html#option-5-barhtml-continued",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 5: barhtml (Continued)",
+    "text": "Option 5: barhtml (Continued)\nYou can also move the slide number or the controls to your header or footer. If they are nested there manually, or through the barhtml option, they will then display inside that header or footer.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      barhtml:\n        header: \"\"\n        footer: \"&lt;div class='menubar'&gt;&lt;ul class='menu'&gt;&lt;/ul&gt;&lt;div class='slide-number'&gt;&lt;/div&gt;&lt;/div&gt;\""
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-6-flat",
+    "href": "presentation/presentation-en.html#option-6-flat",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 6: flat",
+    "text": "Option 6: flat\nSometimes you’ll want to limit your presentation to horizontal slides only. To still use ‘chapters’, you can use the flat option. By default, it is set to false, but you can set it to true. Then, when a data-name is set for a slide, any following slides will keep that menu name.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      flat: true\nTo stop inheriting the previous slide menu name, start a new named section, or add data-sm=\"false\" to your slide."
+  },
+  {
+    "objectID": "presentation/presentation-en.html#option-7-scale",
+    "href": "presentation/presentation-en.html#option-7-scale",
+    "title": "Comparison of Sample Size Calculations Across Methods",
+    "section": "Option 7: scale",
+    "text": "Option 7: scale\nWhen you have a lot of subjects/chapters in your menubar, they might not all fit in a row. You can then tweak the scale in the options. Simplemenu copies the Reveal.js (slide) scaling and adds a scale option on top of that.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      scale: 0.67\nIt is set to be two-thirds of the main scaling."
   },
   {
     "objectID": "index-old.html",
@@ -327,144 +542,244 @@
     "text": "Groupes Sequential Design\n\nLan-DeMets spending functions\n\n\nComparaison des résultats"
   },
   {
-    "objectID": "presentation/presentation copy.html#table-of-contents",
-    "href": "presentation/presentation copy.html#table-of-contents",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Table of Contents",
-    "text": "Table of Contents"
+    "objectID": "bin/binary-endpoints.html",
+    "href": "bin/binary-endpoints.html",
+    "title": "Binary Endpoints",
+    "section": "",
+    "text": "flowchart TB\n  AB[Binary Endpoints] --&gt; ABA(Two-Arms)\n    ABA --&gt; ABAA(Fixed Design)\n      ABAA --&gt; ABAAA([Exact Computation])\n      ABAA --&gt; ABAAB([Z-pooled])\n      ABAA --&gt; ABAAC([Z-unpooled])\n    ABA --&gt; ABAB(Group-Sequential Design)\n      ABAB --&gt; ABABA([Z-pooled])\n  AB ---&gt; ABB(One-Arm)\n    ABB --&gt; ABBA([Exact Computation])\n    ABB --&gt; ABBB([Non-exact Computation])",
+    "crumbs": [
+      "Binary endpoints"
+    ]
   },
   {
-    "objectID": "presentation/presentation copy.html#motivations",
-    "href": "presentation/presentation copy.html#motivations",
-    "title": "Comparison of Sample Size Calculations Across Methods",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sample Size Comparison: R as an alternative to East and nQuery ?",
+    "section": "",
+    "text": "Endpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact\n\n\n\n\n\n\n\n\nflowchart TB\n  A[[Clinical Trial Design]] --&gt; AA[Time-to-Event Endpoints]\n    AA ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA(Two-Arms)\n      ABA --&gt; ABAA(Fixed Design)\n        ABAA --&gt; ABAAA([Exact Computation])\n        ABAA --&gt; ABAAB([Z-pooled])\n        ABAA --&gt; ABAAC([Z-unpooled])\n      ABA --&gt; ABAB(Group-Sequential Design)\n        ABAB --&gt; ABABA([Z-pooled])\n    AB ---&gt; ABB(One-Arm)\n      ABB --&gt; ABBA([Exact Computation])\n      ABB --&gt; ABBB([Non-exact Computation])",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#motivations",
+    "href": "presentation/presentation-fr.html#motivations",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "Motivations",
-    "text": "Motivations\nWhy  for sample size calculation ?\n\ndo all analysis in  without having to use an external tool\nshare code to someone (better than share an East of nQuery project)\navoid problem with export\nfree and open-source code, allows to open issue, ask new feature, fork the code\n\n-&gt;  packages need validation to get the same credibility and trust as proprietary softwares like East and nQuery"
+    "text": "Motivations\nPourquoi utiliser  pour le calcul de la taille d’échantillon ?\n\nCalcul dans  (pas d’outil externe)\nPartage et reproductibilité via le code\nPas de problèmes d’export / interopérabilité\nLogiciel libre et open-source (audit, collaboration, )\n\n\n→ Nécessité de valider les packages  pour atteindre la crédibilité de logiciels comme East ou nQuery."
   },
   {
-    "objectID": "presentation/presentation copy.html#scope-of-the-comparison",
-    "href": "presentation/presentation copy.html#scope-of-the-comparison",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Scope of the comparison",
-    "text": "Scope of the comparison\nExplored methods per clinical trials\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nSurvival\nTwo-arm Fixed\n\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\nnQuery\noa2s, sssas, Rashnu\n\n\nSurvival\nTwo-arm Group-Sequential\n\nEast, nQuery\nRpact, gsDesign2\n\n\nBinary\nTwo-arm Fixed\nExact\nEast, nQuery\nbbssr\n\n\nBinary\nTwo-arm Fixed\nPooled\nEast, nQuery\nRpact, bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\nEast, nQuery\n\n\n\nBinary\nOne-arm Fixed\nExact\nEast\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\nEast, nQuery\nRpact\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\nEast\nRpact"
+    "objectID": "presentation/presentation-fr.html#présentation-des-logiciels-et-package",
+    "href": "presentation/presentation-fr.html#présentation-des-logiciels-et-package",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Présentation des Logiciels et package",
+    "text": "Présentation des Logiciels et package\n\nEast 6\nNquery 9.2\nRpact\ngsDesign2\nRashnu, bbssr, oa2s, sssas"
   },
   {
-    "objectID": "presentation/presentation copy.html#scope-of-the-comparison-1",
-    "href": "presentation/presentation copy.html#scope-of-the-comparison-1",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Scope of the comparison",
-    "text": "Scope of the comparison\nExplored clinical trials\n\n\n\n\n\nflowchart TB\n  A[Clinical Trial Design] --&gt; AA[Time-to-Event Endpoints]\n    AA --&gt; AAA[Two-Arms]\n      AAA --&gt; AAAA[Fixed Design]\n      AAA --&gt; AAAB[Group-Sequential Design]\n    AA --&gt; AAB[One Arm]\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA[Two-Arms]\n      ABA --&gt; ABAA[Fixed Design]\n        ABAA --&gt; ABAAA[Exact Computation]\n        ABAA --&gt; ABAAB[Z-pooled]\n        ABAA --&gt; ABAAC[Z-unpooled]\n      ABA --&gt; ABAB[Group-Sequential Design]\n        ABAB --&gt; ABABA[Z-pooled]\n    AB --&gt; ABB[One-Arm]\n      ABB --&gt; ABBA[Exact Computation]\n      ABB --&gt; ABBB[Non-exact Computation]"
+    "objectID": "presentation/presentation-fr.html#grid-search",
+    "href": "presentation/presentation-fr.html#grid-search",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Grid Search",
+    "text": "Grid Search\n\nDéfinir un design\nFixer plusieurs valeurs par paramètres\nGénérer toutes les combinaisons\nCalculer/Extraire la taille d’échantillon N finale\n\n\n\n\n\n\n\n\n\n\nParamètre 1\nParamètre 2\nPertinence\nN Réference\nN Package 1\nN Package 2\n\n\n\n\n0.5\n4\nhigh\n10\n12\n8\n\n\n0.5\n12\nmedium\n15\n16\n12\n\n\n0.1\n4\nlow\n20\n19\n15\n\n\n0.1\n12\nlow\n30\n31\n25"
   },
   {
-    "objectID": "presentation/presentation copy.html#quick-theorical-background",
-    "href": "presentation/presentation copy.html#quick-theorical-background",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Quick theorical background",
-    "text": "Quick theorical background\nRequired input\n\nTo compute required number of event we need:\n\n\\(\\alpha\\): Type I error\npower (\\(1-\\beta\\)): jsp\nhazard ratio: \\(\\lambda_2/\\lambda_1\\)\n\nIn addition, to compute sample size we need:\n\nSurvival probability of control group at a certain time \\(t\\)\nAccrual time\nFollow-up time\nDropout rate"
+    "objectID": "presentation/presentation-fr.html#présentation-des-résultats",
+    "href": "presentation/presentation-fr.html#présentation-des-résultats",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Présentation des résultats",
+    "text": "Présentation des résultats\nN-Ratio = NMéthode / NRéférence\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio exemple table\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.75\n0.78\n0.79\n0.80\n0.82\n0.83\n\n\nrpact\n0.95\n0.99\n1.00\n1.00\n1.00\n1.10\n\n\nlow\n\n\nnquery\n0.85\n0.86\n0.87\n0.87\n0.88\n0.89\n\n\nrpact\n0.97\n0.98\n0.98\n0.98\n0.99\n1.00\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
   },
   {
-    "objectID": "presentation/presentation copy.html#quick-theorical-background-1",
-    "href": "presentation/presentation copy.html#quick-theorical-background-1",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Quick theorical background",
-    "text": "Quick theorical background\nSchoenfeld formula\n\\[\ne = \\frac{4 (z_{1-\\alpha/2} + z_{1-\\beta})^2}{(\\log(HR))^2}\n\\]\nOther formula “Freedman” and “Hsieh-Freedman”"
+    "objectID": "presentation/presentation-fr.html#périmètre-de-la-comparaison",
+    "href": "presentation/presentation-fr.html#périmètre-de-la-comparaison",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Périmètre de la comparaison",
+    "text": "Périmètre de la comparaison\nDesigns d’essai clinique parcourus\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEssai\n\n\n\n\n\n\n\nBinaire\n\n\n\n\n\n\n\n2-bras\n\n\n\n\n\n\n\nFixe\n\n\n\n\n\n\n\nCalcul exact\n\n\n\n\n\n\n\nTest Z-pooled\n\n\n\n\n\n\n\nTest Z-unpooled\n\n\n\n\n\n\n\nGroup-sequential\n\n\n\n\n\n\n\nTest Z-pooled\n\n\n\n\n\n\n\n1-bras\n\n\n\n\n\n\n\nCalcul exact\n\n\n\n\n\n\n\nApproximation normale\n\n\n\n\n\n\n\nSurvie\n\n\n\n\n\n\n\n2-bras\n\n\n\n\n\n\n\nFixe\n\n\n\n\n\n\n\nGroup-sequential\n\n\n\n\n\n\n\n1-bras"
   },
   {
-    "objectID": "presentation/presentation copy.html#two-arms-fixed-design",
-    "href": "presentation/presentation copy.html#two-arms-fixed-design",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Two-Arms fixed design",
-    "text": "Two-Arms fixed design\nMethods compared\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nSoftware\n package\n\n\n\n\nSurvival\nTwo-arm Fixed\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\nnQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival\n\n\n\nrpact::getSampleSizeSurvival()\nrashnu::lakatosSampleSize()\ngsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before"
+    "objectID": "presentation/presentation-fr.html#périmètre-de-la-comparaison-1",
+    "href": "presentation/presentation-fr.html#périmètre-de-la-comparaison-1",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Périmètre de la comparaison",
+    "text": "Périmètre de la comparaison\nMéthodes évaluées selon le type d’essai\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nSurvie\n2 bras, fixe\n—\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\nSurvie\n1 bras, fixe\n—\nnQuery\noa2s1, sssas2, Rashnu\n\n\nSurvie\n2 bras, group-sequential\n—\nEast\nRpact, gsDesign2\n\n\nBinaire\n2 bras, fixe\nExacte\nEast, nQuery\nbbssr\n\n\nBinaire\n2 bras, fixe\nPooled\nEast, nQuery\nRpact\n\n\nBinaire\n2 bras, fixe\nUnpooled\nEast, nQuery\n—\n\n\nBinaire\n1 bras, fixe\nExacte\nEast\nA’Hern (sans package)\n\n\nBinaire\n1 bras, fixe\nApprox.norm\nEast, nQuery\nRpact\n\n\nBinaire\n2 bras, group-sequential\nPooled\nEast\nRpact\n\n\n\n\nOneArm2stageSampleSizeSingleArmSurvival"
   },
   {
-    "objectID": "presentation/presentation copy.html#two-arms-fixed-design-1",
-    "href": "presentation/presentation copy.html#two-arms-fixed-design-1",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Two-Arms fixed design",
-    "text": "Two-Arms fixed design\nResults\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nlow\n\n\ngsdesign2\n0.846\n1.000\n1.200\n1.000\n1.030\n5.44\n\n\nnquery\n0.985\n1.000\n1.120\n1.000\n1.030\n2.83\n\n\nrashnu\n0.963\n0.998\n1.050\n0.999\n1.010\n1.85\n\n\nrpact\n0.846\n1.000\n1.150\n1.000\n1.000\n5.44\n\n\nmedium\n\n\ngsdesign2\n0.984\n1.000\n1.110\n1.000\n1.170\n1.79\n\n\nnquery\n1.000\n1.000\n1.410\n1.020\n1.680\n2.84\n\n\nrashnu\n0.997\n0.999\n1.170\n1.010\n1.250\n1.87\n\n\nrpact\n0.778\n0.988\n0.979\n1.000\n1.000\n1.00\n\n\nhigh\n\n\ngsdesign2\n0.987\n1.000\n1.010\n1.000\n1.010\n1.04\n\n\nnquery\n0.997\n1.010\n1.030\n1.020\n1.040\n1.11\n\n\nrashnu\n0.995\n1.000\n1.020\n1.010\n1.020\n1.07\n\n\nrpact\n0.986\n0.992\n0.995\n0.997\n0.999\n1.00"
+    "objectID": "presentation/presentation-fr.html#tests-binaires",
+    "href": "presentation/presentation-fr.html#tests-binaires",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Tests binaires",
+    "text": "Tests binaires\nPooled/Unpooled, Fisher exacte\n\n\n\n\nZ-test\n\nPooled variance : \\[\nZ = \\frac{\\hat{p}_1 - \\hat{p}_2}{\\sqrt{\\hat{p}(1-\\hat{p}) \\left(\\frac{1}{n_1} + \\frac{1}{n_2}\\right)}}, \\quad\n\\hat{p} = \\frac{x_1 + x_2}{n_1 + n_2}\n\\]\nUnpooled variance : \\[\nZ = \\frac{\\hat{p}_1 - \\hat{p}_2}{\\sqrt{\\frac{\\hat{p}_1(1-\\hat{p}_1)}{n_1} + \\frac{\\hat{p}_2(1-\\hat{p}_2)}{n_2}}}\n\\]\n\n\n\n\nFisher exact test\n\nProbabilité exacte des tables 2×2 : \\[\nP = \\frac{\\binom{n_1}{x_1}\\binom{n_2}{x_2}}{\\binom{n_1+n_2}{x_1+x_2}}\n\\]\nUtile pour petits effectifs (pas d’approximation normale)\nPas de formule analytique"
   },
   {
-    "objectID": "presentation/presentation copy.html#two-arms-fixed-design-2",
-    "href": "presentation/presentation copy.html#two-arms-fixed-design-2",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Two-Arms fixed design",
-    "text": "Two-Arms fixed design\nResults II"
+    "objectID": "presentation/presentation-fr.html#paramètres",
+    "href": "presentation/presentation-fr.html#paramètres",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Paramètres",
+    "text": "Paramètres\n\n\n\n\n\n\n\nParamètre\nValeurs testées\n\n\n\n\nProportion contrôle \\(\\pi_c\\)\n0.1, 0.3, 0.5, 0.8, 0.9\n\n\nDelta de proportion \\(\\pi_e - \\pi_c\\)\n0.05, 0.15, 0.25, 0.49\n\n\n\\(\\alpha\\) (2-sided)\n0.01, 0.05, 0.1, 0.20, 0.49\n\n\nPuissance (1-\\(\\beta\\))\n0.51, 0.8, 0.9, 0.99\n\n\n\n\npertinent, peu pertinant, cas limite"
   },
   {
-    "objectID": "presentation/presentation copy.html#two-arms-group-sequential-design",
-    "href": "presentation/presentation copy.html#two-arms-group-sequential-design",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Two-Arms group sequential design",
-    "text": "Two-Arms group sequential design\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\n package\n\n\n\n\nSurvival\nTwo-arm Group-Sequential\n\nEast, nQuery\nRpact, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\nnQuery : STT12 / Group Sequential Two Sample Log-Rank Test\n\n\n\nrpact::getSampleSizeSurvival()\ngsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before"
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2 bras fixe",
+    "text": "Essai à 2 bras fixe\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nBinaire\n2 bras, fixe\nExacte\nEast, nQuery\nbbssr\n\n\nBinaire\n2 bras, fixe\nPooled\nEast, nQuery\nRpact, bbssr\n\n\nBinaire\n2 bras, fixe\nUnpooled\nEast, nQuery\n—\n\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\nnQuery : PTT36 / Inequality Tests for Difference of Two Proportions\n\n\n\n\nbbssr::BinarySampleSize()\nrpact::getSampleSizeRates()"
   },
   {
-    "objectID": "presentation/presentation copy.html#one-arm-design",
-    "href": "presentation/presentation copy.html#one-arm-design",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "One-Arm design",
-    "text": "One-Arm design"
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-1",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-1",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2 bras fixe",
+    "text": "Essai à 2 bras fixe\nRésultats en pooled-variance\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras fixe, pooled-variance\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1\n1\n1\n1\n1.0\n\n\nrpact\n1.00\n1\n1\n1\n1\n1.0\n\n\nmedium\n\n\nnquery\n0.99\n1\n1\n1\n1\n1.0\n\n\nrpact\n1.00\n1\n1\n1\n1\n1.0\n\n\nlow\n\n\nnquery\n0.88\n1\n1\n1\n1\n1.1\n\n\nrpact\n1.00\n1\n1\n1\n1\n1.0"
   },
   {
-    "objectID": "presentation/presentation copy.html#vertical-slide-2",
-    "href": "presentation/presentation copy.html#vertical-slide-2",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Vertical slide 2",
-    "text": "Vertical slide 2"
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-2",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-2",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2 bras fixe",
+    "text": "Essai à 2 bras fixe\nRésultats en exact\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras fixe, exact\n\n\nPar rapport aux valeurs de nQuery\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nbbssr\n0.81\n0.97\n0.98\n0.99\n1.00\n1.0\n\n\neast\n0.64\n0.86\n0.90\n0.91\n0.95\n1.0\n\n\nmedium\n\n\nbbssr\n0.80\n0.97\n0.98\n0.99\n1.00\n1.0\n\n\neast\n0.60\n0.87\n0.92\n0.94\n0.99\n1.1\n\n\nlow\n\n\nbbssr\n0.79\n0.97\n0.98\n0.99\n1.00\n1.1\n\n\neast\n0.57\n0.83\n0.89\n0.92\n0.97\n1.1\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-1-menubarclass",
-    "href": "presentation/presentation copy.html#option-1-menubarclass",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 1: menubarclass",
-    "text": "Option 1: menubarclass\nThe menubarclass option sets the classname of menubars.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      menubarclass: \"menubar\"\n\nSimplemenu will show the menubar(s) on all pages. If you do not want to show the menubar on certain pages, use data-state=“hide-menubar” on that section. This behaviour also works when exporting to PDF using the Reveal.js ?print-pdf option."
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-3",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-3",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2 bras fixe",
+    "text": "Essai à 2 bras fixe\nRésultats en exact II\n\n\n\n\n\n\n\n\n\n\n\nProportions des sample sizes\n\n\nEn fonction des méthodes par rapport aux valeurs de East\n\n\n\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nbbssr\n0.931\n0.956\n0.975\n0.975\n1.000\n1.010\n\n\neast\n0.778\n0.848\n0.872\n0.866\n0.913\n0.932"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-2-menuclass",
-    "href": "presentation/presentation copy.html#option-2-menuclass",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 2: menuclass",
-    "text": "Option 2: menuclass\nThe menuclass option sets the classname of the menu.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      menuclass: \"menu\"\nSimplemenu looks inside this menu for list items (LI’s)."
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2 bras GS-Design",
+    "text": "Essai à 2 bras GS-Design\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nBinaire\n2 bras, séquentiel en groupes\nPooled\nEast\nRpact\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\n\n\n\n\nrpact::getSampleSizeRates()"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-3-activeclass",
-    "href": "presentation/presentation copy.html#option-3-activeclass",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 3: activeclass",
-    "text": "Option 3: activeclass\nThe activeclass option is the class an active menuitem gets.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      activeclass: \"active\""
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-1",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-1",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2 bras GS-Design",
+    "text": "Essai à 2 bras GS-Design\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras GS-Design, pooled-variance\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.95\n1\n1\n1\n1\n1.0\n\n\nmedium\n\n\nrpact\n1.00\n1\n1\n1\n1\n1.0\n\n\nlow\n\n\nrpact\n0.94\n1\n1\n1\n1\n1.1"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-4-activeelement",
-    "href": "presentation/presentation copy.html#option-4-activeelement",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 4: activeelement",
-    "text": "Option 4: activeelement\nThe activeelement option sets the item that gets the active class.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      activeelement: \"li\"\nYou may want to change it to the anchor inside the li, like this: activeelement: \"a\"."
+    "objectID": "presentation/presentation-fr.html#essai-à-1-bras",
+    "href": "presentation/presentation-fr.html#essai-à-1-bras",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 1 bras",
+    "text": "Essai à 1 bras\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nBinaire\n1 bras, fixe\nExacte\nEast\nA’Hern (sans package)\n\n\nBinaire\n1 bras, fixe\nApprochée\nEast, nQuery\nRpact\n\n\n\n\n\n\nEast : Single Proportion test [PN-1S-SP]\nnQuery : POT0 / Chi Square Test for One Proportion\n\n\n\n\nrpact::getSampleSizeRates(group = 1)"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-5-barhtml",
-    "href": "presentation/presentation copy.html#option-5-barhtml",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 5: barhtml",
-    "text": "Option 5: barhtml\nYou can add the HTML for the header (and/or footer) through this option. This way you no longer need to edit the template.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      barhtml:\n        header: \"&lt;div class='menubar'&gt;&lt;ul class='menu'&gt;&lt;/ul&gt;&lt;/div&gt;\"\n        footer: \"\""
+    "objectID": "presentation/presentation-fr.html#essai-à-1-bras-1",
+    "href": "presentation/presentation-fr.html#essai-à-1-bras-1",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 1 bras",
+    "text": "Essai à 1 bras\nRésultats sous approximation normale\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 1-Bras, approx.norm\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1\n1\n1\n1\n1\n1\n\n\nrpact\n1\n1\n1\n1\n1\n1\n\n\nmedium\n\n\nnquery\n1\n1\n1\n1\n1\n1\n\n\nrpact\n1\n1\n1\n1\n1\n1\n\n\nlow\n\n\nnquery\n1\n1\n1\n1\n1\n1\n\n\nrpact\n1\n1\n1\n1\n1\n1"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-5-barhtml-continued",
-    "href": "presentation/presentation copy.html#option-5-barhtml-continued",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 5: barhtml (Continued)",
-    "text": "Option 5: barhtml (Continued)\nYou can also move the slide number or the controls to your header or footer. If they are nested there manually, or through the barhtml option, they will then display inside that header or footer.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      barhtml:\n        header: \"\"\n        footer: \"&lt;div class='menubar'&gt;&lt;ul class='menu'&gt;&lt;/ul&gt;&lt;div class='slide-number'&gt;&lt;/div&gt;&lt;/div&gt;\""
+    "objectID": "presentation/presentation-fr.html#essai-à-1-bras-2",
+    "href": "presentation/presentation-fr.html#essai-à-1-bras-2",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 1 bras",
+    "text": "Essai à 1 bras\nRésultats en exacte\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 1-Bras, exact\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nahern\n0.62\n0.91\n0.97\n0.96\n1\n1.3\n\n\nmedium\n\n\nahern\n0.80\n0.93\n0.96\n0.97\n1\n1.2\n\n\nlow\n\n\nahern\n0.33\n0.83\n0.89\n0.92\n1\n1.7\n\n\nNA\n\n\nahern\nInf\nNA\nNaN\nNA\nNA\n-Inf\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-6-flat",
-    "href": "presentation/presentation copy.html#option-6-flat",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 6: flat",
-    "text": "Option 6: flat\nSometimes you’ll want to limit your presentation to horizontal slides only. To still use ‘chapters’, you can use the flat option. By default, it is set to false, but you can set it to true. Then, when a data-name is set for a slide, any following slides will keep that menu name.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      flat: true\nTo stop inheriting the previous slide menu name, start a new named section, or add data-sm=\"false\" to your slide."
+    "objectID": "presentation/presentation-fr.html#formule-rapide-schoenfeld",
+    "href": "presentation/presentation-fr.html#formule-rapide-schoenfeld",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Formule rapide (Schoenfeld)",
+    "text": "Formule rapide (Schoenfeld)\n\\[\ne = \\frac{4 (z_{1-\\alpha/2} + z_{1-\\beta})^2}{(\\log(HR))^2}\n\\]\n\nAutres formules : Freedman, Hsieh-Freedman"
   },
   {
-    "objectID": "presentation/presentation copy.html#option-7-scale",
-    "href": "presentation/presentation copy.html#option-7-scale",
-    "title": "Comparison of Sample Size Calculations Across Methods",
-    "section": "Option 7: scale",
-    "text": "Option 7: scale\nWhen you have a lot of subjects/chapters in your menubar, they might not all fit in a row. You can then tweak the scale in the options. Simplemenu copies the Reveal.js (slide) scaling and adds a scale option on top of that.\nformat:\n  revealjs:\n    ...\n    simplemenu:\n      scale: 0.67\nIt is set to be two-thirds of the main scaling."
+    "objectID": "presentation/presentation-fr.html#de-e-à-n-calcul-de-la-taille-déchantillon",
+    "href": "presentation/presentation-fr.html#de-e-à-n-calcul-de-la-taille-déchantillon",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "De (e) à (n) : calcul de la taille d’échantillon",
+    "text": "De (e) à (n) : calcul de la taille d’échantillon\nPassage du nombre d’événements au nombre de patients\n\nNombre d’événements requis : (e) (Schoenfeld ou autres formules)\nPour obtenir la taille d’échantillon (n) :\n\n\n\\[\nn = \\frac{e}{\\text{probabilité d’événement dans l’étude}}\n\\]\n\n\nLa probabilité d’événement dépend de :\n\nDurée de suivi\nDurée d’inclusion (accrual)\nTaux de pertes (dropout)"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#paramètres-1",
+    "href": "presentation/presentation-fr.html#paramètres-1",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Paramètres",
+    "text": "Paramètres\n\n\n\n\n\n\n\nParamètre\nValeurs testées\n\n\n\n\nSurvie contrôle à 3 ans \\(S_c(3)\\)\n0.1, 0.3, 0.6, 0.9\n\n\nHazard ratio \\(HR\\)\n0.1, 0.5, 0.7, 0.9, 0.99\n\n\n\\(\\alpha\\) (2-sided)\n0.01, 0.05, 0.1, 0.20, 0.49\n\n\nPuissance (1-\\(\\beta\\))\n0.51, 0.8, 0.9, 0.99\n\n\n\n\npertinent, peu pertinant, cas limite\n\n\n\n\n\nPériode de recrutement de 3 ans\n\nSuivi de 3 ans après le dernier admis\n\nProportion égale entre bras contrôle/expérimental"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-4",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-4",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2-Bras fixe",
+    "text": "Essai à 2-Bras fixe\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nSurvie\n2 bras, fixe\n—\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\nnQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival\n\n\n\n\nrpact::getSampleSizeSurvival()\nrashnu::lakatosSampleSize()\ngsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-5",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-5",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2-Bras fixe",
+    "text": "Essai à 2-Bras fixe\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 2-Bras fixe\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.0\n1\n1.0\n1.0\n\n\nnquery\n1.00\n1.00\n1.0\n1\n1.0\n1.0\n\n\nrashnu\n1.00\n1.00\n1.0\n1\n1.0\n1.0\n\n\nrpact\n1.00\n1.00\n1.0\n1\n1.0\n1.0\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.0\n1\n1.0\n1.0\n\n\nnquery\n1.00\n1.00\n1.0\n1\n1.0\n1.1\n\n\nrashnu\n1.00\n1.00\n1.0\n1\n1.0\n1.1\n\n\nrpact\n0.98\n0.99\n1.0\n1\n1.0\n1.0\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.2\n1\n1.1\n5.4\n\n\nnquery\n0.98\n1.00\n1.3\n1\n1.1\n2.8\n\n\nrashnu\n0.96\n1.00\n1.1\n1\n1.0\n1.9\n\n\nrpact\n0.78\n1.00\n1.1\n1\n1.0\n5.4"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-2",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-2",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2-Bras GS-Design",
+    "text": "Essai à 2-Bras GS-Design\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nSurvie\n2 bras, séquentiel en groupes\n—\nEast\nRpact, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\n\n\n\n\nrpact::getSampleSizeSurvival()\ngsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-3",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-3",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2-Bras GS-Design",
+    "text": "Essai à 2-Bras GS-Design\nRésultats I\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 2-Bras GS-Design\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.00\n\n\nrpact\n1.00\n1.00\n1.10\n1.00\n1.10\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.00\n\n\nrpact\n0.97\n0.99\n1.00\n1.00\n1.00\n1.10\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-4",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-4",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2-Bras GS-Design",
+    "text": "Essai à 2-Bras GS-Design\nRésultats II\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSample Size dans des cas pertinents\n\n\nα = 0.05, β = 0.1 et HR = 0.6\n\n\nSurvie à 3 ans\n\nSample Size\n\n\nRatio\n\n\n\nRpact\nEast\ngsDesign2\nRpact/East\ngsDesign2/East\n\n\n\n\n0.2\n211\n203\n199\n1.040\n0.980\n\n\n0.5\n318\n321\n306\n0.991\n0.953\n\n\n0.8\n752\n776\n739\n0.969\n0.952"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-1-bras-3",
+    "href": "presentation/presentation-fr.html#essai-à-1-bras-3",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 1-Bras",
+    "text": "Essai à 1-Bras\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciels\nPackage \n\n\n\n\nSurvie\n1 bras, fixe\n—\nnQuery\noa2s1, sssas2, Rashnu\n\n\n\n\n\nnQuery : SOT1 / One Sample Log-Rank Test with Accrual\n\n\n\n\nOneArm2stage::phase2.TTE() # Version with accrual time\nSampleSizeSingleArmSurvival::calcSampleSizeArcsine()\nrashnu::oneSurvSampleSize()\n\n\nOneArm2stageSampleSizeSingleArmSurvival"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-1-bras-4",
+    "href": "presentation/presentation-fr.html#essai-à-1-bras-4",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 1-Bras",
+    "text": "Essai à 1-Bras\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 1-Bras fixe\n\n\nPar rapport aux valeurs de nQuery\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.50\n1.60\n1.70\n1.60\n1.80\n2.00\n\n\nsssas\n1.20\n1.30\n1.40\n1.30\n1.40\n1.60\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.00\n\n\nrashnu\n1.30\n1.40\n1.60\n1.60\n1.70\n2.20\n\n\nsssas\n1.10\n1.20\n1.30\n1.30\n1.40\n1.60\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.10\n0.86\n1.10\n14.00\n\n\nrashnu\n0.67\n1.60\n2.10\n1.90\n2.20\n17.00\n\n\nsssas\n0.55\n1.30\n1.70\n1.50\n1.70\n14.00\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#comme-alternative-à-east-et-nquery",
+    "href": "presentation/presentation-fr.html#comme-alternative-à-east-et-nquery",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": " comme alternative à East et nQuery",
+    "text": "comme alternative à East et nQuery\n\n est une alternative vérifiée dans la majorité des cas\nEssai exact : A’Hern en 1 Bras, bbssr/east à 2 BRas\n1-Bras survie : plusieurs méthodes/ plusieurs résultats"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#limitations",
+    "href": "presentation/presentation-fr.html#limitations",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Limitations",
+    "text": "Limitations\n\nLes packages font parfois ds choses que East et nQuery ne propose pas (certain piecewise, strata etc) qui ne peuvent donc pas être vérifié par comparaison donc\nChoix arbitaires de design : “Supériorité”, certains paramètres, pertinence\nTous ce qui n’a pas été comparé n’est pas vérifié, vérification partielle\nNecessiterait de comparée à chaque MAJ/version"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#questions-futures",
+    "href": "presentation/presentation-fr.html#questions-futures",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Questions futures",
+    "text": "Questions futures\nSur les designs eux même - GS-Design LanDeMets : O’Brien Flemming, Pocock, autre ? Alpha 1-sided\nSur les méthodes : - Méthode de Lakatos pour la survie ? - Méthode pour l’analyse Endpoints survie à 1-Bras"
   },
   {
     "objectID": "references.html",
