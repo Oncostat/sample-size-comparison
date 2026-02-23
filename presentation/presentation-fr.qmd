@@ -26,8 +26,10 @@ format:
             <div>"
         scale: 0.60
 mermaid-format: svg
+fig-format: svg
 revealjs-plugins:
   - simplemenu
+  - fragoff
 author:
   - name: Arocena Thomas
     orcid: 0009-0002-7014-220X
@@ -73,9 +75,78 @@ theme_set(theme_clean())
 
 ## Présentation des Logiciels et package 
 
+- East 6
+- Nquery 9.2
+- Rpact
+- gsDesign2
+- Rashnu, bbssr, oa2s, sssas
+
+# Méthodologie {data-stack-name="Méthodologie"}
+
+## Grid Search
+
+- Définir un design
+- Fixer plusieurs valeurs par paramètres
+- Générer toutes les combinaisons
+- Calculer/Extraire la taille d'échantillon N finale
+
+::: {.fragment}
+```{r}
+tibble(
+  "Paramètre 1" = c(0.5, 0.5, 0.1, 0.1),
+  "Paramètre 2" = c(4, 12, 4, 12),
+  "Pertinence" = c("high", "medium", "low", "low"),
+  "N Réference" = c(10, 15, 20, 30),
+  "N Package 1" = c(12, 16, 19, 31),
+  "N Package 2" = c(8, 12, 15, 25)
+) |> 
+gt() |> 
+data_color(
+  columns = Pertinence,
+  palette = c(color_high, color_low, color_medium)
+)
+```
+:::
+
+## Présentation des résultats
+
+N-Ratio = N<sub>Méthode</sub> / N<sub>Référence</sub>
+
+```{r}
+resultat_exemple <- 
+  tibble(
+    alpha = c(0.05, 0.05, 0.2, 0.2, 0.49, 0.49),
+    power = c(0.8, 0.60, 0.8, 0.6, 0.8, 0.6),
+    n_east = c(10, 15, 20, 30, 60, 100),
+    n_rpact = c(10, 16, 19, 31, 58, 100),
+    n_nquery = c(10, 12, 15, 25, 51, 89),
+  ) |> 
+  mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |> 
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |> 
+  get_n_ratio()
+```
+
+::: {.columns}
+::: {.column width="36%"}
+::: {.fragment}
+```{r}
+gt_n_ratio(resultat_exemple, title = "N-Ratio exemple table")
+```
+:::
+:::
+::: {.column width="64%"}
+::: {.fragment}
+```{r}
+plot_n_ratio(resultat_exemple, title = "N-Ratio exemple plot")
+```
+:::
+:::
+:::
+<!-- end columns -->
 
 ## Périmètre de la comparaison
 ### Designs d’essai clinique parcourus
+
 ```{mermaid}
 ---
 config:
@@ -98,29 +169,27 @@ flowchart TB
       AAA --> AAAA(["Fixe"])
       AAA --> AAAB(["Group-sequential"])
     AA --> AAB(["1-bras"])
-
 ```
+
 
 ## Périmètre de la comparaison
 ### Méthodes évaluées selon le type d’essai
 
 ::: {style="font-size: 85%;"}
-
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 2 bras, fixe                  | —          | East, nQuery | Rpact, Rashnu, gsDesign2            |
 | Survie  | 1 bras, fixe                  | —          | nQuery       |oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu|
 | Survie  | 2 bras, group-sequential      | —          | East         | Rpact, gsDesign2                    |
 | Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
-| Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact, bbssr                        |
+| Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact                               |
 | Binaire | 2 bras, fixe                  | Unpooled   | East, nQuery | —                                   |
 | Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |
-| Binaire | 1 bras, fixe                  | Approx. norm| East, nQuery | Rpact                               |
+| Binaire | 1 bras, fixe                  | Approx.norm| East, nQuery | Rpact                               |
 | Binaire | 2 bras, group-sequential      | Pooled     | East         | Rpact                               |
-
 :::
 
-# Critères binaires {data-stack-name="Binaires"}
+# Endpoint Binaire {data-stack-name="Binaire"}
 
 ```{mermaid}
 ---
@@ -128,17 +197,16 @@ config:
   theme: neutral
 ---
 flowchart TB
-  AB["Binaire"] --> ABA["Deux bras"]
+  AB["Binaire"] --> ABA["2-bras"]
     ABA --> ABAA["Fixe"]
       ABAA --> ABAAA(["Calcul exact"])
       ABAA --> ABAAB(["Test Z-pooled"])
       ABAA --> ABAAC(["Test Z-unpooled"])
-    ABA --> ABAB["Séquentiel en groupes"]
+    ABA --> ABAB["Group-sequential"]
       ABAB --> ABABA(["Test Z-pooled"])
-  AB --> ABB["Un bras"]
+  AB --> ABB["1-bras"]
     ABB --> ABBA(["Calcul exact"])
-    ABB --> ABBB(["Calcul approché"])
-
+    ABB --> ABBB(["Approximation normale"])
 ```
 
 <!-- ## Quick theorical background
@@ -151,7 +219,7 @@ Pour calculer le nombre d’événements nécessaire :
 - Proportion du groupe contrôle $\pi_c$
 - Proportion du groupe expérimental $\pi_e$ -->
 
-## Tests pour critères binaires
+## Tests binaires
 ### Pooled/Unpooled, Fisher exacte
 
 ::: {style="font-size: 80%;"}
@@ -194,12 +262,15 @@ Pour calculer le nombre d’événements nécessaire :
 [pertinent]{.bg style="--col: #a7ffc4ff"}, [peu pertinant]{.bg style="--col: #f0e292ff"}, [cas limite]{.bg style="--col: #ffa194ff"}
 :::
 
+<!-- ::: {.fragment}
+Pour le GS-Design: 4 analyses
+::: -->
 
 ## Essai à 2 bras fixe
 ### Méthodes comparées
 
 ::: {style="font-size: 85%;"}
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
 | Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact, bbssr                        |
@@ -207,10 +278,8 @@ Pour calculer le nombre d’événements nécessaire :
 :::
 
 ::: {style="font-size: 70%;"}
-
 - East: Difference of Proportions test [PN-2S-DI]
 - nQuery : PTT36 / Inequality Tests for Difference of Two Proportions
-
 :::
 
 ::: {.fragment}
@@ -223,7 +292,7 @@ rpact::getSampleSizeRates()
 :::
 
 ## Essai à 2 bras fixe
-### Résultats en pooled
+### Résultats en pooled-variance
 
 ```{r}
 #| label: nr_bin_2_fixed_pooled
@@ -234,21 +303,27 @@ nr_bin_2_fixed_pooled <-
 ```
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="36%"}
 ::: {.fragment}
 ```{r}
 #| label: gt_n_ratio(nr_bin_2_fixed_pooled)
 #| tbl-widths: 9
-gt_n_ratio(nr_bin_2_fixed_pooled, title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
+gt_n_ratio(
+  nr_bin_2_fixed_pooled,
+  title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance"
+  )
 ```
 ::: 
 :::
-::: {.column width="65%"}
+::: {.column width="64%"}
 ::: {.fragment}
 ```{r}
 #| label: plot_n_ratio(nr_bin_2_fixed_pooled)
-#| fig-height: 7
-plot_n_ratio(nr_bin_2_fixed_pooled, title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_bin_2_fixed_pooled,
+  title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance"
+  )
 ```
 :::
 :::
@@ -258,310 +333,58 @@ plot_n_ratio(nr_bin_2_fixed_pooled, title = "N-Ratio Binaire à 2-Bras fixe, poo
 ### Résultats en exact
 
 ```{r}
+#| label: ref_bin_2_fixed_exact
+ref <- "nquery"
+ref_name <- "nQuery"
+```
+
+```{r}
 #| label: nr_bin_2_fixed_exact
+ref <- "nquery"
+ref_name <- "nQuery"
+
 nr_bin_2_fixed_exact <- 
   ssc$bin$fixed_exact$combined |> 
   get_tbl() |> 
-  mutate(
-    relevancy = case_when(
-        alpha > 0.2 | power < 0.6 | power >= 0.99 ~ "low",
-        alpha > 0.02 & alpha < 0.15 & power > 0.75  ~ "high",
-        .default = "medium"
-    )
-  ) |> 
+  mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |> 
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |> 
-  get_n_ratio()
+  get_n_ratio(ref = "nquery")
 ```
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="36%"}
 ::: {.fragment}
 ```{r}
 #| label: gt_n_ratio(nr_bin_2_fixed_exact)
-#| tbl-widths: 9
-gt_n_ratio(nr_bin_2_fixed_exact, title = "N-Ratio Binaire à 2-Bras fixe, exact")
+gt_n_ratio(
+  nr_bin_2_fixed_exact,
+  title = "N-Ratio Binaire à 2-Bras fixe, exact",
+  ref_name = ref_name
+  )
 ```
 ::: 
 :::
-::: {.column width="65%"}
+::: {.column width="64%"}
 ::: {.fragment}
 ```{r}
 #| label: plot_n_ratio(nr_bin_2_fixed_exact)
-#| fig-height: 7
-plot_n_ratio(nr_bin_2_fixed_exact, title = "N-Ratio Binaire à 2-Bras fixe, exact")
-```
-:::
-:::
-::::
-
-
-## Essai à 2 bras fixe
-### Résultats en pooled
-
-```{r}
-bin_fixed_pooled <- ssc$bin$fixed_pooled$combined
-bin_fixed_exact <- ssc$bin$fixed_exact$combined
-tbl_exact <- get_tbl(bin_fixed_exact) |> 
-  mutate(
-  relevancy = case_when(
-      alpha > 0.2 | power < 0.6 | power >= 0.99 ~ "low",
-      alpha > 0.02 & alpha < 0.15 & power > 0.75  ~ "high",
-      .default = "medium"
-  )) |> 
-  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low")))
-tbl_pooled <- get_tbl(bin_fixed_pooled)
-```
-
-```{r}
-#| echo: false
-n_ratios_pooled <-
-  tbl_pooled |> 
-  drop_na(n_east) |> 
-  mutate(
-    rpact = n_rpact/n_east,
-    nquery = n_nquery/n_east,
-  ) |> 
-  select(-c("n_rpact", "n_nquery")) |> 
-  pivot_longer(
-    cols = c("rpact", "nquery"),
-    names_to = "method",
-    values_to = "n_ratio"
-  )
-
-nr_bin2_fixed_pooled <- 
-  ssc$bin$fixed_pooled$combined |> 
-  get_tbl() |> 
-  get_n_ratio()
-
-n_ratios_exact <-
-  tbl_exact |> 
-  drop_na(n_east) |> 
-  mutate(
-    bbssr = n_bbssr/n_nquery,
-    east = n_east/n_nquery,
-  ) |> 
-  select(-c("n_east", "n_bbssr")) |> 
-  pivot_longer(
-    cols = c("bbssr", "east"),
-    names_to = "method",
-    values_to = "n_ratio"
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_bin_2_fixed_exact,
+  title = "N-Ratio Binaire à 2-Bras fixe, exact",
+  ref_name = ref_name
   )
 ```
-
-```{r}
-#| echo: false
-gt_ratio_pooled <-
-  n_ratios_pooled |> 
-  group_by(relevancy, method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 2))) |>
-  gt(rowname_col = c("method")) |> 
-  gt_theme_clean() |> 
-  # gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance",
-    subtitle = "Par rapport aux valeurs de East"
-  ) |>  
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#ffa194ff")
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  )
-```
-
-```{r}
-#| echo: false
-gt_ratio_exact <-
-  n_ratios_exact |> 
-  group_by(relevancy, method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-  gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes par rapport aux valeurs de East"
-  ) |>  
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#ffa194ff")
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  )
-```
-
-:::: {.columns}
-
-::: {.column width="35%"}
-
-::: {.fragment}
-```{r}
-#| echo: false
-#| tbl-widths: 9
-gt_ratio_pooled
-```
-::: 
 :::
-
-::: {.column width="65%"}
-
-::: {.fragment}
-```{r}
-#| fig-height: 7
-p <- 
-  ggplot(n_ratios_pooled) +
-  aes(x = n_east, y = n_ratio, color = method) +
-  geom_point() +
-  geom_smooth(se = FALSE) +
-  geom_hline(yintercept = 1 - er_rate, linetype = "dashed") +
-  geom_hline(yintercept = 1) +
-  geom_hline(yintercept = 1 + er_rate,  linetype = "dashed") +
-  labs(
-    title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance",
-    subtitle = "Par rapport à East",
-    x = "N East",
-    y = "N-Ratio"
-  ) +
-  theme(legend.position = "bottom") +
-  scale_color_clean() +
-  facet_relevancy()
-
-p
-```
 :::
-
-:::
-
-::::
-
-## Test
-
-```{r}
-#| fig-height: 7
-p <- nr_bin2_fixed_pooled |> 
-  plot_n_ratio(title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
-
-p
-```
-
-## Test 2
-
-```{r}
-nr_bin2_fixed_pooled |> 
-  gt_n_ratio(title = "N-Ratio Binaire à 2-Bras fixe, pooled-variance")
-```
-
-## Essai à 2 bras fixe
-### Résultats en exact I
-
-:::: {.columns}
-
-::: {.column width="35%"}
-
-::: {.fragment}
-```{r}
-gt_ratio_exact
-```
-:::
-
-:::
-
-::: {.column width="65%"}
-
-::: {.fragment}
-```{r}
-p <- ggplot(n_ratios_exact) +
-  aes(
-    x = n_nquery,
-    y = n_ratio,
-    color = method,
-    "alp" = alpha, 
-    "power" = power,
-    "pi_c" = pi_c,
-    "delta_pi" = delta_pi) +
-  geom_point() +
-  geom_smooth(se = FALSE) +
-  geom_hline(yintercept = 0.9, linetype = "dashed") +
-  geom_hline(yintercept = 1) +
-  geom_hline(yintercept = 1.1,  linetype = "dashed") +
-  facet_wrap( ~ relevancy, scales = "free") +
-  labs(x = "Sample size de East", y = NULL) +
-  theme_minimal() +
-  theme(legend.position = "bottom") +
-  scale_colour_brewer(palette = "Set1")
-
-plotly::ggplotly(p, width = 750, height = 500)
-```
-:::
-
-:::
-
 ::::
 
 ## Essai à 2 bras fixe
 ### Résultats en exact II
 
 ```{r}
-n_exact_relevant <- 
-  n_ratios_exact |> 
+nr_bin_2_fixed_exact_super_relevant <- 
+  nr_bin_2_fixed_exact |> 
   filter(
     relevancy == "high",
     n_nquery > 5,
@@ -570,40 +393,33 @@ n_exact_relevant <-
   )
 ```
 
-```{r}
-gt_ratio_exact <-
-  n_exact_relevant |> 
-  group_by(method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-  gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes par rapport aux valeurs de East"
-  )
-```
-
 :::: {.columns}
-
-::: {.column width="35%"}
-
+::: {.column width="36%"}
 ::: {.fragment}
 ```{r}
-gt_ratio_exact
+nr_bin_2_fixed_exact_super_relevant |> 
+group_by(method)  |> 
+summarise(
+  Min = min(n_ratio, na.rm = TRUE),
+  Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+  Moyenne = mean(n_ratio, na.rm = TRUE), 
+  Médiane = median(n_ratio, na.rm = TRUE), 
+  Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+  Max = max(n_ratio, na.rm = TRUE)
+) |> 
+mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
+gt(rowname_col = c("method")) |> 
+tab_header(
+  title = "Proportions des sample sizes",
+  subtitle = "En fonction des méthodes par rapport aux valeurs de East"
+)
 ```
 :::
 :::
-::: {.column width="65%"}
+::: {.column width="64%"}
 ::: {.fragment}
 ```{r}
-p <- ggplot(n_exact_relevant) +
+p <- ggplot(nr_bin_2_fixed_exact_super_relevant) +
   aes(x = n_nquery, y = n_ratio, color = method) +
   geom_point() +
   geom_smooth(se = FALSE) +
@@ -622,18 +438,15 @@ plotly::ggplotly(p, width = 750, height = 500)
 :::
 ::: 
 
-## Essai à 2 bras séquentiel en groupes
+## Essai à 2 bras GS-Design
 ### Méthodes comparées
 
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Binaire | 2 bras, séquentiel en groupes | Pooled     | East         | Rpact                               |
 
-
 ::: {style="font-size: 70%;"}
-
 - East: Difference of Proportions test [PN-2S-DI]
-
 :::
 
 ::: {.fragment}
@@ -644,105 +457,39 @@ rpact::getSampleSizeRates()
 ```
 :::
 
-## Two-Arms group sequential design
-### Results I
+## Essai à 2 bras GS-Design
+### Résultats
 
 ```{r}
-#| echo: false
-bin_gs <- get_tbl(ssc$bin$gs$combined)
-```
-
-
-```{r}
-#| echo: false
-n_ratios <-
-  bin_gs |> 
-  drop_na(n_east) |> 
-  mutate(
-    rpact = n_rpact/n_east,
-  ) |> 
-  select(-n_rpact)
-```
-
-```{r}
-#| echo: false
-gt_ratio <-
-  n_ratios |> 
-  group_by(relevancy) |> 
-  summarise(
-    Min = min(rpact, na.rm = TRUE),
-    Q1 = quantile(rpact, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(rpact, na.rm = TRUE), 
-    Médiane = median(rpact, na.rm = TRUE), 
-    Q3 = quantile(rpact, probs = 0.75, na.rm = TRUE),
-    Max = max(rpact, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |>
-  gt(groupname_col = "relevancy") |> 
-  tab_header(
-    title = "Proportions Rpact/East",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
-  ) |>  
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#ffa194ff")
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  )
+#| label: nr_bin_2_gs
+nr_bin_2_gs <- 
+  ssc$bin$gs$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
 ```
 
 ::: {.columns}
-::: {.column width="35%"}
-```{r}
-#| echo: false
-gt_ratio
-```
-:::
-::: {.column width="65%"}
+::: {.column width="36%"}
 ::: {.fragment}
 ```{r}
-p <- 
-  ggplot(n_ratios) +
-  aes(x = n_east, y = rpact) +
-  geom_point() +
-  geom_smooth(se = FALSE) +
-  geom_hline(yintercept = 0.9, linetype = "dashed") +
-  geom_hline(yintercept = 1) +
-  geom_hline(yintercept = 1.1,  linetype = "dashed") +
-  facet_wrap( ~ relevancy, scales = "free") +
-  labs(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
-    x = "Sample size de East",
-    y = "Proportion"
-  ) +
-  theme_minimal() +
-  theme(legend.position = "bottom") +
-  scale_colour_brewer(palette = "Set1")
-
-plotly::ggplotly(p, width = 750, height = 500)
+#| label: gt_n_ratio(nr_bin_2_gs)
+#| tbl-widths: 9
+gt_n_ratio(
+  nr_bin_2_gs,
+  title = "N-Ratio Binaire à 2-Bras GS-Design, pooled-variance"
+)
+```
+:::
+:::
+::: {.column width="64%"}
+::: {.fragment}
+```{r}
+#| label: plot_n_ratio(nr_bin_2_gs)
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_bin_2_gs,
+  title = "N-Ratio Binaire à 2-Bras GS-Design, pooled-variance"
+)
 ```
 :::
 :::
@@ -753,7 +500,7 @@ plotly::ggplotly(p, width = 750, height = 500)
 ### Méthodes comparées
 
 ::: {style="font-size: 85%;"}
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |
 | Binaire | 1 bras, fixe                  | Approchée  | East, nQuery | Rpact                               |
@@ -774,105 +521,38 @@ rpact::getSampleSizeRates(group = 1)
 :::
 
 ##  Essai à 1 bras
-### Résultat en approchée
+### Résultats sous approximation normale
 
 ```{r}
-bin_one_arm_pooled <- get_tbl(ssc$bin$one_arm_pooled$combined) 
-```
-
-```{r}
-#| echo: false
-n_ratios <-
-  bin_one_arm_pooled |> 
-  drop_na(n_east) |> 
-  mutate(
-    nquery = n_nquery/n_east,
-    rpact = n_rpact/n_east
-  ) |> 
-  select(-c("n_nquery", "n_rpact")) |> 
-  pivot_longer(
-    cols = c("nquery", "rpact"),
-    names_to = "method",
-    values_to = "n_ratio"
-  )
-```
-
-```{r}
-#| echo: false
-gt_ratio <-
-  n_ratios |> 
-  group_by(relevancy, method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-  gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "N Ratio 1-Bras",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery"
-  ) |>  
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = color_low)
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = color_medium)
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = color_high)
-    ),
-    location = cells_row_groups("high")
-  )
+#| label: nr_bin_1_approx
+nr_bin_1_approx <-
+  ssc$bin$one_arm_pooled$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
 ```
 
 ::: {.columns}
-::: {.column width="35%"}
-```{r}
-#| echo: false
-gt_ratio
-```
-:::
-::: {.column width="65%"}
+::: {.column width="36%"}
 ::: {.fragment}
 ```{r}
-p <- ggplot(n_ratios) +
-aes(x = n_east, y = n_ratio, color = method) +
-geom_point() +
-geom_smooth(se = FALSE) +
-geom_hline(yintercept = 0.9, linetype = "dashed") +
-geom_hline(yintercept = 1) +
-geom_hline(yintercept = 1.1,  linetype = "dashed") +
-ggh4x::facet_wrap2( ~ relevancy, strip = relevancy_strips, scales = "free") +
-labs(
-  title = "Proportions des sample sizes",
-  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery",
-  x = "Sample size de nQuery",
-  y = "Proportion"
-) +
-theme_minimal()
-
-p
+#| label: gt_n_ratio(nr_bin_1_approx)
+#| tbl-widths: 9
+gt_n_ratio(
+  nr_bin_1_approx,
+  title = "N-Ratio Binaire à 1-Bras, approx.norm"
+)
+```
+:::
+:::
+::: {.column width="64%"}
+::: {.fragment}
+```{r}
+#| label: plot_n_ratio(nr_bin_1_approx)
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_bin_1_approx,
+  title = "N-Ratio Binaire à 1-Bras, approx.norm"
+)
 ```
 :::
 :::
@@ -880,120 +560,57 @@ p
 <!-- end columns -->
 
 ## Essai à 1 bras
-### Results en exacte
+### Résultats en exacte
 
 ```{r}
-#| echo: false
-bin_one_arm_exact <- get_tbl(ssc$bin$one_arm_exact$combined)
-```
-
-```{r}
-#| echo: false
-n_ratios <-
-  bin_one_arm_exact |> 
-  drop_na(n_east, relevancy) |> 
-  mutate(
-    ahern = n_ahern/n_east,
-  ) |> 
-  select(-n_ahern)
-```
-
-```{r}
-#| echo: false
-gt_ratio <-
-  n_ratios |> 
-  group_by(relevancy) |> 
-  summarise(
-    Min = min(ahern, na.rm = TRUE),
-    Q1 = quantile(ahern, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(ahern, na.rm = TRUE), 
-    Médiane = median(ahern, na.rm = TRUE), 
-    Q3 = quantile(ahern, probs = 0.75, na.rm = TRUE),
-    Max = max(ahern, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |>
-  gt(groupname_col = "relevancy") |> 
-  tab_header(
-    title = "Proportions A'Hern/East",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
-  ) |> 
-  tab_stubhead(label = "Pertinence") |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#ffa194ff")
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  )
+#| label: nr_bin_1_exact
+nr_bin_1_exact <-
+  ssc$bin$one_arm_exact$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
 ```
 
 ::: {.columns}
-::: {.column width="35%"}
+::: {.column width="36%"}
 ```{r}
-#| echo: false
-gt_ratio
+#| label: gt_n_ratio(nr_bin_1_exact)
+#| tbl-widths: 9
+gt_n_ratio(
+  nr_bin_1_exact,
+  title = "N-Ratio Binaire à 1-Bras, exact"
+)
 ```
 :::
-::: {.column width="65%"}
+::: {.column width="64%"}
 ::: {.fragment}
 ```{r}
-ggplot(n_ratios) +
-aes(x = n_east, y = ahern) +
-geom_point() +
-geom_smooth(se = FALSE) +
-geom_hline(yintercept = 0.9, linetype = "dashed") +
-geom_hline(yintercept = 1) +
-geom_hline(yintercept = 1.1,  linetype = "dashed") +
-facet_wrap(~relevancy, scale = "free") +
-labs(
-  title = "Proportions des sample sizes",
-  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
-  x = "Sample size de East",
-  y = "Proportion"
-) +
-theme_minimal()
+#| label: plot_n_ratio(nr_bin_1_exact)
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_bin_1_exact,
+  title = "N-Ratio Binaire à 1-Bras, exact"
+)
 ```
 :::
 :::
 :::
 <!-- end columns -->
 
-# Critères de type survie {data-stack-name="Survie"}
+# Endpoint Survie {data-stack-name="Survie"}
 
 ```{mermaid}
-%%| fig-width: 10
 ---
 config:
   theme: neutral
 ---
 flowchart TB
-  AA[Time-to-Event Endpoints] --> AAA[Two-Arms]
-    AAA --> AAAA([Fixed Design])
-    AAA --> AAAB([Group-Sequential Design])
-  AA --> AAB([One Arm])
+  AA["Survie"] --> AAA["2-bras"]
+    AAA --> AAAA(["Fixe"])
+    AAA --> AAAB(["Group-sequential"])
+  AA --> AAB(["1-bras"])
 ```
 
-## Rappel théorique rapide
+<!-- ## Rappel théorique rapide
 ### Paramètres requis
 
 * Pour calculer le nombre d’événements :
@@ -1007,7 +624,7 @@ flowchart TB
   * Probabilité de survie du groupe contrôle à un instant $t$
   * Durée d’inclusion (accrual)
   * Durée de suivi
-  * Taux de pertes (dropout)
+  * Taux de pertes (dropout) -->
 
 ## Formule rapide (Schoenfeld)
 
@@ -1029,13 +646,11 @@ n = \frac{e}{\text{probabilité d’événement dans l’étude}}
 $$
 :::
 
-::: {.fragment}
 - La probabilité d’événement dépend de :
 
   - Durée de suivi
   - Durée d’inclusion (accrual)
   - Taux de pertes (dropout)
-:::
 
 <!-- * **Méthode de Lakatos** :
 
@@ -1066,6 +681,7 @@ $$
 ::: {.column width="60%"}
 ::: {.fragment}
 ```{r}
+#| fig-height: 4
 ggplot()+
 geom_segment(aes(x = 0, y = 0, xend = 3, yend = 2))+
 geom_segment(aes(x = 3, y = 2, xend = 6, yend = 2))+
@@ -1094,7 +710,7 @@ theme_classic()
 ## Essai à 2-Bras fixe
 ### Methods compared
 
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 2 bras, fixe                  | —          | East, nQuery | Rpact, Rashnu, gsDesign2            |
 
@@ -1106,6 +722,7 @@ theme_classic()
 
 :::
 
+::: {.fragment}
 ```{r}
 #| echo: true
 #| eval: false
@@ -1113,119 +730,51 @@ rpact::getSampleSizeSurvival()
 rashnu::lakatosSampleSize()
 gsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before
 ```
+:::
 
-## Two-Arms fixed design
-### Results
-
-```{r}
-#| echo: false
-surv_fixed <- ssc$surv$fixed$combined
-params <- get_params(surv_fixed)
-tbl <- get_tbl(surv_fixed)
-```
+## Essai à 2-Bras fixe
+### Résultats
 
 ```{r}
-#| echo: false
-n_ratios <-
-  tbl |> 
-  drop_na(n_east) |> 
-  mutate(
-    rpact = n_rpact/n_east,
-    nquery = n_nquery/n_east,
-    gsdesign2 = n_gsdesign2/n_east,
-    rashnu = n_rashnu/n_east
-  ) |> 
-  select(-c("n_rpact", "n_nquery", "n_rashnu", "n_gsdesign2"), -starts_with("e_")) |> 
-  pivot_longer(
-    cols = c("rpact", "nquery", "gsdesign2", "rashnu"),
-    names_to = "method",
-    values_to = "n_ratio"
-  )
+#| label: nr_surv_2_fixed
+nr_surv_2_fixed <- 
+  ssc$surv$fixed$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
 ```
 
+::: {.columns}
+::: {.column width="36%"}
+::: {.fragment}
 ```{r}
-#| echo: false
-gt_ratio <-
-  n_ratios |> 
-  group_by(relevancy, method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-  gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
-  ) |> 
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#ffa194ff")
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  )
+#| label: gt_n_ratio(nr_surv_2_fixed)
+#| tbl-widths: 9
+gt_n_ratio(
+  nr_surv_2_fixed,
+  title = "N-Ratio Survie à 2-Bras fixe"
+)
 ```
-
+:::
+:::
+::: {.column width="64%"}
+::: {.fragment}
 ```{r}
-#| echo: false
-gt_ratio |> 
-tab_options(
-  table.width = pct(100),
-  table.font.size = pct(45)
-) 
+#| label: plot_n_ratio(nr_surv_2_fixed)_bis
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_surv_2_fixed,
+  title = "N-Ratio Survie à 2-Bras fixe"
+)
 ```
+:::
+:::
+:::
+<!-- end columns -->
 
-## Two-Arms fixed design
-### Results II
+## Essai à 2-Bras GS-Design
+### Méthodes comparées
 
-```{r}
-ggplot(n_ratios) +
-aes(x = n_east, y = n_ratio, color = method) +
-geom_point() +
-geom_smooth(se = FALSE) +
-geom_hline(yintercept = 0.9, linetype = "dashed") +
-geom_hline(yintercept = 1) +
-geom_hline(yintercept = 1.1,  linetype = "dashed") +
-facet_wrap( ~ relevancy, scales = "free") +
-labs(
-  title = "Proportions des sample sizes",
-  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
-  x = "Sample size de East",
-  y = "Proportion"
-) +
-theme_minimal()
-```
-
-## Two-Arms group sequential design
-### Methods compared
-
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 2 bras, séquentiel en groupes | —          | East         | Rpact, gsDesign2                    |
 
@@ -1236,113 +785,60 @@ theme_minimal()
 
 :::
 
+::: {.fragment}
 ```{r}
 #| echo: true
 #| eval: false
 rpact::getSampleSizeSurvival()
 gsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before
 ```
+:::
 
-## Two-Arms group sequential design
-### Results I
+## Essai à 2-Bras GS-Design
+### Résultats I
 
 ```{r}
-#| echo: false
-surv_gs <- ssc$surv$gs$combined
-tbl <- get_tbl(surv_gs)
+#| label: nr_surv_2_gs
+nr_surv_2_gs <- 
+  ssc$surv$gs$combined |> 
+  get_tbl() |> 
+  get_n_ratio()
 ```
 
+::: {.columns}
+::: {.column width="36%"}
+::: {.fragment}
 ```{r}
-#| echo: false
-n_ratios <-
-  tbl |> 
-  drop_na(n_east) |> 
-  mutate(
-    rpact = n_rpact/n_east,
-    gsdesign2 = n_gsdesign2/n_east,
-  ) |> 
-  select(-c("n_rpact", "n_gsdesign2"), -starts_with("e_")) |> 
-  pivot_longer(
-    cols = c("rpact", "gsdesign2"),
-    names_to = "method",
-    values_to = "n_ratio"
-  )
+#| label: gt_n_ratio(nr_surv_2_gs)
+#| tbl-widths: 9
+gt_n_ratio(
+  nr_surv_2_gs,
+  title = "N-Ratio Survie à 2-Bras GS-Design"
+)
 ```
-
+:::
+:::
+::: {.column width="64%"}
+::: {.fragment}
 ```{r}
-#| echo: false
-gt_ratio <-
-  n_ratios |> 
-  group_by(relevancy, method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-  gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East"
-  ) |> 
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  )
+#| label: plot_n_ratio(nr_surv_2_gs)
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_surv_2_gs,
+  title = "N-Ratio Survie à 2-Bras GS-Design"
+)
 ```
+:::
+:::
+:::
+<!-- end columns -->
+
+## Essai à 2-Bras GS-Design
+### Résultats II
 
 ```{r}
-#| echo: false
-gt_ratio
-```
-
-## Two-Arms group sequential design
-### Results II
-
-```{r}
-ggplot(n_ratios) +
-aes(x = n_east, y = n_ratio, color = method) +
-geom_point() +
-geom_smooth(se = FALSE) +
-geom_hline(yintercept = 0.9, linetype = "dashed") +
-geom_hline(yintercept = 1) +
-geom_hline(yintercept = 1.1,  linetype = "dashed") +
-facet_wrap( ~ relevancy, scales = "free") +
-labs(
-  title = "Proportions des sample sizes",
-  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de East",
-  x = "Sample size de East",
-  y = "Proportion"
-) +
-theme_minimal()
-```
-
-## Two-Arms group sequential design
-### Results III
-
-```{r}
-tbl  |>  
+ssc$surv$gs$combined  |>  
+get_tbl() |> 
 filter(
   alpha == 0.05, 
   power == 0.9, 
@@ -1392,19 +888,17 @@ tab_style(
   )
 ```
 
-## One-Arm design
-### Methods compared
+## Essai à 1-Bras
+### Méthodes comparées
 
-| Critère | Type d'essai                  | Méthode    | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 1 bras, fixe                  | —          | nQuery       | oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu|
 
 ::: {style="font-size: 70%;"}
-
 - nQuery : SOT1 / One Sample Log-Rank Test with Accrual
-
 :::
-
+::: {.fragment}
 ```{r}
 #| echo: true
 #| eval: false
@@ -1412,116 +906,53 @@ OneArm2stage::phase2.TTE() # Version with accrual time
 SampleSizeSingleArmSurvival::calcSampleSizeArcsine()
 rashnu::oneSurvSampleSize()
 ```
+:::
 
-## One-Arm design
-### Results I
+## Essai à 1-Bras
+### Résultats
 
 ```{r}
-surv_one_arm <- 
-  get_tbl(ssc$surv$one_arm$combined) |> 
-  filter(n_nquery < 200000)
+ref = "nquery"
+ref_name = "nQuery"
 ```
 
 ```{r}
-#| echo: false
-n_ratios <-
-  surv_one_arm |> 
-  drop_na(n_nquery) |> 
-  mutate(
-    oa2s = n_oa2s/n_nquery,
-    rashnu = n_rashnu/n_nquery,
-    sssas = n_sssas/n_nquery
-  ) |> 
-  select(-c("n_oa2s", "n_rashnu", "n_sssas"), -starts_with("e_")) |> 
-  pivot_longer(
-    cols = c("oa2s", "rashnu", "sssas"),
-    names_to = "method",
-    values_to = "n_ratio"
-  )
+#| label: nr_surv_1
+nr_surv_1 <- 
+  ssc$surv$one_arm$combined |> 
+  get_tbl() |> 
+  filter(n_nquery < 200000) |> # Above 200 000 nQuery seems to plateau
+  get_n_ratio(ref = ref)
 ```
 
+::: {.columns}
+::: {.column width="36%"}
+::: {.fragment}
 ```{r}
-#| echo: false
-gt_ratio <-
-  n_ratios |> 
-  group_by(relevancy, method)  |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-  gt(rowname_col = c("method")) |> 
-  tab_header(
-    title = "Proportions des sample sizes",
-    subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery"
-  ) |> 
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
-      ),
-    locations = cells_body(
-      rows = (Q1 < 0.9 | Q3 > 1.1)
-    )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#ffa194ff")
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#f0e292ff")
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = "#a7ffc4ff")
-    ),
-    location = cells_row_groups("high")
-  ) |> 
-  tab_footnote(
-    footnote = "OneArm2stage",
-    locations = cells_stub(rows = "oa2s")
-  ) |> 
-  tab_footnote(
-    footnote = "SampleSizeSingleArmSurvival",
-    locations = cells_stub(rows = "sssas")
-  ) 
+#| label: gt_n_ratio(nr_surv_1)
+#| tbl-widths: 9
+gt_n_ratio(
+  nr_surv_1,
+  title = "N-Ratio Survie à 1-Bras fixe",
+  ref_name = ref_name
+)
 ```
-
+:::
+:::
+::: {.column width="64%"}
+::: {.fragment}
 ```{r}
-#| echo: false
-gt_ratio
+#| label: plot_n_ratio(nr_surv_1)
+#| fig-height: 7.5
+plot_n_ratio(
+  nr_surv_1,
+  title = "N-Ratio Survie à 1-Bras fixe",
+  ref_name = ref_name
+)
 ```
-
-## One-Arm design
-### Results II
-
-```{r}
-ggplot(n_ratios) +
-aes(x = n_nquery, y = n_ratio, color = method) +
-geom_point() +
-geom_smooth(se = FALSE) +
-geom_hline(yintercept = 0.9, linetype = "dashed") +
-geom_hline(yintercept = 1) +
-geom_hline(yintercept = 1.1,  linetype = "dashed") +
-facet_wrap( ~ relevancy, scales = "free") +
-labs(
-  title = "Proportions des sample sizes",
-  subtitle = "En fonction des méthodes et de la pertinence des designs par rapport aux valeurs de nQuery",
-  x = "Sample size de nQuery",
-  y = "Proportion"
-) +
-theme_minimal()
-```
+:::
+:::
+:::
 
 ```{r}
 #| eval: false
@@ -1555,5 +986,29 @@ labs(
 ) +
 theme_minimal()
 ```
+
+# Conclusion {data-stack-name="Conclusion"}
+
+## {{< fa brands r-project >}} comme alternative à East et nQuery
+
+- {{< fa brands r-project >}} est une alternative vérifiée dans la majorité des cas 
+
+- Essai exact : A'Hern en 1 Bras, bbssr/east à 2 BRas
+- 1-Bras survie : plusieurs méthodes/ plusieurs résultats
+
+## Limitations
+- Les packages font parfois ds choses que East et nQuery ne propose pas (certain piecewise, strata etc) qui ne peuvent donc pas être vérifié par comparaison donc
+- Choix arbitaires de design : "Supériorité", certains paramètres, pertinence
+- Tous ce qui n'a pas été comparé n'est pas vérifié, vérification partielle
+- Necessiterait de comparée à chaque MAJ/version
+
+## Questions futures
+
+Sur les designs eux même
+- GS-Design LanDeMets : O'Brien Flemming, Pocock, autre ? Alpha 1-sided
+
+Sur les méthodes :
+- Méthode de Lakatos pour la survie ?
+- Méthode pour l'analyse Endpoints survie à 1-Bras
 
 # Annexe {data-name="Annexe"}

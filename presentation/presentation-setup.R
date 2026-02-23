@@ -216,19 +216,20 @@ facet_relevancy <- function(...){
 }
 
 # N-Ratio Tibble function ----
-get_n_ratio <- function(tbl_combined, ref = "n_east"){
-  ref_col <- tbl_combined[[ref]] |> na.omit()
+get_n_ratio <- function(tbl_combined, ref = "east"){
+  ref_col_names <- paste0("n_", ref)
+  ref_col <- tbl_combined[[ref_col_names]] |> na.omit()
   tbl_combined |> 
   select(-starts_with("e_")) |> 
-  drop_na(all_of(ref)) |> 
+  drop_na(all_of(ref_col_names)) |> 
   mutate(
     across(
-      (starts_with("n_") & !all_of(ref)),
+      (starts_with("n_") & !all_of(ref_col_names)),
       ~ ./ref_col,
       .names = "{sub('^n_', '', .col)}"
     )
   ) |> 
-  select(-(starts_with("n_") & !all_of(ref))) |> 
+  select(-(starts_with("n_") & !all_of(ref_col_names))) |> 
   pivot_longer(
     cols = any_of(
       c(
@@ -252,9 +253,7 @@ get_n_ratio <- function(tbl_combined, ref = "n_east"){
 plot_n_ratio <- function(
   tbl_n_ratio,
   title,
-  subtitle = "Par rapport à East",
-  xlab = "N East",
-  ylab = "N-Ratio"
+  ref_name = "East"
   ){
   # Reference column
   ref_col <- tbl_n_ratio |> select(starts_with("n_"), -"n_ratio")  |> pull()
@@ -269,59 +268,81 @@ plot_n_ratio <- function(
   geom_hline(yintercept = 1 + er_rate,  linetype = "dashed") +
   labs(
     title = title,
-    subtitle = subtitle,
-    x = xlab,
-    y = ylab
+    subtitle = paste0("Par rapport aux valeurs de ", ref_name),
+    x = paste0("N ", ref_name),
+    y = "N-Ratio",
+    color = "Méthodes : "
   ) +
   scale_color_clean() +
   facet_relevancy()
 }
 
 # N-Ratio gt ----
-gt_n_ratio <- function(tbl_n_ratio, title, subtitle = "Par rapport aux valeurs de East", digit = 2){
-  tbl_n_ratio |> 
-  group_by(relevancy, method) |> 
-  summarise(
-    Min = min(n_ratio, na.rm = TRUE),
-    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-    Moyenne = mean(n_ratio, na.rm = TRUE), 
-    Médiane = median(n_ratio, na.rm = TRUE), 
-    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-    Max = max(n_ratio, na.rm = TRUE)
-  ) |> 
-  mutate(across(where(is.numeric), ~ signif(., digit = digit))) |> 
-  gt(rowname_col = c("method")) |> 
-  gt_theme_clean() |> 
-  tab_header(
-    title = title,
-    subtitle = subtitle
-  ) |>  
-  tab_stubhead(label = "Pertinence") |>  
-  tab_style(
-    style = list(
-      cell_fill(color = "#9A2515"),
-      cell_text(style = "italic", color = "white")
+gt_n_ratio <- function(
+  tbl_n_ratio, 
+  title, 
+  ref_name = "East", 
+  digit = 2){
+  
+  nr_ratio_clean <- 
+    tbl_n_ratio |> 
+    group_by(relevancy, method) |> 
+    summarise(
+      Min = min(n_ratio, na.rm = TRUE),
+      Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+      Moyenne = mean(n_ratio, na.rm = TRUE), 
+      Médiane = median(n_ratio, na.rm = TRUE), 
+      Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+      Max = max(n_ratio, na.rm = TRUE)
+    ) |> 
+    mutate(across(where(is.numeric), ~ signif(., digit = digit)))
+
+  use_red <- any(nr_ratio_clean$Q1 < 1 - er_rate | nr_ratio_clean$Q3 > 1 + er_rate)
+
+  gt_nr <- 
+    nr_ratio_clean |> 
+    gt(rowname_col = c("method")) |> 
+    gt_theme_clean() |> 
+    tab_header(
+      title = title,
+      subtitle = paste0("Par rapport aux valeurs de ", ref_name)
+    ) |>  
+    tab_stubhead(label = "Pertinence") |>  
+    tab_style(
+      style = list(
+        cell_fill(color = color_low)
       ),
-    locations = cells_body(
-      rows = (Q1 < 1 - er_rate | Q3 > 1 + er_rate)
+      location = cells_row_groups("low")
+    ) |> 
+    tab_style(
+      style = list(
+        cell_fill(color = color_medium)
+      ),
+      location = cells_row_groups("medium")
+    ) |> 
+    tab_style(
+      style = list(
+        cell_fill(color = color_high)
+      ),
+      location = cells_row_groups("high")
     )
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = color_low)
-    ),
-    location = cells_row_groups("low")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = color_medium)
-    ),
-    location = cells_row_groups("medium")
-  ) |> 
-  tab_style(
-    style = list(
-      cell_fill(color = color_high)
-    ),
-    location = cells_row_groups("high")
-  )
+
+  if(use_red){
+    gt_nr <- 
+      gt_nr |> 
+      tab_style(
+        style = list(
+          cell_fill(color = "#9A2515"),
+          cell_text(style = "italic", color = "white")
+          ),
+        locations = cells_body(
+          rows = (Q1 < 1 - er_rate | Q3 > 1 + er_rate)
+        )
+      ) |> 
+      tab_source_note(
+        source_note = "Rouge : < 50% des ratios dans ±10%"
+      )
+  }
+
+  gt_nr
 }
