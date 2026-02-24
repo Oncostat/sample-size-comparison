@@ -590,14 +590,14 @@
     "href": "presentation/presentation-fr.html#présentation-des-logiciels-et-packages",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "Présentation des logiciels et packages",
-    "text": "Présentation des logiciels et packages\n\n\n\nEast 6\nNquery 9.2\n\n\n\nRpact 4.2.0\ngsDesign2 1.1.7\nRashnu 0.1.2, bbssr 1.0.2, OneArm2stage 1.1.2, SampleSizeSingleArmSurvival"
+    "text": "Présentation des logiciels et packages\n\n\n\nLogiciels :\n\nEast 6\nNquery 9.2\n\n\n\n\nPackages \n\nRpact 4.2.0\ngsDesign2 1.1.7\nRashnu 0.1.2, bbssr 1.0.2, OneArm2stage 1.1.2, SampleSizeSingleArmSurvival"
   },
   {
     "objectID": "presentation/presentation-fr.html#grid-search",
     "href": "presentation/presentation-fr.html#grid-search",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "Grid Search",
-    "text": "Grid Search\n\nDéfinir un design\nFixer plusieurs valeurs par paramètres\nGénérer toutes les combinaisons\nCalculer/Extraire la taille d’échantillon N finale\n\n\n\n\n\n\n\n\n\n\nα\nPuissance\nPertinence\nN East\nN Rpact\nN nQuery\n\n\n\n\n0.5\n0.9\nhigh\n10\n12\n8\n\n\n0.5\n0.7\nmedium\n15\n16\n12\n\n\n0.1\n0.9\nlow\n20\n19\n15\n\n\n0.1\n0.7\nlow\n30\n31\n25"
+    "text": "Grid Search\nPour chaque design :\n\nFixer plusieurs valeurs par paramètres\nGénérer toutes les combinaisons\nCalculer/Extraire la taille d’échantillon N finale\n\n\n\n\n\n\n\n\n\n\nα\nPuissance\nPertinence\nN East\nN Rpact\nN nQuery\n\n\n\n\n0.5\n0.9\nhigh\n10\n12\n8\n\n\n0.5\n0.7\nmedium\n15\n16\n12\n\n\n0.1\n0.9\nlow\n20\n19\n15\n\n\n0.1\n0.7\nlow\n30\n31\n25"
   },
   {
     "objectID": "presentation/presentation-fr.html#présentation-des-résultats",
@@ -625,63 +625,63 @@
     "href": "presentation/presentation-fr.html#tests-binaires",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "Tests binaires",
-    "text": "Tests binaires\nPooled/Unpooled, Fisher exacte\n\n\n\n\nZ-test\n\nPooled variance : \\[\nZ = \\frac{\\hat{p}_1 - \\hat{p}_2}{\\sqrt{\\hat{p}(1-\\hat{p}) \\left(\\frac{1}{n_1} + \\frac{1}{n_2}\\right)}}, \\quad\n\\hat{p} = \\frac{x_1 + x_2}{n_1 + n_2}\n\\]\nUnpooled variance : \\[\nZ = \\frac{\\hat{p}_1 - \\hat{p}_2}{\\sqrt{\\frac{\\hat{p}_1(1-\\hat{p}_1)}{n_1} + \\frac{\\hat{p}_2(1-\\hat{p}_2)}{n_2}}}\n\\]\n\n\n\n\nFisher exact test\n\nProbabilité exacte des tables 2×2 : \\[\nP = \\frac{\\binom{n_1}{x_1}\\binom{n_2}{x_2}}{\\binom{n_1+n_2}{x_1+x_2}}\n\\]\nUtile pour petits effectifs (pas d’approximation normale)\nPas de formule analytique"
+    "text": "Tests binaires\nPooled/Unpooled, Fisher exact\n\n\n\n\nZ-test\n\nPooled variance : \\[\nZ = \\frac{\\hat{p}_1 - \\hat{p}_2}{\\sqrt{\\hat{p}(1-\\hat{p}) \\left(\\frac{1}{n_1} + \\frac{1}{n_2}\\right)}}, \\quad\n\\hat{p} = \\frac{x_1 + x_2}{n_1 + n_2}\n\\]\nUnpooled variance : \\[\nZ = \\frac{\\hat{p}_1 - \\hat{p}_2}{\\sqrt{\\frac{\\hat{p}_1(1-\\hat{p}_1)}{n_1} + \\frac{\\hat{p}_2(1-\\hat{p}_2)}{n_2}}}\n\\]\n\n\n\n\nFisher exact test\n\nProbabilité exacte des tables 2×2 : \\[\nP = \\frac{\\binom{n_1}{x_1}\\binom{n_2}{x_2}}{\\binom{n_1+n_2}{x_1+x_2}}\n\\]\nUtile pour petits effectifs (pas d’approximation normale)\nPas de formule analytique"
   },
   {
-    "objectID": "presentation/presentation-fr.html#paramètres",
-    "href": "presentation/presentation-fr.html#paramètres",
+    "objectID": "presentation/presentation-fr.html#paramètres-du-grid-search",
+    "href": "presentation/presentation-fr.html#paramètres-du-grid-search",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Paramètres",
-    "text": "Paramètres\n\n\n\n\n\n\n\nParamètre\nValeurs testées\n\n\n\n\nProportion contrôle \\(\\pi_c\\)\n0.1, 0.3, 0.5, 0.8, 0.9\n\n\nDelta de proportion \\(\\pi_e - \\pi_c\\)\n0.05, 0.15, 0.25, 0.49\n\n\n\\(\\alpha\\) (2-sided)\n0.01, 0.05, 0.1, 0.20, 0.49\n\n\nPuissance (1-\\(\\beta\\))\n0.51, 0.8, 0.9, 0.99\n\n\n\n\npertinent, peu pertinant, cas limite"
+    "section": "Paramètres du Grid Search",
+    "text": "Paramètres du Grid Search\n\n\n\n\n\n\n\nParamètre\nValeurs testées\n\n\n\n\nProportion contrôle \\(\\pi_c\\)\n0.1, 0.3, 0.5, 0.8, 0.9\n\n\nDelta de proportion \\(\\pi_e - \\pi_c\\)\n0.05, 0.15, 0.25, 0.49\n\n\n\\(\\alpha\\) (2-sided)\n0.01, 0.05, 0.1, 0.20, 0.49\n\n\nPuissance (1-\\(\\beta\\))\n0.51, 0.8, 0.9, 0.99\n\n\n\n\npertinent, peu pertinant, cas limite"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2 bras fixe",
-    "text": "Essai à 2 bras fixe\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nBinaire\n2 bras, fixe\nExacte\nEast, nQuery\nbbssr\n\n\nBinaire\n2 bras, fixe\nPooled\nEast, nQuery\nRpact\n\n\nBinaire\n2 bras, fixe\nUnpooled\nEast, nQuery\n—\n\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\nnQuery : PTT36 / Inequality Tests for Difference of Two Proportions\n\n\n\n\nbbssr::BinarySampleSize()\nrpact::getSampleSizeRates()"
+    "section": "Essai à 2 bras; “fixe”",
+    "text": "Essai à 2 bras; “fixe”\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nBinaire\n2 bras, fixe\nPooled\nEast, nQuery\nRpact\n\n\nBinaire\n2 bras, fixe\nExacte\nEast, nQuery\nbbssr\n\n\nBinaire\n2 bras, fixe\nUnpooled\nEast, nQuery\n—\n\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\nnQuery : PTT36 / Inequality Tests for Difference of Two Proportions\n\n\n\n\nbbssr::BinarySampleSize()\nrpact::getSampleSizeRates()"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-1",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-1",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2 bras fixe",
-    "text": "Essai à 2 bras fixe\nRésultats en pooled-variance\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras fixe, pooled-variance\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00"
+    "section": "Essai à 2 bras; “fixe”",
+    "text": "Essai à 2 bras; “fixe”\nRésultats en pooled-variance\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras fixe, pooled-variance\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-2",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-2",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2 bras fixe",
-    "text": "Essai à 2 bras fixe\nRésultats en exact\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras fixe, exact\n\n\nPar rapport aux valeurs de nQuery\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nbbssr\n0.81\n0.97\n0.98\n0.99\n1.00\n1.05\n\n\neast\n0.64\n0.86\n0.90\n0.91\n0.95\n1.00\n\n\nmedium\n\n\nbbssr\n0.80\n0.97\n0.98\n0.99\n1.00\n1.03\n\n\neast\n0.60\n0.87\n0.92\n0.94\n0.99\n1.07\n\n\nlow\n\n\nbbssr\n0.79\n0.97\n0.98\n0.99\n1.00\n1.05\n\n\neast\n0.57\n0.83\n0.89\n0.92\n0.97\n1.07\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
+    "section": "Essai à 2 bras; “fixe”",
+    "text": "Essai à 2 bras; “fixe”\nRésultats en exact\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras fixe, exact\n\n\nPar rapport aux valeurs de nQuery\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nbbssr\n0.81\n0.97\n0.98\n0.99\n1.00\n1.05\n\n\neast\n0.64\n0.86\n0.90\n0.91\n0.95\n1.00\n\n\nmedium\n\n\nbbssr\n0.80\n0.97\n0.98\n0.99\n1.00\n1.03\n\n\neast\n0.60\n0.87\n0.92\n0.94\n0.99\n1.07\n\n\nlow\n\n\nbbssr\n0.79\n0.97\n0.98\n0.99\n1.00\n1.05\n\n\neast\n0.57\n0.83\n0.89\n0.92\n0.97\n1.07\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
   },
   {
-    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-3",
-    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-3",
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixed",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixed",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2 bras fixe",
-    "text": "Essai à 2 bras fixe\nRésultats en exact II"
+    "section": "Essai à 2 bras; “fixed”",
+    "text": "Essai à 2 bras; “fixed”\nRésultats en exact II"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2 bras GS-Design",
-    "text": "Essai à 2 bras GS-Design\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nBinaire\n2 bras, séquentiel en groupes\nPooled\nEast\nRpact\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\n\n\n\n\nrpact::getSampleSizeRates()"
+    "section": "Essai à 2 bras; GS-Design",
+    "text": "Essai à 2 bras; GS-Design\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nBinaire\n2 bras, séquentiel en groupes\nPooled\nEast\nRpact\n\n\n\n\n\nEast: Difference of Proportions test [PN-2S-DI]\n\n\n\n\nrpact::getSampleSizeRates()"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-1",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-1",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2 bras GS-Design",
-    "text": "Essai à 2 bras GS-Design\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras GS-Design, pooled-variance\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06"
+    "section": "Essai à 2 bras; GS-Design",
+    "text": "Essai à 2 bras; GS-Design\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Binaire à 2-Bras GS-Design, pooled-variance\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-1-bras",
     "href": "presentation/presentation-fr.html#essai-à-1-bras",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "Essai à 1 bras",
-    "text": "Essai à 1 bras\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nBinaire\n1 bras, fixe\nExacte\nEast\nA’Hern (sans package)\n\n\nBinaire\n1 bras, fixe\nApprochée\nEast, nQuery\nRpact\n\n\n\n\n\n\nEast : Single Proportion test [PN-1S-SP]\nnQuery : POT0 / Chi Square Test for One Proportion\n\n\n\n\nrpact::getSampleSizeRates(group = 1)"
+    "text": "Essai à 1 bras\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nBinaire\n1 bras, fixe\nApprochée\nEast, nQuery\nRpact\n\n\nBinaire\n1 bras, fixe\nExacte\nEast\nA’Hern (sans package)\n\n\n\n\n\n\nEast : Single Proportion test [PN-1S-SP]\nnQuery : POT0 / Chi Square Test for One Proportion\n\n\n\n\nrpact::getSampleSizeRates(group = 1)"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-1-bras-1",
@@ -712,46 +712,46 @@
     "text": "De \\(e\\) à \\(n\\) : calcul de la taille d’échantillon\nPassage du nombre d’événements au nombre de patients\n\nPour obtenir la taille d’échantillon \\(n\\) :\n\n\n\\[\nn = \\frac{e}{\\text{probabilité d’événement dans l’étude}}\n\\]\n\n\nLa probabilité d’événement dépend de :\n\nDe la probabilité de survie\nDurée de suivi\nDurée d’inclusion (accrual)\nTaux de pertes (dropout)"
   },
   {
-    "objectID": "presentation/presentation-fr.html#paramètres-1",
-    "href": "presentation/presentation-fr.html#paramètres-1",
+    "objectID": "presentation/presentation-fr.html#paramètres-du-grid-search-1",
+    "href": "presentation/presentation-fr.html#paramètres-du-grid-search-1",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Paramètres",
-    "text": "Paramètres\n\n\n\n\n\n\n\nParamètre\nValeurs testées\n\n\n\n\nSurvie contrôle à 3 ans \\(S_c(3)\\)\n0.1, 0.3, 0.6, 0.9\n\n\nHazard ratio \\(HR\\)\n0.1, 0.5, 0.7, 0.9, 0.99\n\n\n\\(\\alpha\\) (2-sided)\n0.01, 0.05, 0.1, 0.20, 0.49\n\n\nPuissance (1-\\(\\beta\\))\n0.51, 0.8, 0.9, 0.99\n\n\n\n\npertinent, peu pertinant, cas limite\n\n\n\n\n\nPériode de recrutement de 3 ans\n\nSuivi de 3 ans après le dernier admis\n\nProportion égale entre bras contrôle/expérimental"
+    "section": "Paramètres du Grid Search",
+    "text": "Paramètres du Grid Search\n\n\n\n\n\n\n\nParamètre\nValeurs testées\n\n\n\n\nSurvie contrôle à 3 ans \\(S_c(3)\\)\n0.1, 0.3, 0.6, 0.9\n\n\nHazard ratio \\(HR\\)\n0.1, 0.5, 0.7, 0.9, 0.99\n\n\n\\(\\alpha\\) (2-sided)\n0.01, 0.05, 0.1, 0.20, 0.49\n\n\nPuissance (1-\\(\\beta\\))\n0.51, 0.8, 0.9, 0.99\n\n\n\n\npertinent, peu pertinant, cas limite\n\n\n\n\n\nPériode de recrutement de 3 ans\n\nSuivi de 3 ans après le dernier admis\n\nProportion égale entre bras contrôle/expérimental"
+  },
+  {
+    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-3",
+    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-3",
+    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
+    "section": "Essai à 2-Bras; “fixe”",
+    "text": "Essai à 2-Bras; “fixe”\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nSurvie\n2 bras, fixe\n—\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\nnQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival\n\n\n\n\nrpact::getSampleSizeSurvival()\nrashnu::lakatosSampleSize()\ngsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before\n\n\n\nLakatos (1988)"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-4",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-4",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2-Bras fixe",
-    "text": "Essai à 2-Bras fixe\nMethods compared\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nSurvie\n2 bras, fixe\n—\nEast, nQuery\nRpact, Rashnu, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\nnQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival\n\n\n\n\nrpact::getSampleSizeSurvival()\nrashnu::lakatosSampleSize()\ngsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before"
-  },
-  {
-    "objectID": "presentation/presentation-fr.html#essai-à-2-bras-fixe-5",
-    "href": "presentation/presentation-fr.html#essai-à-2-bras-fixe-5",
-    "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2-Bras fixe",
-    "text": "Essai à 2-Bras fixe\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 2-Bras fixe\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nnquery\n1.00\n1.00\n1.01\n1.00\n1.01\n1.03\n\n\nrashnu\n1.00\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.01\n1.00\n1.01\n1.05\n\n\nnquery\n1.00\n1.00\n1.03\n1.02\n1.04\n1.11\n\n\nrashnu\n1.00\n1.00\n1.01\n1.01\n1.02\n1.07\n\n\nrpact\n0.98\n0.99\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.21\n1.00\n1.07\n5.44\n\n\nnquery\n0.98\n1.00\n1.26\n1.01\n1.13\n2.84\n\n\nrashnu\n0.96\n1.00\n1.09\n1.00\n1.03\n1.87\n\n\nrpact\n0.78\n1.00\n1.12\n1.00\n1.00\n5.44\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
+    "section": "Essai à 2-Bras; “fixe”",
+    "text": "Essai à 2-Bras; “fixe”\nRésultats\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 2-Bras fixe\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nnquery\n1.00\n1.00\n1.01\n1.00\n1.01\n1.03\n\n\nrashnu\n1.00\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.01\n1.00\n1.01\n1.05\n\n\nnquery\n1.00\n1.00\n1.03\n1.02\n1.04\n1.11\n\n\nrashnu\n1.00\n1.00\n1.01\n1.01\n1.02\n1.07\n\n\nrpact\n0.98\n0.99\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.21\n1.00\n1.07\n5.44\n\n\nnquery\n0.98\n1.00\n1.26\n1.01\n1.13\n2.84\n\n\nrashnu\n0.96\n1.00\n1.09\n1.00\n1.03\n1.87\n\n\nrpact\n0.78\n1.00\n1.12\n1.00\n1.00\n5.44\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-2",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-2",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2-Bras GS-Design",
-    "text": "Essai à 2-Bras GS-Design\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nSurvie\n2 bras, séquentiel en groupes\n—\nEast\nRpact, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\n\n\n\n\nrpact::getSampleSizeSurvival()\ngsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before"
+    "section": "Essai à 2-Bras; GS-Design",
+    "text": "Essai à 2-Bras; GS-Design\nMéthodes comparées\n\n\n\n\n\n\n\n\n\n\nEndpoint\nType d’essai\nÉvaluation\nLogiciel\nPackage \n\n\n\n\nSurvie\n2 bras, séquentiel en groupes\n—\nEast\nRpact, gsDesign2\n\n\n\n\n\nEast: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]\n\n\n\n\nrpact::getSampleSizeSurvival()\ngsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-3",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-3",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2-Bras GS-Design",
-    "text": "Essai à 2-Bras GS-Design\nRésultats I\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 2-Bras GS-Design\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
+    "section": "Essai à 2-Bras; GS-Design",
+    "text": "Essai à 2-Bras; GS-Design\nRésultats I\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio Survie à 2-Bras GS-Design\n\n\nPar rapport aux valeurs de East\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-4",
     "href": "presentation/presentation-fr.html#essai-à-2-bras-gs-design-4",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
-    "section": "Essai à 2-Bras GS-Design",
-    "text": "Essai à 2-Bras GS-Design\nRésultats II\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSample Size dans des cas pertinents\n\n\nα = 0.05, β = 0.1 et HR = 0.6\n\n\nSurvie à 3 ans\n\nSample Size\n\n\nRatio\n\n\n\nRpact\nEast\ngsDesign2\nRpact/East\ngsDesign2/East\n\n\n\n\n0.2\n211\n203\n199\n1.040\n0.980\n\n\n0.5\n318\n321\n306\n0.991\n0.953\n\n\n0.8\n752\n776\n739\n0.969\n0.952"
+    "section": "Essai à 2-Bras; GS-Design",
+    "text": "Essai à 2-Bras; GS-Design\nRésultats II\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSample Size dans des cas pertinents\n\n\nα = 0.05, β = 0.1 et HR = 0.6\n\n\nSurvie à 3 ans\n\nSample Size\n\n\nRatio\n\n\n\nRpact\nEast\ngsDesign2\nRpact/East\ngsDesign2/East\n\n\n\n\n0.2\n211\n203\n199\n1.040\n0.980\n\n\n0.5\n318\n321\n306\n0.991\n0.953\n\n\n0.8\n752\n776\n739\n0.969\n0.952"
   },
   {
     "objectID": "presentation/presentation-fr.html#essai-à-1-bras-3",
@@ -779,7 +779,7 @@
     "href": "presentation/presentation-fr.html#limitations",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "Limitations",
-    "text": "Limitations\n\nVérification partielle\nChoix arbitaires : design, pertinence\n2381 Designs + extraction -&gt; source d’erreurs\nNecessiterait de comparer à chaque MAJ/version\nAbsence de concessus = Absence de conclusion"
+    "text": "Limitations\n\nVérification partielle\nChoix arbitaires : design, pertinence\n2381 Designs + extraction → source d’erreurs\nNecessiterait de comparer à chaque MAJ/version\nAbsence de consensus = Absence de conclusion"
   },
   {
     "objectID": "presentation/presentation-fr.html#references",
@@ -807,7 +807,7 @@
     "href": "presentation/presentation-fr.html#section-1",
     "title": "Comparaison des méthodes de calcul de la taille d’échantillon",
     "section": "",
-    "text": "Tab ATab B\n\n\n\n\n\n\n\nPertinence:\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.1\n\n\n\n\n\n0.5\n\n\n\n\n\n0.7\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nSurvie à 3 ans:\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nContent for Tab B"
+    "text": "Binaire-2-Bras-Fixed-ExactBinaire-2-Bras-Fixed-ExactBinaire-2-Bras-GSBinaire-1-Bras-approxBinaire-1-Bras-exactSurvie-2-Bras-FixedSurvie-2-Bras-GSSurvie-1-Bras\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nProportion contrôle :\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.5\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nDelta-proportion :\n\n\n\n\n0.05\n\n\n\n\n\n0.15\n\n\n\n\n\n0.25\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nProportion contrôle :\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.5\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nDelta-proportion :\n\n\n\n\n0.05\n\n\n\n\n\n0.15\n\n\n\n\n\n0.25\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.005\n\n\n\n\n\n0.025\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.245\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nProportion contrôle :\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.5\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nDelta-proportion :\n\n\n\n\n0.05\n\n\n\n\n\n0.15\n\n\n\n\n\n0.25\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.005\n\n\n\n\n\n0.025\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.245\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nProportion contrôle :\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.5\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nDelta-proportion :\n\n\n\n\n0.05\n\n\n\n\n\n0.15\n\n\n\n\n\n0.25\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.005\n\n\n\n\n\n0.025\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.245\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nProportion contrôle :\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.5\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nDelta-proportion :\n\n\n\n\n0.05\n\n\n\n\n\n0.15\n\n\n\n\n\n0.25\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n0.49\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.1\n\n\n\n\n\n0.5\n\n\n\n\n\n0.7\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nSurvie à 3 ans :\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence :\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.7\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9\n\n\n\n\n\n\n\n\nSurvie à 3 ans :\n\n\n\n\n0.2\n\n\n\n\n\n0.5\n\n\n\n\n\n0.8\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPertinence:\n\n\n\n\nhigh\n\n\n\n\n\nmedium\n\n\n\n\n\nlow\n\n\n\n\n\n\n\n\nα :\n\n\n\n\n0.01\n\n\n\n\n\n0.05\n\n\n\n\n\n0.1\n\n\n\n\n\n0.2\n\n\n\n\n\n\n\n\nPuissance :\n\n\n\n\n0.51\n\n\n\n\n\n0.8\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nHazard ratio :\n\n\n\n\n0.1\n\n\n\n\n\n0.5\n\n\n\n\n\n0.7\n\n\n\n\n\n0.9\n\n\n\n\n\n0.99\n\n\n\n\n\n\n\n\nSurvie à 3 ans:\n\n\n\n\n0.1\n\n\n\n\n\n0.3\n\n\n\n\n\n0.6\n\n\n\n\n\n0.9"
   },
   {
     "objectID": "references.html",
