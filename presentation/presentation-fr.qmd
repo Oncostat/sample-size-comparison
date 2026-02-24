@@ -85,13 +85,15 @@ theme_set(theme_clean())
 
 ::: {.columns}
 ::: {.column}
-- East 6
-- Nquery 9.2
+- Logiciels :
+  * East 6
+  * Nquery 9.2
 :::
 ::: {.column}
-- Rpact 4.2.0
-- gsDesign2 1.1.7
-- Rashnu 0.1.2, bbssr 1.0.2, OneArm2stage 1.1.2, SampleSizeSingleArmSurvival
+- Packages {{< fa brands r-project >}}
+  * Rpact 4.2.0
+  * gsDesign2 1.1.7
+  * Rashnu 0.1.2, bbssr 1.0.2, OneArm2stage 1.1.2, SampleSizeSingleArmSurvival
 :::
 :::
 <!-- end columns -->
@@ -100,7 +102,8 @@ theme_set(theme_clean())
 
 ## Grid Search
 
-- Définir un design
+Pour chaque design : 
+
 - Fixer plusieurs valeurs par paramètres
 - Générer toutes les combinaisons
 - Calculer/Extraire la taille d'échantillon N finale
@@ -236,7 +239,7 @@ Pour calculer le nombre d’événements nécessaire :
 - Proportion du groupe expérimental $\pi_e$ -->
 
 ## Tests binaires
-### Pooled/Unpooled, Fisher exacte
+### Pooled/Unpooled, Fisher exact
 
 ::: {style="font-size: 80%;"}
 :::: {.columns}
@@ -265,7 +268,7 @@ Pour calculer le nombre d’événements nécessaire :
 ::::
 :::
 
-## Paramètres
+## Paramètres du Grid Search
 
 | Paramètre                           | Valeurs testées         |
 | ------------------------------------| ----------------------- |
@@ -282,14 +285,14 @@ Pour calculer le nombre d’événements nécessaire :
 Pour le GS-Design: 4 analyses
 ::: -->
 
-## Essai à 2 bras fixe
+## Essai à 2 bras; "fixe"
 ### Méthodes comparées
 
 ::: {style="font-size: 85%;"}
 | Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
-| Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
 | Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact                               |
+| Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
 | Binaire | 2 bras, fixe                  | Unpooled   | East, nQuery | —                                   |
 :::
 
@@ -307,7 +310,7 @@ rpact::getSampleSizeRates()
 ```
 :::
 
-## Essai à 2 bras fixe
+## Essai à 2 bras; "fixe"
 ### Résultats en pooled-variance
 
 ```{r}
@@ -345,7 +348,7 @@ plot_n_ratio(
 :::
 ::::
 
-## Essai à 2 bras fixe
+## Essai à 2 bras; "fixe"
 ### Résultats en exact
 
 ```{r}
@@ -395,7 +398,7 @@ plot_n_ratio(
 :::
 ::::
 
-## Essai à 2 bras fixe
+## Essai à 2 bras; "fixed"
 ### Résultats en exact II
 
 ```{r}
@@ -434,7 +437,7 @@ p <- ggplot(nr_bin_2_fixed_exact_high) +
 plotly::ggplotly(p, width = 1100, height = 500)
 ```
 
-## Essai à 2 bras GS-Design
+## Essai à 2 bras; GS-Design
 ### Méthodes comparées
 
 | Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
@@ -453,7 +456,7 @@ rpact::getSampleSizeRates()
 ```
 :::
 
-## Essai à 2 bras GS-Design
+## Essai à 2 bras; GS-Design
 ### Résultats
 
 ```{r}
@@ -498,8 +501,8 @@ plot_n_ratio(
 ::: {style="font-size: 85%;"}
 | Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
-| Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |
 | Binaire | 1 bras, fixe                  | Approchée  | East, nQuery | Rpact                               |
+| Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |
 :::
 ::: {style="font-size: 70%;"}
 
@@ -659,7 +662,7 @@ $$
   * Ajuste (n) en fonction de la distribution du temps de suivi et de l’accrual
   * Permet de mieux gérer les plans séquentiels ou les essais à événements retardés -->
 
-## Paramètres
+## Paramètres du Grid Search
 
 | Paramètre                           | Valeurs testées         |
 | ------------------------------------| ----------------------- |
@@ -708,7 +711,7 @@ theme_classic()
 ::::
 :::
 
-## Essai à 2-Bras fixe
+## Essai à 2-Bras; "fixe"
 ### Methods compared
 
 | Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
@@ -717,10 +720,8 @@ theme_classic()
 
 
 ::: {style="font-size: 70%;"}
-
 - East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
 - nQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival
-
 :::
 
 ::: {.fragment}
@@ -733,7 +734,11 @@ gsDesign2::fixed_design_ahr() # needs to define enroll_rate, fail_rate before
 ```
 :::
 
-## Essai à 2-Bras fixe
+::: {.fragment}
+@Lakatos_1988
+:::
+
+## Essai à 2-Bras; "fixe"
 ### Résultats
 
 ```{r}
@@ -772,7 +777,7 @@ plot_n_ratio(
 :::
 <!-- end columns -->
 
-## Essai à 2-Bras GS-Design
+## Essai à 2-Bras; GS-Design
 ### Méthodes comparées
 
 | Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
@@ -795,7 +800,7 @@ gsDesign2::gs_design_ahr() # needs to define enroll_rate, fail_rate before
 ```
 :::
 
-## Essai à 2-Bras GS-Design
+## Essai à 2-Bras; GS-Design
 ### Résultats I
 
 ```{r}
@@ -834,7 +839,7 @@ plot_n_ratio(
 :::
 <!-- end columns -->
 
-## Essai à 2-Bras GS-Design
+## Essai à 2-Bras; GS-Design
 ### Résultats II
 
 ```{r}
@@ -1017,9 +1022,9 @@ theme_minimal()
 
 - Vérification partielle
 - Choix arbitaires : design, pertinence
-- 2381 Designs + extraction -> source d'erreurs
+- 2381 Designs + extraction → source d'erreurs
 - Necessiterait de comparer à chaque MAJ/version
-- Absence de concessus = Absence de conclusion
+- Absence de consensus = Absence de conclusion
 
 ## References
 ::: {style="font-size: 70%;"}
@@ -1070,8 +1075,623 @@ gt_theme_clean()
 ## {.smaller .scrollable}
 
 ::: {.panel-tabset}
+### Binaire-2-Bras-Fixed-Exact
 
-### Tab A
+```{r}
+nr_bin_2_fixed_pooled_shared <- 
+  nr_bin_2_fixed_pooled |> 
+  mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_bin_2_fixed_pooled_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_bin_2_fixed_pooled_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_bin_2_fixed_pooled_shared, ~ power)
+filter_checkbox("hr", "Proportion contrôle :", nr_bin_2_fixed_pooled_shared, ~ pi_c)
+filter_checkbox("surv_t", "Delta-proportion :", nr_bin_2_fixed_pooled_shared, ~ delta_pi)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_bin_2_fixed_pooled_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_east,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N East : ", n_east,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Proportion contrôle : ", pi_c,
+    "<br>Delta-proportion : ", delta_pi,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_bin_2_fixed_pooled_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Binaire-2-Bras-Fixed-Exact
+
+```{r}
+nr_bin_2_fixed_exact_shared <- 
+  nr_bin_2_fixed_exact |> 
+  mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_bin_2_fixed_exact_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_bin_2_fixed_exact_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_bin_2_fixed_exact_shared, ~ power)
+filter_checkbox("hr", "Proportion contrôle :", nr_bin_2_fixed_exact_shared, ~ pi_c)
+filter_checkbox("surv_t", "Delta-proportion :", nr_bin_2_fixed_exact_shared, ~ delta_pi)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_bin_2_fixed_exact_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_nquery,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N nQuery : ", n_nquery,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Proportion contrôle : ", pi_c,
+    "<br>Delta-proportion : ", delta_pi,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_bin_2_fixed_exact_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Binaire-2-Bras-GS
+
+```{r}
+nr_bin_2_gs_shared <- 
+  nr_bin_2_gs |> 
+  mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_bin_2_gs_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_bin_2_gs_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_bin_2_gs_shared, ~ power)
+filter_checkbox("hr", "Proportion contrôle :", nr_bin_2_gs_shared, ~ pi_c)
+filter_checkbox("surv_t", "Delta-proportion :", nr_bin_2_gs_shared, ~ delta_pi)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_bin_2_gs_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_east,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N East : ", n_east,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Proportion contrôle : ", pi_c,
+    "<br>Delta-proportion : ", delta_pi,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_bin_2_gs_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Binaire-1-Bras-approx
+
+```{r}
+nr_bin_1_approx_shared <- 
+  nr_bin_1_approx |> 
+  mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_bin_1_approx_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_bin_1_approx_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_bin_1_approx_shared, ~ power)
+filter_checkbox("hr", "Proportion contrôle :", nr_bin_1_approx_shared, ~ pi_c)
+filter_checkbox("surv_t", "Delta-proportion :", nr_bin_1_approx_shared, ~ delta_pi)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_bin_1_approx_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_east,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N East : ", n_east,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Proportion contrôle : ", pi_c,
+    "<br>Delta-proportion : ", delta_pi,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_bin_1_approx_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Binaire-1-Bras-exact
+
+```{r}
+nr_bin_1_exact_shared <- 
+  nr_bin_1_exact |> 
+  mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_bin_1_exact_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_bin_1_exact_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_bin_1_exact_shared, ~ power)
+filter_checkbox("hr", "Proportion contrôle :", nr_bin_1_exact_shared, ~ pi_c)
+filter_checkbox("surv_t", "Delta-proportion :", nr_bin_1_exact_shared, ~ delta_pi)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_bin_1_exact_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_east,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N East : ", n_east,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Proportion contrôle : ", pi_c,
+    "<br>Delta-proportion : ", delta_pi,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_bin_1_exact_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Survie-2-Bras-Fixed
+
+```{r}
+nr_surv_2_fixed_shared <- 
+  nr_surv_2_fixed |> 
+  mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_surv_2_fixed_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_surv_2_fixed_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_surv_2_fixed_shared, ~ power)
+filter_checkbox("hr", "Hazard ratio :", nr_surv_2_fixed_shared, ~ hr)
+filter_checkbox("surv_t", "Survie à 3 ans :", nr_surv_2_fixed_shared, ~ surv_t)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_surv_2_fixed_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_east,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N East : ", n_east,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Hazard ratio : ", hr,
+    "<br>Survie à 3 ans : ", surv_t,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_surv_2_fixed_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Survie-2-Bras-GS
+
+```{r}
+nr_surv_2_gs_shared <- 
+  nr_surv_2_gs |> 
+  mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
+```{r}
+filter_checkbox("relevancy", "Pertinence :", nr_surv_2_gs_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_surv_2_gs_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_surv_2_gs_shared, ~ power)
+filter_checkbox("hr", "Hazard ratio :", nr_surv_2_gs_shared, ~ hr)
+filter_checkbox("surv_t", "Survie à 3 ans :", nr_surv_2_gs_shared, ~ surv_t)
+```
+:::
+:::
+::: {.column width="80%"}
+
+```{r}
+#| fig-width: 8
+plot_ly(
+  nr_surv_2_gs_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_east,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N East : ", n_east,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Hazard ratio : ", hr,
+    "<br>Survie à 3 ans : ", surv_t,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
+    )
+  )
+)
+```
+
+```{r}
+datatable(nr_surv_2_gs_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+### Survie-1-Bras
 
 ```{r}
 nr_surv_1_shared <- 
@@ -1081,8 +1701,8 @@ nr_surv_1_shared <-
 ```
 
 ::: {.columns}
-::: {.column width="20%"}
-
+::: {.column width="10%"}
+::: {style="font-size: 80%;"}
 ```{r}
 filter_checkbox("relevancy", "Pertinence:", nr_surv_1_shared, ~ relevancy)
 filter_checkbox("alpha", "α :", nr_surv_1_shared, ~ alpha)
@@ -1091,17 +1711,65 @@ filter_checkbox("hr", "Hazard ratio :", nr_surv_1_shared, ~ hr)
 filter_checkbox("surv_t", "Survie à 3 ans:", nr_surv_1_shared, ~ surv_t)
 ```
 :::
+:::
 ::: {.column width="80%"}
 
 ```{r}
-plot_ly(nr_surv_1_shared) |> 
-        add_trace(
-        x = ~ n_nquery,
-        y = ~ n_ratio,
-        color = ~ method,
-        type = "scatter",
-        mode = "markers"
+#| fig-width: 8
+plot_ly(
+  nr_surv_1_shared,
+  width = 900,
+  height = 600
+) |> 
+add_trace(
+  x = ~ n_nquery,
+  y = ~ n_ratio,
+  color = ~ method,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste(
+    " Méthode : ", method,
+    "<br> N nQuery : ", n_nquery,
+    "<br> N-Ratio : ", n_ratio,
+    "<br> α : ", alpha,
+    "<br>Puissance : ", power,
+    "<br>Hazard ratio : ", hr,
+    "<br>Survie à 3 ans : ", surv_t,
+    "<br>Pertinence : ", relevancy
+  ),
+  hovertemplate = paste(
+    "%{text}",
+    "<extra></extra>"
+  )
+) |> 
+layout(
+  shapes = list(
+    # Solid line at y = 1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",   # span full width
+      y0 = 1, y1 = 1,
+      line = list(color = "black", width = 2)
+    ),
+    # Dashed line at y = 0.9
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 0.9, y1 = 0.9,
+      line = list(color = "black", width = 1, dash = "dash")
+    ),
+    # Dashed line at y = 1.1
+    list(
+      type = "line",
+      x0 = 0, x1 = 1,
+      xref = "paper",
+      y0 = 1.1, y1 = 1.1,
+      line = list(color = "black", width = 1, dash = "dash")
     )
+  )
+)
 ```
 
 ```{r}
@@ -1110,10 +1778,3 @@ datatable(nr_surv_1_shared)
 :::
 :::
 <!-- end columns -->
-
-
-### Tab B
-
-Content for `Tab B`
-
-:::
