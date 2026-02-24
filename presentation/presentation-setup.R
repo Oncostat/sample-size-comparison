@@ -4,6 +4,8 @@ suppressPackageStartupMessages(suppressWarnings({
   library(gt)
   library(S7)
   library(plotly)
+  library(crosstalk)
+  library(DT)
 }))
 
 # Source S7 classes and methods ----
@@ -282,7 +284,7 @@ gt_n_ratio <- function(
   tbl_n_ratio, 
   title, 
   ref_name = "East", 
-  digit = 2){
+  decimals = 2){
   
   nr_ratio_clean <- 
     tbl_n_ratio |> 
@@ -294,8 +296,7 @@ gt_n_ratio <- function(
       Médiane = median(n_ratio, na.rm = TRUE), 
       Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
       Max = max(n_ratio, na.rm = TRUE)
-    ) |> 
-    mutate(across(where(is.numeric), ~ signif(., digit = digit)))
+    )
 
   use_red <- any(nr_ratio_clean$Q1 < 1 - er_rate | nr_ratio_clean$Q3 > 1 + er_rate)
 
@@ -325,7 +326,8 @@ gt_n_ratio <- function(
         cell_fill(color = color_high)
       ),
       location = cells_row_groups("high")
-    )
+    ) |> 
+    fmt_number(decimals = decimals)
 
   if(use_red){
     gt_nr <- 

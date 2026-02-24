@@ -46,6 +46,9 @@ author:
     role: "Encadrante"
 date: last-modified
 lang: fr
+bibliography: ../references.bibtex
+nocite: |
+  @*
 ---
 
 ```{r}
@@ -61,6 +64,11 @@ theme_set(theme_clean())
 <!-- # Introduction {background-color="#202B3E"} -->
 # Introduction {data-stack-name="Introduction"}
 
+## Cadre et contexte
+- Stage de césure M1 → M2
+- 05 Janvier → 13 Mars 
+- {{< fa brands r-project >}} source sur [{{< fa brands github >}}-Oncostat](https://github.com/Oncostat/sample-size-comparison)
+
 ## Motivations
 ### Pourquoi utiliser {{< fa brands r-project >}} pour le calcul de la taille d’échantillon ?
 
@@ -73,13 +81,20 @@ theme_set(theme_clean())
 → Nécessité de valider les packages {{< fa brands r-project >}} pour atteindre la crédibilité de logiciels comme East ou nQuery.
 :::
 
-## Présentation des Logiciels et package 
+## Présentation des logiciels et packages 
 
+::: {.columns}
+::: {.column}
 - East 6
 - Nquery 9.2
-- Rpact
-- gsDesign2
-- Rashnu, bbssr, oa2s, sssas
+:::
+::: {.column}
+- Rpact 4.2.0
+- gsDesign2 1.1.7
+- Rashnu 0.1.2, bbssr 1.0.2, OneArm2stage 1.1.2, SampleSizeSingleArmSurvival
+:::
+:::
+<!-- end columns -->
 
 # Méthodologie {data-stack-name="Méthodologie"}
 
@@ -93,18 +108,19 @@ theme_set(theme_clean())
 ::: {.fragment}
 ```{r}
 tibble(
-  "Paramètre 1" = c(0.5, 0.5, 0.1, 0.1),
-  "Paramètre 2" = c(4, 12, 4, 12),
+  "α" = c(0.5, 0.5, 0.1, 0.1),
+  "Puissance" = c(0.9, 0.7, 0.9, 0.7),
   "Pertinence" = c("high", "medium", "low", "low"),
-  "N Réference" = c(10, 15, 20, 30),
-  "N Package 1" = c(12, 16, 19, 31),
-  "N Package 2" = c(8, 12, 15, 25)
+  "N East" = c(10, 15, 20, 30),
+  "N Rpact" = c(12, 16, 19, 31),
+  "N nQuery" = c(8, 12, 15, 25)
 ) |> 
 gt() |> 
 data_color(
   columns = Pertinence,
   palette = c(color_high, color_low, color_medium)
-)
+) |> 
+gt_theme_clean()
 ```
 :::
 
@@ -176,17 +192,17 @@ flowchart TB
 ### Méthodes évaluées selon le type d’essai
 
 ::: {style="font-size: 85%;"}
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
-| Survie  | 2 bras, fixe                  | —          | East, nQuery | Rpact, Rashnu, gsDesign2            |
-| Survie  | 1 bras, fixe                  | —          | nQuery       |oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu|
-| Survie  | 2 bras, group-sequential      | —          | East         | Rpact, gsDesign2                    |
 | Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
 | Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact                               |
 | Binaire | 2 bras, fixe                  | Unpooled   | East, nQuery | —                                   |
+| Binaire | 2 bras, group-sequential      | Pooled     | East         | Rpact                               |
 | Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |
 | Binaire | 1 bras, fixe                  | Approx.norm| East, nQuery | Rpact                               |
-| Binaire | 2 bras, group-sequential      | Pooled     | East         | Rpact                               |
+| Survie  | 2 bras, fixe                  | —          | East, nQuery | Rpact, Rashnu, gsDesign2            |
+| Survie  | 2 bras, group-sequential      | —          | East         | Rpact, gsDesign2                    |
+| Survie  | 1 bras, fixe                  | —          | nQuery       | oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu |
 :::
 
 # Endpoint Binaire {data-stack-name="Binaire"}
@@ -270,10 +286,10 @@ Pour le GS-Design: 4 analyses
 ### Méthodes comparées
 
 ::: {style="font-size: 85%;"}
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
-| Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact, bbssr                        |
+| Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact                               |
 | Binaire | 2 bras, fixe                  | Unpooled   | East, nQuery | —                                   |
 :::
 
@@ -383,65 +399,45 @@ plot_n_ratio(
 ### Résultats en exact II
 
 ```{r}
-nr_bin_2_fixed_exact_super_relevant <- 
+nr_bin_2_fixed_exact_high <- 
   nr_bin_2_fixed_exact |> 
-  filter(
-    relevancy == "high",
-    n_nquery > 5,
-    n_nquery < 200,
-    delta_pi != 0.49
-  )
+  filter(relevancy == "high")
 ```
 
-:::: {.columns}
-::: {.column width="36%"}
-::: {.fragment}
 ```{r}
-nr_bin_2_fixed_exact_super_relevant |> 
-group_by(method)  |> 
-summarise(
-  Min = min(n_ratio, na.rm = TRUE),
-  Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-  Moyenne = mean(n_ratio, na.rm = TRUE), 
-  Médiane = median(n_ratio, na.rm = TRUE), 
-  Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
-  Max = max(n_ratio, na.rm = TRUE)
-) |> 
-mutate(across(where(is.numeric), ~ signif(., digit = 3))) |> 
-gt(rowname_col = c("method")) |> 
-tab_header(
-  title = "Proportions des sample sizes",
-  subtitle = "En fonction des méthodes par rapport aux valeurs de East"
-)
-```
-:::
-:::
-::: {.column width="64%"}
-::: {.fragment}
-```{r}
-p <- ggplot(nr_bin_2_fixed_exact_super_relevant) +
-  aes(x = n_nquery, y = n_ratio, color = method) +
+p <- ggplot(nr_bin_2_fixed_exact_high) +
+  aes(
+    x = n_nquery,
+    y = n_ratio,
+    color = method,
+    "α" = alpha,
+    "Puissance" = power,
+    "πc" = pi_c,
+    "delta_π" = delta_pi
+    ) +
   geom_point() +
   geom_smooth(se = FALSE) +
   geom_hline(yintercept = 0.9, linetype = "dashed") +
   geom_hline(yintercept = 1) +
   geom_hline(yintercept = 1.1,  linetype = "dashed") +
-  facet_wrap( ~ relevancy, scales = "free") +
-  labs(x = "Sample size de East", y = NULL) +
-  theme_minimal() +
-  theme(legend.position = "bottom") +
-  scale_colour_brewer(palette = "Set1")
+  labs(
+    title = "N-Ratio Binaire 2-Bras fixe, exact : Pertinence high",
+    subtitle = "Par rapport aux valeurs de nQuery",
+    x = "N nQuery",
+    y = "N-Ratio",
+    color = "Méthodes :"
+  ) +
+  scale_color_clean() +
+  theme_clean() +
+  theme(legend.position = NULL)
 
-plotly::ggplotly(p, width = 750, height = 500)
+plotly::ggplotly(p, width = 1100, height = 500)
 ```
-:::
-:::
-::: 
 
 ## Essai à 2 bras GS-Design
 ### Méthodes comparées
 
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Binaire | 2 bras, séquentiel en groupes | Pooled     | East         | Rpact                               |
 
@@ -500,7 +496,7 @@ plot_n_ratio(
 ### Méthodes comparées
 
 ::: {style="font-size: 85%;"}
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |
 | Binaire | 1 bras, fixe                  | Approchée  | East, nQuery | Rpact                               |
@@ -626,19 +622,24 @@ flowchart TB
   * Durée de suivi
   * Taux de pertes (dropout) -->
 
-## Formule rapide (Schoenfeld)
+## Formule de Schoenfeld
+
+@Schoenfeld_1983
 
 $$
 e = \frac{4 (z_{1-\alpha/2} + z_{1-\beta})^2}{(\log(HR))^2}
 $$
 
+- $HR$ → 1 ⇒ $e$ ↑
+- Puissance ↑ ⇒ $e$ ↑
+- $\alpha$ ↓ ⇒ $e$ ↑
+
 * Autres formules : Freedman, Hsieh-Freedman
 
-## De (e) à (n) : calcul de la taille d’échantillon
+## De $e$ à $n$ : calcul de la taille d’échantillon
 ### Passage du nombre d’événements au nombre de patients
 
-- Nombre d’événements requis : (e) (Schoenfeld ou autres formules)
-- Pour obtenir la taille d’échantillon (n) :
+- Pour obtenir la taille d’échantillon $n$ :
 
 ::: {.fragment}
 $$
@@ -647,7 +648,7 @@ $$
 :::
 
 - La probabilité d’événement dépend de :
-
+  - De la probabilité de survie
   - Durée de suivi
   - Durée d’inclusion (accrual)
   - Taux de pertes (dropout)
@@ -710,7 +711,7 @@ theme_classic()
 ## Essai à 2-Bras fixe
 ### Methods compared
 
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 2 bras, fixe                  | —          | East, nQuery | Rpact, Rashnu, gsDesign2            |
 
@@ -774,7 +775,7 @@ plot_n_ratio(
 ## Essai à 2-Bras GS-Design
 ### Méthodes comparées
 
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 2 bras, séquentiel en groupes | —          | East         | Rpact, gsDesign2                    |
 
@@ -885,13 +886,14 @@ tab_style(
     location = cells_body(
       columns = c("Rpact/East", "gsDesign2/East")
     )
-  )
+  ) |> 
+gt_theme_clean()
 ```
 
 ## Essai à 1-Bras
 ### Méthodes comparées
 
-| Endpoint| Type d'essai                  | Évaluation | Logiciels    | Package {{< fa brands r-project >}} |
+| Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
 | Survie  | 1 bras, fixe                  | —          | nQuery       | oa2s^[OneArm2stage], sssas^[SampleSizeSingleArmSurvival], Rashnu|
 
@@ -906,6 +908,10 @@ OneArm2stage::phase2.TTE() # Version with accrual time
 SampleSizeSingleArmSurvival::calcSampleSizeArcsine()
 rashnu::oneSurvSampleSize()
 ```
+:::
+
+::: {.fragment}
+@Nagashima_Noma_Sato_Gosho_2020
 :::
 
 ## Essai à 1-Bras
@@ -989,26 +995,125 @@ theme_minimal()
 
 # Conclusion {data-stack-name="Conclusion"}
 
-## {{< fa brands r-project >}} comme alternative à East et nQuery
+> {{< fa brands r-project >}} comme alternative à East et nQuery ?
 
+## Synthèse des résultats
+
+::: {style="font-size: 85%;"}
+| Endpoint| Type d'essai                  | Évaluation | Correspondance {{< fa brands r-project >}}/Logiciel|
+| :------ | :---------------------------- | :--------- | :---------------- | 
+| Binaire | 2 bras, fixe                  | Exacte     | 🟡 Modérée       |
+| Binaire | 2 bras, fixe                  | Pooled     | 🟢 Élevée        |
+| Binaire | 2 bras, group-sequential      | Pooled     | 🟢 Élevée        |
+| Binaire | 1 bras, fixe                  | Exacte     | 🟡 Modérée       |
+| Binaire | 1 bras, fixe                  | Approx.norm| 🟢 Élevée        |
+| Survie  | 2 bras, fixe                  | —          | 🟢 Élevée        |
+| Survie  | 2 bras, group-sequential      | —          | 🟡 Modérée       |
+| Survie  | 1 bras, fixe                  | —          | 🔵 Faible        |
+:::
 - {{< fa brands r-project >}} est une alternative vérifiée dans la majorité des cas 
 
-- Essai exact : A'Hern en 1 Bras, bbssr/east à 2 BRas
-- 1-Bras survie : plusieurs méthodes/ plusieurs résultats
-
 ## Limitations
-- Les packages font parfois ds choses que East et nQuery ne propose pas (certain piecewise, strata etc) qui ne peuvent donc pas être vérifié par comparaison donc
-- Choix arbitaires de design : "Supériorité", certains paramètres, pertinence
-- Tous ce qui n'a pas été comparé n'est pas vérifié, vérification partielle
-- Necessiterait de comparée à chaque MAJ/version
 
-## Questions futures
+- Vérification partielle
+- Choix arbitaires : design, pertinence
+- 2381 Designs + extraction -> source d'erreurs
+- Necessiterait de comparer à chaque MAJ/version
+- Absence de concessus = Absence de conclusion
 
-Sur les designs eux même
-- GS-Design LanDeMets : O'Brien Flemming, Pocock, autre ? Alpha 1-sided
+## References
+::: {style="font-size: 70%;"}
+::: {#refs}
+:::
+:::
 
-Sur les méthodes :
-- Méthode de Lakatos pour la survie ?
-- Méthode pour l'analyse Endpoints survie à 1-Bras
+## Merci pour votre attention {.center style="text-align: center;"}
+```{r}
+# qrcode::qr_code("https://oncostat.github.io/sample-size-comparison/", ecl = "H") |> 
+# qrcode::add_logo("SCC-HexSticker.png", ecl = "L") |> 
+# generate_svg(filename = "man/figures/qr.svg")
+```
 
-# Annexe {data-name="Annexe"}
+::: {.fragment}
+![](..\man\figures\qr.svg){width=50%}
+:::
+
+# Annexe {data-stack-name="Annexe"}
+
+## {.smaller .scrollable}
+@Lakatos_Lan_1992
+
+```{r}
+low_cols  <- c("n_rpact","n_rashnu","n_gsdesign2","n_east","n_nquery")
+high_cols <- c("n_L","n_F","n_RGS")
+
+ssc$surv$fixed$combined_lnl |>
+get_tbl() |> 
+select(-c(follow_up_time, starts_with("Power"))) |> 
+gt(groupname_col = c("surv_t", "hr", "accrual_time"), row_group_as_column = TRUE ) |> 
+tab_header(
+    title = "Comparaison avec l'article de Lakatos & Lan",
+    subtitle = "Durée de l'étude = 10 ans, α = 0.05, β = 0.1"
+) |> 
+tab_stubhead(label = "Sc(10) - HR - Accrual") |>
+tab_style(
+  style = cell_fill(color = "#75cec6ff"),
+  location = cells_body(columns = all_of(low_cols))
+) |>
+tab_style(
+  style = cell_fill(color = "#ce9d75ff"),
+  location = cells_body(columns = all_of(high_cols))
+) |> 
+gt_theme_clean()
+```
+
+## {.smaller .scrollable}
+
+::: {.panel-tabset}
+
+### Tab A
+
+```{r}
+nr_surv_1_shared <- 
+  nr_surv_1 |> 
+  mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
+  SharedData$new()
+```
+
+::: {.columns}
+::: {.column width="20%"}
+
+```{r}
+filter_checkbox("relevancy", "Pertinence:", nr_surv_1_shared, ~ relevancy)
+filter_checkbox("alpha", "α :", nr_surv_1_shared, ~ alpha)
+filter_checkbox("power", "Puissance :", nr_surv_1_shared, ~ power)
+filter_checkbox("hr", "Hazard ratio :", nr_surv_1_shared, ~ hr)
+filter_checkbox("surv_t", "Survie à 3 ans:", nr_surv_1_shared, ~ surv_t)
+```
+:::
+::: {.column width="80%"}
+
+```{r}
+plot_ly(nr_surv_1_shared) |> 
+        add_trace(
+        x = ~ n_nquery,
+        y = ~ n_ratio,
+        color = ~ method,
+        type = "scatter",
+        mode = "markers"
+    )
+```
+
+```{r}
+datatable(nr_surv_1_shared)
+```
+:::
+:::
+<!-- end columns -->
+
+
+### Tab B
+
+Content for `Tab B`
+
+:::
