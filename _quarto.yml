@@ -54,8 +54,10 @@ format:
       - brand
     css: styles.css
     toc: true
-  revealjs: 
-    output-file: presentation/presentation-fr.html
+format-links:
+  - text: Presentation (french)
+    href: https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr
+    icon: hand-thumbs-up
 
 
 
