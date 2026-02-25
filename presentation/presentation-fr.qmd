@@ -197,8 +197,8 @@ flowchart TB
 ::: {style="font-size: 85%;"}
 | Endpoint| Type d'essai                  | Évaluation | Logiciel     | Package {{< fa brands r-project >}} |
 | :------ | :---------------------------- | :--------- | :----------- | :---------------------------------- |
-| Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
 | Binaire | 2 bras, fixe                  | Pooled     | East, nQuery | Rpact                               |
+| Binaire | 2 bras, fixe                  | Exacte     | East, nQuery | bbssr                               |
 | Binaire | 2 bras, fixe                  | Unpooled   | East, nQuery | —                                   |
 | Binaire | 2 bras, group-sequential      | Pooled     | East         | Rpact                               |
 | Binaire | 1 bras, fixe                  | Exacte     | East         | A’Hern (sans package)               |

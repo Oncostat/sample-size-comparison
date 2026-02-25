@@ -54,6 +54,8 @@ format:
       - brand
     css: styles.css
     toc: true
+  revealjs: 
+    output-file: presentation/presentation-fr.html
 
 
 
