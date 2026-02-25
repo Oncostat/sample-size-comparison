@@ -1075,7 +1075,7 @@ gt_theme_clean()
 ## {.smaller .scrollable}
 
 ::: {.panel-tabset}
-### Binaire-2-Bras-Fixed-Exact
+### Binaire-2-Bras-Fixed-Pooled
 
 ```{r}
 nr_bin_2_fixed_pooled_shared <- 
