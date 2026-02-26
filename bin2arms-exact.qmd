@@ -1,0 +1,36 @@
+---
+title: "Exploration of unconditional exact tests for two independent binomials"
+subtitle: "Comparing results of sample size computation from East, nQuery and bbssr"
+bibliography: references.bibtex
+author:
+  - name: Arocena Thomas
+    orcid: 0009-0002-7014-220X
+    email: arocena.thomas@gmail.com
+    role: "Stagiaire"
+    affiliations: Oncostat
+  - name: Dan Chaltiel
+    email: dan.chaltiel@gustaveroussy.fr
+    orcid: 0000-0003-3488-779X
+    role: "Encadrant"
+  - name: Anne Lourdessamy
+    email: anne.lourdessamy@gustaveroussy.fr
+    orcid: 0009-0006-9051-3302
+    role: "Encadrante"
+date: last-modified
+format: html
+---
+
+We will compare :
+
+- Pearson Chi-squared Test
+- Fisher Exact Test
+- Fisher Mid-p Test
+- Z-pooled Exact Unconditional Test
+- Boschloo Exact Unconditional Test
+
+From `bbssr` package; [Statistical methods explained by Gosuke Homma](https://htmlpreview.github.io/?https://github.com/gosukehommaEX/bbssr/blob/main/doc/bbssr-statistical-methods.html)
+
+# Comparison of sample sizes
+
+
+
