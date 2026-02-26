@@ -17,6 +17,10 @@ author:
     orcid: 0009-0006-9051-3302
     role: "Encadrante"
 date: last-modified
+other-links:
+  - text: Presentation (in french)
+    href: https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr
+    icon: file-slides-fill
 ---
 
 ::: {.callout-caution}
