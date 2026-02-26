@@ -11,7 +11,7 @@
     "href": "surv/survival-endpoint.html",
     "title": "Survival Endpoints",
     "section": "",
-    "text": "flowchart TB\n    AA[Time-to-Event Endpoints] ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints",
+    "text": "Time-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints",
     "crumbs": [
       "Survival endpoints"
     ]
@@ -35,7 +35,7 @@
     "href": "presentation/presentation.html#scope-of-the-comparison",
     "title": "Comparison of Sample Size Calculations Across Methods",
     "section": "Scope of the comparison",
-    "text": "Scope of the comparison\nExplored clinical trials\n\n\n\n\n\nflowchart TB\n  A[Clinical Trial Design] --&gt; AA[Time-to-Event Endpoints]\n    AA --&gt; AAA[Two-Arms]\n      AAA --&gt; AAAA[Fixed Design]\n      AAA --&gt; AAAB[Group-Sequential Design]\n    AA --&gt; AAB[One Arm]\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA[Two-Arms]\n      ABA --&gt; ABAA[Fixed Design]\n        ABAA --&gt; ABAAA[Exact Computation]\n        ABAA --&gt; ABAAB[Z-pooled]\n        ABAA --&gt; ABAAC[Z-unpooled]\n      ABA --&gt; ABAB[Group-Sequential Design]\n        ABAB --&gt; ABABA[Z-pooled]\n    AB --&gt; ABB[One-Arm]\n      ABB --&gt; ABBA[Exact Computation]\n      ABB --&gt; ABBB[Non-exact Computation]"
+    "text": "Scope of the comparison\nExplored clinical trials\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nClinical Trial Design\n\n\n\n\n\n\n\nTime-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\nBinary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation"
   },
   {
     "objectID": "presentation/presentation.html#scope-of-the-comparison-1",
@@ -542,16 +542,6 @@
     "text": "Groupes Sequential Design\n\nLan-DeMets spending functions\n\n\nComparaison des résultats"
   },
   {
-    "objectID": "bin/binary-endpoints.html",
-    "href": "bin/binary-endpoints.html",
-    "title": "Binary Endpoints",
-    "section": "",
-    "text": "flowchart TB\n  AB[Binary Endpoints] --&gt; ABA(Two-Arms)\n    ABA --&gt; ABAA(Fixed Design)\n      ABAA --&gt; ABAAA([Exact Computation])\n      ABAA --&gt; ABAAB([Z-pooled])\n      ABAA --&gt; ABAAC([Z-unpooled])\n    ABA --&gt; ABAB(Group-Sequential Design)\n      ABAB --&gt; ABABA([Z-pooled])\n  AB ---&gt; ABB(One-Arm)\n    ABB --&gt; ABBA([Exact Computation])\n    ABB --&gt; ABBB([Non-exact Computation])",
-    "crumbs": [
-      "Binary endpoints"
-    ]
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -560,6 +550,23 @@
     "crumbs": [
       "About"
     ]
+  },
+  {
+    "objectID": "bin/binary-endpoints.html",
+    "href": "bin/binary-endpoints.html",
+    "title": "Binary Endpoints",
+    "section": "",
+    "text": "Binary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation",
+    "crumbs": [
+      "Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin2arms-exact.html",
+    "href": "bin2arms-exact.html",
+    "title": "Exploration of unconditional exact tests for two independent binomials",
+    "section": "",
+    "text": "We will compare :\n\nPearson Chi-squared Test\nFisher Exact Test\nFisher Mid-p Test\nZ-pooled Exact Unconditional Test\nBoschloo Exact Unconditional Test\n\nFrom bbssr package; Statistical methods explained by Gosuke Homma\n\nComparison of sample sizes"
   },
   {
     "objectID": "index.html",
@@ -586,7 +593,7 @@
     "href": "index.html#scope-of-the-comparison",
     "title": "Sample Size Comparison",
     "section": "Scope of the comparison",
-    "text": "Scope of the comparison\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n-\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟧East, 🟦nQuery\noa2s1, sssas2, 🟪Rashnu\n\n\n\n\n\n\n\n\nflowchart TB\n  A[[Clinical Trial Design]] --&gt; AA[Time-to-Event Endpoints]\n    AA ---&gt; AAA(Two-Arms)\n      AAA --&gt; AAAA([Fixed Design])\n      AAA --&gt; AAAB([Group-Sequential Design])\n    AA ----&gt; AAB([One Arm])\n  A --&gt; AB[Binary Endpoints]\n    AB --&gt; ABA(Two-Arms)\n      ABA --&gt; ABAA(Fixed Design)\n        ABAA --&gt; ABAAA([Exact Computation])\n        ABAA --&gt; ABAAB([Z-pooled])\n        ABAA --&gt; ABAAC([Z-unpooled])\n      ABA --&gt; ABAB(Group-Sequential Design)\n        ABAB --&gt; ABABA([Z-pooled])\n    AB ---&gt; ABB(One-Arm)\n      ABB --&gt; ABBA([Exact Computation])\n      ABB --&gt; ABBB([Non-exact Computation])",
+    "text": "Scope of the comparison\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n-\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟧East, 🟦nQuery\noa2s1, sssas2, 🟪Rashnu\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nClinical Trial Design\n\n\n\n\n\n\n\nTime-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\nBinary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation",
     "crumbs": [
       "Introduction"
     ]

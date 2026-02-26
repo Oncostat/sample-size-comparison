@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="AROCENA Thomas">
+<meta name="author" content="Arocena Thomas">
+<meta name="author" content="Dan Chaltiel">
+<meta name="author" content="Anne Lourdessamy">
+<meta name="dcterms.date" content="2026-02-26">
 
-<title>R vs East &amp; nQuery – ssc-website</title>
+<title>Exploration of unconditional exact tests for two independent binomials – ssc-website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -39,14 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f7c3cdc2dcf14c42e85c61b0a057668.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-fcc4ca47a794cd1656e57d1971e4ffef.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f7c3cdc2dcf14c42e85c61b0a057668.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f7c3cdc2dcf14c42e85c61b0a057668.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1e96596cda343d6d11fb6a2a3a3f2984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d9c71ff4125f93be2b337a472951d42f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-1e96596cda343d6d11fb6a2a3a3f2984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4dd4c36a5a81a2597ac10f0a85af17bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -61,52 +60,23 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Pas de résultats",
-    "search-matching-documents-text": "documents trouvés",
-    "search-copy-link-title": "Copier le lien vers la recherche",
-    "search-hide-matches-text": "Cacher les correspondances additionnelles",
-    "search-more-match-text": "correspondance de plus dans ce document",
-    "search-more-matches-text": "correspondances de plus dans ce document",
-    "search-clear-button-title": "Effacer",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuler",
-    "search-submit-button-title": "Envoyer",
-    "search-label": "Recherche"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="R vs East &amp; nQuery – ssc-website">
-<meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.">
+<meta property="og:title" content="Exploration of unconditional exact tests for two independent binomials – ssc-website">
+<meta property="og:description" content="Comparing results of sample size computation from East, nQuery and bbssr">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
 <meta property="og:site_name" content="ssc-website">
 </head>
@@ -117,13 +87,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">R vs East &amp; nQuery</li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exploration of unconditional exact tests for two independent binomials</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -159,7 +129,7 @@ window.Quarto = {
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Recherche"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -174,7 +144,7 @@ window.Quarto = {
       <div class="sidebar-item-container"> 
             <a href="./surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Survival endpoints</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -203,7 +173,7 @@ window.Quarto = {
       <div class="sidebar-item-container"> 
             <a href="./bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Binary endpoints</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -247,27 +217,10 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Sur cette page</h2>
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#calcul-de-sample-size-dans-le-cas-dun-outcome-binaire" id="toc-calcul-de-sample-size-dans-le-cas-dun-outcome-binaire" class="nav-link active" data-scroll-target="#calcul-de-sample-size-dans-le-cas-dun-outcome-binaire">Calcul de Sample Size dans le cas d’un outcome binaire</a>
-  <ul class="collapse">
-  <li><a href="#fixed" id="toc-fixed" class="nav-link" data-scroll-target="#fixed">Fixed</a></li>
-  <li><a href="#gs" id="toc-gs" class="nav-link" data-scroll-target="#gs">GS</a></li>
-  </ul></li>
-  <li><a href="#calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie" id="toc-calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie" class="nav-link" data-scroll-target="#calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie">Calcul de Sample Size dans le cas d’un outcome de survie</a>
-  <ul class="collapse">
-  <li><a href="#fixed-1" id="toc-fixed-1" class="nav-link" data-scroll-target="#fixed-1">Fixed</a>
-  <ul class="collapse">
-  <li><a href="#algorithmes" id="toc-algorithmes" class="nav-link" data-scroll-target="#algorithmes">Algorithmes</a></li>
-  <li><a href="#comparaison-des-résultats" id="toc-comparaison-des-résultats" class="nav-link" data-scroll-target="#comparaison-des-résultats">Comparaison des résultats</a></li>
-  </ul></li>
-  <li><a href="#groupes-sequential-design" id="toc-groupes-sequential-design" class="nav-link" data-scroll-target="#groupes-sequential-design">Groupes Sequential Design</a>
-  <ul class="collapse">
-  <li><a href="#lan-demets-spending-functions" id="toc-lan-demets-spending-functions" class="nav-link" data-scroll-target="#lan-demets-spending-functions">Lan-DeMets spending functions</a></li>
-  <li><a href="#comparaison-des-résultats-1" id="toc-comparaison-des-résultats-1" class="nav-link" data-scroll-target="#comparaison-des-résultats-1">Comparaison des résultats</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#comparison-of-sample-sizes" id="toc-comparison-of-sample-sizes" class="nav-link active" data-scroll-target="#comparison-of-sample-sizes">Comparison of sample sizes</a></li>
   </ul>
 </nav>
     </div>
@@ -276,87 +229,66 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R vs East &amp; nQuery</h1>
-<p class="subtitle lead">Utilisation de R comme alternative aux logiciels propriétaires East et nQuery pour le calcul de Sample Size.</p>
+<h1 class="title">Exploration of unconditional exact tests for two independent binomials</h1>
+<p class="subtitle lead">Comparing results of sample size computation from East, nQuery and bbssr</p>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Arocena Thomas <a href="mailto:arocena.thomas@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0002-7014-220X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Oncostat
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dan Chaltiel <a href="mailto:dan.chaltiel@gustaveroussy.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-3488-779X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Anne Lourdessamy <a href="mailto:anne.lourdessamy@gustaveroussy.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0006-9051-3302" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
+      
     <div>
-    <div class="quarto-title-meta-heading">Auteur·rice</div>
+    <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-             <p>AROCENA Thomas <a href="https://orcid.org/0009-0002-7014-220X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Date de publication</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">jeudi 26 février 2026</p>
+      <p class="date">February 26, 2026</p>
     </div>
   </div>
   
     
   </div>
   
-<div>
-  <div class="abstract">
-    <div class="block-title">Résumé</div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-  </div>
-</div>
 
 
 </header>
 
 
-<p>Le but est de légitimer l’utilisation de R comme alternative au logiciel propriétaire East et nQuery en faisant une comparaison des différents logiciels et des écarts entre les résultats</p>
-<section id="calcul-de-sample-size-dans-le-cas-dun-outcome-binaire" class="level1">
-<h1>Calcul de Sample Size dans le cas d’un outcome binaire</h1>
-<section id="fixed" class="level2">
-<h2 class="anchored" data-anchor-id="fixed">Fixed</h2>
-</section>
-<section id="gs" class="level2">
-<h2 class="anchored" data-anchor-id="gs">GS</h2>
-</section>
-</section>
-<section id="calcul-de-sample-size-dans-le-cas-dun-outcome-de-survie" class="level1">
-<h1>Calcul de Sample Size dans le cas d’un outcome de survie</h1>
-<section id="fixed-1" class="level2">
-<h2 class="anchored" data-anchor-id="fixed-1">Fixed</h2>
-<section id="algorithmes" class="level3">
-<h3 class="anchored" data-anchor-id="algorithmes">Algorithmes</h3>
-<section id="méthode-de-schoenfeld" class="level4">
-<h4 class="anchored" data-anchor-id="méthode-de-schoenfeld">Méthode de Schoenfeld</h4>
-<p>Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.</p>
-<p>Prenons <span class="math inline">\(\alpha\)</span> l’erreur de type I et <span class="math inline">\(\beta\)</span> l’erreur de type II. Alors, en notant <span class="math inline">\(e\)</span> le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :</p>
-<p><span id="eq-schoenfeld"><span class="math display">\[
-e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
-\tag{1}\]</span></span></p>
-<p>Où <span class="math inline">\(z_x\)</span> est le <a href="https://en.wikipedia.org/wiki/Standard_score">z-score</a> de <span class="math inline">\(x\)</span>, égale au quantile <span class="math inline">\((1-x)\)</span> de la distribution normale standard.</p>
-</section>
-<section id="lakatos" class="level4">
-<h4 class="anchored" data-anchor-id="lakatos">Lakatos</h4>
-<p>Chaine de Markov, mouvement brownien.</p>
-</section>
-</section>
-<section id="comparaison-des-résultats" class="level3">
-<h3 class="anchored" data-anchor-id="comparaison-des-résultats">Comparaison des résultats</h3>
-</section>
-</section>
-<section id="groupes-sequential-design" class="level2">
-<h2 class="anchored" data-anchor-id="groupes-sequential-design">Groupes Sequential Design</h2>
-<section id="lan-demets-spending-functions" class="level3">
-<h3 class="anchored" data-anchor-id="lan-demets-spending-functions">Lan-DeMets spending functions</h3>
-</section>
-<section id="comparaison-des-résultats-1" class="level3">
-<h3 class="anchored" data-anchor-id="comparaison-des-résultats-1">Comparaison des résultats</h3>
+<p>We will compare :</p>
+<ul>
+<li>Pearson Chi-squared Test</li>
+<li>Fisher Exact Test</li>
+<li>Fisher Mid-p Test</li>
+<li>Z-pooled Exact Unconditional Test</li>
+<li>Boschloo Exact Unconditional Test</li>
+</ul>
+<p>From <code>bbssr</code> package; <a href="https://htmlpreview.github.io/?https://github.com/gosukehommaEX/bbssr/blob/main/doc/bbssr-statistical-methods.html">Statistical methods explained by Gosuke Homma</a></p>
+<section id="comparison-of-sample-sizes" class="level1">
+<h1>Comparison of sample sizes</h1>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -385,12 +317,12 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copié");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copié");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
