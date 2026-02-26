@@ -1,0 +1,349 @@
+/*-- scss:defaults --*/
+
+
+/* ==========================================================
+   FONT ENGINE (Publishing + Future UI Rendering)
+   ----------------------------------------------------------
+   Prioritizes:
+   - Rendering consistency
+   - Reading clarity
+   - Professional scientific typography
+   ========================================================== */
+
+$font-family-sans-serif:
+  -apple-system,
+  BlinkMacSystemFont,
+  "SF Pro Display",
+  "SF Pro Text",
+  "Segoe UI Variable",
+  "Inter",
+  Roboto,
+  sans-serif !default;
+
+$font-family-monospace:
+  "SF Mono",
+  "JetBrains Mono",
+  "Fira Code",
+  monospace !default;
+
+/* ==========================================================
+   COLOR + DEPTH LAYER ENGINE
+   ----------------------------------------------------------
+   Multi-layer interface modeling:
+
+   Layer 1 → Background atmosphere
+   Layer 2 → Paper reading surface
+   Layer 3 → Floating UI cards
+   Layer 4 → Interactive glow accents
+   ========================================================== */
+
+$primary: #086788 !default;
+$secondary: #06AED5 !default;
+$accent: #F0C808 !default;
+
+$body-bg: #FBFEFF !default;
+$body-color: #182635 !default;
+
+$dark: #0F172A !default;
+
+
+/* ==========================================================
+   BASE DOCUMENT SCIENCE TYPOGRAPHY
+   ----------------------------------------------------------
+   Neuroscience reading research recommendations:
+   • Font size: 18–19px
+   • Line height: ~1.9
+   • Paragraph spacing: generous
+   ========================================================== */
+
+body {
+  font-size: 18.5px;
+  line-height: 1.95;
+
+  font-feature-settings:
+    "ss01",
+    "cv01",
+    "liga",
+    "calt";
+
+  -webkit-font-smoothing: antialiased;
+
+  background: $body-bg;
+  color: $body-color;
+}
+
+
+/* ==========================================================
+   CONTENT SPATIAL LAYOUT ENGINE
+   ----------------------------------------------------------
+   Optimal reading width:
+   65–75 characters per line
+   ========================================================== */
+
+main.content {
+
+  max-width: 860px;
+
+  margin: 0 auto;
+
+  padding-top: 4.5rem;
+  padding-bottom: 7rem;
+}
+
+
+/* ==========================================================
+   FUTURE GLASS DOCUMENT SURFACES
+   ----------------------------------------------------------
+   Uses advanced blur + saturation layering.
+   ========================================================== */
+
+.quarto-title-block .quarto-title-banner {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba($primary,0.035),
+      rgba($secondary,0.035)
+    );
+
+  backdrop-filter:
+    blur(30px)
+    saturate(180%);
+
+  border-bottom: 1px solid rgba($primary,0.12);
+}
+
+.quarto-title-block h1 {
+  font-weight: 750;
+}
+
+
+/* ==========================================================
+   GOD-TIER HEADING HIERARCHY
+   ----------------------------------------------------------
+   Designed using academic document structure logic.
+   ========================================================== */
+
+h1, h2, h3, h4 {
+
+  position: relative;
+
+  font-weight: 620;
+
+  letter-spacing: -0.025em;
+
+  margin-top: 3.6rem;
+  margin-bottom: 1.4rem;
+
+  padding-bottom: 0.9rem;
+}
+
+/* Ultra refined section markers */
+h1::after,
+h2::after,
+h3::after,
+h4::after {
+
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  height: 2px;
+  width: 70px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    90deg,
+    rgba($primary,0.95),
+    rgba($secondary,0.95)
+  );
+}
+
+/* Typography scale */
+h1 { font-size: clamp(2.6rem, 3.2vw, 3.2rem); }
+h2 { font-size: clamp(2rem, 2.6vw, 2.5rem); }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.3rem; }
+
+
+/* ==========================================================
+   PARAGRAPH OPTIMIZATION (ACADEMIC RESEARCH QUALITY)
+   ========================================================== */
+
+p {
+
+  margin-bottom: 1.7rem;
+
+  line-height: 1.95;
+
+  font-weight: 400;
+
+  max-width: 72ch;
+}
+
+
+/* ==========================================================
+   ULTRA MODERN FLOATING SIDEBAR
+   ----------------------------------------------------------
+   Spatial UI navigation design.
+   ========================================================== */
+
+.sidebar,
+.quarto-sidebar,
+.sidebar-navigation,
+.margin-sidebar {
+
+  background:
+    rgba(255,255,255,0.75);
+
+  backdrop-filter:
+    blur(26px)
+    saturate(170%);
+
+  border-right: 1px solid rgba(0,0,0,0.05);
+
+  box-shadow:
+    0 35px 80px rgba(15,23,42,0.07);
+}
+
+.sidebar {
+  padding-top: 2.6rem;
+}
+
+
+/* Navigation */
+
+.sidebar .nav-link {
+
+  padding: 0.7rem 1.15rem;
+
+  border-radius: 16px;
+
+  font-weight: 520;
+
+  transition: all 0.25s ease;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba($primary,0.09);
+  color: $primary;
+}
+
+.sidebar .nav-link.active {
+  background: rgba($primary,0.2);
+  color: $primary;
+  font-weight: 650;
+}
+
+
+/* ==========================================================
+   CODE BLOCKS (TECHNICAL RESEARCH QUALITY)
+   ========================================================== */
+
+code {
+
+  font-family: $font-family-monospace;
+
+  background: rgba($primary,0.1);
+
+  padding: 0.3em 0.6em;
+
+  border-radius: 7px;
+
+  font-size: 0.9em;
+}
+
+pre {
+
+  background: $dark;
+  color: #E2E8F0;
+
+  border-radius: 20px;
+
+  padding: 1.8rem;
+
+  box-shadow:
+    0 25px 70px rgba(15,23,42,0.3);
+
+  font-size: 0.92rem;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+
+/* ==========================================================
+   DATA TABLES (SCIENCE PAPER STYLE)
+   ========================================================== */
+
+table {
+
+  width: 100%;
+  border-collapse: collapse;
+
+  margin: 2.8rem 0;
+
+  font-size: 0.96rem;
+}
+
+th {
+
+  background: rgba($primary,0.06);
+  font-weight: 700;
+}
+
+th, td {
+
+  border: 1px solid rgba($primary,0.18);
+
+  padding: 1rem 1.1rem;
+}
+
+tbody tr:hover {
+  background: rgba($primary,0.04);
+}
+
+
+/* ==========================================================
+   CALLOUT SCIENTIFIC ANNOTATION CARDS
+   ========================================================== */
+
+.callout {
+
+  border-radius: 20px;
+
+  border: 1px solid rgba($primary,0.22);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 20px 60px rgba(15,23,42,0.1);
+}
+
+.callout-note {
+  background: rgba($secondary,0.08);
+}
+
+.callout-warning {
+  background: rgba($accent,0.12);
+}
+
+
+/* ==========================================================
+   MICRO INTERACTION PHYSICS MODEL
+   ----------------------------------------------------------
+   Only subtle, non-distracting motion.
+   ========================================================== */
+
+* {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
