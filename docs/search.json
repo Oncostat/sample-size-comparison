@@ -564,9 +564,30 @@
   {
     "objectID": "bin2arms-exact.html",
     "href": "bin2arms-exact.html",
-    "title": "Exploration of unconditional exact tests for two independent binomials",
+    "title": "What Do East and nQuery Compute Exactly ?",
     "section": "",
-    "text": "We will compare :\n\nPearson Chi-squared Test\nFisher Exact Test\nFisher Mid-p Test\nZ-pooled Exact Unconditional Test\nBoschloo Exact Unconditional Test\n\nFrom bbssr package; Statistical methods explained by Gosuke Homma\n\nComparison of sample sizes"
+    "text": "Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what nQuery and East are exactly doing by comparing their outputs to transparent reference implementations from the bbssr R package."
+  },
+  {
+    "objectID": "bin2arms-exact.html#what-we-compared",
+    "href": "bin2arms-exact.html#what-we-compared",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "What we compared",
+    "text": "What we compared\nTo understand how nQuery and East behave, we compared their sample‑size outputs with several well‑established exact and asymptotic tests implemented transparently in the bbssr R package. Specifically, we examined:\n\nPearson Chi‑squared Test\nFisher Exact Test\nFisher Mid‑p Test\nZ‑pooled Exact Unconditional Test\nBoschloo Exact Unconditional Test\n\nThese methods cover both conditional (Fisher) and unconditional families, as well as an asymptotic benchmark (chi‑squared). Short, clear explanations of each test are available in Gosuke Homma’s documentation: Statistical methods explained"
+  },
+  {
+    "objectID": "bin2arms-exact.html#how-did-we-compare",
+    "href": "bin2arms-exact.html#how-did-we-compare",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "How did we compare",
+    "text": "How did we compare\n\nnQuery states explicitly that its two‑proportion exact design uses Fisher’s exact test.\nEast, as documented in its User Manual, uses an unconditional exact superiority test based on maximizing the probability of rejecting the null over all nuisance parameters (a score‑type unconditional approach, not Fisher’s conditional test).\n\nTo see whether the software behaves as expected, we computed an N‑ratio comparing each exact method to the sample size returned by the software.\n\\[\n\\text{N‑ratio} = \\frac{N_{\\text{method}}}{N_{\\text{software}}}.\n\\]\nIf the software truly corresponds to a given test, that test’s N‑ratio should cluster around 1."
+  },
+  {
+    "objectID": "bin2arms-exact.html#comparison-results",
+    "href": "bin2arms-exact.html#comparison-results",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "Comparison results",
+    "text": "Comparison results\n\nnQuery: pattern matches Fisher’s exact\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to nQuery sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nfisher\n0.92\n0.96\n0.98\n0.99\n1.00\n1.01\n\n\nboschloo\n0.84\n0.89\n0.91\n0.92\n0.94\n0.97\n\n\nz_pool\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nfisher_midp\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nchisq\n0.75\n0.85\n0.88\n0.89\n0.93\n0.97\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn the nQuery plot, Fisher’s N‑ratio sits tightly around 1 across all scenarios.\nUnconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1, as expected given their higher power.\n\n\nEast: behaves like an unconditional exact test\nEast’s documentation makes it clear that the method is unconditional. The empirical results confirm this:\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to East sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nz_pool\n0.98\n1.00\n1.00\n1.00\n1.00\n1.03\n\n\nfisher_midp\n0.97\n0.99\n0.99\n1.00\n1.00\n1.02\n\n\nboschloo\n0.98\n1.00\n1.01\n1.00\n1.02\n1.09\n\n\nchisq\n0.91\n0.97\n0.98\n0.98\n0.99\n1.01\n\n\nfisher\n1.03\n1.05\n1.08\n1.07\n1.11\n1.20\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUnconditional method Z‑pooled lies very close to N‑ratio = 1.\nFisher’s test tends to produce values above 1 because Fisher is more conservative, requiring slightly larger sample sizes.\n\nThis is the signature of an unconditional exact design."
   },
   {
     "objectID": "index.html",
