@@ -1,3 +1,4 @@
+# Params ----
 params <- lst()
 params$list <- list(
   alpha = c(0.01, 0.05, 0.1),
@@ -12,32 +13,35 @@ params$table <-
   as_tibble() |>
   filter(delta_pi + pi_c < 1)
 
-fisher_ <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Fisher")
-chisq_ <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Chisq")
-fisher_midp_ <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Fisher-midP")
-z_pool_ <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Z-pool")
-boschloo_ <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Boschloo")
+# Exact methods wrappers ----
+fisher_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Fisher")
+chisq_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Chisq")
+fisher_midp_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Fisher-midP")
+z_pool_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Z-pool")
+boschloo_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Boschloo")
 
+# Exact methods results ----
 fisher <-
   params$table |>
-  mutate(n = pmap_vec(params$table, fisher_, .progress = TRUE)) 
+  mutate(n = pmap_vec(params$table, fisher_wrapper, .progress = TRUE)) 
 
 chisq <-
   params$table |>
-  mutate(n = pmap_vec(params$table, chisq_, .progress = TRUE)) 
+  mutate(n = pmap_vec(params$table, chisq_wrapper, .progress = TRUE)) 
 
 fisher_midp <-
   params$table |>
-  mutate(n = pmap_vec(params$table, fisher_midp_, .progress = TRUE)) 
+  mutate(n = pmap_vec(params$table, fisher_midp_wrapper, .progress = TRUE)) 
 
 z_pool <-
   params$table |>
-  mutate(n = pmap_vec(params$table, z_pool_, .progress = TRUE)) 
+  mutate(n = pmap_vec(params$table, z_pool_wrapper, .progress = TRUE)) 
 
 boschloo <-
   params$table |>
-  mutate(n = pmap_vec(params$table, boschloo_, .progress = TRUE)) 
+  mutate(n = pmap_vec(params$table, boschloo_wrapper, .progress = TRUE)) 
 
+# East ----
 east <- 
   list.files(
     path = "data-raw/East_bin_fixed_exact",
@@ -55,6 +59,7 @@ east <-
   arrange(alpha, pi_c, delta_pi, power) |> 
   mutate(power = signif(power, 1))
 
+# nQuery ----
 nquery_raw <- read.csv2("data-raw/nquery_bin_fixed_exact.csv")
 transposed <- data.frame(t(nquery_raw[-1]))
 colnames(transposed) <- nquery_raw[, 1]
@@ -86,7 +91,8 @@ nquery <-
     delta_pi = signif(delta_pi, 2) 
   )
 
-compared <- 
+# Combined results ----
+combined <- 
   lst(
     fisher,
     chisq,
@@ -99,8 +105,9 @@ compared <-
   add_name_as_suffix("n") |>
   reduce(\(x, y) inner_join(x, y, by = join_by(alpha, power, pi_c, delta_pi)))
   
-nr <- 
-  compared |> 
+n_ratio_east <- 
+  combined |> 
+  select(- n_nquery) |> 
   mutate(
     across(
       (starts_with("n_") & !all_of("n_east")),
@@ -111,14 +118,76 @@ nr <-
   select(-(starts_with("n_") & !all_of("n_east"))) |> 
   pivot_longer(
     cols = any_of(
-      c("fisher", "chisq", "fisher_midp", "z_pool", "boschloo", "nquery"
-      )),
+      c("fisher", "chisq", "fisher_midp", "z_pool", "boschloo")),
     names_to = "method",
     values_to = "n_ratio"
   )
 
-p_nr <- 
-  ggplot(nr) +
+n_ratio_nquery <- 
+  combined |> 
+  select(- n_east) |> 
+  mutate(
+    across(
+      (starts_with("n_") & !all_of("n_nquery")),
+      ~ ./n_nquery,
+      .names = "{sub('^n_', '', .col)}"
+    )
+  ) |> 
+  select(-(starts_with("n_") & !all_of("n_nquery"))) |> 
+  pivot_longer(
+    cols = any_of(
+      c("fisher", "chisq", "fisher_midp", "z_pool", "boschloo")),
+    names_to = "method",
+    values_to = "n_ratio"
+  )
+
+# Tables & figures ----
+## Tables ----
+gt_n_ratio_east <- 
+  n_ratio_east |> 
+  group_by(method) |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  arrange(abs(1-Médiane) , abs(1-Moyenne)) |> 
+  gt() |> 
+  tab_header(
+    title = "N-Ratio by Exact methods",
+    subtitle = "according to East sample sizes"
+  ) |> 
+  fmt_number(decimals = 2) |> 
+  gt_theme_ssc()
+
+gt_n_ratio_nquery <- 
+  n_ratio_nquery |> 
+  group_by(method) |> 
+  summarise(
+    Min = min(n_ratio, na.rm = TRUE),
+    Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
+    Moyenne = mean(n_ratio, na.rm = TRUE), 
+    Médiane = median(n_ratio, na.rm = TRUE), 
+    Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
+    Max = max(n_ratio, na.rm = TRUE)
+  ) |> 
+  arrange(abs(1-Médiane) , abs(1-Moyenne)) |> 
+  gt() |> 
+  tab_header(
+    title = "N-Ratio by Exact methods",
+    subtitle = "according to nQuery sample sizes"
+  ) |>  
+  fmt_number(decimals = 2) |> 
+  gt_theme_ssc()
+
+tables <- lst(gt_n_ratio_east, gt_n_ratio_nquery)
+
+## Figures ----
+p_n_ratio_east <- 
+  ggplot(n_ratio_east) +
   aes(x = n_east, y = n_ratio, color = method) +
   geom_point() +
   geom_smooth(se = FALSE) +
@@ -126,26 +195,43 @@ p_nr <-
   geom_hline(yintercept = 1) +
   geom_hline(yintercept = 1 + 0.1,  linetype = "dashed") +
   labs(
-    title = "Exploration of unconditional exact tests for two independent binomials",
-    subtitle = "N-Ratio according East",
+    title = "N-Ratio by Exact methods",
+    subtitle = "according to East sample sizes",
     x = "N East",
     y = "N-Ratio",
     color = "Methods :"
-  )
+  ) +
+  theme_ssc() +
+  scale_color_ssc()
 
-p_compared <- 
-  ggplot(nr) +
-  aes(x = paste0("α:", alpha, " Pwr: ", power), y = n_ratio, color = method)+
+p_n_ratio_nquery <- 
+  ggplot(n_ratio_nquery) +
+  aes(x = n_nquery, y = n_ratio, color = method) +
   geom_point() +
+  geom_smooth(se = FALSE) +
   geom_hline(yintercept = 1 - 0.1, linetype = "dashed") +
   geom_hline(yintercept = 1) +
   geom_hline(yintercept = 1 + 0.1,  linetype = "dashed") +
-  facet_grid(delta_pi ~ pi_c) +
-  theme_linedraw(base_size = 15) +
   labs(
-    title = "Exploration of unconditional exact tests for two independent binomials",
-    subtitle = "N-Ratio according East",
-    x = NULL,
+    title = "N-Ratio by Exact methods",
+    subtitle = "according to nQuery sample sizes",
+    x = "N nQuery",
     y = "N-Ratio",
     color = "Methods :"
-  )
+  ) + 
+  theme_ssc() +
+  scale_color_ssc()
+
+plots <- lst(p_n_ratio_east, p_n_ratio_nquery)
+
+# Export Results ----
+explore_bin2exact <- lst(
+  params,
+  combined,
+  n_ratio_east,
+  n_ratio_nquery,
+  tables,
+  plots
+)
+
+# write_rds(explore_bin2exact, "outputs/explore_bin2exact.rds")
