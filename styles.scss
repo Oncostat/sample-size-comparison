@@ -1,14 +1,17 @@
 /*-- scss:defaults --*/
 
-
 /* ==========================================================
-   FONT ENGINE (Publishing + Future UI Rendering)
-   ----------------------------------------------------------
-   Prioritizes:
-   - Rendering consistency
-   - Reading clarity
-   - Professional scientific typography
+   BOOTSTRAP VARIABLE OVERRIDES
    ========================================================== */
+
+$primary: #086788;
+$secondary: #06AED5;
+$warning: #F0C808;
+
+$body-bg: #EDF5FF;
+$body-color: #1C2B3A;
+
+$dark: #0F172A;
 
 $font-family-sans-serif:
   -apple-system,
@@ -18,257 +21,191 @@ $font-family-sans-serif:
   "Segoe UI Variable",
   "Inter",
   Roboto,
-  sans-serif !default;
+  sans-serif;
 
 $font-family-monospace:
   "SF Mono",
   "JetBrains Mono",
   "Fira Code",
-  monospace !default;
+  monospace;
+
+
+/*-- scss:rules --*/
 
 /* ==========================================================
-   COLOR + DEPTH LAYER ENGINE
-   ----------------------------------------------------------
-   Multi-layer interface modeling:
-
-   Layer 1 → Background atmosphere
-   Layer 2 → Paper reading surface
-   Layer 3 → Floating UI cards
-   Layer 4 → Interactive glow accents
-   ========================================================== */
-
-$primary: #086788 !default;
-$secondary: #06AED5 !default;
-$accent: #F0C808 !default;
-
-$body-bg: #FBFEFF !default;
-$body-color: #182635 !default;
-
-$dark: #0F172A !default;
-
-
-/* ==========================================================
-   BASE DOCUMENT SCIENCE TYPOGRAPHY
-   ----------------------------------------------------------
-   Neuroscience reading research recommendations:
-   • Font size: 18–19px
-   • Line height: ~1.9
-   • Paragraph spacing: generous
+   BASE TYPOGRAPHY
    ========================================================== */
 
 body {
-  font-size: 18.5px;
-  line-height: 1.95;
-
-  font-feature-settings:
-    "ss01",
-    "cv01",
-    "liga",
-    "calt";
-
-  -webkit-font-smoothing: antialiased;
-
-  background: $body-bg;
+  font-size: 17.2px;          // reduced from 18.5
+  line-height: 1.85;
+  background-color: $body-bg;
   color: $body-color;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Improve text measure */
+main#quarto-document-content {
+  max-width: 920px;
+}
+
+/* Slightly improve selection color */
+::selection {
+  background: rgba($primary, 0.18);
 }
 
 
 /* ==========================================================
-   CONTENT SPATIAL LAYOUT ENGINE
-   ----------------------------------------------------------
-   Optimal reading width:
-   65–75 characters per line
-   ========================================================== */
-
-main.content {
-
-  max-width: 860px;
-
-  margin: 0 auto;
-
-  padding-top: 4.5rem;
-  padding-bottom: 7rem;
-}
-
-
-/* ==========================================================
-   FUTURE GLASS DOCUMENT SURFACES
-   ----------------------------------------------------------
-   Uses advanced blur + saturation layering.
+   TITLE BLOCK
    ========================================================== */
 
 .quarto-title-block .quarto-title-banner {
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba($primary,0.035),
-      rgba($secondary,0.035)
-    );
-
-  backdrop-filter:
-    blur(30px)
-    saturate(180%);
-
-  border-bottom: 1px solid rgba($primary,0.12);
+  background: linear-gradient(
+    135deg,
+    rgba($primary, 0.06),
+    rgba($secondary, 0.06)
+  );
+  border-bottom: 1px solid rgba($primary, 0.15);
 }
 
 .quarto-title-block h1 {
-  font-weight: 750;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 
 /* ==========================================================
-   GOD-TIER HEADING HIERARCHY
-   ----------------------------------------------------------
-   Designed using academic document structure logic.
+   HEADINGS (Reduced Scale)
    ========================================================== */
 
 h1, h2, h3, h4 {
-
   position: relative;
-
-  font-weight: 620;
-
-  letter-spacing: -0.025em;
-
-  margin-top: 3.6rem;
-  margin-bottom: 1.4rem;
-
-  padding-bottom: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.7rem;
 }
 
-/* Ultra refined section markers */
-h1::after,
-h2::after,
-h3::after,
-h4::after {
+/* Smaller hierarchy */
+h1 { font-size: clamp(2.05rem, 2.4vw, 2.4rem); }
+h2 { font-size: clamp(1.65rem, 2vw, 1.9rem); }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.15rem; }
 
+/* Refined underline accent */
+h1.anchored::after,
+h2.anchored::after,
+h3.anchored::after,
+h4.anchored::after {
   content: "";
-
   position: absolute;
   left: 0;
   bottom: 0;
-
   height: 2px;
-  width: 70px;
-
+  width: 60px;
   border-radius: 12px;
-
   background: linear-gradient(
     90deg,
-    rgba($primary,0.95),
-    rgba($secondary,0.95)
+    rgba($primary, 0.9),
+    rgba($secondary, 0.9)
   );
 }
 
-/* Typography scale */
-h1 { font-size: clamp(2.6rem, 3.2vw, 3.2rem); }
-h2 { font-size: clamp(2rem, 2.6vw, 2.5rem); }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.3rem; }
-
 
 /* ==========================================================
-   PARAGRAPH OPTIMIZATION (ACADEMIC RESEARCH QUALITY)
+   PARAGRAPHS
    ========================================================== */
 
 p {
-
-  margin-bottom: 1.7rem;
-
-  line-height: 1.95;
-
-  font-weight: 400;
-
-  max-width: 72ch;
+  margin-bottom: 1.5rem;
+  max-width: 70ch;
 }
 
 
 /* ==========================================================
-   ULTRA MODERN FLOATING SIDEBAR
-   ----------------------------------------------------------
-   Spatial UI navigation design.
+   LINKS (More Elegant)
+   ========================================================== */
+
+a {
+  color: $primary;
+  text-decoration: none;
+  border-bottom: 1px solid rgba($primary, 0.25);
+}
+
+a:hover {
+  color: darken($primary, 8%);
+  border-bottom-color: rgba($primary, 0.6);
+}
+
+
+/* ==========================================================
+   SIDEBAR
    ========================================================== */
 
 .sidebar,
 .quarto-sidebar,
 .sidebar-navigation,
 .margin-sidebar {
-
-  background:
-    rgba(255,255,255,0.75);
-
-  backdrop-filter:
-    blur(26px)
-    saturate(170%);
-
+  background: #F7FBFF;
   border-right: 1px solid rgba(0,0,0,0.05);
-
-  box-shadow:
-    0 35px 80px rgba(15,23,42,0.07);
+  box-shadow: none !important;
 }
 
 .sidebar {
-  padding-top: 2.6rem;
+  padding-top: 2.4rem;
 }
 
-
-/* Navigation */
-
 .sidebar .nav-link {
-
-  padding: 0.7rem 1.15rem;
-
-  border-radius: 16px;
-
-  font-weight: 520;
-
-  transition: all 0.25s ease;
+  padding: 0.6rem 1.05rem;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .sidebar .nav-link:hover {
-  background: rgba($primary,0.09);
+  background: rgba($primary, 0.08);
   color: $primary;
 }
 
 .sidebar .nav-link.active {
-  background: rgba($primary,0.2);
+  background: rgba($primary, 0.16);
   color: $primary;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 
 /* ==========================================================
-   CODE BLOCKS (TECHNICAL RESEARCH QUALITY)
+   NAVBAR (Subtle Refinement)
+   ========================================================== */
+
+.navbar {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background: #F9FCFF;
+}
+
+
+/* ==========================================================
+   CODE
    ========================================================== */
 
 code {
-
   font-family: $font-family-monospace;
-
-  background: rgba($primary,0.1);
-
-  padding: 0.3em 0.6em;
-
-  border-radius: 7px;
-
-  font-size: 0.9em;
+  background: rgba($primary, 0.08);
+  padding: 0.25em 0.55em;
+  border-radius: 5px;
+  font-size: 0.88em;
 }
 
 pre {
-
   background: $dark;
   color: #E2E8F0;
-
-  border-radius: 20px;
-
-  padding: 1.8rem;
-
-  box-shadow:
-    0 25px 70px rgba(15,23,42,0.3);
-
-  font-size: 0.92rem;
+  border-radius: 14px;
+  padding: 1.4rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  box-shadow: none;
 }
 
 pre code {
@@ -278,72 +215,85 @@ pre code {
 
 
 /* ==========================================================
-   DATA TABLES (SCIENCE PAPER STYLE)
+   TABLES
    ========================================================== */
 
 table {
-
   width: 100%;
   border-collapse: collapse;
-
-  margin: 2.8rem 0;
-
-  font-size: 0.96rem;
+  margin: 2.4rem 0;
+  font-size: 0.95rem;
 }
 
 th {
-
-  background: rgba($primary,0.06);
-  font-weight: 700;
+  background: rgba($primary, 0.05);
+  font-weight: 600;
 }
 
 th, td {
-
-  border: 1px solid rgba($primary,0.18);
-
-  padding: 1rem 1.1rem;
+  border: 1px solid rgba($primary, 0.16);
+  padding: 0.9rem 1rem;
 }
 
 tbody tr:hover {
-  background: rgba($primary,0.04);
+  background: rgba($primary, 0.035);
+}
+
+.gt_table {
+  margin-left: 0 !important;
+  margin-right: auto !important;
 }
 
 
 /* ==========================================================
-   CALLOUT SCIENTIFIC ANNOTATION CARDS
+   CALLOUTS
    ========================================================== */
 
 .callout {
-
-  border-radius: 20px;
-
-  border: 1px solid rgba($primary,0.22);
-
-  backdrop-filter: blur(20px);
-
-  box-shadow:
-    0 20px 60px rgba(15,23,42,0.1);
+  border-radius: 14px;
+  border: 1px solid rgba($primary, 0.20);
+  background: #FFFFFF;
+  box-shadow: none;
 }
 
 .callout-note {
-  background: rgba($secondary,0.08);
+  background: rgba($secondary, 0.07);
 }
 
 .callout-warning {
-  background: rgba($accent,0.12);
+  background: rgba($warning, 0.11);
 }
 
 
 /* ==========================================================
-   MICRO INTERACTION PHYSICS MODEL
-   ----------------------------------------------------------
-   Only subtle, non-distracting motion.
+   GLOBAL FLAT MODE
    ========================================================== */
 
-* {
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+.card,
+.panel,
+.quarto-figure,
+.figure,
+.dropdown-menu {
+  box-shadow: none !important;
+}
+
+
+/* ==========================================================
+   FINAL TOUCH: SUBTLE DOCUMENT DEPTH
+   (Barely perceptible top glow)
+   ========================================================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.5),
+    rgba(255,255,255,0)
+  );
 }

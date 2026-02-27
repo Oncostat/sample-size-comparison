@@ -1,212 +1,228 @@
-primary = "#086788"
-secondary = "#06AED5" 
-accent = "#F0C808" 
-body_bg = "#FBFEFF" 
-body_color = "#182635" 
-dark = "#0F172A"
+primary   <- "#086788"
+secondary <- "#06AED5"
+accent    <- "#F0C808"
 
+body_bg    <- "#EDF5FF"
+body_color <- "#1C2B3A"
+dark       <- "#0F172A"
 
-color_high <- "#a7ffc4ff"
-color_medium <- "#f0e292ff"
-color_low <- "#ffa194ff"
+color_high   <- "#A7FFC4"
+color_medium <- "#F0E292"
+color_low    <- "#FFA194"
 
 theme_ssc <- function(
-  base_size = 17,
+  base_size = 14,
   base_family = "Inter"
-) {
+){
   theme_minimal(base_size = base_size, base_family = base_family) +
+
     theme(
+
       text = element_text(
         family = base_family,
-        colour = "#1A2B3C",
+        colour = body_color,
         size = base_size,
-        lineheight = 1.2
+        lineheight = 1.15
       ),
+
       plot.title = element_text(
-        size = base_size * 1.4,
+        size = base_size * 1.25,
         face = "bold",
-        margin = margin(b = 12),
+        margin = margin(b = 10),
         colour = primary
       ),
+
       plot.subtitle = element_text(
-        size = base_size * 1.05,
+        size = base_size * 1.02,
         face = "italic",
         colour = secondary,
-        margin = margin(b = 18)
+        margin = margin(b = 16)
       ),
+
       plot.caption = element_text(
-        size = base_size * 0.75,
-        colour = "#6B7280",
+        size = base_size * 0.72,
+        colour = alpha(body_color, 0.6),
         hjust = 0
       ),
+
       plot.title.position = "plot",
+
       axis.title = element_text(
-        size = base_size * 0.9,
-        face = "plain"
+        size = base_size * 0.88
       ),
+
       axis.title.x = element_text(
-        margin = margin(t = 10)
+        margin = margin(t = 8)
       ),
+
       axis.title.y = element_text(
-        margin = margin(r = 10)
+        margin = margin(r = 8)
       ),
+
       axis.text = element_text(
-        size = base_size * 0.75,
-        colour = "#334155"
+        size = base_size * 0.78,
+        colour = alpha(body_color, 0.8)
       ),
+
       axis.ticks = element_blank(),
+
       panel.grid.major.y = element_line(
-        colour = alpha(primary, 0.12),
-        linewidth = 0.45
+        colour = alpha(primary, 0.10),
+        linewidth = 0.4
       ),
+
       panel.grid.major.x = element_blank(),
       panel.grid.minor = element_blank(),
+
       panel.background = element_rect(
-        fill = "#FAFDFF",
+        fill = body_bg,
         colour = NA
       ),
+
       plot.background = element_rect(
-        fill = "#FAFDFF",
+        fill = body_bg,
         colour = NA
       ),
-      legend.position = "bottom",
+
+      legend.position = "right",
       legend.justification = "left",
-      legend.background = element_rect(
-        fill = alpha("white", 0.7),
-        colour = alpha(primary, 0.15),
-        linewidth = 0.6
-      ),
+
+      legend.background = element_blank(),
+
       legend.title = element_text(
-        size = base_size * 0.9,
+        size = base_size * 0.85,
         face = "bold"
       ),
+
       legend.text = element_text(
-        size = base_size * 0.8
+        size = base_size * 0.78
       ),
+
       legend.key = element_blank(),
+
       strip.background = element_rect(
-        fill = alpha(secondary, 0.08),
+        fill = alpha(secondary, 0.06),
         colour = NA
       ),
+
       strip.text = element_text(
         colour = primary,
         face = "bold",
-        size = base_size * 0.9
+        size = base_size * 0.85
       ),
+
       plot.margin = margin(
-        t = 20,
-        r = 25,
-        b = 25,
-        l = 25
+        t = 18,
+        r = 22,
+        b = 22,
+        l = 22
       )
     )
 }
 
-gt_theme_ssc <- function(data, base_size = 17, ...) {
+gt_theme_ssc <- function(data, base_size = 16.8, ...) {
 
   data |>
-  tab_options(
 
-    table.font.names = "Inter",
-    table.font.size = px(base_size),
+    opt_table_font(
+      font = "Inter",
+      stack = NULL,
+      size = px(base_size),
+    ) |> 
 
-    data_row.padding = px(6),
+    tab_options(
 
-    table.border.top.style = "none",
-    table.border.bottom.style = "none",
-    table.border.left.style = "none",
-    table.border.right.style = "none",
+      data_row.padding = px(6),
 
-    table.background.color = "#FAFDFF"
-  ) |>
+      table.border.top.style = "none",
+      table.border.bottom.style = "none",
+      table.border.left.style = "none",
+      table.border.right.style = "none",
 
-  tab_style(
+      table.background.color = body_bg,
 
-    style = list(
-      cell_text(
-        color = "#1A2B3C",
-        weight = "300",
-        size = px(base_size * 0.95),
-        align = "left"
-      )
-    ),
+      row.striping.background_color = alpha(primary, 0.035),
+      row.striping.include_table_body = TRUE,
 
-    locations = cells_body()
-  ) |>
+      table_body.hlines.style = "none",
+      table_body.vlines.style = "none"
+    ) |>
 
-  tab_style(
+    tab_style(
 
-    style = list(
-
-      cell_text(
-        weight = "700",
-        color = primary,
-        size = px(base_size * 1.05)
+      style = list(
+        cell_text(
+          color = body_color,
+          weight = "400",
+          size = px(base_size * 0.95),
+          align = "left"
+        )
       ),
 
-      cell_borders(
-        sides = "bottom",
-        color = alpha(primary, 0.25),
-        weight = px(2)
-      )
+      locations = cells_body()
+    ) |>
 
-    ),
+    tab_style(
 
-    locations = cells_column_labels()
-  ) |>
+      style = list(
 
-  tab_style(
+        cell_text(
+          weight = "600",
+          color = primary,
+          size = px(base_size * 1.02)
+        ),
 
-    style = list(
-      cell_text(
-        size = px(base_size * 1.35),
-        weight = "700",
-        color = primary
-      )
-    ),
+        cell_borders(
+          sides = "bottom",
+          color = alpha(primary, 0.22),
+          weight = px(1.5)
+        )
+      ),
 
-    locations = cells_title(groups = "title")
-  ) |>
+      locations = cells_column_labels()
+    ) |>
 
-  tab_style(
+    tab_style(
 
-    style = list(
-      cell_text(
-        style = "italic",
-        size = px(base_size * 1.05),
-        color = secondary
-      )
-    ),
+      style = list(
+        cell_text(
+          size = px(base_size * 1.25),
+          weight = "700",
+          color = primary
+        )
+      ),
 
-    locations = cells_title(groups = "subtitle")
-  ) |>
+      locations = cells_title(groups = "title")
+    ) |>
 
-  opt_align_table_header(align = "left") |>
+    tab_style(
 
-  tab_style(
+      style = list(
+        cell_text(
+          style = "italic",
+          size = px(base_size * 1.0),
+          color = secondary
+        )
+      ),
 
-    style = list(
-      cell_text(
-        color = "#6B7280",
-        transform = "uppercase",
-        size = px(base_size * 0.7)
-      )
-    ),
+      locations = cells_title(groups = "subtitle")
+    ) |>
 
-    locations = cells_source_notes()
-  ) |>
+    opt_align_table_header(align = "left") |>
 
-  tab_options(
+    tab_style(
 
-    row.striping.background_color = "#F3F9FF",
-    row.striping.include_table_body = TRUE,
+      style = list(
+        cell_text(
+          color = alpha(body_color, 0.55),
+          transform = "uppercase",
+          size = px(base_size * 0.68)
+        )
+      ),
 
-    table_body.border.bottom.color = alpha(primary, 0.18),
-    table_body.border.bottom.width = px(2)
-  ) |>
-
-  tab_options(
-    table_body.hlines.style = "none",
-    table_body.vlines.style = "none"
-  )
+      locations = cells_source_notes()
+    )
 }
+
+scale_color_ssc <- function(...) {scale_colour_brewer(palette = "Set1", ...)}
+scale_fill_ssc <- function(...) {scale_fill_brewer(palette = "Set1", ...)}
