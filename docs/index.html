@@ -9,7 +9,7 @@
 <meta name="author" content="Arocena Thomas">
 <meta name="author" content="Dan Chaltiel">
 <meta name="author" content="Anne Lourdessamy">
-<meta name="dcterms.date" content="2026-02-26">
+<meta name="dcterms.date" content="2026-03-02">
 
 <title>Sample Size Comparison – ssc-website</title>
 <style>
@@ -35,6 +35,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./SCC-HexSticker.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -45,7 +47,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-9f7c3cdc2dcf14c42e85c61b0a057668.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9f0951902cc6cb7c97f4725b789c3ec9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-6711307633b356ed80572f133c0aa8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -73,8 +75,65 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid-postprocess-shim.js"></script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-sample-listings .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-sample-listings'] = new List('listing-sample-listings', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta property="og:title" content="Sample Size Comparison – ssc-website">
 <meta property="og:description" content="R as an alternative to East and nQuery ?">
@@ -226,6 +285,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#why-r-for-sample-size-calculation" id="toc-why-r-for-sample-size-calculation" class="nav-link" data-scroll-target="#why-r-for-sample-size-calculation">Why R for sample size calculation ?</a></li>
   </ul></li>
   <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
+  <li><a href="#additional-content" id="toc-additional-content" class="nav-link" data-scroll-target="#additional-content">Additional content:</a></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr"><i class="bi bi-file-slides-fill"></i>Presentation (in french)</a></li></ul></div></nav>
     </div>
@@ -269,7 +329,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 26, 2026</p>
+      <p class="date">March 2, 2026</p>
     </div>
   </div>
   
@@ -392,220 +452,87 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg aria-roledescription="flowchart-v2" role="graphics-document document" viewbox="0 0 1627.03125 456" class="flowchart" xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="672" id="mermaid-figure-1" height="480">
-<style>#mermaid-figure-1{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-figure-1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-figure-1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-figure-1 .error-icon{fill:#552222;}#mermaid-figure-1 .error-text{fill:#552222;stroke:#552222;}#mermaid-figure-1 .edge-thickness-normal{stroke-width:1px;}#mermaid-figure-1 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-figure-1 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-figure-1 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-figure-1 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-figure-1 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-figure-1 .marker{fill:#333333;stroke:#333333;}#mermaid-figure-1 .marker.cross{stroke:#333333;}#mermaid-figure-1 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-figure-1 p{margin:0;}#mermaid-figure-1 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-figure-1 .cluster-label text{fill:#333;}#mermaid-figure-1 .cluster-label span{color:#333;}#mermaid-figure-1 .cluster-label span p{background-color:transparent;}#mermaid-figure-1 .label text,#mermaid-figure-1 span{fill:#333;color:#333;}#mermaid-figure-1 .node rect,#mermaid-figure-1 .node circle,#mermaid-figure-1 .node ellipse,#mermaid-figure-1 .node polygon,#mermaid-figure-1 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-figure-1 .rough-node .label text,#mermaid-figure-1 .node .label text,#mermaid-figure-1 .image-shape .label,#mermaid-figure-1 .icon-shape .label{text-anchor:middle;}#mermaid-figure-1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-figure-1 .rough-node .label,#mermaid-figure-1 .node .label,#mermaid-figure-1 .image-shape .label,#mermaid-figure-1 .icon-shape .label{text-align:center;}#mermaid-figure-1 .node.clickable{cursor:pointer;}#mermaid-figure-1 .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#mermaid-figure-1 .arrowheadPath{fill:#333333;}#mermaid-figure-1 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaid-figure-1 .flowchart-link{stroke:#333333;fill:none;}#mermaid-figure-1 .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaid-figure-1 .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#mermaid-figure-1 .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaid-figure-1 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaid-figure-1 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-figure-1 .cluster text{fill:#333;}#mermaid-figure-1 .cluster span{color:#333;}#mermaid-figure-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-figure-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-figure-1 rect.text{fill:none;stroke-width:0;}#mermaid-figure-1 .icon-shape,#mermaid-figure-1 .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaid-figure-1 .icon-shape p,#mermaid-figure-1 .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#mermaid-figure-1 .icon-shape rect,#mermaid-figure-1 .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaid-figure-1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
-<g><marker orient="auto" markerheight="8" markerwidth="8" markerunits="userSpaceOnUse" refy="5" refx="5" viewbox="0 0 10 10" class="marker flowchart-v2" id="mermaid-1772205397147_flowchart-v2-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerheight="8" markerwidth="8" markerunits="userSpaceOnUse" refy="5" refx="4.5" viewbox="0 0 10 10" class="marker flowchart-v2" id="mermaid-1772205397147_flowchart-v2-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5" refx="11" viewbox="0 0 10 10" class="marker flowchart-v2" id="mermaid-1772205397147_flowchart-v2-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5" refx="-1" viewbox="0 0 10 10" class="marker flowchart-v2" id="mermaid-1772205397147_flowchart-v2-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5.2" refx="12" viewbox="0 0 11 11" class="marker cross flowchart-v2" id="mermaid-1772205397147_flowchart-v2-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5.2" refx="-1" viewbox="0 0 11 11" class="marker cross flowchart-v2" id="mermaid-1772205397147_flowchart-v2-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_A_AA_0" d="M702.086,34.873L623.837,41.061C545.587,47.249,389.089,59.624,310.839,69.312C232.59,79,232.59,86,232.59,89.5L232.59,93"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_AA_AAA_0" d="M182.415,151L174.672,155.167C166.929,159.333,151.443,167.667,143.7,180.5C135.957,193.333,135.957,210.667,135.957,228C135.957,245.333,135.957,262.667,135.957,274.833C135.957,287,135.957,294,135.957,297.5L135.957,301"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_AAA_AAAA_0" d="M99.256,359L93.592,363.167C87.928,367.333,76.601,375.667,70.937,383.333C65.273,391,65.273,398,65.273,401.5L65.273,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_AAA_AAAB_0" d="M185.387,350.773L199.968,356.311C214.549,361.849,243.712,372.924,258.294,381.962C272.875,391,272.875,398,272.875,401.5L272.875,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_AA_AAB_0" d="M350.973,150.358L370.167,154.632C389.362,158.905,427.751,167.453,446.946,180.393C466.141,193.333,466.141,210.667,466.141,228C466.141,245.333,466.141,262.667,466.141,280C466.141,297.333,466.141,314.667,466.141,332C466.141,349.333,466.141,366.667,466.141,378.833C466.141,391,466.141,398,466.141,401.5L466.141,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_A_AB_0" d="M873.43,38.185L921.455,43.821C969.48,49.456,1065.531,60.728,1113.557,69.864C1161.582,79,1161.582,86,1161.582,89.5L1161.582,93"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_AB_ABA_0" d="M1071.809,147.22L1053.264,152.017C1034.719,156.813,997.629,166.407,979.084,174.703C960.539,183,960.539,190,960.539,193.5L960.539,197"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABA_ABAA_0" d="M911.109,245.531L894.911,251.276C878.714,257.021,846.318,268.51,830.12,277.755C813.922,287,813.922,294,813.922,297.5L813.922,301"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABAA_ABAAA_0" d="M754.023,349.861L734.941,355.55C715.859,361.24,677.695,372.62,658.613,381.81C639.531,391,639.531,398,639.531,401.5L639.531,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABAA_ABAAB_0" d="M813.922,359L813.922,363.167C813.922,367.333,813.922,375.667,813.922,383.333C813.922,391,813.922,398,813.922,401.5L813.922,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABAA_ABAAC_0" d="M873.82,353.244L888.273,358.37C902.727,363.496,931.633,373.748,946.086,382.374C960.539,391,960.539,398,960.539,401.5L960.539,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABA_ABAB_0" d="M1009.969,245.531L1026.167,251.276C1042.365,257.021,1074.76,268.51,1090.958,277.755C1107.156,287,1107.156,294,1107.156,297.5L1107.156,301"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABAB_ABABA_0" d="M1107.156,359L1107.156,363.167C1107.156,367.333,1107.156,375.667,1107.156,383.333C1107.156,391,1107.156,398,1107.156,401.5L1107.156,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_AB_ABB_0" d="M1251.355,142.949L1277.453,148.457C1303.551,153.966,1355.746,164.983,1381.844,179.158C1407.941,193.333,1407.941,210.667,1407.941,228C1407.941,245.333,1407.941,262.667,1407.941,274.833C1407.941,287,1407.941,294,1407.941,297.5L1407.941,301"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABB_ABBA_0" d="M1361.41,353.253L1350.191,358.378C1338.971,363.502,1316.533,373.751,1305.313,382.376C1294.094,391,1294.094,398,1294.094,401.5L1294.094,405"></path><path marker-end="url(#mermaid-1772205397147_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_ABB_ABBB_0" d="M1454.473,353.253L1465.692,358.378C1476.911,363.502,1499.35,373.751,1510.57,382.376C1521.789,391,1521.789,398,1521.789,401.5L1521.789,405"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
-<div class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="edgeLabel"></span>
-</div>
-</foreignobject></g></g></g><g class="nodes"><g transform="translate(787.2578125, 27.5)" id="flowchart-A-0" class="node default"><polygon transform="translate(-77.671875,19.5)" class="label-container" points="0,0 155.34375,0 155.34375,-39 0,-39 0,0 -8,0 163.34375,0 163.34375,-39 -8,-39 -8,0"></polygon><g transform="translate(-70.171875, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="140.34375">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Clinical Trial Design
+</section>
+<section id="additional-content" class="level2">
+<h2 class="anchored" data-anchor-id="additional-content">Additional content:</h2>
+<div id="listing-sample-listings" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1772466390000" data-listing-file-modified-sort="1772466390939" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="39" data-listing-word-count-sort="7778">
+<a href="./presentation/presentation-fr.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./man/figures/presentation-fr.PNG" class="thumbnail-image card-img" style="height: 150px;">
 </p>
-</span>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Comparaison des méthodes de calcul de la taille d’échantillon
+</h5>
+<div class="card-text listing-description delink">
+
 </div>
-</foreignobject></g></g><g transform="translate(232.58984375, 124)" id="flowchart-AA-1" class="node default"><rect height="54" width="236.765625" y="-27" x="-118.3828125" style="" class="basic label-container"></rect><g transform="translate(-88.3828125, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="176.765625">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Time-to-Event Endpoints
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
+</div>
+<div class="listing-date">
+Mar 2, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-date-sort="1772468904000" data-listing-file-modified-sort="1772468904507" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="222">
+<a href="./lakatos_n_lan.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./man/figures/lakatos_n_lan-table.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
-</span>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Comparison of Lakatos &amp; Lan (1992), nQuery, EAST and R packages
+</h5>
+<div class="card-text listing-description delink">
+This analysis started from a simple question:
 </div>
-</foreignobject></g></g><g transform="translate(135.95703125, 332)" id="flowchart-AAA-3" class="node default"><rect height="54" width="98.859375" y="-27" x="-49.4296875" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-34.4296875, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="68.859375">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Two-Arms
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
+</div>
+<div class="listing-date">
+Mar 2, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-date-sort="1772469640000" data-listing-file-modified-sort="1772469640911" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="336">
+<a href="./bin2arms-exact.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./man/figures/exact.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
-</span>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+What Do East and nQuery Compute <em>Exactly</em> ?
+</h5>
+<div class="card-text listing-description delink">
+Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what <strong>nQuery</strong> and <strong>East</strong> are <em>ex…</em><strong></strong>
 </div>
-</foreignobject></g></g><g transform="translate(65.2734375, 428.5)" id="flowchart-AAAA-5" class="node default"><rect height="39" width="114.546875" y="-19.5" x="-57.2734375" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-44.8984375, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="89.796875">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Fixed Design
-</p>
-</span>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
 </div>
-</foreignobject></g></g><g transform="translate(272.875, 428.5)" id="flowchart-AAAB-7" class="node default"><rect height="39" width="200.65625" y="-19.5" x="-100.328125" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-87.953125, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="175.90625">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Group-Sequential Design
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(466.140625, 428.5)" id="flowchart-AAB-9" class="node default"><rect height="39" width="85.875" y="-19.5" x="-42.9375" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-30.5625, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="61.125">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-One Arm
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(1161.58203125, 124)" id="flowchart-AB-11" class="node default"><rect height="54" width="179.546875" y="-27" x="-89.7734375" style="" class="basic label-container"></rect><g transform="translate(-59.7734375, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="119.546875">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Binary Endpoints
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(960.5390625, 228)" id="flowchart-ABA-13" class="node default"><rect height="54" width="98.859375" y="-27" x="-49.4296875" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-34.4296875, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="68.859375">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Two-Arms
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(813.921875, 332)" id="flowchart-ABAA-15" class="node default"><rect height="54" width="119.796875" y="-27" x="-59.8984375" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-44.8984375, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="89.796875">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Fixed Design
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(639.53125, 428.5)" id="flowchart-ABAAA-17" class="node default"><rect height="39" width="160.90625" y="-19.5" x="-80.453125" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-68.078125, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="136.15625">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Exact Computation
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(813.921875, 428.5)" id="flowchart-ABAAB-19" class="node default"><rect height="39" width="87.875" y="-19.5" x="-43.9375" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-31.5625, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="63.125">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Z-pooled
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(960.5390625, 428.5)" id="flowchart-ABAAC-21" class="node default"><rect height="39" width="105.359375" y="-19.5" x="-52.6796875" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-40.3046875, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="80.609375">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Z-unpooled
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(1107.15625, 332)" id="flowchart-ABAB-23" class="node default"><rect height="54" width="205.90625" y="-27" x="-102.953125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-87.953125, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="175.90625">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Group-Sequential Design
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(1107.15625, 428.5)" id="flowchart-ABABA-25" class="node default"><rect height="39" width="87.875" y="-19.5" x="-43.9375" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-31.5625, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="63.125">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Z-pooled
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(1407.94140625, 332)" id="flowchart-ABB-27" class="node default"><rect height="54" width="93.0625" y="-27" x="-46.53125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-31.53125, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="63.0625">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-One-Arm
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(1294.09375, 428.5)" id="flowchart-ABBA-29" class="node default"><rect height="39" width="160.90625" y="-19.5" x="-80.453125" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-68.078125, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="136.15625">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Exact Computation
-</p>
-</span>
-</div>
-</foreignobject></g></g><g transform="translate(1521.7890625, 428.5)" id="flowchart-ABBB-31" class="node default"><rect height="39" width="194.484375" y="-19.5" x="-97.2421875" ry="19.5" rx="19.5" style="" class="basic label-container"></rect><g transform="translate(-84.8671875, -12)" style="" class="label"><rect></rect><foreignobject height="24" width="169.734375">
-<div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">
-<p>
-Non-exact Computation
-</p>
-</span>
-</div>
-</foreignobject></g></g></g></g></g>
-</svg>
-</div>
-<p></p></figure><p></p>
+<div class="listing-date">
+Mar 2, 2026
 </div>
 </div>
 </div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+
 
 
 </section>
