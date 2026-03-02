@@ -1,0 +1,66 @@
+---
+title: "Comparison of Lakatos & Lan (1992), nQuery, EAST and R packages"
+image: "man/figures/lakatos_n_lan-table.png"
+bibliography: references.bibtex
+author:
+  - name: Arocena Thomas
+    orcid: 0009-0002-7014-220X
+    email: arocena.thomas@gmail.com
+    role: "Stagiaire"
+    affiliations: Oncostat
+  - name: Dan Chaltiel
+    email: dan.chaltiel@gustaveroussy.fr
+    orcid: 0000-0003-3488-779X
+    role: "Encadrant"
+  - name: Anne Lourdessamy
+    email: anne.lourdessamy@gustaveroussy.fr
+    orcid: 0009-0006-9051-3302
+    role: "Encadrante"
+date: last-modified
+format: html
+---
+
+This analysis started from a simple question:
+
+> nQuery cites @Lakatos_Lan_1992 as a reference, but which method from that article does nQuery actually implement?
+
+Because @Lakatos_Lan_1992 is often cited in a generic way, it’s easy to forget that the paper actually presented **three distinct methods** for calculating sample sizes under proportional hazards:
+
+1.  **Lakatos** – a detailed piecewise‑exponential method
+2.  **Freedman** – a simpler exponential approximation
+3.  **RGS (Rubin–Gail–Santner)** – another widely used approximation
+
+To understand which method is implemented by each contemporary tool, I reproduced the set of scenarios from the 1992 article and compared the sample sizes obtained from:
+
+-   **nQuery**
+-   **East**
+-   **Rpact**
+-   **gsDesign2**
+-   **Rashnu**
+
+against the benchmark values for **Lakatos**, **Freedman**, and **RGS**.
+
+## Results 
+
+```{r}
+x <- readr::read_rds("outputs/lakatos_n_lan.rds")
+```
+
+```{r}
+library(gt)
+x$gt_lakatos_n_lan
+```
+
+- The modern software outputs (blue columns) mostly form a tight cluster of values. In many scenarios, these columns differ only by a handful of participants.
+
+- Within the brown block, RGS is usually the largest value, followed by Lakatos, then Freedman.
+
+- nQuery closely matches RGS, with values that line up almost identically across all scenarios.
+
+- Rashnu matches the Lakatos method, showing nearly the same sample sizes row by row.
+
+- rpact, gsDesign2, and East do not match any single historical method, but their outputs cluster tightly together, and they generally fall closer to the Lakatos values than to Freedman or RGS.
+
+
+
+
