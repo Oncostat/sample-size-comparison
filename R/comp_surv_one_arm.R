@@ -111,12 +111,49 @@ combined <-
   mutate(relevancy = evaluate_relevancy_surv(alpha, power, hr)) |>
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_one_arm, method = "combined")
+
+n_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_n_ratio(ref = "nquery")
+
 cli_alert_success("Combined results")
 
 # Tables and figures ----
+title <- "N-Ratio 1-Arm Time-to-Event"
+## Tables ----
+table_n_ratio <- 
+  n_ratio |> 
+  gt_n_ratio(title = title, ref_name = "nQuery") |> 
+  gt_theme_ssc()
+
+tables <- lst(table_n_ratio)
+
+## Figures ----
+p_n_ratio <- 
+  n_ratio |> 
+  plot_n_ratio(title = title, ref_name = "nQuery") + 
+  theme_ssc() +
+  scale_color_ssc()
+
+plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")
 
+# Export results ----
 ssc$surv$one_arm$res <- lst(oa2s, sssas, rashnu, nquery)
 ssc$surv$one_arm$raw <- lst("nquery" = nquery_raw)
 ssc$surv$one_arm$params <- params
 ssc$surv$one_arm$combined <- combined
+ssc$bin$one_arm$tables <- tables
+ssc$bin$one_arm$plots <- plots
+
+comp_surv_one_arm <- lst(
+  params,
+  combined,
+  n_ratio,
+  tables,
+  plots
+)
+
+# write_rds(comp_surv_one_arm, "outputs/comp_surv_one_arm.rds")
+

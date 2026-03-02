@@ -148,49 +148,48 @@ combined <-
   mutate(relevancy = evaluate_relevancy_surv(alpha, power, hr)) |>
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_fixed, method = "combined")
+
+n_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_n_ratio(ref = "east")
+
 cli_alert_success("Combined results")
 
 # Tables and figures ----
-# n_ratio_by_method_surv_fixed <-
-#   combined |>
-#   mutate(
-#     rpact = n_rpact / n_east,
-#     nquery = n_nquery / n_east,
-#     rashnu = n_rashnu / n_east
-#   ) |>
-#   select(c(
-#     alpha,
-#     power,
-#     hr,
-#     surv_t,
-#     relevancy,
-#     n_east,
-#     rpact,
-#     nquery,
-#     rashnu
-#   )) |>
-#   pivot_longer(
-#     c(rpact, nquery, rashnu),
-#     names_to = "method",
-#     values_to = "n_ratio"
-#   )
+title <- "N-Ratio 2-Arms Time-to-Event"
+## Tables ----
+table_n_ratio <- 
+  n_ratio |> 
+  gt_n_ratio(title = title, ref_name = "East") |> 
+  gt_theme_ssc()
 
-# p_n_ratio_by_method_surv_fixed <-
-#   ggplot(n_ratio_by_method_surv_fixed) +
-#   aes(x = n_east, y = n_ratio, color = method) +
-#   geom_point() +
-#   geom_hline(yintercept = 1) +
-#   facet_wrap(~relevancy, scales = "free") +
-#   labs(
-#     title = "N ratio according to method and relevancy",
-#     subtitle = "base sample size from East"
-#   )
+tables <- lst(table_n_ratio)
+
+## Figures ----
+p_n_ratio <- 
+  n_ratio |> 
+  plot_n_ratio(title = title, ref_name = "East") + 
+  theme_ssc() +
+  scale_color_ssc()
+
+plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")
 
-# Put into the scc object
+# Export results ----
 ssc$surv$fixed$res <- lst(rpact, rashnu, gsdesign2, east, nquery)
 ssc$surv$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$surv$fixed$params <- params
 ssc$surv$fixed$combined <- combined
+ssc$bin$fixed$tables <- tables
+ssc$bin$fixed$plots <- plots
 
-# write_rds(combined, "surv/s-fixed.rds")
+comp_surv_fixed <- lst(
+  params,
+  combined,
+  n_ratio,
+  tables,
+  plots
+)
+
+# write_rds(comp_surv_fixed, "outputs/comp_surv_fixed.rds")

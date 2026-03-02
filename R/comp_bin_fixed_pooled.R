@@ -33,17 +33,6 @@ rpact <-
   ssc_results(design = design_bin_fixed_pooled, method = "rpact")
 cli_alert_success("Rpact results")
 
-## bbssr ----
-# bbssr_wrapper <- 
-#   wrapper$bbssr_bin_fixed |> 
-#   partial(!!!params$additional) |> 
-#   partial(test = "Z-pool")
-# bbssr <-
-#   params$table |>
-#   mutate(n = pmap_vec(params$table, bbssr_wrapper, .progress = TRUE)) |>
-#   ssc_results(design = design_bin_fixed_pooled, method = "bbssr")
-# cli_alert_success("bbssr results")
-
 ## East ----
 filelist_east <- list.files(
   path = "data-raw/East_bin_fixed_pooled",
@@ -111,8 +100,7 @@ cli_alert_success("nQuery results")
 ## Comparison
 combined <-
   lst(
-    rpact, 
-    # bbssr, 
+    rpact,
     east, 
     nquery) |>
   map(get_tbl) |>
@@ -121,18 +109,53 @@ combined <-
   mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |>
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_fixed_pooled, method = "combined")
+
+n_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_n_ratio(ref = "east")
+
 cli_alert_success("Combined results")
 
 # Tables & figures
+title <- "N-Ratio 2-Arms Binary, pooled-variance"
+## Tables ----
+table_n_ratio <- 
+  n_ratio |> 
+  gt_n_ratio(title = title, ref_name = "East") |> 
+  gt_theme_ssc()
+
+tables <- lst(table_n_ratio)
+
+## Figures ----
+p_n_ratio <- 
+  n_ratio |> 
+  plot_n_ratio(title = title, ref_name = "East") + 
+  theme_ssc() +
+  scale_color_ssc()
+
+plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")
 
+# Export results ----
 ssc$bin$fixed_pooled$res <- 
   lst(
-    rpact, 
-    # bbssr, 
+    rpact,
     east, 
     nquery
   )
 ssc$bin$fixed_pooled$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$bin$fixed_pooled$params <- params
 ssc$bin$fixed_pooled$combined <- combined
+ssc$bin$fixed_pooled$tables <- tables
+ssc$bin$fixed_pooled$plots <- plots
+
+comp_bin_fixed_pooled <- lst(
+  params,
+  combined,
+  n_ratio,
+  tables,
+  plots
+)
+
+# write_rds(comp_bin_fixed_pooled, "outputs/comp_bin_fixed_pooled.rds")

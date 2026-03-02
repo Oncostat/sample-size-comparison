@@ -1,7 +1,8 @@
 get_n_ratio <- function(
   tbl_combined,
-  ref
+  ref = c("east", "nquery")
   ){
+  ref <- arg_match(ref)
   ref_col_names <- paste0("n_", ref)
   ref_col <- tbl_combined[[ref_col_names]] |> na.omit()
   tbl_combined |> 
@@ -50,8 +51,9 @@ facet_relevancy <- function(...){
 plot_n_ratio <- function(
   tbl_n_ratio,
   title,
-  ref_name = "East"
+  ref_name = c("East", "nQuery")
   ){
+  ref_name <- arg_match(ref_name)
   # Reference column
   ref_col <- tbl_n_ratio |> select(starts_with("n_"), -"n_ratio")  |> pull()
 
@@ -65,12 +67,12 @@ plot_n_ratio <- function(
   geom_hline(yintercept = 1 + er_rate,  linetype = "dashed") +
   labs(
     title = title,
-    subtitle = paste0("Par rapport aux valeurs de ", ref_name),
+    subtitle = paste0("According to ", ref_name, " sample sizes"),
     x = paste0("N ", ref_name),
     y = "N-Ratio",
-    color = "Méthodes : "
+    color = "Methods : "
   ) +
-  scale_color_clean() +
+  scale_color_ssc() +
   facet_relevancy()
 }
 
@@ -78,9 +80,9 @@ plot_n_ratio <- function(
 gt_n_ratio <- function(
   tbl_n_ratio, 
   title, 
-  ref_name = "East", 
+  ref_name = c("East", "nQuery"),
   decimals = 2){
-  
+  ref_name <- arg_match(ref_name)
   nr_ratio_clean <- 
     tbl_n_ratio |> 
     group_by(relevancy, method) |> 
@@ -97,13 +99,12 @@ gt_n_ratio <- function(
 
   gt_nr <- 
     nr_ratio_clean |> 
-    gt(rowname_col = c("method")) |> 
-    gt_theme_clean() |> 
+    gt(rowname_col = c("method")) |>  
     tab_header(
       title = title,
-      subtitle = paste0("Par rapport aux valeurs de ", ref_name)
+      subtitle =  paste0("According to ", ref_name, " sample sizes"),
     ) |>  
-    tab_stubhead(label = "Pertinence") |>  
+    tab_stubhead(label = "Relevancy") |>  
     tab_style(
       style = list(
         cell_fill(color = color_low)
@@ -137,7 +138,7 @@ gt_n_ratio <- function(
         )
       ) |> 
       tab_source_note(
-        source_note = "Rouge : < 50% des ratios dans ±10%"
+        source_note = "Red : < 50% of N-ratios ±10%"
       )
   }
 

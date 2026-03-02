@@ -186,6 +186,30 @@ combined <-
 cli_alert_success("Combined results")
 
 # Tables & figures
+low_cols  <- c("n_rpact","n_rashnu","n_gsdesign2","n_east","n_nquery")
+high_cols <- c("n_L","n_F","n_RGS")
+
+gt_lakatos_n_lan <- 
+  combined |> 
+  get_tbl() |> 
+  select(-starts_with("power_"), -follow_up_time) |> 
+  rename(Survival = surv_t, HR = hr, Accrual = accrual_time) |> 
+  gt() |>
+  tab_header(
+      title = "Lakatos & Lan (1992) comparison with East, nQuery and R packages",
+      subtitle = "Survival at 10 years; Study duration = 10 years; α = 0.05;  β = 0.1"
+  ) |> 
+  tab_style(
+    style = cell_fill(color = "#75cec6ff"),
+    location = cells_body(columns = all_of(low_cols))
+  ) |>
+  tab_style(
+    style = cell_fill(color = "#ce9d75ff"),
+    location = cells_body(columns = all_of(high_cols))
+  ) |> 
+  tab_footnote(md("<span style='color:#75cec6ff'>**Blue**</span>: Computed sample sizes")) |> 
+  tab_footnote(md("<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article")) |> 
+  gt_theme_ssc()
 cli_alert_success("Tables & figures")
 
 # Put into the scc object
@@ -193,3 +217,7 @@ ssc$surv$fixed$res_lnl <- lst(rpact, rashnu, gsdesign2, east, nquery)
 ssc$surv$fixed$raw_lnl <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$surv$fixed$params_lnl <- params
 ssc$surv$fixed$combined_lnl <- combined
+
+lakatos_n_lan <- lst(get_tbl(combined), gt_lakatos_n_lan)
+
+# write_rds(lakatos_n_lan, "outputs/lakatos_n_lan.rds")

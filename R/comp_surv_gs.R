@@ -98,18 +98,49 @@ combined <-
   mutate(relevancy = evaluate_relevancy_surv(alpha, power, hr)) |>
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_gs, method = "combined")
+
+n_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_n_ratio(ref = "east")
+
 cli_alert_success("Combined results")
 
 # Table & figures ----
-# p_pairs <-
-#   combined$surv$gs$res |>
-#   select(starts_with("n_")) |>
-#   ggpairs() +
-#   labs(title = "GS-Design Sample-Size by method")
+title <- "N-Ratio 2-Arms Time-to-Event GS-design"
+## Tables ----
+table_n_ratio <- 
+  n_ratio |> 
+  gt_n_ratio(title = title, ref_name = "East") |> 
+  gt_theme_ssc()
+
+tables <- lst(table_n_ratio)
+
+## Figures ----
+p_n_ratio <- 
+  n_ratio |> 
+  plot_n_ratio(title = title, ref_name = "East") + 
+  theme_ssc() +
+  scale_color_ssc()
+
+plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")
 
-# Put into the scc object
+# Export results ----
 ssc$surv$gs$res <- lst(rpact, east, gsdesign2)
 ssc$surv$gs$raw <- lst("east" = east_raw)
 ssc$surv$gs$params <- params
 ssc$surv$gs$combined <- combined
+ssc$bin$gs$tables <- tables
+ssc$bin$gs$plots <- plots
+
+comp_surv_gs <- lst(
+  params,
+  combined,
+  n_ratio,
+  tables,
+  plots
+)
+
+# write_rds(comp_surv_gs, "outputs/comp_surv_gs.rds")
+

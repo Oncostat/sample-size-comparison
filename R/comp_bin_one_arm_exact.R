@@ -84,12 +84,48 @@ combined <-
   mutate(relevancy = evaluate_relevancy_bin(alpha*2, power)) |> # Relevancy is computed for 2-sided alpha 
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_one_arm_exact, method = "combined")
+
+n_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_n_ratio(ref = "east")
+
 cli_alert_success("Combined results")
 
 # Tables & figures
+title <- "N-Ratio 1-Arms Binary, exact computation"
+## Tables ----
+table_n_ratio <- 
+  n_ratio |> 
+  gt_n_ratio(title = title, ref_name = "East") |> 
+  gt_theme_ssc()
+
+tables <- lst(table_n_ratio)
+
+## Figures ----
+p_n_ratio <- 
+  n_ratio |> 
+  plot_n_ratio(title = title, ref_name = "East") + 
+  theme_ssc() +
+  scale_color_ssc()
+
+plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")
 
+# Export results ----
 ssc$bin$one_arm_exact$res <- lst(ahern, east)
 ssc$bin$one_arm_exact$raw <- lst("east" = east_raw)
 ssc$bin$one_arm_exact$params <- params
 ssc$bin$one_arm_exact$combined <- combined
+ssc$bin$one_arm_exact$tables <- tables
+ssc$bin$one_arm_exact$plots <- plots
+
+comp_bin_one_arm_exact <- lst(
+  params,
+  combined,
+  n_ratio,
+  tables,
+  plots
+)
+
+# write_rds(comp_bin_one_arm_exact, "outputs/comp_bin_one_arm_exact.rds")
