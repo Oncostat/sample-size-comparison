@@ -1,6 +1,7 @@
 ---
 title: "What Do East and nQuery Compute *Exactly* ?"
 subtitle: "*A short empirical exploration of sample‑size exact engines for two‑sample binomials*"
+image: "man/figures/exact.png"
 bibliography: references.bibtex
 author:
   - name: Arocena Thomas
@@ -73,7 +74,7 @@ Unconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1,
 
 ### East: behaves like an unconditional exact test
 
-East’s documentation makes it clear that the method is **unconditional**. The empirical results confirm this:
+East’s documentation makes it *clear*^[East 6 User Manual, Appendix U: Theory-Design - Binomial Two-Sample Exact Tests, U.2 Power of Unconditional Test of Superiority, p3314] that the method is **unconditional**. The empirical results confirm this:
 
 ```{r}
 x$tables$gt_n_ratio_east
