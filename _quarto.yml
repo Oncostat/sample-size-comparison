@@ -3,30 +3,33 @@ project:
   output-dir: docs
 
 website:
+  announcement: 
+    content: "**WIP** - this website is in progress, official release 12/03/2026" 
+    position: below-navbar 
+    type: warning
+  page-footer:
+    center: 
+      - text: "About"
+        href: about.qmd
   favicon: SCC-HexSticker.png
   open-graph: true
-  title: "ssc-website"
-  sidebar:
+  title: "SSC"
+  navbar:
     logo: SCC-HexSticker.png
-    style: "docked"
+    background: primary
     search: true
-    contents:
-      - text: "Introduction"
+    left:
+      - text: "Book"
         href: index.qmd
-      - section: "Survival endpoints"
-        href: surv/survival-endpoint.qmd
-        contents:
-          - surv/survival-methods.qmd
-          - surv/survival-fixed.qmd
-          - surv/survival-gs.qmd
-      - section: "Binary endpoints"
-        href: bin/binary-endpoints.qmd
-        contents:
-          - bin/binary-methods.qmd
-          - bin/binary-fixed.qmd
-          - bin/binary-gs.qmd
-      - text: "References"
-        href: references.qmd
+      - text: "More"
+        menu:
+          - text: "Slides (french)"
+            href: presentation/presentation-fr.qmd
+            target: _blank
+          - text: "About Exact test"
+            href: bin2arms-exact.qmd
+          - text: "Lakatos & Lan"
+            href: lakatos_n_lan.qmd
       - text: "About"
         href: about.qmd
     tools:
@@ -35,27 +38,49 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            href:  https://github.com/Oncostat/sample-size-comparison
+            href: https://github.com/Oncostat/sample-size-comparison
           - text: Report a Bug
-            href:  https://github.com/Oncostat/sample-size-comparison/issues/new
-
-brand: ../brand/_brand.yml
+            href: https://github.com/Oncostat/sample-size-comparison/issues/new
+  sidebar:
+    - title : "Book"
+      # logo: SCC-HexSticker.png
+      style: "docked"
+      search: true
+      contents:
+        - text: "Introduction"
+          href: index.qmd
+        - section: "Time-to-Event endpoints"
+          href: surv/survival-endpoint.qmd
+          contents:
+            - surv/survival-methods.qmd
+            - surv/survival-fixed.qmd
+            - surv/survival-gs.qmd
+            - surv/survival-one-arm.qmd
+        - section: "Binary endpoints"
+          href: bin/binary-endpoints.qmd
+          contents:
+            - bin/binary-methods.qmd
+            - bin/binary-fixed.qmd
+            - bin/binary-gs.qmd
+        - text: "References"
+          href: references.qmd
+        - text: "About"
+          href: about.qmd
 
 format:
   html:
     code-line-numbers: true
     highlight-style: github
-    code-block-border-left: "#31BAE9"
+    code-block-border-left: "#31BAE9" #Change according the theme
     code-fold: true
     execute:
       echo: false
       warning: false
       message: false
     theme:
-      - Lumen
-      # - brand
-      - styles.scss
-    # css: styles.css
+      light: flatly
+      dark: darkly
+      # - styles.scss
     toc: true
 fig-format: svg
 mermaid-format: svg
