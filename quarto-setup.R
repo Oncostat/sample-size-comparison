@@ -1,7 +1,6 @@
 suppressPackageStartupMessages(suppressWarnings({
   library(tidyverse)
   library(gt)
-  #library(GGally)
   library(S7)
   library(plotly)
   library(crosstalk)
