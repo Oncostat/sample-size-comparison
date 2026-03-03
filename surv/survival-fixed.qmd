@@ -1,5 +1,5 @@
 ---
-title: "SSC for a Two-Arms Fixed Design with Time-to-Event endpoints"
+title: "Two-Arm Fixed Design with Time-to-Event endpoints"
 # bibliography: references.bibtex
 ---
 

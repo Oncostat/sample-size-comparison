@@ -1,0 +1,90 @@
+---
+title: "Binary Tests"
+# bibliography: references.bibtex
+---
+
+Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations. Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the **Z‑test for proportions** (in its pooled and unpooled forms) and **Fisher’s exact test**. Although these methods target the same inferential question, they rely on different assumptions and approximations. Understanding their distinctions, strengths, and limitations is essential when selecting an appropriate test for a given dataset.
+
+
+## Z‑tests for comparing two proportions
+
+The Z‑test relies on the **normal approximation** of the sampling distribution of the difference in observed proportions. These proportions are defined as:
+
+$$
+\hat{p}_1 = \frac{x_1}{n_1}, \qquad 
+\hat{p}_2 = \frac{x_2}{n_2},
+$$
+
+where $x_1$ and $$x_2$ are the number of observed events in groups 1 and 2, and $n_1$ and $n_2$ are the group sample sizes. Under sufficiently large sample sizes, the difference $\hat{p}_1 - \hat{p}_2$ is approximately normally distributed. The main practical question becomes how to estimate the variance of this difference. Two distinct approaches exist: one assumes a common underlying proportion under the null hypothesis (“pooled” variance), and the other does not (“unpooled” variance).
+
+### Pooled Z‑test
+
+The pooled Z‑test explicitly uses the null hypothesis $H_0: p_1 = p_2$. If this assumption is true, both groups share a common underlying event probability $p$. The best estimate of this common probability is obtained by pooling the data:
+
+$$
+\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}.
+$$
+
+The test statistic is then computed as:
+
+$$
+Z = \frac{\hat{p}_1 - \hat{p}_2}
+{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}}.
+$$
+
+Because it forces equality of the two probabilities under the null, the pooled Z‑test is considered the **canonical large‑sample test for comparing two proportions**. It is also the basis for many confidence‑interval formulas and for tests used in regulatory biostatistics. However, the pooled variance estimate may be inaccurate when event counts are low, when proportions are near 0 or 1, or when group sizes are small.
+
+### Unpooled Z‑test
+
+The unpooled Z‑test (also called the “Wald test” version) does not assume equal variances under the null. Instead, each group’s proportion is paired with its own variance estimate:
+
+$$
+Z = \frac{\hat{p}_1 - \hat{p}_2}
+{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + 
+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}}.
+$$
+
+This version is sometimes preferred for estimation‑focused analyses or when the null hypothesis does not reasonably imply equal underlying event probabilities. However, the unpooled approach can behave poorly in small samples because the variance estimates may be unstable, leading to inaccurate p‑values and confidence intervals.
+
+### When to use each Z‑test
+
+*   The **pooled Z‑test** is the standard choice for **formal hypothesis testing** when sample sizes are moderately large and the focus is on testing $p_1 = p_2$.
+*   The **unpooled test** may be more appropriate when estimating the difference in proportions and constructing confidence intervals, especially if the true underlying probabilities are expected to differ substantially.
+
+Nevertheless, both tests rely on the normal approximation, which may be unreliable for small datasets, sparse tables, or extreme proportions.
+
+
+## Fisher’s Exact Test
+### Exact inference for 2×2 contingency tables
+
+Fisher’s exact test provides an alternative that does **not** rely on large‑sample approximations. It is based on the exact probability distribution of a 2×2 contingency table under the null hypothesis of independence (or equivalently, equal proportions). For event counts $x_1$ and $x_2$ with fixed margins $n_1, n_2$, the probability of observing a particular table is:
+
+$$
+P = \frac{
+\binom{n_1}{x_1}\binom{n_2}{x_2}
+}{
+\binom{n_1+n_2}{x_1+x_2}
+}.
+$$
+
+This probability is derived from the **hypergeometric distribution**, reflecting the number of ways one can allocate events across two groups while keeping row and column totals fixed.
+
+### Advantages of Fisher’s test
+
+Fisher’s exact test is extremely valuable in situations where the assumptions of the Z‑tests break down:
+
+*   **Small sample sizes:** When event counts are low, Fisher’s test remains valid and unbiased.
+*   **Proportions near 0 or 1:** Exact inference avoids the poor performance of normal approximations.
+*   **Sparse tables:** Even extreme cases—such as zero events in one group—are handled correctly.
+*   **No reliance on asymptotics:** Results are exact, not approximate.
+
+These properties make Fisher’s test a gold standard in fields like genetics, safety analyses, rare‑event clinical trial monitoring, and pharmaceutical quality control.
+
+### Limitations
+
+While exact, Fisher’s test can be computationally intensive for very large sample sizes, although modern software typically handles tables in the thousands without difficulty. Additionally, for large samples, Fisher’s test may be overly conservative, producing slightly larger p‑values than approximate tests.
+
+## Other Exact Tests 
+Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available. Other procedures, such as Barnard’s exact test, Boschloo’s test, and exact unconditional tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate.
+However, because they require more complex algorithms, involve subtle methodological considerations, and are less commonly implemented in standard software, we do not explore them in detail here. Fisher’s test remains the primary practical choice for most applications, especially when reproducibility and widespread software support are priorities.
+See REFERENCE TO GOSUKE HOMMA for more details on exact test

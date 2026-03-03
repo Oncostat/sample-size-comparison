@@ -1,5 +1,5 @@
 ---
-title: "SSC for a Two-Arms Fixed Design with Binary endpoints"
+title: "Two-Arm Fixed Design with Binary endpoints"
 ---
 
 ```{r}

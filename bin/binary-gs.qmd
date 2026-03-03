@@ -1,5 +1,5 @@
 ---
-title: "SSC for a Two-Arms Group-Sequential-Design with Binary endpoints"
+title: "Two-Arm Group-Sequential-Design with Binary endpoints"
 ---
 
 ```{r}
