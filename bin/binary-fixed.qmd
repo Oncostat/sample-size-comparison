@@ -1,6 +1,5 @@
 ---
 title: "SSC for a Two-Arms Fixed Design with Binary endpoints"
-bibliography: references.bibtex
 ---
 
 ```{r}
@@ -29,20 +28,20 @@ x_pooled$plots$p_n_ratio
 ## Exact 
 ```{r}
 # eval: false
-x_exact <- read_rds("../outputs/comp_bin_fixed_pooled.rds") # not loaded currently
+# x_exact <- read_rds("../outputs/comp_bin_fixed_exact.rds") # not loaded currently
 ```
 
 ```{r}
 #| eval: false
-datatable(x$n_ratio)
+# datatable(x_exact$n_ratio)
 ```
 
 ```{r}
 #| eval: false
-x$tables$table_n_ratio
+# x_exact$tables$table_n_ratio
 ```
 
 ```{r}
 #| eval: false
-x$plots$p_n_ratio
+# x_exact$plots$p_n_ratio
 ```

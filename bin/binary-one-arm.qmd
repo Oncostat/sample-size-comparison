@@ -1,6 +1,5 @@
 ---
 title: "SSC for a One-Arm Fixed Design with Binary endpoints"
-bibliography: references.bibtex
 ---
 
 ```{r}

@@ -1,6 +1,5 @@
 ---
 title: "SSC for a Two-Arms Group-Sequential-Design with Binary endpoints"
-bibliography: references.bibtex
 ---
 
 ```{r}
