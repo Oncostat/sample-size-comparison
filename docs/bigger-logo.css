@@ -1,0 +1,43 @@
+/* 1) Make the logo actually bigger: kill max-height and set height */
+.navbar-brand .navbar-logo,
+.navbar .navbar-brand img.navbar-logo {
+  max-height: none !important;   /* <-- this is the blocker in many Quarto themes */
+  height: 50px !important;       /* set your desired height */
+  width: auto !important;
+  display: block;                /* avoid inline-image baseline gap */
+  margin: 0.5rem !important;
+}
+
+/* 2) Tighten spacing around the brand area */
+.navbar-brand {
+  padding: 0 !important;          /* remove default link padding */
+  margin-right: 0.25rem !important; /* shrink gap before first menu item */
+  display: flex;
+  align-items: center;
+}
+
+/* 3) Reduce vertical padding on the navbar so a tall logo fits */
+.navbar {
+  --bs-navbar-padding-y: 0rem;    /* Bootstrap 5 variable */
+  min-height: unset !important;    /* in case the theme fixes a min-height */
+}
+
+/* 4) (Optional) Bring nav links closer to the logo */
+.navbar-nav .nav-link {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
+/* 5) (Optional) If the container adds side padding you don’t want */
+.navbar .container,
+.navbar .container-fluid {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* 6) Responsive tweak so it doesn’t overwhelm on mobile */
+@media (max-width: 991.98px) {
+  .navbar-brand .navbar-logo {
+    height: 56px !important;
+  }
+}

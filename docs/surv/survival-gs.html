@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints – SSC</title>
+<title>Two-Arm Group-sequential Design with Time-to-Event endpoints</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,10 +94,40 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints – SSC">
-<meta property="og:image" content="survival-gs_files/figure-html/unnamed-chunk-5-1.svg">
-<meta property="og:site_name" content="SSC">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../bigger-logo.css">
+<meta property="og:title" content="Two-Arm Group-sequential Design with Time-to-Event endpoints">
+<meta property="og:description" content="">
+<meta property="og:image" content="survival-gs_files/figure-html/unnamed-chunk-2-1.svg">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -270,11 +300,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../SCC-HexSticker.png" alt="" class="navbar-logo light-content">
-    <img src="../SCC-HexSticker.png" alt="" class="navbar-logo dark-content">
-    </a>
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">SSC</span>
+    <img src="../man\figures\SSC-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../man\figures\SSC-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -338,12 +365,9 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Time-to-Event endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-gs.html">SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Time-to-Event endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-gs.html">Two-Arm Group-sequential Design with Time-to-Event endpoints</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
   <div id="quarto-announcement" data-announcement-id="1051a7ac8d80ea527570a42686afb81c" class="alert alert-warning hidden"><div class="quarto-announcement-content">
@@ -354,11 +378,6 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -385,19 +404,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">Two-Arm Fixed Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-gs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">Two-Arm Group-sequential Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a One-Arm Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">One-Arm Fixed Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
       </ul>
@@ -414,19 +433,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">binary-methods.html</span></a>
+ <span class="menu-text">Binary Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Fixed Design with Binary endpoints</span></a>
+ <span class="menu-text">Two-Arm Fixed Design with Binary endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Group-Sequential-Design with Binary endpoints</span></a>
+ <span class="menu-text">Two-Arm Group-Sequential-Design with Binary endpoints</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">One-Arm Fixed Design with Binary endpoints</span></a>
   </div>
 </li>
       </ul>
@@ -437,27 +462,34 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#design-space-explored" id="toc-design-space-explored" class="nav-link active" data-scroll-target="#design-space-explored">Design space explored</a>
+  <ul class="collapse">
+  <li><a href="#varying-design-parameters" id="toc-varying-design-parameters" class="nav-link" data-scroll-target="#varying-design-parameters">Varying design parameters</a></li>
+  <li><a href="#fixed-design-assumptions" id="toc-fixed-design-assumptions" class="nav-link" data-scroll-target="#fixed-design-assumptions">Fixed design assumptions</a></li>
+  <li><a href="#relevancy-classification-of-design-scenarios" id="toc-relevancy-classification-of-design-scenarios" class="nav-link" data-scroll-target="#relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</a></li>
+  <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Time-to-Event endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-gs.html">SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Time-to-Event endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-gs.html">Two-Arm Group-sequential Design with Time-to-Event endpoints</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints</h1>
+<h1 class="title">Two-Arm Group-sequential Design with Time-to-Event endpoints</h1>
 </div>
 
 
@@ -474,31 +506,99 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="design-space-explored" class="level2">
+<h2 class="anchored" data-anchor-id="design-space-explored">Design space explored</h2>
+<p>Comparisons were conducted for a <strong>two‑arm randomized clinical trial</strong> with a <strong>time‑to‑event primary endpoint</strong>, evaluated using a <strong>group‑sequential logrank test</strong> under proportional hazards. The objective was to compare sample‑size and event‑count outputs across software implementations over a structured grid of design parameters.</p>
+<section id="varying-design-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="varying-design-parameters">Varying design parameters</h3>
+<p>Four key parameters were varied systematically:</p>
+<ul>
+<li><strong>Type I error rate (<span class="math inline">\(\alpha\)</span>, two‑sided):</strong> <span class="math inline">\(\alpha \in \{0.01,\, 0.05,\, 0.10\}\)</span></li>
+<li><strong>Power (<span class="math inline">\(1-\beta\)</span>):</strong> <span class="math inline">\(1-\beta \in \{0.70,\, 0.80,\, 0.90\}\)</span></li>
+<li><strong>Hazard ratio (HR):</strong> <span class="math inline">\(\text{HR} \in \{0.30,\, 0.60,\, 0.90\}\)</span></li>
+<li><strong>Control‑group survival probability at 3 years:</strong> <span class="math inline">\(S_c(3\text{y}) \in \{0.20,\, 0.50,\, 0.80\}\)</span></li>
+</ul>
+<p>The 3‑year survival probability was used to calibrate the baseline control‑group hazard rate assuming an exponential distribution, ensuring compatibility across methods requiring an explicit survival model.</p>
+<p>The full factorial combination of these parameters yielded <strong>81 distinct design scenarios</strong>.</p>
+</section>
+<section id="fixed-design-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-design-assumptions">Fixed design assumptions</h3>
+<p>To isolate the impact of the statistical methodology and software implementation, the following parameters were held constant across all scenarios:</p>
+<ul>
+<li><strong>Number of interim looks:</strong> <span class="math inline">\(k = 4\)</span></li>
+<li><strong>Information fractions:</strong> equally spaced</li>
+<li><strong>Event time window:</strong> 3 years</li>
+<li><strong>Accrual period:</strong> 3 years (uniform accrual)</li>
+<li><strong>Post‑accrual follow‑up:</strong> 3 years</li>
+<li><strong>Allocation ratio (experimental : control):</strong> 1 : 1</li>
+<li><strong>Test sidedness:</strong> two‑sided</li>
+<li><strong>Censoring:</strong> administrative only (no additional loss to follow‑up or competing risks)</li>
+</ul>
+<p>Group‑sequential boundaries were generated using <strong>Lan–DeMets spending functions</strong>:</p>
+<ul>
+<li><strong>Alpha‑spending:</strong> O’Brien–Fleming–like</li>
+<li><strong>Beta‑spending:</strong> O’Brien–Fleming–like, non‑binding.</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-57b275e7c244750e0acb" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-57b275e7c244750e0acb">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162"],[0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1],[0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9],[0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9],[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8],[46,46,30,30,23,23,54,54,37,37,30,30,67,67,49,49,40,40,191,191,125,125,99,99,227,227,156,156,125,125,283,283,203,203,168,168,3982,3982,2627,2627,2052,2052,4751,4751,3261,3261,2617,2617,5940,5940,4263,4263,3522,3522,78,78,51,51,40,40,93,93,65,65,51,51,115,115,82,82,69,69,299,299,197,197,155,155,357,357,246,246,197,197,446,446,321,321,264,264,6043,6043,3987,3987,3113,3113,7211,7211,4951,4951,3973,3973,9015,9015,6470,6470,5345,5345,207,207,138,138,106,106,244,244,170,170,133,133,302,302,217,217,180,180,724,724,479,479,375,375,862,862,595,595,474,474,1077,1077,776,776,638,638,13846,13846,9140,9140,7136,7136,16526,16526,11347,11347,9103,9103,20664,20664,14828,14828,12252,12252],["low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","high","high","high","high","medium","medium","high","high","high","high","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","high","high","high","high","medium","medium","high","high","high","high","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","high","high","high","high","medium","medium","high","high","high","high"],["rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2"],[0.9347826086956522,0.9130434782608695,0.9666666666666667,0.9,0.9565217391304348,0.9130434782608695,0.9444444444444444,0.9259259259259259,0.9459459459459459,0.918918918918919,0.9333333333333333,0.9,0.9253731343283582,0.9552238805970149,0.9183673469387755,0.9183673469387755,0.925,0.9,1.047120418848168,0.9476439790575916,1.064,0.944,1.050505050505051,0.9191919191919192,1.044052863436123,0.9691629955947136,1.051282051282051,0.9615384615384616,1.056,0.952,1.035335689045936,0.9893992932862191,1.039408866995074,0.9802955665024631,1.041666666666667,0.9702380952380952,1.10095429432446,0.9886991461577097,1.106966121050628,0.9733536353254663,1.110136452241715,0.9590643274853801,1.093243527678383,1.006524942117449,1.098129408157007,0.9957068383931309,1.100878868933894,0.9862437905999236,1.08013468013468,1.024915824915825,1.083040112596763,1.018296973961999,1.085178875638842,1.012776831345826,0.8461538461538461,0.9230769230769231,0.8627450980392157,0.9019607843137255,0.875,0.875,0.8387096774193549,0.9354838709677419,0.8307692307692308,0.8923076923076924,0.8627450980392157,0.8823529411764706,0.8434782608695652,0.9565217391304348,0.8536585365853658,0.926829268292683,0.8405797101449275,0.8695652173913043,1.010033444816054,0.9297658862876255,1.015228426395939,0.9187817258883249,1.012903225806452,0.8967741935483871,1,0.9467787114845938,1.004065040650407,0.9308943089430894,1.010152284263959,0.9238578680203046,0.9887892376681614,0.9641255605381166,0.9906542056074766,0.9532710280373832,0.9962121212121212,0.9431818181818182,1.038722488830051,0.9336422306801258,1.044394281414597,0.9187358916478555,1.047542563443624,0.9058785737230967,1.031341006795174,0.9502149493828873,1.035750353463947,0.9398101393657847,1.038509942109237,0.9307827837905864,1.019079312257349,0.967720465890183,1.021792890262751,0.9613601236476044,1.023947614593078,0.95622076707203,0.7632850241545893,0.9082125603864735,0.7608695652173914,0.8768115942028986,0.7735849056603774,0.8584905660377359,0.7663934426229508,0.9344262295081968,0.7588235294117647,0.8941176470588236,0.7819548872180451,0.8796992481203008,0.7649006622516556,0.956953642384106,0.7649769585253456,0.9124423963133641,0.7666666666666667,0.8611111111111112,0.9861878453038674,0.9295580110497238,0.9895615866388309,0.9123173277661796,0.9893333333333333,0.8933333333333333,0.9814385150812065,0.9489559164733179,0.9798319327731092,0.9310924369747899,0.989451476793249,0.9261603375527426,0.9702878365831012,0.9665738161559888,0.9690721649484536,0.9523195876288659,0.9764890282131662,0.9435736677115988,1.037989310992344,0.9338437093745486,1.043107221006565,0.9185995623632385,1.046384529147982,0.9055493273542601,1.030315865908266,0.9503207067650974,1.034634705208425,0.9398960077553539,1.03767988575195,0.9311216082610129,1.017905536198219,0.9677216415021294,1.020771513353116,0.9614917723226328,1.022771792360431,0.9560071825008162]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>alpha<\/th>\n      <th>power<\/th>\n      <th>hr<\/th>\n      <th>surv_t<\/th>\n      <th>n_east<\/th>\n      <th>relevancy<\/th>\n      <th>method<\/th>\n      <th>n_ratio<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"alpha","targets":1},{"name":"power","targets":2},{"name":"hr","targets":3},{"name":"surv_t","targets":4},{"name":"n_east","targets":5},{"name":"relevancy","targets":6},{"name":"method","targets":7},{"name":"n_ratio","targets":8}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div>
+<figure class="figure">
+<p><img src="survival-gs_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="relevancy-classification-of-design-scenarios" class="level3">
+<h3 class="anchored" data-anchor-id="relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</h3>
+<p>To aid interpretation of results across a wide parameter space, each design scenario was classified <em>a priori</em> according to its <strong>practical relevance in confirmatory clinical trials</strong>. Scenarios were categorized as <strong>high</strong>, <strong>medium</strong>, or <strong>low relevance</strong>, based on the extremeness of the design parameters.</p>
+<ul>
+<li><strong>High relevance</strong> scenarios correspond to commonly used design choices in late-phase clinical trials (e.g.&nbsp;<span class="math inline">\(\alpha \leq 0.10\)</span>, power 80–90%, HR in the range 0.5–0.7).</li>
+<li><strong>Medium relevance</strong> scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g.&nbsp;<span class="math inline">\(\alpha = 0.20\)</span>, HR <span class="math inline">\(\leq 0.10\)</span> or HR <span class="math inline">\(\geq 0.90\)</span>).</li>
+<li><strong>Low relevance</strong> scenarios include parameter combinations that are rarely used in practice (e.g.&nbsp;very high <span class="math inline">\(\alpha\)</span>, near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.</li>
+</ul>
+<p>This classification was not used to filter results but rather to <strong>contextualize observed discrepancies</strong> between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.</p>
+<hr>
+</section>
+<section id="scope-of-the-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="scope-of-the-comparison">Scope of the comparison</h3>
+<p>For each of the 81 scenarios, all methods and software implementations were used to compute:</p>
+<ol type="1">
+<li>The <strong>required number of events</strong> to achieve the target power under the specified hazard ratio, and<br>
+</li>
+<li>When supported by the method, the corresponding <strong>total sample size</strong>, accounting for accrual and follow-up.</li>
+</ol>
+<p>The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-93ad00b52663b24d29d8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-93ad00b52663b24d29d8">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162"],[0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1,0.01,0.01,0.05,0.05,0.1,0.1],[0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9,0.7,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,0.9],[0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9],[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8],[46,46,30,30,23,23,54,54,37,37,30,30,67,67,49,49,40,40,191,191,125,125,99,99,227,227,156,156,125,125,283,283,203,203,168,168,3982,3982,2627,2627,2052,2052,4751,4751,3261,3261,2617,2617,5940,5940,4263,4263,3522,3522,78,78,51,51,40,40,93,93,65,65,51,51,115,115,82,82,69,69,299,299,197,197,155,155,357,357,246,246,197,197,446,446,321,321,264,264,6043,6043,3987,3987,3113,3113,7211,7211,4951,4951,3973,3973,9015,9015,6470,6470,5345,5345,207,207,138,138,106,106,244,244,170,170,133,133,302,302,217,217,180,180,724,724,479,479,375,375,862,862,595,595,474,474,1077,1077,776,776,638,638,13846,13846,9140,9140,7136,7136,16526,16526,11347,11347,9103,9103,20664,20664,14828,14828,12252,12252],["low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","high","high","high","high","medium","medium","high","high","high","high","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","high","high","high","high","medium","medium","high","high","high","high","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","low","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","medium","high","high","high","high","medium","medium","high","high","high","high"],["rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2","rpact","gsdesign2"],[0.9347826086956522,0.9130434782608695,0.9666666666666667,0.9,0.9565217391304348,0.9130434782608695,0.9444444444444444,0.9259259259259259,0.9459459459459459,0.918918918918919,0.9333333333333333,0.9,0.9253731343283582,0.9552238805970149,0.9183673469387755,0.9183673469387755,0.925,0.9,1.047120418848168,0.9476439790575916,1.064,0.944,1.050505050505051,0.9191919191919192,1.044052863436123,0.9691629955947136,1.051282051282051,0.9615384615384616,1.056,0.952,1.035335689045936,0.9893992932862191,1.039408866995074,0.9802955665024631,1.041666666666667,0.9702380952380952,1.10095429432446,0.9886991461577097,1.106966121050628,0.9733536353254663,1.110136452241715,0.9590643274853801,1.093243527678383,1.006524942117449,1.098129408157007,0.9957068383931309,1.100878868933894,0.9862437905999236,1.08013468013468,1.024915824915825,1.083040112596763,1.018296973961999,1.085178875638842,1.012776831345826,0.8461538461538461,0.9230769230769231,0.8627450980392157,0.9019607843137255,0.875,0.875,0.8387096774193549,0.9354838709677419,0.8307692307692308,0.8923076923076924,0.8627450980392157,0.8823529411764706,0.8434782608695652,0.9565217391304348,0.8536585365853658,0.926829268292683,0.8405797101449275,0.8695652173913043,1.010033444816054,0.9297658862876255,1.015228426395939,0.9187817258883249,1.012903225806452,0.8967741935483871,1,0.9467787114845938,1.004065040650407,0.9308943089430894,1.010152284263959,0.9238578680203046,0.9887892376681614,0.9641255605381166,0.9906542056074766,0.9532710280373832,0.9962121212121212,0.9431818181818182,1.038722488830051,0.9336422306801258,1.044394281414597,0.9187358916478555,1.047542563443624,0.9058785737230967,1.031341006795174,0.9502149493828873,1.035750353463947,0.9398101393657847,1.038509942109237,0.9307827837905864,1.019079312257349,0.967720465890183,1.021792890262751,0.9613601236476044,1.023947614593078,0.95622076707203,0.7632850241545893,0.9082125603864735,0.7608695652173914,0.8768115942028986,0.7735849056603774,0.8584905660377359,0.7663934426229508,0.9344262295081968,0.7588235294117647,0.8941176470588236,0.7819548872180451,0.8796992481203008,0.7649006622516556,0.956953642384106,0.7649769585253456,0.9124423963133641,0.7666666666666667,0.8611111111111112,0.9861878453038674,0.9295580110497238,0.9895615866388309,0.9123173277661796,0.9893333333333333,0.8933333333333333,0.9814385150812065,0.9489559164733179,0.9798319327731092,0.9310924369747899,0.989451476793249,0.9261603375527426,0.9702878365831012,0.9665738161559888,0.9690721649484536,0.9523195876288659,0.9764890282131662,0.9435736677115988,1.037989310992344,0.9338437093745486,1.043107221006565,0.9185995623632385,1.046384529147982,0.9055493273542601,1.030315865908266,0.9503207067650974,1.034634705208425,0.9398960077553539,1.03767988575195,0.9311216082610129,1.017905536198219,0.9677216415021294,1.020771513353116,0.9614917723226328,1.022771792360431,0.9560071825008162]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>alpha<\/th>\n      <th>power<\/th>\n      <th>hr<\/th>\n      <th>surv_t<\/th>\n      <th>n_east<\/th>\n      <th>relevancy<\/th>\n      <th>method<\/th>\n      <th>n_ratio<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"alpha","targets":1},{"name":"power","targets":2},{"name":"hr","targets":3},{"name":"surv_t","targets":4},{"name":"n_east","targets":5},{"name":"relevancy","targets":6},{"name":"method","targets":7},{"name":"n_ratio","targets":8}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="xztnhajzmp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xztnhajzmp table {
+<div id="uyovplrsud" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uyovplrsud table {
   font-family: Inter, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xztnhajzmp thead, #xztnhajzmp tbody, #xztnhajzmp tfoot, #xztnhajzmp tr, #xztnhajzmp td, #xztnhajzmp th {
+#uyovplrsud thead, #uyovplrsud tbody, #uyovplrsud tfoot, #uyovplrsud tr, #uyovplrsud td, #uyovplrsud th {
   border-style: none;
 }
 
-#xztnhajzmp p {
+#uyovplrsud p {
   margin: 0;
   padding: 0;
 }
 
-#xztnhajzmp .gt_table {
+#uyovplrsud .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -524,12 +624,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_caption {
+#uyovplrsud .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xztnhajzmp .gt_title {
+#uyovplrsud .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -541,7 +641,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#xztnhajzmp .gt_subtitle {
+#uyovplrsud .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -553,7 +653,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#xztnhajzmp .gt_heading {
+#uyovplrsud .gt_heading {
   background-color: #EDF5FF;
   text-align: left;
   border-bottom-color: #EDF5FF;
@@ -565,13 +665,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_bottom_border {
+#uyovplrsud .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_col_headings {
+#uyovplrsud .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -586,7 +686,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_col_heading {
+#uyovplrsud .gt_col_heading {
   color: #333333;
   background-color: #EDF5FF;
   font-size: 100%;
@@ -606,7 +706,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#xztnhajzmp .gt_column_spanner_outer {
+#uyovplrsud .gt_column_spanner_outer {
   color: #333333;
   background-color: #EDF5FF;
   font-size: 100%;
@@ -618,15 +718,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#xztnhajzmp .gt_column_spanner_outer:first-child {
+#uyovplrsud .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xztnhajzmp .gt_column_spanner_outer:last-child {
+#uyovplrsud .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xztnhajzmp .gt_column_spanner {
+#uyovplrsud .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -638,11 +738,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#xztnhajzmp .gt_spanner_row {
+#uyovplrsud .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xztnhajzmp .gt_group_heading {
+#uyovplrsud .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -668,7 +768,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#xztnhajzmp .gt_empty_group_heading {
+#uyovplrsud .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #EDF5FF;
@@ -683,15 +783,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#xztnhajzmp .gt_from_md > :first-child {
+#uyovplrsud .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xztnhajzmp .gt_from_md > :last-child {
+#uyovplrsud .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xztnhajzmp .gt_row {
+#uyovplrsud .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -710,7 +810,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#xztnhajzmp .gt_stub {
+#uyovplrsud .gt_stub {
   color: #333333;
   background-color: #EDF5FF;
   font-size: 100%;
@@ -723,7 +823,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#xztnhajzmp .gt_stub_row_group {
+#uyovplrsud .gt_stub_row_group {
   color: #333333;
   background-color: #EDF5FF;
   font-size: 100%;
@@ -737,15 +837,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#xztnhajzmp .gt_row_group_first td {
+#uyovplrsud .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xztnhajzmp .gt_row_group_first th {
+#uyovplrsud .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xztnhajzmp .gt_summary_row {
+#uyovplrsud .gt_summary_row {
   color: #333333;
   background-color: #EDF5FF;
   text-transform: inherit;
@@ -755,16 +855,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#xztnhajzmp .gt_first_summary_row {
+#uyovplrsud .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_first_summary_row.thick {
+#uyovplrsud .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xztnhajzmp .gt_last_summary_row {
+#uyovplrsud .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -774,7 +874,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_grand_summary_row {
+#uyovplrsud .gt_grand_summary_row {
   color: #333333;
   background-color: #EDF5FF;
   text-transform: inherit;
@@ -784,7 +884,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#xztnhajzmp .gt_first_grand_summary_row {
+#uyovplrsud .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -794,7 +894,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_last_grand_summary_row_top {
+#uyovplrsud .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -804,11 +904,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_striped {
+#uyovplrsud .gt_striped {
   background-color: rgba(8, 103, 136, 0.04);
 }
 
-#xztnhajzmp .gt_table_body {
+#uyovplrsud .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -817,7 +917,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_footnotes {
+#uyovplrsud .gt_footnotes {
   color: #333333;
   background-color: #EDF5FF;
   border-bottom-style: none;
@@ -831,7 +931,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_footnote {
+#uyovplrsud .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -840,7 +940,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#xztnhajzmp .gt_sourcenotes {
+#uyovplrsud .gt_sourcenotes {
   color: #333333;
   background-color: #EDF5FF;
   border-bottom-style: none;
@@ -854,7 +954,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#xztnhajzmp .gt_sourcenote {
+#uyovplrsud .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -862,72 +962,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#xztnhajzmp .gt_left {
+#uyovplrsud .gt_left {
   text-align: left;
 }
 
-#xztnhajzmp .gt_center {
+#uyovplrsud .gt_center {
   text-align: center;
 }
 
-#xztnhajzmp .gt_right {
+#uyovplrsud .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xztnhajzmp .gt_font_normal {
+#uyovplrsud .gt_font_normal {
   font-weight: normal;
 }
 
-#xztnhajzmp .gt_font_bold {
+#uyovplrsud .gt_font_bold {
   font-weight: bold;
 }
 
-#xztnhajzmp .gt_font_italic {
+#uyovplrsud .gt_font_italic {
   font-style: italic;
 }
 
-#xztnhajzmp .gt_super {
+#uyovplrsud .gt_super {
   font-size: 65%;
 }
 
-#xztnhajzmp .gt_footnote_marks {
+#uyovplrsud .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xztnhajzmp .gt_asterisk {
+#uyovplrsud .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xztnhajzmp .gt_indent_1 {
+#uyovplrsud .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xztnhajzmp .gt_indent_2 {
+#uyovplrsud .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xztnhajzmp .gt_indent_3 {
+#uyovplrsud .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xztnhajzmp .gt_indent_4 {
+#uyovplrsud .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xztnhajzmp .gt_indent_5 {
+#uyovplrsud .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xztnhajzmp .katex-display {
+#uyovplrsud .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xztnhajzmp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uyovplrsud div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1029,13 +1129,14 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="survival-gs_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img"></p>
+<p><img src="survival-gs_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

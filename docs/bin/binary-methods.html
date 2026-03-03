@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>binary-methods – SSC</title>
+<title>Binary Tests</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,9 +74,39 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="SSC">
-<meta property="og:site_name" content="SSC">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../bigger-logo.css">
+<meta property="og:title" content="Binary Tests">
+<meta property="og:description" content="">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -249,11 +279,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../SCC-HexSticker.png" alt="" class="navbar-logo light-content">
-    <img src="../SCC-HexSticker.png" alt="" class="navbar-logo dark-content">
-    </a>
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">SSC</span>
+    <img src="../man\figures\SSC-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../man\figures\SSC-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -317,12 +344,9 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../bin/binary-methods.html">binary-methods.html</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../bin/binary-methods.html">Binary Tests</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
   <div id="quarto-announcement" data-announcement-id="1051a7ac8d80ea527570a42686afb81c" class="alert alert-warning hidden"><div class="quarto-announcement-content">
@@ -333,11 +357,6 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -364,19 +383,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">Two-Arm Fixed Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">Two-Arm Group-sequential Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a One-Arm Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">One-Arm Fixed Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
       </ul>
@@ -393,19 +412,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-methods.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">binary-methods.html</span></a>
+ <span class="menu-text">Binary Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Fixed Design with Binary endpoints</span></a>
+ <span class="menu-text">Two-Arm Fixed Design with Binary endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arms Group-Sequential-Design with Binary endpoints</span></a>
+ <span class="menu-text">Two-Arm Group-Sequential-Design with Binary endpoints</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">One-Arm Fixed Design with Binary endpoints</span></a>
   </div>
 </li>
       </ul>
@@ -416,29 +441,132 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ztests-for-comparing-two-proportions" id="toc-ztests-for-comparing-two-proportions" class="nav-link active" data-scroll-target="#ztests-for-comparing-two-proportions">Z‑tests for comparing two proportions</a>
+  <ul class="collapse">
+  <li><a href="#pooled-ztest" id="toc-pooled-ztest" class="nav-link" data-scroll-target="#pooled-ztest">Pooled Z‑test</a></li>
+  <li><a href="#unpooled-ztest" id="toc-unpooled-ztest" class="nav-link" data-scroll-target="#unpooled-ztest">Unpooled Z‑test</a></li>
+  <li><a href="#when-to-use-each-ztest" id="toc-when-to-use-each-ztest" class="nav-link" data-scroll-target="#when-to-use-each-ztest">When to use each Z‑test</a></li>
+  </ul></li>
+  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s Exact Test</a>
+  <ul class="collapse">
+  <li><a href="#exact-inference-for-22-contingency-tables" id="toc-exact-inference-for-22-contingency-tables" class="nav-link" data-scroll-target="#exact-inference-for-22-contingency-tables">Exact inference for 2×2 contingency tables</a></li>
+  <li><a href="#advantages-of-fishers-test" id="toc-advantages-of-fishers-test" class="nav-link" data-scroll-target="#advantages-of-fishers-test">Advantages of Fisher’s test</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul></li>
+  <li><a href="#other-exact-tests" id="toc-other-exact-tests" class="nav-link" data-scroll-target="#other-exact-tests">Other Exact Tests</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../bin/binary-methods.html">binary-methods.html</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../bin/binary-methods.html">Binary Tests</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Binary Tests</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p>Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations. Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the <strong>Z‑test for proportions</strong> (in its pooled and unpooled forms) and <strong>Fisher’s exact test</strong>. Although these methods target the same inferential question, they rely on different assumptions and approximations. Understanding their distinctions, strengths, and limitations is essential when selecting an appropriate test for a given dataset.</p>
+<section id="ztests-for-comparing-two-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="ztests-for-comparing-two-proportions">Z‑tests for comparing two proportions</h2>
+<p>The Z‑test relies on the <strong>normal approximation</strong> of the sampling distribution of the difference in observed proportions. These proportions are defined as:</p>
+<p><span class="math display">\[
+\hat{p}_1 = \frac{x_1}{n_1}, \qquad
+\hat{p}_2 = \frac{x_2}{n_2},
+\]</span></p>
+<p>where <span class="math inline">\(x_1\)</span> and $<span class="math inline">\(x_2\)</span> are the number of observed events in groups 1 and 2, and <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are the group sample sizes. Under sufficiently large sample sizes, the difference <span class="math inline">\(\hat{p}_1 - \hat{p}_2\)</span> is approximately normally distributed. The main practical question becomes how to estimate the variance of this difference. Two distinct approaches exist: one assumes a common underlying proportion under the null hypothesis (“pooled” variance), and the other does not (“unpooled” variance).</p>
+<section id="pooled-ztest" class="level3">
+<h3 class="anchored" data-anchor-id="pooled-ztest">Pooled Z‑test</h3>
+<p>The pooled Z‑test explicitly uses the null hypothesis <span class="math inline">\(H_0: p_1 = p_2\)</span>. If this assumption is true, both groups share a common underlying event probability <span class="math inline">\(p\)</span>. The best estimate of this common probability is obtained by pooling the data:</p>
+<p><span class="math display">\[
+\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}.
+\]</span></p>
+<p>The test statistic is then computed as:</p>
+<p><span class="math display">\[
+Z = \frac{\hat{p}_1 - \hat{p}_2}
+{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}}.
+\]</span></p>
+<p>Because it forces equality of the two probabilities under the null, the pooled Z‑test is considered the <strong>canonical large‑sample test for comparing two proportions</strong>. It is also the basis for many confidence‑interval formulas and for tests used in regulatory biostatistics. However, the pooled variance estimate may be inaccurate when event counts are low, when proportions are near 0 or 1, or when group sizes are small.</p>
+</section>
+<section id="unpooled-ztest" class="level3">
+<h3 class="anchored" data-anchor-id="unpooled-ztest">Unpooled Z‑test</h3>
+<p>The unpooled Z‑test (also called the “Wald test” version) does not assume equal variances under the null. Instead, each group’s proportion is paired with its own variance estimate:</p>
+<p><span class="math display">\[
+Z = \frac{\hat{p}_1 - \hat{p}_2}
+{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} +
+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}}.
+\]</span></p>
+<p>This version is sometimes preferred for estimation‑focused analyses or when the null hypothesis does not reasonably imply equal underlying event probabilities. However, the unpooled approach can behave poorly in small samples because the variance estimates may be unstable, leading to inaccurate p‑values and confidence intervals.</p>
+</section>
+<section id="when-to-use-each-ztest" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-each-ztest">When to use each Z‑test</h3>
+<ul>
+<li>The <strong>pooled Z‑test</strong> is the standard choice for <strong>formal hypothesis testing</strong> when sample sizes are moderately large and the focus is on testing <span class="math inline">\(p_1 = p_2\)</span>.</li>
+<li>The <strong>unpooled test</strong> may be more appropriate when estimating the difference in proportions and constructing confidence intervals, especially if the true underlying probabilities are expected to differ substantially.</li>
+</ul>
+<p>Nevertheless, both tests rely on the normal approximation, which may be unreliable for small datasets, sparse tables, or extreme proportions.</p>
+</section>
+</section>
+<section id="fishers-exact-test" class="level2">
+<h2 class="anchored" data-anchor-id="fishers-exact-test">Fisher’s Exact Test</h2>
+<section id="exact-inference-for-22-contingency-tables" class="level3">
+<h3 class="anchored" data-anchor-id="exact-inference-for-22-contingency-tables">Exact inference for 2×2 contingency tables</h3>
+<p>Fisher’s exact test provides an alternative that does <strong>not</strong> rely on large‑sample approximations. It is based on the exact probability distribution of a 2×2 contingency table under the null hypothesis of independence (or equivalently, equal proportions). For event counts <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> with fixed margins <span class="math inline">\(n_1, n_2\)</span>, the probability of observing a particular table is:</p>
+<p><span class="math display">\[
+P = \frac{
+\binom{n_1}{x_1}\binom{n_2}{x_2}
+}{
+\binom{n_1+n_2}{x_1+x_2}
+}.
+\]</span></p>
+<p>This probability is derived from the <strong>hypergeometric distribution</strong>, reflecting the number of ways one can allocate events across two groups while keeping row and column totals fixed.</p>
+</section>
+<section id="advantages-of-fishers-test" class="level3">
+<h3 class="anchored" data-anchor-id="advantages-of-fishers-test">Advantages of Fisher’s test</h3>
+<p>Fisher’s exact test is extremely valuable in situations where the assumptions of the Z‑tests break down:</p>
+<ul>
+<li><strong>Small sample sizes:</strong> When event counts are low, Fisher’s test remains valid and unbiased.</li>
+<li><strong>Proportions near 0 or 1:</strong> Exact inference avoids the poor performance of normal approximations.</li>
+<li><strong>Sparse tables:</strong> Even extreme cases—such as zero events in one group—are handled correctly.</li>
+<li><strong>No reliance on asymptotics:</strong> Results are exact, not approximate.</li>
+</ul>
+<p>These properties make Fisher’s test a gold standard in fields like genetics, safety analyses, rare‑event clinical trial monitoring, and pharmaceutical quality control.</p>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p>While exact, Fisher’s test can be computationally intensive for very large sample sizes, although modern software typically handles tables in the thousands without difficulty. Additionally, for large samples, Fisher’s test may be overly conservative, producing slightly larger p‑values than approximate tests.</p>
+</section>
+</section>
+<section id="other-exact-tests" class="level2">
+<h2 class="anchored" data-anchor-id="other-exact-tests">Other Exact Tests</h2>
+<p>Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available. Other procedures, such as Barnard’s exact test, Boschloo’s test, and exact unconditional tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate. However, because they require more complex algorithms, involve subtle methodological considerations, and are less commonly implemented in standard software, we do not explore them in detail here. Fisher’s test remains the primary practical choice for most applications, especially when reproducibility and widespread software support are priorities. See REFERENCE TO GOSUKE HOMMA for more details on exact test</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
