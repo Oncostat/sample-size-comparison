@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sample Size computation methods for survival endpoints – ssc-website</title>
+<title>Sample Size computation methods for survival endpoints – SSC</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -38,16 +38,20 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9f7c3cdc2dcf14c42e85c61b0a057668.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6711307633b356ed80572f133c0aa8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-91451eb5fc48bff9700d30fb7ecc94d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -100,21 +104,250 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Sample Size computation methods for survival endpoints – ssc-website">
+<meta property="og:title" content="Sample Size computation methods for survival endpoints – SSC">
 <meta property="og:description" content="">
-<meta property="og:site_name" content="ssc-website">
+<meta property="og:site_name" content="SSC">
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../SCC-HexSticker.png" alt="" class="navbar-logo light-content">
+    <img src="../SCC-HexSticker.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SSC</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Book</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
+        <li>
+    <a class="dropdown-item" href="../presentation/presentation-fr.html" target="_blank">
+ <span class="dropdown-text">Slides (french)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../bin2arms-exact.html">
+ <span class="dropdown-text">About Exact test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lakatos_n_lan.html">
+ <span class="dropdown-text">Lakatos &amp; Lan</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://oncostat.github.io/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-globe"></i></a>
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/Oncostat/sample-size-comparison">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/Oncostat/sample-size-comparison/issues/new">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Survival endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-methods.html">Sample Size computation methods for survival endpoints</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Time-to-Event endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-methods.html">Sample Size computation methods for survival endpoints</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -122,35 +355,14 @@ window.Quarto = {
       </button>
     </div>
   </nav>
+  <div id="quarto-announcement" data-announcement-id="1051a7ac8d80ea527570a42686afb81c" class="alert alert-warning hidden"><div class="quarto-announcement-content">
+<p><strong>WIP</strong> - this website is in progress, official release 12/03/2026</p>
+</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../SCC-HexSticker.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../SCC-HexSticker.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
-      </a>
-      <div class="sidebar-tools-main">
-    <a href="https://oncostat.github.io/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-globe"></i></a>
-    <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
-      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Oncostat/sample-size-comparison">
-            Source Code
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/Oncostat/sample-size-comparison/issues/new">
-            Report a Bug
-            </a>
-          </li>
-      </ul>
-    </div>
-</div>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -167,7 +379,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Survival endpoints</span></a>
+ <span class="menu-text">Time-to-Event endpoints</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -182,13 +394,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSC for a Two-Arm Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">SSC for a Two-Arms Fixed Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../surv/survival-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">survival-gs.html</span></a>
+ <span class="menu-text">SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSC for a One-Arm Fixed Design with Time-to-Event endpoints</span></a>
   </div>
 </li>
       </ul>
@@ -211,13 +429,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">binary-fixed.html</span></a>
+ <span class="menu-text">SSC for a Two-Arms Fixed Design with Binary endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bin/binary-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">binary-gs.html</span></a>
+ <span class="menu-text">SSC for a Two-Arms Group-Sequential-Design with Binary endpoints</span></a>
   </div>
 </li>
       </ul>
@@ -268,15 +486,14 @@ window.Quarto = {
   <li><a href="#conceptual-implication" id="toc-conceptual-implication" class="nav-link" data-scroll-target="#conceptual-implication">Conceptual Implication</a></li>
   <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
   </ul></li>
-  <li><a href="#méthode-de-schoenfeld" id="toc-méthode-de-schoenfeld" class="nav-link" data-scroll-target="#méthode-de-schoenfeld">Méthode de Schoenfeld</a></li>
-  <li><a href="#lakatos" id="toc-lakatos" class="nav-link" data-scroll-target="#lakatos">Lakatos</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Survival endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-methods.html">Sample Size computation methods for survival endpoints</a></li></ol></nav>
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../surv/survival-endpoint.html">Time-to-Event endpoints</a></li><li class="breadcrumb-item"><a href="../surv/survival-methods.html">Sample Size computation methods for survival endpoints</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Sample Size computation methods for survival endpoints</h1>
 </div>
@@ -542,36 +759,79 @@ E_\theta\{D(t)\}
 </li>
 <li>Lakatos, E. (1988). <em>Sample sizes based on the log-rank statistic in complex clinical trials</em>. <strong>Journal of the American Statistical Association</strong>, 83(402), 289–301.</li>
 </ul>
-</section>
-</section>
-<section id="méthode-de-schoenfeld" class="level2">
-<h2 class="anchored" data-anchor-id="méthode-de-schoenfeld">Méthode de Schoenfeld</h2>
-<p>Le calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.</p>
-<p>Prenons <span class="math inline">\(\alpha\)</span> l’erreur de type I et <span class="math inline">\(\beta\)</span> l’erreur de type II. Alors, en notant <span class="math inline">\(e\)</span> le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :</p>
-<p><span id="eq-schoenfeld"><span class="math display">\[
+<!-- ## Méthode de Schoenfeld
+
+Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
+
+Prenons $\alpha$ l'erreur de type I et $\beta$ l'erreur de type II. Alors, en notant $e$ le nombre d'evènement nécessaire, la formule (simple) de Schoenfeld donne :
+
+$$
 e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
-\tag{1}\]</span></span></p>
-<p>Où <span class="math inline">\(z_x\)</span> est le <a href="https://en.wikipedia.org/wiki/Standard_score">z-score</a> de <span class="math inline">\(x\)</span>, égale au quantile <span class="math inline">\((1-x)\)</span> de la distribution normale standard.</p>
+$${#eq-schoenfeld}
+
+Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$, égale au quantile $(1-x)$ de la distribution normale standard.
+
+## Lakatos
+Chaine de Markov, mouvement brownien.
+
+
+rpact :
+The formula of Kim & Tsiatis (Biometrics, 1990) is used to calculate the expected number of events
+under the alternative (see also Lakatos & Lan, Statistics in Medicine, 1992). These formulas are
+generalized to piecewise survival times and non-constant piecewise accrual over time.
+
+gsDesign2 :
+Computes fixed design sample size (given power) or power (given sample size) by:
+fixed_design_ahr() - Average hazard ratio method.
+fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990).
+fixed_design_mb() - Weighted logrank test with Magirr-Burman weights.
+fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986).
+fixed_design_maxcombo() - MaxCombo method.
+fixed_design_rmst() - RMST method.
+fixed_design_milestone() - Milestone method.
+Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.
+
+rashnu :
+lakatosSampleSize : Lakatos
+two_prop_size: on sait pas 
+oneSurvSampleSize :
+Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp. 236–237, Example 6.3.1.
+
+Andersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp. 176–287, Section IV.1–3.
+
+Bie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.
+
+Borgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.
+
+Nagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355
+
+Binary :
+The Fisher exact test : east, nQuery, bbssr
+The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact
+The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery
+
+https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm -->
+
+
 </section>
-<section id="lakatos" class="level2">
-<h2 class="anchored" data-anchor-id="lakatos">Lakatos</h2>
-<p>Chaine de Markov, mouvement brownien.</p>
-<p>rpact : The formula of Kim &amp; Tsiatis (Biometrics, 1990) is used to calculate the expected number of events under the alternative (see also Lakatos &amp; Lan, Statistics in Medicine, 1992). These formulas are generalized to piecewise survival times and non-constant piecewise accrual over time.</p>
-<p>gsDesign2 : Computes fixed design sample size (given power) or power (given sample size) by: fixed_design_ahr() - Average hazard ratio method. fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990). fixed_design_mb() - Weighted logrank test with Magirr-Burman weights. fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986). fixed_design_maxcombo() - MaxCombo method. fixed_design_rmst() - RMST method. fixed_design_milestone() - Milestone method. Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.</p>
-<p>rashnu : lakatosSampleSize : Lakatos two_prop_size: on sait pas oneSurvSampleSize : Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp.&nbsp;236–237, Example 6.3.1.</p>
-<p>Andersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp.&nbsp;176–287, Section IV.1–3.</p>
-<p>Bie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.</p>
-<p>Borgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.</p>
-<p>Nagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355</p>
-<p>Binary : The Fisher exact test : east, nQuery, bbssr The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery</p>
-<p>https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm</p>
-
-
 </section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -971,6 +1231,25 @@ e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+<p>About</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

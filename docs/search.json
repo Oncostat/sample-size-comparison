@@ -1,19 +1,37 @@
 [
   {
-    "objectID": "survival-fixed.html",
-    "href": "survival-fixed.html",
-    "title": "Two-arms Fixed Design with Time-to-Event endpoint.",
+    "objectID": "surv/survival-one-arm.html",
+    "href": "surv/survival-one-arm.html",
+    "title": "SSC for a One-Arm Fixed Design with Time-to-Event endpoints",
     "section": "",
-    "text": "Survival fixed sample size\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy:"
+    "text": "N-Ratio 2-Arms Time-to-Event GS-design\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRouge : &lt; 50% des ratios dans ±10%",
+    "crumbs": [
+      "Book",
+      "Time-to-Event endpoints",
+      "SSC for a One-Arm Fixed Design with Time-to-Event endpoints"
+    ]
+  },
+  {
+    "objectID": "surv/survival-gs.html",
+    "href": "surv/survival-gs.html",
+    "title": "SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Time-to-Event GS-design\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRouge : &lt; 50% des ratios dans ±10%",
+    "crumbs": [
+      "Book",
+      "Time-to-Event endpoints",
+      "SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints"
+    ]
   },
   {
     "objectID": "surv/survival-endpoint.html",
     "href": "surv/survival-endpoint.html",
-    "title": "Survival Endpoints",
+    "title": "Time-to-Event Endpoints",
     "section": "",
-    "text": "Time-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nFinally we will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints",
+    "text": "Time-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\n\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nWe will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints\nFinally we will compare sample sizes within a one-arm design trial, in SSC for a One-Arm Design with Time-to-Event endpoints",
     "crumbs": [
-      "Survival endpoints"
+      "Book",
+      "Time-to-Event endpoints"
     ]
   },
   {
@@ -513,6 +531,7 @@
     "section": "",
     "text": "CautionWork In Progress\n\n\n\nThe website is in construction, It will be completed in the next weeks so be patient ;)\nWelcome to this project dedicated to a focused comparison of computed sample sizes produced by East, nQuery, and R packages. This work looks specifically at the numerical results generated by each tool, placing them side by side to examine their consistency, differences, and overall behavior. Rather than exploring technical details on this page, the goal here is to offer a clear entry point into a structured comparison based purely on output values. I invite you to explore the results and discover how these tools align — or differ — when it comes to calculating sample size.",
     "crumbs": [
+      "Book",
       "Introduction"
     ]
   },
@@ -523,6 +542,7 @@
     "section": "Motivations",
     "text": "Motivations\n\nWhy R for sample size calculation ?\n\nDo all analysis in R without having to use an external tool\nShare code to someone (better than share an East of nQuery project)\nAvoid problem with export\nFree and open-source code, allows to open issue, ask new feature, fork the code",
     "crumbs": [
+      "Book",
       "Introduction"
     ]
   },
@@ -533,6 +553,7 @@
     "section": "Scope of the comparison",
     "text": "Scope of the comparison\n\n\n\n\n\n\n\n\n\n\nEndpoints\nDesign Type\nComputation\nSoftware\nR package\n\n\n\n\nBinary\nTwo-arm Fixed\nPooled\n🟧East, 🟦nQuery\n🟥Rpact, 🟨bbssr\n\n\nBinary\nTwo-arm Fixed\nUnpooled\n🟧East, 🟦nQuery\n-\n\n\nBinary\nTwo-arm Fixed\nExact\n🟧East, 🟦nQuery\n🟨bbssr\n\n\nBinary\nTwo-arm Group-Sequential\nPooled\n🟧East\n🟥Rpact\n\n\nBinary\nOne-arm Fixed\nExact\n🟧East\nA’Hern(no package)\n\n\nBinary\nOne-arm Fixed\nNon_exact?\n🟧East, 🟦nQuery\n🟥Rpact\n\n\nSurvival\nTwo-arm Fixed\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟪Rashnu, 🟫gsDesign2\n\n\nSurvival\nTwo-arm Group-Sequential\n\n🟧East, 🟦nQuery\n🟥Rpact, 🟫gsDesign2\n\n\nSurvival\nOne-arm Fixed\n\n🟧East, 🟦nQuery\noa2s1, sssas2, 🟪Rashnu",
     "crumbs": [
+      "Book",
       "Introduction"
     ]
   },
@@ -543,6 +564,7 @@
     "section": "Additional content:",
     "text": "Additional content:\n\n\n\n\n\n\n\n\n\n\nComparaison des méthodes de calcul de la taille d’échantillon\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparison of Lakatos & Lan (1992), nQuery, EAST and R packages\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat Do East and nQuery Compute Exactly ?\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
+      "Book",
       "Introduction"
     ]
   },
@@ -553,7 +575,111 @@
     "section": "Footnotes",
     "text": "Footnotes\n\n\nOneArm2stage↩︎\nSampleSizeSingleArmSurvival↩︎",
     "crumbs": [
+      "Book",
       "Introduction"
+    ]
+  },
+  {
+    "objectID": "bin/binary-one-arm.html",
+    "href": "bin/binary-one-arm.html",
+    "title": "SSC for a One-Arm Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00"
+  },
+  {
+    "objectID": "bin/binary-one-arm.html#pooled-variance",
+    "href": "bin/binary-one-arm.html#pooled-variance",
+    "title": "SSC for a One-Arm Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00"
+  },
+  {
+    "objectID": "bin/binary-one-arm.html#exact",
+    "href": "bin/binary-one-arm.html#exact",
+    "title": "SSC for a One-Arm Fixed Design with Binary endpoints",
+    "section": "Exact",
+    "text": "Exact\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nahern\n0.80\n0.94\n0.97\n0.96\n1.00\n1.19\n\n\nmedium\n\n\nahern\n0.62\n0.91\n0.96\n0.95\n1.00\n1.33\n\n\nlow\n\n\nahern\n0.33\n0.83\n0.89\n0.92\n1.00\n1.67\n\n\n\nRouge : &lt; 50% des ratios dans ±10%"
+  },
+  {
+    "objectID": "bin/binary-gs.html",
+    "href": "bin/binary-gs.html",
+    "title": "SSC for a Two-Arms Group-Sequential-Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "SSC for a Two-Arms Group-Sequential-Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-gs.html#pooled-variance",
+    "href": "bin/binary-gs.html#pooled-variance",
+    "title": "SSC for a Two-Arms Group-Sequential-Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "SSC for a Two-Arms Group-Sequential-Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-endpoints.html",
+    "href": "bin/binary-endpoints.html",
+    "title": "Binary Endpoints",
+    "section": "",
+    "text": "Binary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation",
+    "crumbs": [
+      "Book",
+      "Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites.",
+    "crumbs": [
+      "Book",
+      "About"
+    ]
+  },
+  {
+    "objectID": "bin/binary-fixed.html",
+    "href": "bin/binary-fixed.html",
+    "title": "SSC for a Two-Arms Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "SSC for a Two-Arms Fixed Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-fixed.html#pooled-variance",
+    "href": "bin/binary-fixed.html#pooled-variance",
+    "title": "SSC for a Two-Arms Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "SSC for a Two-Arms Fixed Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-fixed.html#exact",
+    "href": "bin/binary-fixed.html#exact",
+    "title": "SSC for a Two-Arms Fixed Design with Binary endpoints",
+    "section": "Exact",
+    "text": "Exact",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "SSC for a Two-Arms Fixed Design with Binary endpoints"
     ]
   },
   {
@@ -590,61 +716,6 @@
     "title": "What Do East and nQuery Compute Exactly ?",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nEast 6 User Manual, Appendix U: Theory-Design - Binomial Two-Sample Exact Tests, U.2 Power of Unconditional Test of Superiority, p3314↩︎"
-  },
-  {
-    "objectID": "bin/binary-endpoints.html",
-    "href": "bin/binary-endpoints.html",
-    "title": "Binary Endpoints",
-    "section": "",
-    "text": "Binary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation",
-    "crumbs": [
-      "Binary endpoints"
-    ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites.",
-    "crumbs": [
-      "About"
-    ]
-  },
-  {
-    "objectID": "index-old.html",
-    "href": "index-old.html",
-    "title": "R vs East & nQuery",
-    "section": "",
-    "text": "Le but est de légitimer l’utilisation de R comme alternative au logiciel propriétaire East et nQuery en faisant une comparaison des différents logiciels et des écarts entre les résultats"
-  },
-  {
-    "objectID": "index-old.html#fixed",
-    "href": "index-old.html#fixed",
-    "title": "R vs East & nQuery",
-    "section": "Fixed",
-    "text": "Fixed"
-  },
-  {
-    "objectID": "index-old.html#gs",
-    "href": "index-old.html#gs",
-    "title": "R vs East & nQuery",
-    "section": "GS",
-    "text": "GS"
-  },
-  {
-    "objectID": "index-old.html#fixed-1",
-    "href": "index-old.html#fixed-1",
-    "title": "R vs East & nQuery",
-    "section": "Fixed",
-    "text": "Fixed\n\nAlgorithmes\n\nMéthode de Schoenfeld\nLe calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.\n\n\nLakatos\nChaine de Markov, mouvement brownien.\n\n\n\nComparaison des résultats"
-  },
-  {
-    "objectID": "index-old.html#groupes-sequential-design",
-    "href": "index-old.html#groupes-sequential-design",
-    "title": "R vs East & nQuery",
-    "section": "Groupes Sequential Design",
-    "text": "Groupes Sequential Design\n\nLan-DeMets spending functions\n\n\nComparaison des résultats"
   },
   {
     "objectID": "lakatos_n_lan.html",
@@ -901,33 +972,36 @@
   {
     "objectID": "references.html",
     "href": "references.html",
-    "title": "ssc-website",
+    "title": "SSC",
     "section": "",
     "text": "References\n\nAnderson, Keaven, Yujie Zhao, Yilong Zhang, John Blischak, Yihui Xie, Nan Xiao, and Jianxiao Yang. 2026. gsDesign2: Group Sequential Design with Non-Constant Effect. https://merck.github.io/gsDesign2/.\n\n\nChoi, Sungho. 2025. Rashnu: Balanced Sample Size and Power Calculation Tools. https://zarathucorp.github.io/rashnu/.\n\n\nCollett, D. 2023. Modelling Survival Data in Medical Research. Chapman & Hall/CRC.\n\n\nHomma, Gosuke. 2025. Bbssr: Blinded Sample Size Re-Estimation for Binary Endpoints. https://github.com/gosukehommaEX/bbssr.\n\n\nJohnson, Logan, and Chi-Rong Li. n.d. “R Vs EAST Vs SAS: Group Sequential Design.” R Vs East VS SAS: Group Sequential Design. https://psiaims.github.io/CAMIS/Comp/r-east_gsd_tte.html.\n\n\nKamal, Mohamed. n.d. “SampleSizeSingleArmSurvival.”\n\n\nLakatos, Edward. 1988. “Sample Sizes Based on the Log-Rank Statistic in Complex Clinical Trials.” Biometrics 44 (1): 229. https://doi.org/10.2307/2531910.\n\n\nLakatos, Edward, and K. K. Lan. 1992. “A Comparison of Sample Size Methods for the Logrank Statistic.” Statistics in Medicine 11 (2): 179–91. https://doi.org/10.1002/sim.4780110205.\n\n\nLan, K. K., and David L. DeMets. 1983. “Discrete Sequential Boundaries for Clinical Trials.” Biometrika 70 (3): 659. https://doi.org/10.2307/2336502.\n\n\nNagashima, Kengo, Hisashi Noma, Yasunori Sato, and Masahiko Gosho. 2020. “Sample Size Calculations for Single‐arm Survival Studies Using Transformations of the Kaplan–Meier Estimator.” Pharmaceutical Statistics 20 (3): 499–511. https://doi.org/10.1002/pst.2090.\n\n\nOba, Koji, and Aya Kuchiba. 2020. “Section II.7.” In Textbook of Clinical Trials in Oncology: A Statistical Perspective, 113–32. CRC PRESS.\n\n\nSchoenfeld, David A. 1983. “Sample-Size Formula for the Proportional-Hazards Regression Model.” Biometrics 39 (2): 499. https://doi.org/10.2307/2531021.\n\n\nTextbook of Clinical Trials in Oncology: A Statistical Perspective. 2020. CRC PRESS.\n\n\nWassmer, Gernot, and Friedrich Pahlke. 2025. Rpact: Confirmatory Adaptive Clinical Trial Design and Analysis. https://doi.org/10.32614/CRAN.package.rpact.\n\n\nYuan, Xiaomeng, Haitao Pan, and Jianrong Wu. 2023. “OneArm2stage — Phase II Single-Arm Two-Stage Designs with Time-to-Event Outcomes.” https://github.com/cran/OneArm2stage.",
     "crumbs": [
+      "Book",
       "References"
     ]
   },
   {
     "objectID": "surv/survival-fixed.html",
     "href": "surv/survival-fixed.html",
-    "title": "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints",
+    "title": "SSC for a Two-Arms Fixed Design with Time-to-Event endpoints",
     "section": "",
     "text": "CautionDraft made with ChatGPT\n\n\n\nMethods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.",
     "crumbs": [
-      "Survival endpoints",
-      "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints"
+      "Book",
+      "Time-to-Event endpoints",
+      "SSC for a Two-Arms Fixed Design with Time-to-Event endpoints"
     ]
   },
   {
     "objectID": "surv/survival-fixed.html#design-space-explored",
     "href": "surv/survival-fixed.html#design-space-explored",
-    "title": "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints",
+    "title": "SSC for a Two-Arms Fixed Design with Time-to-Event endpoints",
     "section": "Design space explored",
-    "text": "Design space explored\nAll comparisons were conducted for a two-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\nVarying design parameters\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nControl-group survival probability at 3 years:\n\\(S_c(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption for the control group, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\nFixed design assumptions\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nAllocation ratio (experimental : control): 1 : 1\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy classification of design scenarios\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\nScope of the comparison\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTab1Tab2\n\n\nSome content for tabset1\n\n\nSome content for tabset2",
+    "text": "Design space explored\nAll comparisons were conducted for a two-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\nVarying design parameters\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nControl-group survival probability at 3 years:\n\\(S_c(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption for the control group, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\nFixed design assumptions\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nAllocation ratio (experimental : control): 1 : 1\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy classification of design scenarios\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\nScope of the comparison\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nnquery\n1.00\n1.00\n1.01\n1.00\n1.01\n1.03\n\n\nrashnu\n1.00\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.01\n1.00\n1.01\n1.05\n\n\nnquery\n1.00\n1.00\n1.03\n1.02\n1.04\n1.11\n\n\nrashnu\n1.00\n1.00\n1.01\n1.01\n1.02\n1.07\n\n\nrpact\n0.98\n0.99\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.21\n1.00\n1.07\n5.44\n\n\nnquery\n0.98\n1.00\n1.26\n1.01\n1.13\n2.84\n\n\nrashnu\n0.96\n1.00\n1.09\n1.00\n1.03\n1.87\n\n\nrpact\n0.78\n1.00\n1.12\n1.00\n1.00\n5.44\n\n\n\nRouge : &lt; 50% des ratios dans ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTab1Tab2\n\n\nSome content for tabset1\n\n\nSome content for tabset2",
     "crumbs": [
-      "Survival endpoints",
-      "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints"
+      "Book",
+      "Time-to-Event endpoints",
+      "SSC for a Two-Arms Fixed Design with Time-to-Event endpoints"
     ]
   },
   {
@@ -937,7 +1011,8 @@
     "section": "",
     "text": "CautionDraft made with ChatGPT\n\n\n\nMethods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.",
     "crumbs": [
-      "Survival endpoints",
+      "Book",
+      "Time-to-Event endpoints",
       "Sample Size computation methods for survival endpoints"
     ]
   },
@@ -948,7 +1023,8 @@
     "section": "Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)",
     "text": "Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)\nConsider a two-arm randomized clinical trial with a time-to-event endpoint analyzed using the log-rank test or, equivalently, the score test from the Cox proportional hazards model. Let \\(\\lambda_1(t)\\) and \\(\\lambda_2(t)\\) denote the hazard functions in the two treatment groups. Under the proportional hazards assumption,\n\\[\n\\lambda_2(t) = \\lambda_1(t)\\exp(\\theta),\n\\]\nwhere \\(\\theta = \\log(\\mathrm{HR})\\) is the log hazard ratio under the alternative hypothesis.\n\n\nAsymptotic Behavior of the Log-Rank Statistic\nLet \\(U\\) denote the score statistic for testing the null hypothesis\n\\(H_0: \\theta = 0\\). Under standard regularity conditions and for large samples, the log-rank statistic is asymptotically normally distributed:\n\\[\nU \\;\\overset{approx}{\\sim}\\; \\mathcal{N}\\!\\left(E_\\theta(U), \\; \\mathrm{Var}_0(U)\\right).\n\\]\nUnder proportional hazards and equal allocation between treatment groups, Schoenfeld showed that the variance of the partial likelihood estimator \\(\\hat{\\theta}\\) can be approximated by\n\\[\n\\mathrm{Var}(\\hat{\\theta}) \\;\\approx\\; \\frac{4}{e},\n\\]\nwhere \\(e\\) denotes the total number of observed events across both groups.\nThis approximation reflects the fact that each observed event contributes a fixed amount of information to the estimation of \\(\\theta\\), depending only on the relative sizes of the risk sets and not on the baseline hazard function.\n\n\n\nPower Requirement and Required Number of Events\nTo achieve power \\(1 - \\beta\\) at a two-sided significance level \\(\\alpha\\), the standardized Wald (or score) statistic must satisfy\n\\[\n\\frac{|\\theta|}{\\sqrt{\\mathrm{Var}(\\hat{\\theta})}}\n\\;\\ge\\;\nz_{1-\\alpha/2} + z_{1-\\beta},\n\\]\nwhere \\(z_{1-\\alpha/2}\\) and \\(z_{1-\\beta}\\) denote the corresponding quantiles of the standard normal distribution (z-score).\nSubstituting the variance approximation yields\n\\[\n|\\theta| \\sqrt{\\frac{e}{4}}\n\\;\\ge\\;\nz_{1-\\alpha/2} + z_{1-\\beta}.\n\\]\nSolving for \\(e\\) gives the required number of events:\n\\[\ne\n\\;=\\;\n\\frac{4\\,(z_{1-\\alpha/2} + z_{1-\\beta})^2}{\\theta^2}\n\\;=\\;\n\\frac{4\\,(z_{1-\\alpha/2} + z_{1-\\beta})^2}{\\left(\\log \\mathrm{HR}\\right)^2}.\n\\]\n\n\n\nInterpretation\nThe Schoenfeld formula specifies the minimum number of events required for the log-rank test to detect a given hazard ratio with pre-specified type I error and power under the proportional hazards assumption. The required number of events depends only on:\n\nthe targeted effect size \\(\\theta = \\log(\\mathrm{HR})\\),\nthe type I error rate \\(\\alpha\\),\nthe type II error rate \\(\\beta\\),\nthe allocation ratio between treatment groups.\n\nIt does not depend on the accrual pattern, follow-up duration, censoring mechanism, or the form of the baseline hazard. These design features affect the calendar time and total sample size needed to observe the required number of events, but not the number of events itself.\n\n\n\nReferences\n\nSchoenfeld, D. (1983). Sample-Size Formula for the Proportional-Hazards Regression Model. Biometrics, 39(2), 499–503.\n\nCox, D. R. (1972). Regression Models and Life-Tables. Journal of the Royal Statistical Society, Series B, 34(2), 187–220.",
     "crumbs": [
-      "Survival endpoints",
+      "Book",
+      "Time-to-Event endpoints",
       "Sample Size computation methods for survival endpoints"
     ]
   },
@@ -959,7 +1035,8 @@
     "section": "From Required Number of Events to Sample Size",
     "text": "From Required Number of Events to Sample Size\nThe Schoenfeld method determines the number of events required to achieve a specified type I error rate and power for comparing two survival distributions under the proportional hazards assumption. To complete the trial design, this required number of events must be translated into a total sample size. This step requires explicit assumptions on the accrual process, survival distributions, and censoring mechanisms.\n\n\nEvent Probability for an Individual Subject\nLet \\(T\\) denote the event time and \\(C\\) the censoring time for a randomly selected subject. An event is observed if \\(T \\le C\\). The probability that a subject experiences the event during the study is therefore\n\\[\np = \\Pr(T \\le C).\n\\]\nUnder independent censoring, this probability can be written as\n\\[\np = \\int_0^\\infty S_C(t)\\, dF_T(t),\n\\]\nwhere \\(F_T\\) is the distribution function of the event time and \\(S_C\\) is the survival function of the censoring time.\nIn the simplest case of no censoring other than administrative censoring at time \\(\\tau\\),\n\\[\np = 1 - S_T(\\tau).\n\\]\n\n\n\nExpected Number of Events in the Trial\nLet \\(N\\) denote the total number of randomized subjects. Assuming independence across subjects, the expected total number of observed events is\n\\[\nE(D) = N \\times \\bar{p},\n\\]\nwhere \\(\\bar{p}\\) is the average probability of observing an event across treatment groups.\nFor a two-group trial with allocation proportions \\(\\pi_1\\) and \\(\\pi_2\\), and group-specific event probabilities \\(p_1\\) and \\(p_2\\),\n\\[\nE(D) = N \\left( \\pi_1 p_1 + \\pi_2 p_2 \\right).\n\\]\nThe required sample size is then obtained by solving\n\\[\nE(D) \\ge e,\n\\]\nwhere \\(e\\) is the required number of events derived from the Schoenfeld formula.\n\n\n\nIncorporating Accrual Over Time\nIn most clinical trials, subjects are accrued over a finite accrual period rather than simultaneously. Let \\(A\\) denote the accrual time and \\(\\tau\\) the total study duration. If subjects enter the study at time \\(U \\sim \\text{Uniform}(0, A)\\), the event probability becomes conditional on the entry time:\n\\[\np = \\Pr(T \\le \\tau - U).\n\\]\nTaking expectation over the accrual distribution yields\n\\[\np = \\frac{1}{A} \\int_0^A \\left[ 1 - S_T(\\tau - u) \\right] \\, du.\n\\]\nThis formulation shows that staggered entry reduces the average event probability relative to fixed follow-up.\n\n\n\nExponential Survival Model\nUnder an exponential survival model with hazard rate \\(\\lambda\\),\n\\[\nS_T(t) = \\exp(-\\lambda t),\n\\]\nthe average event probability under uniform accrual simplifies to\n\\[\np = 1 - \\frac{1}{A} \\int_0^A \\exp\\!\\left[-\\lambda(\\tau - u)\\right] du\n= 1 - \\frac{1 - \\exp(-\\lambda \\tau)}{\\lambda A}.\n\\]\nGroup-specific hazards \\(\\lambda_1\\) and \\(\\lambda_2\\) yield corresponding event probabilities \\(p_1\\) and \\(p_2\\).\n\n\n\nDetermination of Sample Size\nCombining the above elements, the required sample size is obtained as\n\\[\nN = \\frac{e}{\\pi_1 p_1 + \\pi_2 p_2}.\n\\]\nThus, the total sample size depends on:\n\nthe required number of events \\(e\\),\nthe allocation proportions,\nthe assumed survival distributions,\nthe accrual pattern,\nthe censoring mechanism.\n\nUnlike the required number of events, which depends only on the targeted effect size and error rates, the required sample size is design-specific and sensitive to assumptions about follow-up and event rates.\n\n\n\nConceptual Interpretation\nThe separation between determining the required number of events and determining the required sample size reflects a fundamental principle of survival trial design. Statistical power is governed by the amount of information, measured by the number of events, while the total number of subjects controls how quickly that information is accumulated.\nThis two-step approach underlies event-driven designs, in which study duration and sample size are chosen to ensure that the target number of events is observed.",
     "crumbs": [
-      "Survival endpoints",
+      "Book",
+      "Time-to-Event endpoints",
       "Sample Size computation methods for survival endpoints"
     ]
   },
@@ -970,29 +1047,8 @@
     "section": "Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos",
     "text": "Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos\nThe derivations above express the expected number of observed events as a simple product of the total sample size and an average event probability. While this formulation is sufficient under strong simplifying assumptions (e.g., exponential survival, uniform accrual, administrative censoring only), it becomes inadequate when survival and accrual processes vary over calendar time.\nKim and Tsiatis (1990) and Lakatos (1988) generalize this framework by modeling the accumulation of events as a stochastic process evolving over calendar time, rather than as a fixed expectation at a single analysis time.\n\n\nExpected Number of Events as a Function of Calendar Time\nLet \\(D(t)\\) denote the total number of observed events by calendar time \\(t\\). The key object of interest is the expected event count\n\\[\nE_\\theta\\{D(t)\\},\n\\]\nwhere the expectation is taken under the alternative hypothesis \\(\\theta = \\log(\\mathrm{HR})\\).\nFor a two-group trial, this expectation can be expressed as\n\\[\nE_\\theta\\{D(t)\\}\n=\n\\sum_{k=1}^{2}\n\\int_0^t\nE_\\theta\\!\\left[ Y_k(u) \\right]\n\\lambda_k(u)\\, du,\n\\]\nwhere:\n\n\\(Y_k(u)\\) is the number of subjects at risk in group \\(k\\) at time \\(u\\),\n\\(\\lambda_k(u)\\) is the hazard function in group \\(k\\).\n\nThis formulation shows that the expected number of events depends on the entire history of accrual, survival, and censoring up to time \\(t\\).\n\n\n\nKim–Tsiatis Information Framework\nKim and Tsiatis (1990) derived expressions for the expectation and variance of the log-rank statistic as functions of calendar time. Under proportional hazards, their results imply that the information accumulated by time \\(t\\) is proportional to the expected number of events:\n\\[\nI(t) \\;\\propto\\; E_\\theta\\{D(t)\\}.\n\\]\nConsequently, the target number of events \\(e\\) obtained from the Schoenfeld method defines a target information level, and the design problem becomes finding the calendar time \\(t\\) (and corresponding sample size) such that\n\\[\nE_\\theta\\{D(t)\\} = e.\n\\]\nThis approach replaces the static expectation \\(E(D)\\) with a time-indexed event accumulation process, enabling explicit modeling of interim analyses and information fractions.\n\n\n\nLakatos’ Extension to General Accrual and Survival Models\nLakatos further extended the Kim–Tsiatis framework by allowing:\n\nnon-constant and piecewise-defined hazard functions,\nnon-uniform and time-dependent accrual rates,\nindependent random censoring and drop-out.\n\nIn this setting, the risk process \\(Y_k(t)\\) is governed by a multi-state stochastic model, and the expected event count is obtained through numerical integration over small time intervals:\n\\[\nE_\\theta\\{D(t)\\}\n=\n\\sum_{k=1}^{2}\n\\int_0^t\n\\bar{Y}_k(u)\\, \\lambda_k(u)\\, du,\n\\]\nwhere \\(\\bar{Y}_k(u)\\) denotes the expected number of subjects at risk at time \\(u\\), accounting for staggered entry and censoring.\nThis formulation provides a general and flexible mapping between calendar time, sample size, and expected information, subsuming simpler exponential and uniform-accrual models as special cases.\n\n\n\nConceptual Implication\nThe progression from simple event probabilities to the Kim–Tsiatis and Lakatos formulations reflects a shift from static to dynamic modeling of information. While the required number of events is determined solely by the targeted effect size and error rates, the translation of this requirement into sample size and study duration depends on the full temporal structure of the trial.\nThus, Kim–Tsiatis and Lakatos provide the mathematical foundation for event-driven designs by generalizing the expectation \\(E(D)\\) into a continuous-time information accumulation process.\n\n\n\nReferences\n\nKim, K., & Tsiatis, A. A. (1990). Study duration for clinical trials with survival response and interim analysis. Biometrics, 46, 81–92.\n\nLakatos, E. (1988). Sample sizes based on the log-rank statistic in complex clinical trials. Journal of the American Statistical Association, 83(402), 289–301.",
     "crumbs": [
-      "Survival endpoints",
-      "Sample Size computation methods for survival endpoints"
-    ]
-  },
-  {
-    "objectID": "surv/survival-methods.html#méthode-de-schoenfeld",
-    "href": "surv/survival-methods.html#méthode-de-schoenfeld",
-    "title": "Sample Size computation methods for survival endpoints",
-    "section": "Méthode de Schoenfeld",
-    "text": "Méthode de Schoenfeld\nLe calcul de la taille d’échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l’analyse de survie en générale.\nPrenons \\(\\alpha\\) l’erreur de type I et \\(\\beta\\) l’erreur de type II. Alors, en notant \\(e\\) le nombre d’evènement nécessaire, la formule (simple) de Schoenfeld donne :\n\\[\ne = 2\\times\\frac{2(z_{1-\\alpha/2} + z_{1 - \\beta})^2}{\\log(\\text{HR})}\n\\tag{1}\\]\nOù \\(z_x\\) est le z-score de \\(x\\), égale au quantile \\((1-x)\\) de la distribution normale standard.",
-    "crumbs": [
-      "Survival endpoints",
-      "Sample Size computation methods for survival endpoints"
-    ]
-  },
-  {
-    "objectID": "surv/survival-methods.html#lakatos",
-    "href": "surv/survival-methods.html#lakatos",
-    "title": "Sample Size computation methods for survival endpoints",
-    "section": "Lakatos",
-    "text": "Lakatos\nChaine de Markov, mouvement brownien.\nrpact : The formula of Kim & Tsiatis (Biometrics, 1990) is used to calculate the expected number of events under the alternative (see also Lakatos & Lan, Statistics in Medicine, 1992). These formulas are generalized to piecewise survival times and non-constant piecewise accrual over time.\ngsDesign2 : Computes fixed design sample size (given power) or power (given sample size) by: fixed_design_ahr() - Average hazard ratio method. fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990). fixed_design_mb() - Weighted logrank test with Magirr-Burman weights. fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986). fixed_design_maxcombo() - MaxCombo method. fixed_design_rmst() - RMST method. fixed_design_milestone() - Milestone method. Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.\nrashnu : lakatosSampleSize : Lakatos two_prop_size: on sait pas oneSurvSampleSize : Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp. 236–237, Example 6.3.1.\nAndersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp. 176–287, Section IV.1–3.\nBie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.\nBorgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.\nNagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355\nBinary : The Fisher exact test : east, nQuery, bbssr The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery\nhttps://stattools.crab.org/Calculators/oneNonParametricSurvival.htm",
-    "crumbs": [
-      "Survival endpoints",
+      "Book",
+      "Time-to-Event endpoints",
       "Sample Size computation methods for survival endpoints"
     ]
   }
