@@ -1,5 +1,5 @@
 ---
-title: "SSC for a Two-Arms Group-sequential Design with Time-to-Event endpoints"
+title: "SSC for a One-Arm Fixed Design with Time-to-Event endpoints"
 # bibliography: references.bibtex
 ---
 

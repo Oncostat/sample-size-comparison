@@ -1,5 +1,5 @@
 ---
-title: "SSC for a Two-Arm Fixed Design with Time-to-Event endpoints"
+title: "SSC for a Two-Arms Fixed Design with Time-to-Event endpoints"
 # bibliography: references.bibtex
 ---
 
@@ -11,9 +11,6 @@ Methods explainations has been made using ChatGPT which had shown several approx
 
 ```{r}
 #| label: setup
-#| echo: false
-#| message: false
-#| warning: false
 source("../quarto-setup.R")
 ```
 
@@ -100,19 +97,19 @@ For each of the 400 scenarios, all methods and software implementations were use
 The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
 
 ```{r}
-bin_2arms_fixed_pooled <- read_rds("../outputs/comp_bin_fixed_pooled.rds")
+x <- read_rds("../outputs/comp_surv_fixed.rds")
 ```
 
 ```{r}
-datatable(bin_2arms_fixed_pooled$n_ratio)
+datatable(x$n_ratio)
 ```
 
 ```{r}
-bin_2arms_fixed_pooled$tables$table_n_ratio
+x$tables$table_n_ratio
 ```
 
 ```{r}
-bin_2arms_fixed_pooled$plots$p_n_ratio
+x$plots$p_n_ratio
 ```
 
 ```{r}

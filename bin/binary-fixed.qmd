@@ -1,0 +1,48 @@
+---
+title: "SSC for a Two-Arms Fixed Design with Binary endpoints"
+bibliography: references.bibtex
+---
+
+```{r}
+#| label: setup
+source("../quarto-setup.R")
+```
+
+## Pooled-Variance
+
+```{r}
+x_pooled <- read_rds("../outputs/comp_bin_fixed_pooled.rds")
+```
+
+```{r}
+datatable(x_pooled$n_ratio)
+```
+
+```{r}
+x_pooled$tables$table_n_ratio
+```
+
+```{r}
+x_pooled$plots$p_n_ratio
+```
+
+## Exact 
+```{r}
+# eval: false
+x_exact <- read_rds("../outputs/comp_bin_fixed_pooled.rds") # not loaded currently
+```
+
+```{r}
+#| eval: false
+datatable(x$n_ratio)
+```
+
+```{r}
+#| eval: false
+x$tables$table_n_ratio
+```
+
+```{r}
+#| eval: false
+x$plots$p_n_ratio
+```

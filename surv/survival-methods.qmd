@@ -1,7 +1,5 @@
 ---
 title: Sample Size computation methods for survival endpoints
-execute:
-  echo: false
 ---
 
 ::: {.callout-caution}
@@ -307,7 +305,7 @@ Thus, Kim–Tsiatis and Lakatos provide the mathematical foundation for event-dr
 - Lakatos, E. (1988). *Sample sizes based on the log-rank statistic in complex clinical trials*. **Journal of the American Statistical Association**, 83(402), 289–301.
 
 
-## Méthode de Schoenfeld
+<!-- ## Méthode de Schoenfeld
 
 Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
 
@@ -358,4 +356,4 @@ The Fisher exact test : east, nQuery, bbssr
 The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact
 The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery
 
-https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm
+https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm -->

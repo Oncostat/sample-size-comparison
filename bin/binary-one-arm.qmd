@@ -1,0 +1,44 @@
+---
+title: "SSC for a One-Arm Fixed Design with Binary endpoints"
+bibliography: references.bibtex
+---
+
+```{r}
+#| label: setup
+source("../quarto-setup.R")
+```
+
+## Pooled-Variance
+
+```{r}
+x_pooled <- read_rds("../outputs/comp_bin_one_arm_pooled.rds")
+```
+
+```{r}
+datatable(x_pooled$n_ratio)
+```
+
+```{r}
+x_pooled$tables$table_n_ratio
+```
+
+```{r}
+x_pooled$plots$p_n_ratio
+```
+
+## Exact 
+```{r}
+x_exact <- read_rds("../outputs/comp_bin_one_arm_exact.rds")
+```
+
+```{r}
+datatable(x_exact$n_ratio)
+```
+
+```{r}
+x_exact$tables$table_n_ratio
+```
+
+```{r}
+x_exact$plots$p_n_ratio
+```
