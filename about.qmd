@@ -15,7 +15,7 @@ The website is build with Quarto. To learn more about Quarto websites visit <htt
 
 
 ```{r}
-#| echo: false
+#| column: screen
 longitude <- 2.3486887844529427
 lattitude <- 48.79549511936336
 library(leaflet)
