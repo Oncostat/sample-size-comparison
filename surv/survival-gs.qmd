@@ -94,13 +94,21 @@ x <- read_rds("../outputs/comp_surv_gs.rds")
 ```
 
 ```{r}
-datatable(x$n_ratio)
+# datatable(x$n_ratio)
 ```
 
+::: {.light-content}
 ```{r}
-x$tables$table_n_ratio
+#| out-width: 100%
+gt_theme_flatly(x$tables$table_n_ratio)
+x$plots$p_n_ratio + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x$plots$p_n_ratio
+#| out-width: 100%
+gt_theme_darkly(x$tables$table_n_ratio) 
+x$plots$p_n_ratio + theme_darkly()
 ```
+:::

@@ -1,14 +1,33 @@
 ---
 title: "Time-to-Event Endpoints"
 ---
-
+::: {.light-content}
 ```{mermaid}
+---
+config:
+  theme: neutral
+---
 flowchart TB
     AA[Time-to-Event Endpoints] ---> AAA(Two-Arms)
       AAA --> AAAA([Fixed Design])
       AAA --> AAAB([Group-Sequential Design])
     AA ----> AAB([One Arm])
 ```
+:::
+
+::: {.dark-content}
+```{mermaid}
+---
+config:
+  theme: dark
+---
+flowchart TB
+    AA[Time-to-Event Endpoints] ---> AAA(Two-Arms)
+      AAA --> AAAA([Fixed Design])
+      AAA --> AAAB([Group-Sequential Design])
+    AA ----> AAB([One Arm])
+```
+:::
 
 For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function $S_c(t)$ that represent the probability of survival at time $t$. We want to prove that a treatment is helpful. There are three ways to express that that are equivalent : 
 

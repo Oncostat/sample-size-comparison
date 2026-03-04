@@ -160,8 +160,7 @@ gt_n_ratio_east <-
     title = "N-Ratio by Exact methods",
     subtitle = "according to East sample sizes"
   ) |> 
-  fmt_number(decimals = 2) |> 
-  gt_theme_ssc()
+  fmt_number(decimals = 2)
 
 gt_n_ratio_nquery <- 
   n_ratio_nquery |> 
@@ -180,8 +179,7 @@ gt_n_ratio_nquery <-
     title = "N-Ratio by Exact methods",
     subtitle = "according to nQuery sample sizes"
   ) |>  
-  fmt_number(decimals = 2) |> 
-  gt_theme_ssc()
+  fmt_number(decimals = 2)
 
 tables <- lst(gt_n_ratio_east, gt_n_ratio_nquery)
 
@@ -201,7 +199,6 @@ p_n_ratio_east <-
     y = "N-Ratio",
     color = "Methods :"
   ) +
-  theme_ssc() +
   scale_color_ssc()
 
 p_n_ratio_nquery <- 
@@ -218,8 +215,7 @@ p_n_ratio_nquery <-
     x = "N nQuery",
     y = "N-Ratio",
     color = "Methods :"
-  ) + 
-  theme_ssc() +
+  ) +
   scale_color_ssc()
 
 plots <- lst(p_n_ratio_east, p_n_ratio_nquery)

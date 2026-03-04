@@ -122,17 +122,14 @@ title <- "N-Ratio 2-Arms Binary, pooled-variance"
 ## Tables ----
 table_n_ratio <- 
   n_ratio |> 
-  gt_n_ratio(title = title, ref_name = "East") |> 
-  gt_theme_ssc()
+  gt_n_ratio(title = title, ref_name = "East")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
 p_n_ratio <- 
   n_ratio |> 
-  plot_n_ratio(title = title, ref_name = "East") + 
-  theme_ssc() +
-  scale_color_ssc()
+  plot_n_ratio(title = title, ref_name = "East")
 
 plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")

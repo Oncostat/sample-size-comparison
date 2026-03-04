@@ -115,6 +115,7 @@ combined <-
 n_ratio <- 
   combined |>
   get_tbl() |> 
+  filter(n_nquery < 200000) |> # nQuery plateau at N >= 200 000
   get_n_ratio(ref = "nquery")
 
 cli_alert_success("Combined results")
@@ -124,17 +125,14 @@ title <- "N-Ratio 1-Arm Time-to-Event"
 ## Tables ----
 table_n_ratio <- 
   n_ratio |> 
-  gt_n_ratio(title = title, ref_name = "nQuery") |> 
-  gt_theme_ssc()
+  gt_n_ratio(title = title, ref_name = "nQuery")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
 p_n_ratio <- 
   n_ratio |> 
-  plot_n_ratio(title = title, ref_name = "nQuery") + 
-  theme_ssc() +
-  scale_color_ssc()
+  plot_n_ratio(title = title, ref_name = "nQuery")
 
 plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")

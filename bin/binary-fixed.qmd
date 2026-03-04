@@ -14,16 +14,24 @@ x_pooled <- read_rds("../outputs/comp_bin_fixed_pooled.rds")
 ```
 
 ```{r}
-datatable(x_pooled$n_ratio)
+# datatable(x_pooled$n_ratio)
 ```
 
+::: {.light-content}
 ```{r}
-x_pooled$tables$table_n_ratio
+#| out-width: 100%
+gt_theme_flatly(x_pooled$tables$table_n_ratio)
+x_pooled$plots$p_n_ratio + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x_pooled$plots$p_n_ratio
+#| out-width: 100%
+gt_theme_darkly(x_pooled$tables$table_n_ratio) 
+x_pooled$plots$p_n_ratio + theme_darkly()
 ```
+:::
 
 ## Exact 
 ```{r}

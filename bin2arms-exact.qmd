@@ -24,6 +24,13 @@ lightbox:
   effect: fade
   desc-position: right
 ---
+```{r}
+#| label: setup
+library(ggplot2)
+library(gt)
+source("R/theming_flatly.R")
+source("R/theming_darkly.R")
+```
 
 ```{r}
 x <- readr::read_rds("outputs/explore_bin2exact.rds")
@@ -61,13 +68,22 @@ If the software truly corresponds to a given test, that test’s N‑ratio shoul
 
 ### nQuery: pattern matches Fisher's exact
 
+::: {.light-content}
 ```{r}
-x$tables$gt_n_ratio_nquery
+#| out-width: 100%
+gt_theme_flatly(x$tables$gt_n_ratio_nquery)
+x$plots$p_n_ratio_nquery + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x$plots$p_n_ratio_nquery
+#| out-width: 100%
+gt_theme_darkly(x$tables$gt_n_ratio_nquery)
+x$plots$p_n_ratio_nquery + theme_darkly()
 ```
+:::
+
 
 In the nQuery plot, Fisher’s N‑ratio sits tightly around 1 across all scenarios.  
 Unconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1, as expected given their higher power.
@@ -76,13 +92,21 @@ Unconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1,
 
 East’s documentation makes it *clear*^[East 6 User Manual, Appendix U: Theory-Design - Binomial Two-Sample Exact Tests, U.2 Power of Unconditional Test of Superiority, p3314] that the method is **unconditional**. The empirical results confirm this:
 
+::: {.light-content}
 ```{r}
-x$tables$gt_n_ratio_east
+#| out-width: 100%
+gt_theme_flatly(x$tables$gt_n_ratio_east)
+x$plots$p_n_ratio_east + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x$plots$p_n_ratio_east
+#| out-width: 100%
+gt_theme_darkly(x$tables$gt_n_ratio_east)
+x$plots$p_n_ratio_east + theme_darkly()
 ```
+:::
 
 *   Unconditional method **Z‑pooled** lies very close to N‑ratio = 1.
 *   Fisher’s test tends to produce values *above* 1 because Fisher is more conservative, requiring slightly larger sample sizes.

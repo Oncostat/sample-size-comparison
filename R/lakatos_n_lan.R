@@ -208,8 +208,7 @@ gt_lakatos_n_lan <-
     location = cells_body(columns = all_of(high_cols))
   ) |> 
   tab_footnote(md("<span style='color:#75cec6ff'>**Blue**</span>: Computed sample sizes")) |> 
-  tab_footnote(md("<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article")) |> 
-  gt_theme_ssc()
+  tab_footnote(md("<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article"))
 cli_alert_success("Tables & figures")
 
 # Put into the scc object

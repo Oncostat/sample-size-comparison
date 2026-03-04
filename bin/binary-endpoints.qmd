@@ -2,7 +2,12 @@
 title: "Binary Endpoints"
 ---
 
+::: {.light-content}
 ```{mermaid}
+---
+config:
+  theme: neutral
+---
 flowchart TB
   AB[Binary Endpoints] --> ABA(Two-Arms)
     ABA --> ABAA(Fixed Design)
@@ -15,3 +20,24 @@ flowchart TB
     ABB --> ABBA([Exact Computation])
     ABB --> ABBB([Non-exact Computation])
 ```
+:::
+
+::: {.dark-content}
+```{mermaid}
+---
+config:
+  theme: dark
+---
+flowchart TB
+  AB[Binary Endpoints] --> ABA(Two-Arms)
+    ABA --> ABAA(Fixed Design)
+      ABAA --> ABAAA([Exact Computation])
+      ABAA --> ABAAB([Z-pooled])
+      ABAA --> ABAAC([Z-unpooled])
+    ABA --> ABAB(Group-Sequential Design)
+      ABAB --> ABABA([Z-pooled])
+  AB ---> ABB(One-Arm)
+    ABB --> ABBA([Exact Computation])
+    ABB --> ABBB([Non-exact Computation])
+```
+:::

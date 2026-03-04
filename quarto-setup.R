@@ -15,3 +15,7 @@ source("../R/S7/ssc_design.R")
 source("../R/S7/ssc_results.R")
 source("../R/functions/checks.R")
 source("../R/functions/evaluate_relevancy.R")
+
+# Theming 
+source("../R/theming_flatly.R")
+source("../R/theming_darkly.R")

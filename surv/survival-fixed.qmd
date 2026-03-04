@@ -14,6 +14,15 @@ Methods explainations has been made using ChatGPT which had shown several approx
 source("../quarto-setup.R")
 ```
 
+<details>
+  <summary>Configuration requise</summary>
+  <p>
+    Nécessite un ordinateur équipé d'un système d'exploitation. L'ordinateur
+    doit disposer d'une mémoire et, idéalement, d'un stockage à long terme. Un
+    dispositif d'entrée ainsi qu'un dispositif de sortie sont recommandés.
+  </p>
+</details>
+
 ## Design space explored
 
 All comparisons were conducted for a **two-arm, fixed-design randomized clinical trial** with a **time-to-event primary endpoint**, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.
@@ -52,26 +61,40 @@ To isolate the impact of the statistical method and software implementation, the
 Accrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.
 
 ```{r}
-ggplot()+
-geom_segment(aes(x = 0, y = 0, xend = 3, yend = 2))+
-geom_segment(aes(x = 3, y = 2, xend = 6, yend = 2))+
-annotate("text", x = 1.5, y = 0, label = "Accrual Time = 3") +
-annotate("text", x = 4.5, y = 0, label = "Minimum Follow-up Time = 3") +
-geom_segment(aes(x = 3, y = 0, xend = 3, yend = 2), linetype = "dashed")+
-annotate("text", x = 3, y = -0.1, label = "Study duration = 6") +
-geom_point(aes(x = 6, y = 2))+
-labs(x = "Time in years", y = "Number of patients") +
-scale_x_continuous(
-    breaks = c(0, 3, 6),
-    minor_breaks = 0:6,
-  )  +
-scale_y_continuous(
-  breaks = NULL,
-  minor_breaks = NULL,
-  expand = c(0, 0.1)
-) +
-theme_classic()
+p_study <- 
+  ggplot()+
+  geom_segment(aes(x = 0, y = 0, xend = 3, yend = 2))+
+  geom_segment(aes(x = 3, y = 2, xend = 6, yend = 2))+
+  annotate("text", x = 1.5, y = 0, label = "Accrual Time = 3") +
+  annotate("text", x = 4.5, y = 0, label = "Minimum Follow-up Time = 3") +
+  geom_segment(aes(x = 3, y = 0, xend = 3, yend = 2), linetype = "dashed")+
+  annotate("text", x = 3, y = -0.1, label = "Study duration = 6") +
+  geom_point(aes(x = 6, y = 2))+
+  labs(x = "Time in years", y = "Number of patients") +
+  scale_x_continuous(
+      breaks = c(0, 3, 6),
+      minor_breaks = 0:6,
+    )  +
+  scale_y_continuous(
+    breaks = NULL,
+    minor_breaks = NULL,
+    expand = c(0, 0.1)
+  )
 ```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+p_study + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+p_study + theme_darkly()
+```
+:::
 
 ---
 
@@ -101,16 +124,24 @@ x <- read_rds("../outputs/comp_surv_fixed.rds")
 ```
 
 ```{r}
-datatable(x$n_ratio)
+# datatable(x$n_ratio)
 ```
 
+::: {.light-content}
 ```{r}
-x$tables$table_n_ratio
+#| out-width: 100%
+gt_theme_flatly(x$tables$table_n_ratio)
+x$plots$p_n_ratio + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x$plots$p_n_ratio
+#| out-width: 100%
+gt_theme_darkly(x$tables$table_n_ratio) 
+x$plots$p_n_ratio + theme_darkly()
 ```
+:::
 
 ```{r}
 # shared_tbl <- 

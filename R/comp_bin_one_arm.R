@@ -124,21 +124,18 @@ n_ratio <-
 cli_alert_success("Combined results")
 
 # Tables & figures
-title <- "N-Ratio 1-Arms Binary, exact computation"
+title <- "N-Ratio 1-Arms Binary, normal approximation"
 ## Tables ----
 table_n_ratio <- 
   n_ratio |> 
-  gt_n_ratio(title = title, ref_name = "East") |> 
-  gt_theme_ssc()
+  gt_n_ratio(title = title, ref_name = "East")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
 p_n_ratio <- 
   n_ratio |> 
-  plot_n_ratio(title = title, ref_name = "East") + 
-  theme_ssc() +
-  scale_color_ssc()
+  plot_n_ratio(title = title, ref_name = "East")
 
 plots <- lst(p_n_ratio)
 cli_alert_success("Tables & figures")

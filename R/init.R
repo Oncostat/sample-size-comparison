@@ -14,9 +14,6 @@ er_rate <- 0.1 # error rate 10%
 ssc <- lst()
 wrapper <- lst()
 
-# Theming
-source("R/theming.R")
-
 # Source functions
 ## Intermediate functions
 source("R/functions/checks.R")

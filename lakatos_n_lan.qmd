@@ -20,6 +20,13 @@ date: last-modified
 format: html
 ---
 
+```{r}
+#| label: setup
+library(gt)
+source("R/theming_flatly.R")
+source("R/theming_darkly.R")
+```
+
 This analysis started from a simple question:
 
 > nQuery cites @Lakatos_Lan_1992 as a reference, but which method from that article does nQuery actually implement?
@@ -46,10 +53,19 @@ against the benchmark values for **Lakatos**, **Freedman**, and **RGS**.
 x <- readr::read_rds("outputs/lakatos_n_lan.rds")
 ```
 
+
+::: {.light-content}
 ```{r}
-library(gt)
-x$gt_lakatos_n_lan
+gt_theme_flatly(x$gt_lakatos_n_lan)
 ```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x$gt_lakatos_n_lan)
+```
+:::
 
 - The modern software outputs (blue columns) mostly form a tight cluster of values. In many scenarios, these columns differ only by a handful of participants.
 

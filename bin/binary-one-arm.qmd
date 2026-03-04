@@ -7,23 +7,31 @@ title: "One-Arm Fixed Design with Binary endpoints"
 source("../quarto-setup.R")
 ```
 
-## Pooled-Variance
+## Normal Approximation
 
 ```{r}
 x_pooled <- read_rds("../outputs/comp_bin_one_arm_pooled.rds")
 ```
 
 ```{r}
-datatable(x_pooled$n_ratio)
+# datatable(x_pooled$n_ratio)
 ```
 
+::: {.light-content}
 ```{r}
-x_pooled$tables$table_n_ratio
+#| out-width: 100%
+gt_theme_flatly(x_pooled$tables$table_n_ratio)
+x_pooled$plots$p_n_ratio + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x_pooled$plots$p_n_ratio
+#| out-width: 100%
+gt_theme_darkly(x_pooled$tables$table_n_ratio) 
+x_pooled$plots$p_n_ratio + theme_darkly()
 ```
+:::
 
 ## Exact 
 ```{r}
@@ -31,13 +39,21 @@ x_exact <- read_rds("../outputs/comp_bin_one_arm_exact.rds")
 ```
 
 ```{r}
-datatable(x_exact$n_ratio)
+# datatable(x_exact$n_ratio)
 ```
 
+::: {.light-content}
 ```{r}
-x_exact$tables$table_n_ratio
+#| out-width: 100%
+gt_theme_flatly(x_exact$tables$table_n_ratio)
+x_exact$plots$p_n_ratio + theme_flatly()
 ```
+:::
 
+::: {.dark-content}
 ```{r}
-x_exact$plots$p_n_ratio
+#| out-width: 100%
+gt_theme_darkly(x_exact$tables$table_n_ratio) 
+x_exact$plots$p_n_ratio + theme_darkly()
 ```
+:::

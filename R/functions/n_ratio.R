@@ -1,3 +1,18 @@
+# Colors ----
+color_high   <- "#46D99C"   # green-turquoise mid-tone
+color_medium <- "#D2B55B"   # warm golden mid-tone
+color_low    <- "#D97A7A"   # muted red mid-tone
+
+
+scale_color_ssc <- function(...) {scale_colour_brewer(palette = "Set1", ...)}
+scale_fill_ssc <- function(...) {scale_fill_brewer(palette = "Set1", ...)}
+
+red <- "#e74c3c"
+
+scale_color_ssc <- function(...) {scale_colour_brewer(palette = "Set1", ...)}
+scale_fill_ssc <- function(...) {scale_fill_brewer(palette = "Set1", ...)}
+
+# Get N-Ratio ----
 get_n_ratio <- function(
   tbl_combined,
   ref = c("east", "nquery")
@@ -34,6 +49,8 @@ get_n_ratio <- function(
   )
 }
 
+# Plot N-Ratio ----
+## Relevancy strips ----
 relevancy_strips <- ggh4x::strip_themed(
   background_x = ggh4x::elem_list_rect(
     fill = c(color_high, color_medium, color_low)),
@@ -48,6 +65,7 @@ facet_relevancy <- function(...){
   )
 }
 
+## Plotting function ----
 plot_n_ratio <- function(
   tbl_n_ratio,
   title,
@@ -76,7 +94,7 @@ plot_n_ratio <- function(
   facet_relevancy()
 }
 
-# N-Ratio gt ----
+# GT N-Ratio ----
 gt_n_ratio <- function(
   tbl_n_ratio, 
   title, 
@@ -89,8 +107,8 @@ gt_n_ratio <- function(
     summarise(
       Min = min(n_ratio, na.rm = TRUE),
       Q1 = quantile(n_ratio, probs = 0.25, na.rm = TRUE),
-      Moyenne = mean(n_ratio, na.rm = TRUE), 
-      Médiane = median(n_ratio, na.rm = TRUE), 
+      Mean = mean(n_ratio, na.rm = TRUE), 
+      Median = median(n_ratio, na.rm = TRUE), 
       Q3 = quantile(n_ratio, probs = 0.75, na.rm = TRUE),
       Max = max(n_ratio, na.rm = TRUE)
     )
@@ -130,7 +148,7 @@ gt_n_ratio <- function(
       gt_nr |> 
       tab_style(
         style = list(
-          cell_fill(color = "#9A2515"),
+          cell_fill(color = red),
           cell_text(style = "italic", color = "white")
           ),
         locations = cells_body(
