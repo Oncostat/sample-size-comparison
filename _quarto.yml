@@ -82,7 +82,7 @@ format:
       dark: darkly
       # - styles.scss
     toc: true
-    css: bigger-logo.css
+    css: styles.css
 fig-format: svg
 mermaid-format: svg
 
