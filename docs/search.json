@@ -4,7 +4,7 @@
     "href": "surv/survival-one-arm.html",
     "title": "One-Arm Fixed Design with Time-to-Event endpoints",
     "section": "",
-    "text": "All comparisons were conducted for a one-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\n\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nSurvival probability at 3 years under null hypothesis:\n\\(S_0(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\n\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\n\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arm Time-to-Event\n\n\nAccording to nQuery sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.46\n1.56\n1.67\n1.63\n1.76\n2.01\n\n\nsssas\n1.22\n1.29\n1.37\n1.32\n1.42\n1.59\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.04\n\n\nrashnu\n1.30\n1.45\n1.61\n1.59\n1.74\n2.17\n\n\nsssas\n1.10\n1.22\n1.31\n1.29\n1.40\n1.59\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.14\n0.86\n1.10\n14.33\n\n\nrashnu\n0.67\n1.61\n2.39\n1.90\n2.28\n16.67\n\n\nsssas\n0.55\n1.34\n1.97\n1.52\n1.79\n13.67\n\n\n\nRouge : &lt; 50% des ratios dans ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSystem Requirements\n\nSomething small enough to escape casual notice.",
+    "text": "All comparisons were conducted for a one-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\n\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nSurvival probability at 3 years under null hypothesis:\n\\(S_0(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\n\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\n\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arm Time-to-Event\n\n\nAccording to nQuery sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.46\n1.56\n1.67\n1.63\n1.76\n2.01\n\n\nsssas\n1.22\n1.29\n1.37\n1.32\n1.42\n1.59\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.04\n\n\nrashnu\n1.30\n1.45\n1.61\n1.59\n1.74\n2.17\n\n\nsssas\n1.10\n1.22\n1.31\n1.29\n1.40\n1.59\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.14\n0.86\n1.10\n14.33\n\n\nrashnu\n0.67\n1.57\n2.12\n1.86\n2.18\n16.67\n\n\nsssas\n0.55\n1.33\n1.72\n1.49\n1.70\n13.67\n\n\n\nRed : &lt; 50% of N-ratios ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arm Time-to-Event\n\n\nAccording to nQuery sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.46\n1.56\n1.67\n1.63\n1.76\n2.01\n\n\nsssas\n1.22\n1.29\n1.37\n1.32\n1.42\n1.59\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.04\n\n\nrashnu\n1.30\n1.45\n1.61\n1.59\n1.74\n2.17\n\n\nsssas\n1.10\n1.22\n1.31\n1.29\n1.40\n1.59\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.14\n0.86\n1.10\n14.33\n\n\nrashnu\n0.67\n1.57\n2.12\n1.86\n2.18\n16.67\n\n\nsssas\n0.55\n1.33\n1.72\n1.49\n1.70\n13.67\n\n\n\nRed : &lt; 50% of N-ratios ±10%",
     "crumbs": [
       "Book",
       "Time-to-Event endpoints",
@@ -16,7 +16,7 @@
     "href": "surv/survival-one-arm.html#design-space-explored",
     "title": "One-Arm Fixed Design with Time-to-Event endpoints",
     "section": "",
-    "text": "All comparisons were conducted for a one-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\n\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nSurvival probability at 3 years under null hypothesis:\n\\(S_0(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\n\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\n\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arm Time-to-Event\n\n\nAccording to nQuery sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.46\n1.56\n1.67\n1.63\n1.76\n2.01\n\n\nsssas\n1.22\n1.29\n1.37\n1.32\n1.42\n1.59\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.04\n\n\nrashnu\n1.30\n1.45\n1.61\n1.59\n1.74\n2.17\n\n\nsssas\n1.10\n1.22\n1.31\n1.29\n1.40\n1.59\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.14\n0.86\n1.10\n14.33\n\n\nrashnu\n0.67\n1.61\n2.39\n1.90\n2.28\n16.67\n\n\nsssas\n0.55\n1.34\n1.97\n1.52\n1.79\n13.67\n\n\n\nRouge : &lt; 50% des ratios dans ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSystem Requirements\n\nSomething small enough to escape casual notice.",
+    "text": "All comparisons were conducted for a one-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\n\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nSurvival probability at 3 years under null hypothesis:\n\\(S_0(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\n\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\n\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arm Time-to-Event\n\n\nAccording to nQuery sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.46\n1.56\n1.67\n1.63\n1.76\n2.01\n\n\nsssas\n1.22\n1.29\n1.37\n1.32\n1.42\n1.59\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.04\n\n\nrashnu\n1.30\n1.45\n1.61\n1.59\n1.74\n2.17\n\n\nsssas\n1.10\n1.22\n1.31\n1.29\n1.40\n1.59\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.14\n0.86\n1.10\n14.33\n\n\nrashnu\n0.67\n1.57\n2.12\n1.86\n2.18\n16.67\n\n\nsssas\n0.55\n1.33\n1.72\n1.49\n1.70\n13.67\n\n\n\nRed : &lt; 50% of N-ratios ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arm Time-to-Event\n\n\nAccording to nQuery sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\noa2s\n0.67\n0.74\n0.78\n0.79\n0.82\n0.92\n\n\nrashnu\n1.46\n1.56\n1.67\n1.63\n1.76\n2.01\n\n\nsssas\n1.22\n1.29\n1.37\n1.32\n1.42\n1.59\n\n\nmedium\n\n\noa2s\n0.49\n0.67\n0.78\n0.81\n0.88\n1.04\n\n\nrashnu\n1.30\n1.45\n1.61\n1.59\n1.74\n2.17\n\n\nsssas\n1.10\n1.22\n1.31\n1.29\n1.40\n1.59\n\n\nlow\n\n\noa2s\n0.22\n0.65\n1.14\n0.86\n1.10\n14.33\n\n\nrashnu\n0.67\n1.57\n2.12\n1.86\n2.18\n16.67\n\n\nsssas\n0.55\n1.33\n1.72\n1.49\n1.70\n13.67\n\n\n\nRed : &lt; 50% of N-ratios ±10%",
     "crumbs": [
       "Book",
       "Time-to-Event endpoints",
@@ -52,7 +52,7 @@
     "href": "surv/survival-gs.html#results",
     "title": "Two-Arm Group-sequential Design with Time-to-Event endpoints",
     "section": "Results",
-    "text": "Results\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event GS-design\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRouge : &lt; 50% des ratios dans ±10%",
+    "text": "Results\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event GS-design\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRed : &lt; 50% of N-ratios ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event GS-design\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n0.93\n0.94\n0.97\n0.96\n0.99\n1.02\n\n\nrpact\n1.02\n1.02\n1.05\n1.04\n1.08\n1.10\n\n\nmedium\n\n\ngsdesign2\n0.89\n0.93\n0.95\n0.95\n0.97\n1.02\n\n\nrpact\n0.97\n0.99\n1.03\n1.03\n1.05\n1.11\n\n\nlow\n\n\ngsdesign2\n0.86\n0.89\n0.91\n0.91\n0.92\n0.96\n\n\nrpact\n0.76\n0.77\n0.85\n0.85\n0.93\n0.97\n\n\n\nRed : &lt; 50% of N-ratios ±10%",
     "crumbs": [
       "Book",
       "Time-to-Event endpoints",
@@ -64,7 +64,7 @@
     "href": "surv/survival-endpoint.html",
     "title": "Time-to-Event Endpoints",
     "section": "",
-    "text": "Time-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\n\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nWe will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints\nFinally we will compare sample sizes within a one-arm design trial, in SSC for a One-Arm Design with Time-to-Event endpoints",
+    "text": "Time-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTime-to-Event Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nOne Arm\n\n\n\n\n\n\n\n\n\n\n\nFor clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function \\(S_c(t)\\) that represent the probability of survival at time \\(t\\). We want to prove that a treatment is helpful. There are three ways to express that that are equivalent :\n\nDifference at a certain time: \\(S_e(\\tau) = S_c(\\tau) + 0.1\\) at time \\(\\tau\\), people in the treatment group survive 10% more.\nMedian survival : \\(S_c(t_c) = 0.5\\) and \\(S_e(t_c + 1) = 0.5\\), the median survival time, the time at which half the patients died is one year later for the treatment group.\nHazard ratio : \\(S_e(t) = S_e(t)^\\text{HR}\\), where HR is the hazard ratio.\n\nThe proportional hazard assumption assume that \\(\\forall t, \\exists r\\in \\mathbb{R}^+_*, r = \\frac{\\log(S_e(t))}{\\log(S_c(t))}\\)\n\nWe will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in Sample size computation methods for log-rank test\nWe will then compare the results of different softwares and R package in the case of a trial without any interim analysis in SSC for a Two-Arm Fixed Design with Time-to-Event endpoints\nWe will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints\nFinally we will compare sample sizes within a one-arm design trial, in SSC for a One-Arm Design with Time-to-Event endpoints",
     "crumbs": [
       "Book",
       "Time-to-Event endpoints"
@@ -598,7 +598,7 @@
     "href": "index.html#additional-content",
     "title": "Sample Size Comparison",
     "section": "Additional content:",
-    "text": "Additional content:\n\n\n\n\n\n\n\n\n\n\nComparaison des méthodes de calcul de la taille d’échantillon\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparison of Lakatos & Lan (1992), nQuery, EAST and R packages\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat Do East and nQuery Compute Exactly ?\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\nNo matching items",
+    "text": "Additional content:\n\n\n\n\n\n\n\n\n\n\nComparaison des méthodes de calcul de la taille d’échantillon\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 2, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparison of Lakatos & Lan (1992), nQuery, EAST and R packages\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat Do East and nQuery Compute Exactly ?\n\n\n\n\n\n\nArocena Thomas, Dan Chaltiel, Anne Lourdessamy\n\n\nMar 4, 2026\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Book",
       "Introduction"
@@ -616,118 +616,53 @@
     ]
   },
   {
-    "objectID": "bin/binary-one-arm.html",
-    "href": "bin/binary-one-arm.html",
-    "title": "One-Arm Fixed Design with Binary endpoints",
+    "objectID": "explain-code/structure.html",
+    "href": "explain-code/structure.html",
+    "title": "How I structured my project",
     "section": "",
-    "text": "N-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "One-Arm Fixed Design with Binary endpoints"
-    ]
+    "text": "Something about how I structured my code"
   },
   {
-    "objectID": "bin/binary-one-arm.html#pooled-variance",
-    "href": "bin/binary-one-arm.html#pooled-variance",
-    "title": "One-Arm Fixed Design with Binary endpoints",
+    "objectID": "explain-code/pipeline.html",
+    "href": "explain-code/pipeline.html",
+    "title": "My main pipeline",
     "section": "",
-    "text": "N-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "One-Arm Fixed Design with Binary endpoints"
-    ]
+    "text": "Something about source, cli message, etc"
   },
   {
-    "objectID": "bin/binary-one-arm.html#exact",
-    "href": "bin/binary-one-arm.html#exact",
-    "title": "One-Arm Fixed Design with Binary endpoints",
-    "section": "Exact",
-    "text": "Exact\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nahern\n0.80\n0.94\n0.97\n0.96\n1.00\n1.19\n\n\nmedium\n\n\nahern\n0.62\n0.91\n0.96\n0.95\n1.00\n1.33\n\n\nlow\n\n\nahern\n0.33\n0.83\n0.89\n0.92\n1.00\n1.67\n\n\n\nRouge : &lt; 50% des ratios dans ±10%",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "One-Arm Fixed Design with Binary endpoints"
-    ]
-  },
-  {
-    "objectID": "bin/binary-gs.html",
-    "href": "bin/binary-gs.html",
-    "title": "Two-Arm Group-Sequential-Design with Binary endpoints",
+    "objectID": "bin2arms-exact.html",
+    "href": "bin2arms-exact.html",
+    "title": "What Do East and nQuery Compute Exactly ?",
     "section": "",
-    "text": "N-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "Two-Arm Group-Sequential-Design with Binary endpoints"
-    ]
+    "text": "Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what nQuery and East are exactly doing by comparing their outputs to transparent reference implementations from the bbssr R package."
   },
   {
-    "objectID": "bin/binary-gs.html#pooled-variance",
-    "href": "bin/binary-gs.html#pooled-variance",
-    "title": "Two-Arm Group-Sequential-Design with Binary endpoints",
-    "section": "",
-    "text": "N-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "Two-Arm Group-Sequential-Design with Binary endpoints"
-    ]
+    "objectID": "bin2arms-exact.html#what-we-compared",
+    "href": "bin2arms-exact.html#what-we-compared",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "What we compared",
+    "text": "What we compared\nTo understand how nQuery and East behave, we compared their sample‑size outputs with several well‑established exact and asymptotic tests implemented transparently in the bbssr R package. Specifically, we examined:\n\nPearson Chi‑squared Test\nFisher Exact Test\nFisher Mid‑p Test\nZ‑pooled Exact Unconditional Test\nBoschloo Exact Unconditional Test\n\nThese methods cover both conditional (Fisher) and unconditional families, as well as an asymptotic benchmark (chi‑squared). Short, clear explanations of each test are available in Gosuke Homma’s documentation: Statistical methods explained"
   },
   {
-    "objectID": "bin/binary-endpoints.html",
-    "href": "bin/binary-endpoints.html",
-    "title": "Binary Endpoints",
-    "section": "",
-    "text": "Binary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation",
-    "crumbs": [
-      "Book",
-      "Binary endpoints"
-    ]
+    "objectID": "bin2arms-exact.html#how-did-we-compare",
+    "href": "bin2arms-exact.html#how-did-we-compare",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "How did we compare",
+    "text": "How did we compare\n\nnQuery states explicitly that its two‑proportion exact design uses Fisher’s exact test.\nEast, as documented in its User Manual, uses an unconditional exact superiority test based on maximizing the probability of rejecting the null over all nuisance parameters (a score‑type unconditional approach, not Fisher’s conditional test).\n\nTo see whether the software behaves as expected, we computed an N‑ratio comparing each exact method to the sample size returned by the software.\n\\[\n\\text{N‑ratio} = \\frac{N_{\\text{method}}}{N_{\\text{software}}}.\n\\]\nIf the software truly corresponds to a given test, that test’s N‑ratio should cluster around 1."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "objectID": "bin2arms-exact.html#comparison-results",
+    "href": "bin2arms-exact.html#comparison-results",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "Comparison results",
+    "text": "Comparison results\n\nnQuery: pattern matches Fisher’s exact\n\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to nQuery sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nfisher\n0.92\n0.96\n0.98\n0.99\n1.00\n1.01\n\n\nboschloo\n0.84\n0.89\n0.91\n0.92\n0.94\n0.97\n\n\nz_pool\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nfisher_midp\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nchisq\n0.75\n0.85\n0.88\n0.89\n0.93\n0.97\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to nQuery sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nfisher\n0.92\n0.96\n0.98\n0.99\n1.00\n1.01\n\n\nboschloo\n0.84\n0.89\n0.91\n0.92\n0.94\n0.97\n\n\nz_pool\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nfisher_midp\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nchisq\n0.75\n0.85\n0.88\n0.89\n0.93\n0.97\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn the nQuery plot, Fisher’s N‑ratio sits tightly around 1 across all scenarios.\nUnconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1, as expected given their higher power.\n\n\nEast: behaves like an unconditional exact test\nEast’s documentation makes it clear1 that the method is unconditional. The empirical results confirm this:\n\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to East sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nz_pool\n0.98\n1.00\n1.00\n1.00\n1.00\n1.03\n\n\nfisher_midp\n0.97\n0.99\n0.99\n1.00\n1.00\n1.02\n\n\nboschloo\n0.98\n1.00\n1.01\n1.00\n1.02\n1.09\n\n\nchisq\n0.91\n0.97\n0.98\n0.98\n0.99\n1.01\n\n\nfisher\n1.03\n1.05\n1.08\n1.07\n1.11\n1.20\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to East sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nz_pool\n0.98\n1.00\n1.00\n1.00\n1.00\n1.03\n\n\nfisher_midp\n0.97\n0.99\n0.99\n1.00\n1.00\n1.02\n\n\nboschloo\n0.98\n1.00\n1.01\n1.00\n1.02\n1.09\n\n\nchisq\n0.91\n0.97\n0.98\n0.98\n0.99\n1.01\n\n\nfisher\n1.03\n1.05\n1.08\n1.07\n1.11\n1.20\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUnconditional method Z‑pooled lies very close to N‑ratio = 1.\nFisher’s test tends to produce values above 1 because Fisher is more conservative, requiring slightly larger sample sizes.\n\nThis is the signature of an unconditional exact design."
   },
   {
-    "objectID": "bin/binary-fixed.html",
-    "href": "bin/binary-fixed.html",
-    "title": "Two-Arm Fixed Design with Binary endpoints",
-    "section": "",
-    "text": "N-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "Two-Arm Fixed Design with Binary endpoints"
-    ]
-  },
-  {
-    "objectID": "bin/binary-fixed.html#pooled-variance",
-    "href": "bin/binary-fixed.html#pooled-variance",
-    "title": "Two-Arm Fixed Design with Binary endpoints",
-    "section": "",
-    "text": "N-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "Two-Arm Fixed Design with Binary endpoints"
-    ]
-  },
-  {
-    "objectID": "bin/binary-fixed.html#exact",
-    "href": "bin/binary-fixed.html#exact",
-    "title": "Two-Arm Fixed Design with Binary endpoints",
-    "section": "Exact",
-    "text": "Exact",
-    "crumbs": [
-      "Book",
-      "Binary endpoints",
-      "Two-Arm Fixed Design with Binary endpoints"
-    ]
+    "objectID": "bin2arms-exact.html#footnotes",
+    "href": "bin2arms-exact.html#footnotes",
+    "title": "What Do East and nQuery Compute Exactly ?",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nEast 6 User Manual, Appendix U: Theory-Design - Binomial Two-Sample Exact Tests, U.2 Power of Unconditional Test of Superiority, p3314↩︎"
   },
   {
     "objectID": "bin/binary-methods.html",
@@ -778,39 +713,139 @@
     ]
   },
   {
-    "objectID": "bin2arms-exact.html",
-    "href": "bin2arms-exact.html",
-    "title": "What Do East and nQuery Compute Exactly ?",
+    "objectID": "bin/binary-fixed.html",
+    "href": "bin/binary-fixed.html",
+    "title": "Two-Arm Fixed Design with Binary endpoints",
     "section": "",
-    "text": "Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what nQuery and East are exactly doing by comparing their outputs to transparent reference implementations from the bbssr R package."
+    "text": "N-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "Two-Arm Fixed Design with Binary endpoints"
+    ]
   },
   {
-    "objectID": "bin2arms-exact.html#what-we-compared",
-    "href": "bin2arms-exact.html#what-we-compared",
-    "title": "What Do East and nQuery Compute Exactly ?",
-    "section": "What we compared",
-    "text": "What we compared\nTo understand how nQuery and East behave, we compared their sample‑size outputs with several well‑established exact and asymptotic tests implemented transparently in the bbssr R package. Specifically, we examined:\n\nPearson Chi‑squared Test\nFisher Exact Test\nFisher Mid‑p Test\nZ‑pooled Exact Unconditional Test\nBoschloo Exact Unconditional Test\n\nThese methods cover both conditional (Fisher) and unconditional families, as well as an asymptotic benchmark (chi‑squared). Short, clear explanations of each test are available in Gosuke Homma’s documentation: Statistical methods explained"
+    "objectID": "bin/binary-fixed.html#pooled-variance",
+    "href": "bin/binary-fixed.html#pooled-variance",
+    "title": "Two-Arm Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Binary, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n0.99\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n0.88\n1.00\n1.00\n1.00\n1.00\n1.11\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "Two-Arm Fixed Design with Binary endpoints"
+    ]
   },
   {
-    "objectID": "bin2arms-exact.html#how-did-we-compare",
-    "href": "bin2arms-exact.html#how-did-we-compare",
-    "title": "What Do East and nQuery Compute Exactly ?",
-    "section": "How did we compare",
-    "text": "How did we compare\n\nnQuery states explicitly that its two‑proportion exact design uses Fisher’s exact test.\nEast, as documented in its User Manual, uses an unconditional exact superiority test based on maximizing the probability of rejecting the null over all nuisance parameters (a score‑type unconditional approach, not Fisher’s conditional test).\n\nTo see whether the software behaves as expected, we computed an N‑ratio comparing each exact method to the sample size returned by the software.\n\\[\n\\text{N‑ratio} = \\frac{N_{\\text{method}}}{N_{\\text{software}}}.\n\\]\nIf the software truly corresponds to a given test, that test’s N‑ratio should cluster around 1."
+    "objectID": "bin/binary-fixed.html#exact",
+    "href": "bin/binary-fixed.html#exact",
+    "title": "Two-Arm Fixed Design with Binary endpoints",
+    "section": "Exact",
+    "text": "Exact",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "Two-Arm Fixed Design with Binary endpoints"
+    ]
   },
   {
-    "objectID": "bin2arms-exact.html#comparison-results",
-    "href": "bin2arms-exact.html#comparison-results",
-    "title": "What Do East and nQuery Compute Exactly ?",
-    "section": "Comparison results",
-    "text": "Comparison results\n\nnQuery: pattern matches Fisher’s exact\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to nQuery sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nfisher\n0.92\n0.96\n0.98\n0.99\n1.00\n1.01\n\n\nboschloo\n0.84\n0.89\n0.91\n0.92\n0.94\n0.97\n\n\nz_pool\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nfisher_midp\n0.78\n0.87\n0.90\n0.91\n0.94\n0.97\n\n\nchisq\n0.75\n0.85\n0.88\n0.89\n0.93\n0.97\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn the nQuery plot, Fisher’s N‑ratio sits tightly around 1 across all scenarios.\nUnconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1, as expected given their higher power.\n\n\nEast: behaves like an unconditional exact test\nEast’s documentation makes it clear1 that the method is unconditional. The empirical results confirm this:\n\n\n\n\n\n\n\n\nN-Ratio by Exact methods\n\n\naccording to East sample sizes\n\n\nmethod\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nz_pool\n0.98\n1.00\n1.00\n1.00\n1.00\n1.03\n\n\nfisher_midp\n0.97\n0.99\n0.99\n1.00\n1.00\n1.02\n\n\nboschloo\n0.98\n1.00\n1.01\n1.00\n1.02\n1.09\n\n\nchisq\n0.91\n0.97\n0.98\n0.98\n0.99\n1.01\n\n\nfisher\n1.03\n1.05\n1.08\n1.07\n1.11\n1.20\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUnconditional method Z‑pooled lies very close to N‑ratio = 1.\nFisher’s test tends to produce values above 1 because Fisher is more conservative, requiring slightly larger sample sizes.\n\nThis is the signature of an unconditional exact design."
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This project is part of an internship at INSERM’s Oncostat. The Oncostat team ressources:\n\nWebsite\nGitHub\nGustave Roussy’s website\nCESP’s website\nHal\n\nThe website is build with Quarto. To learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
-    "objectID": "bin2arms-exact.html#footnotes",
-    "href": "bin2arms-exact.html#footnotes",
-    "title": "What Do East and nQuery Compute Exactly ?",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nEast 6 User Manual, Appendix U: Theory-Design - Binomial Two-Sample Exact Tests, U.2 Power of Unconditional Test of Superiority, p3314↩︎"
+    "objectID": "bin/binary-endpoints.html",
+    "href": "bin/binary-endpoints.html",
+    "title": "Binary Endpoints",
+    "section": "",
+    "text": "Binary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBinary Endpoints\n\n\n\n\n\n\n\nTwo-Arms\n\n\n\n\n\n\n\nFixed Design\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nZ-unpooled\n\n\n\n\n\n\n\nGroup-Sequential Design\n\n\n\n\n\n\n\nZ-pooled\n\n\n\n\n\n\n\nOne-Arm\n\n\n\n\n\n\n\nExact Computation\n\n\n\n\n\n\n\nNon-exact Computation",
+    "crumbs": [
+      "Book",
+      "Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-gs.html",
+    "href": "bin/binary-gs.html",
+    "title": "Two-Arm Group-Sequential-Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "Two-Arm Group-Sequential-Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-gs.html#pooled-variance",
+    "href": "bin/binary-gs.html#pooled-variance",
+    "title": "Two-Arm Group-Sequential-Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Binary GS-design, pooled-variance\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nrpact\n0.96\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nrpact\n0.95\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nlow\n\n\nrpact\n0.94\n1.00\n1.00\n1.00\n1.00\n1.06",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "Two-Arm Group-Sequential-Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-one-arm.html",
+    "href": "bin/binary-one-arm.html",
+    "title": "One-Arm Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 1-Arms Binary, normal approximation\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arms Binary, normal approximation\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "One-Arm Fixed Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-one-arm.html#normal-approximation",
+    "href": "bin/binary-one-arm.html#normal-approximation",
+    "title": "One-Arm Fixed Design with Binary endpoints",
+    "section": "",
+    "text": "N-Ratio 1-Arms Binary, normal approximation\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arms Binary, normal approximation\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\nnquery\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "One-Arm Fixed Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "bin/binary-one-arm.html#exact",
+    "href": "bin/binary-one-arm.html#exact",
+    "title": "One-Arm Fixed Design with Binary endpoints",
+    "section": "Exact",
+    "text": "Exact\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nahern\n0.80\n0.94\n0.97\n0.96\n1.00\n1.19\n\n\nmedium\n\n\nahern\n0.62\n0.91\n0.96\n0.95\n1.00\n1.33\n\n\nlow\n\n\nahern\n0.33\n0.83\n0.89\n0.92\n1.00\n1.67\n\n\n\nRed : &lt; 50% of N-ratios ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 1-Arms Binary, exact computation\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\nahern\n0.80\n0.94\n0.97\n0.96\n1.00\n1.19\n\n\nmedium\n\n\nahern\n0.62\n0.91\n0.96\n0.95\n1.00\n1.33\n\n\nlow\n\n\nahern\n0.33\n0.83\n0.89\n0.92\n1.00\n1.67\n\n\n\nRed : &lt; 50% of N-ratios ±10%",
+    "crumbs": [
+      "Book",
+      "Binary endpoints",
+      "One-Arm Fixed Design with Binary endpoints"
+    ]
+  },
+  {
+    "objectID": "explain-code/code-home.html",
+    "href": "explain-code/code-home.html",
+    "title": "My R Code explained",
+    "section": "",
+    "text": "How I structured my project\n\n\n\n\n\n\n\n\n\nMar 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow I wrapped R packages’ functions\n\n\n\n\n\n\n\n\n\nMar 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy main pipeline\n\n\n\n\n\n\n\n\n\nMar 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nS7 Classes for designs and results\n\n\n\n\n\n\n\n\n\nMar 4, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "explain-code/S7.html",
+    "href": "explain-code/S7.html",
+    "title": "S7 Classes for designs and results",
+    "section": "",
+    "text": "Something about S7"
+  },
+  {
+    "objectID": "explain-code/wrapper.html",
+    "href": "explain-code/wrapper.html",
+    "title": "How I wrapped R packages’ functions",
+    "section": "",
+    "text": "Something about wrapper memoise etc"
   },
   {
     "objectID": "lakatos_n_lan.html",
@@ -824,7 +859,7 @@
     "href": "lakatos_n_lan.html#results",
     "title": "Comparison of Lakatos & Lan (1992), nQuery, EAST and R packages",
     "section": "Results",
-    "text": "Results\n\n\n\n\n\n\n\n\nLakatos & Lan (1992) comparison with East, nQuery and R packages\n\n\nSurvival at 10 years; Study duration = 10 years; α = 0.05; β = 0.1\n\n\nSurvival\nHR\nAccrual\nn_rpact\nn_rashnu\nn_gsdesign2\nn_east\nn_nquery\nn_L\nn_F\nn_RGS\n\n\n\n\n0.8\n0.667\n1\n1588\n1620\n1610\n1593\n1640\n1617\n1628\n1640\n\n\n0.8\n0.667\n5\n1979\n2022\n2007\n1984\n2046\n2017\n2024\n2046\n\n\n0.8\n0.667\n9\n2671\n2728\n2710\n2679\n2764\n2724\n2709\n2764\n\n\n0.8\n0.500\n1\n601\n638\n625\n604\n664\n638\n649\n664\n\n\n0.8\n0.500\n5\n749\n798\n781\n753\n832\n798\n807\n831\n\n\n0.8\n0.500\n9\n1011\n1078\n1055\n1017\n1124\n1079\n1081\n1124\n\n\n0.8\n0.250\n1\n181\n230\n214\n182\n270\n230\n241\n269\n\n\n0.8\n0.250\n5\n225\n290\n267\n227\n340\n289\n299\n338\n\n\n0.8\n0.250\n9\n304\n392\n362\n306\n460\n392\n401\n459\n\n\n0.2\n0.667\n1\n361\n362\n362\n362\n364\n360\n370\n363\n\n\n0.2\n0.667\n5\n414\n416\n416\n415\n420\n414\n419\n418\n\n\n0.2\n0.667\n9\n527\n530\n530\n528\n534\n528\n509\n534\n\n\n0.2\n0.500\n1\n133\n134\n135\n134\n138\n134\n144\n138\n\n\n0.2\n0.500\n5\n154\n156\n157\n155\n162\n156\n164\n161\n\n\n0.2\n0.500\n9\n196\n200\n201\n197\n208\n200\n200\n207\n\n\n0.2\n0.250\n1\n40\n44\n44\n40\n50\n43\n53\n48\n\n\n0.2\n0.250\n5\n46\n52\n51\n47\n58\n51\n61\n58\n\n\n0.2\n0.250\n9\n59\n68\n66\n60\n78\n66\n74\n76\n\n\n\nBlue: Computed sample sizes\n\n\nBrown: Sample sizes from the 1992 article\n\n\n\n\n\n\n\n\n\nThe modern software outputs (blue columns) mostly form a tight cluster of values. In many scenarios, these columns differ only by a handful of participants.\nWithin the brown block, RGS is usually the largest value, followed by Lakatos, then Freedman.\nnQuery closely matches RGS, with values that line up almost identically across all scenarios.\nRashnu matches the Lakatos method, showing nearly the same sample sizes row by row.\nrpact, gsDesign2, and East do not match any single historical method, but their outputs cluster tightly together, and they generally fall closer to the Lakatos values than to Freedman or RGS."
+    "text": "Results\n\n\n\n\n\n\n\n\n\nLakatos & Lan (1992) comparison with East, nQuery and R packages\n\n\nSurvival at 10 years; Study duration = 10 years; α = 0.05; β = 0.1\n\n\nSurvival\nHR\nAccrual\nn_rpact\nn_rashnu\nn_gsdesign2\nn_east\nn_nquery\nn_L\nn_F\nn_RGS\n\n\n\n\n0.8\n0.667\n1\n1588\n1620\n1610\n1593\n1640\n1617\n1628\n1640\n\n\n0.8\n0.667\n5\n1979\n2022\n2007\n1984\n2046\n2017\n2024\n2046\n\n\n0.8\n0.667\n9\n2671\n2728\n2710\n2679\n2764\n2724\n2709\n2764\n\n\n0.8\n0.500\n1\n601\n638\n625\n604\n664\n638\n649\n664\n\n\n0.8\n0.500\n5\n749\n798\n781\n753\n832\n798\n807\n831\n\n\n0.8\n0.500\n9\n1011\n1078\n1055\n1017\n1124\n1079\n1081\n1124\n\n\n0.8\n0.250\n1\n181\n230\n214\n182\n270\n230\n241\n269\n\n\n0.8\n0.250\n5\n225\n290\n267\n227\n340\n289\n299\n338\n\n\n0.8\n0.250\n9\n304\n392\n362\n306\n460\n392\n401\n459\n\n\n0.2\n0.667\n1\n361\n362\n362\n362\n364\n360\n370\n363\n\n\n0.2\n0.667\n5\n414\n416\n416\n415\n420\n414\n419\n418\n\n\n0.2\n0.667\n9\n527\n530\n530\n528\n534\n528\n509\n534\n\n\n0.2\n0.500\n1\n133\n134\n135\n134\n138\n134\n144\n138\n\n\n0.2\n0.500\n5\n154\n156\n157\n155\n162\n156\n164\n161\n\n\n0.2\n0.500\n9\n196\n200\n201\n197\n208\n200\n200\n207\n\n\n0.2\n0.250\n1\n40\n44\n44\n40\n50\n43\n53\n48\n\n\n0.2\n0.250\n5\n46\n52\n51\n47\n58\n51\n61\n58\n\n\n0.2\n0.250\n9\n59\n68\n66\n60\n78\n66\n74\n76\n\n\n\nBlue: Computed sample sizes\n\n\nBrown: Sample sizes from the 1992 article\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLakatos & Lan (1992) comparison with East, nQuery and R packages\n\n\nSurvival at 10 years; Study duration = 10 years; α = 0.05; β = 0.1\n\n\nSurvival\nHR\nAccrual\nn_rpact\nn_rashnu\nn_gsdesign2\nn_east\nn_nquery\nn_L\nn_F\nn_RGS\n\n\n\n\n0.8\n0.667\n1\n1588\n1620\n1610\n1593\n1640\n1617\n1628\n1640\n\n\n0.8\n0.667\n5\n1979\n2022\n2007\n1984\n2046\n2017\n2024\n2046\n\n\n0.8\n0.667\n9\n2671\n2728\n2710\n2679\n2764\n2724\n2709\n2764\n\n\n0.8\n0.500\n1\n601\n638\n625\n604\n664\n638\n649\n664\n\n\n0.8\n0.500\n5\n749\n798\n781\n753\n832\n798\n807\n831\n\n\n0.8\n0.500\n9\n1011\n1078\n1055\n1017\n1124\n1079\n1081\n1124\n\n\n0.8\n0.250\n1\n181\n230\n214\n182\n270\n230\n241\n269\n\n\n0.8\n0.250\n5\n225\n290\n267\n227\n340\n289\n299\n338\n\n\n0.8\n0.250\n9\n304\n392\n362\n306\n460\n392\n401\n459\n\n\n0.2\n0.667\n1\n361\n362\n362\n362\n364\n360\n370\n363\n\n\n0.2\n0.667\n5\n414\n416\n416\n415\n420\n414\n419\n418\n\n\n0.2\n0.667\n9\n527\n530\n530\n528\n534\n528\n509\n534\n\n\n0.2\n0.500\n1\n133\n134\n135\n134\n138\n134\n144\n138\n\n\n0.2\n0.500\n5\n154\n156\n157\n155\n162\n156\n164\n161\n\n\n0.2\n0.500\n9\n196\n200\n201\n197\n208\n200\n200\n207\n\n\n0.2\n0.250\n1\n40\n44\n44\n40\n50\n43\n53\n48\n\n\n0.2\n0.250\n5\n46\n52\n51\n47\n58\n51\n61\n58\n\n\n0.2\n0.250\n9\n59\n68\n66\n60\n78\n66\n74\n76\n\n\n\nBlue: Computed sample sizes\n\n\nBrown: Sample sizes from the 1992 article\n\n\n\n\n\n\n\n\n\n\nThe modern software outputs (blue columns) mostly form a tight cluster of values. In many scenarios, these columns differ only by a handful of participants.\nWithin the brown block, RGS is usually the largest value, followed by Lakatos, then Freedman.\nnQuery closely matches RGS, with values that line up almost identically across all scenarios.\nRashnu matches the Lakatos method, showing nearly the same sample sizes row by row.\nrpact, gsDesign2, and East do not match any single historical method, but their outputs cluster tightly together, and they generally fall closer to the Lakatos values than to Freedman or RGS."
   },
   {
     "objectID": "presentation/presentation-fr.html#cadre-et-contexte",
@@ -1092,7 +1127,7 @@
     "href": "surv/survival-fixed.html#design-space-explored",
     "title": "Two-Arm Fixed Design with Time-to-Event endpoints",
     "section": "Design space explored",
-    "text": "Design space explored\nAll comparisons were conducted for a two-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\nVarying design parameters\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nControl-group survival probability at 3 years:\n\\(S_c(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption for the control group, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\nFixed design assumptions\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nAllocation ratio (experimental : control): 1 : 1\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy classification of design scenarios\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\nScope of the comparison\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event\n\n\nAccording to East sample sizes\n\n\nPertinence\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nnquery\n1.00\n1.00\n1.01\n1.00\n1.01\n1.03\n\n\nrashnu\n1.00\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.01\n1.00\n1.01\n1.05\n\n\nnquery\n1.00\n1.00\n1.03\n1.02\n1.04\n1.11\n\n\nrashnu\n1.00\n1.00\n1.01\n1.01\n1.02\n1.07\n\n\nrpact\n0.98\n0.99\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.21\n1.00\n1.07\n5.44\n\n\nnquery\n0.98\n1.00\n1.26\n1.01\n1.13\n2.84\n\n\nrashnu\n0.96\n1.00\n1.09\n1.00\n1.03\n1.87\n\n\nrpact\n0.78\n1.00\n1.12\n1.00\n1.00\n5.44\n\n\n\nRouge : &lt; 50% des ratios dans ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTab1Tab2\n\n\nSome content for tabset1\n\n\nSome content for tabset2",
+    "text": "Design space explored\nAll comparisons were conducted for a two-arm, fixed-design randomized clinical trial with a time-to-event primary endpoint, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.\n\nVarying design parameters\nFour key design parameters were varied systematically:\n\nType I error rate (\\(\\alpha\\), two-sided):\n\\(\\alpha \\in \\{0.01, 0.05, 0.10, 0.20, 0.49\\}\\)\nPower (\\(1 - \\beta\\)):\n\\(1 - \\beta \\in \\{0.51, 0.80, 0.90, 0.99\\}\\)\nHazard ratio (HR):\n\\(\\text{HR} \\in \\{0.10, 0.50, 0.70, 0.90, 0.99\\}\\)\nControl-group survival probability at 3 years:\n\\(S_c(3\\text{y}) \\in \\{0.10, 0.30, 0.60, 0.90\\}\\)\n\nThe 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption for the control group, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.\nThe full factorial combination of these parameters yielded 400 distinct design scenarios.\n\n\n\nFixed design assumptions\nTo isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:\n\nAccrual duration: 3 years\n\nAdditional follow-up after end of accrual: 3 years\n\nAllocation ratio (experimental : control): 1 : 1\n\nTest sidedness: two-sided logrank test\n\nAccrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelevancy classification of design scenarios\nTo aid interpretation of results across a wide parameter space, each design scenario was classified a priori according to its practical relevance in confirmatory clinical trials. Scenarios were categorized as high, medium, or low relevance, based on the extremeness of the design parameters.\n\nHigh relevance scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. \\(\\alpha \\leq 0.10\\), power 80–90%, HR in the range 0.5–0.7).\nMedium relevance scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. \\(\\alpha = 0.20\\), HR \\(\\leq 0.10\\) or HR \\(\\geq 0.90\\)).\nLow relevance scenarios include parameter combinations that are rarely used in practice (e.g. very high \\(\\alpha\\), near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.\n\nThis classification was not used to filter results but rather to contextualize observed discrepancies between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.\n\n\n\nScope of the comparison\nFor each of the 400 scenarios, all methods and software implementations were used to compute:\n\nThe required number of events to achieve the target power under the specified hazard ratio, and\n\nWhen supported by the method, the corresponding total sample size, accounting for accrual and follow-up.\n\nThe design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nnquery\n1.00\n1.00\n1.01\n1.00\n1.01\n1.03\n\n\nrashnu\n1.00\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.01\n1.00\n1.01\n1.05\n\n\nnquery\n1.00\n1.00\n1.03\n1.02\n1.04\n1.11\n\n\nrashnu\n1.00\n1.00\n1.01\n1.01\n1.02\n1.07\n\n\nrpact\n0.98\n0.99\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.21\n1.00\n1.07\n5.44\n\n\nnquery\n0.98\n1.00\n1.26\n1.01\n1.13\n2.84\n\n\nrashnu\n0.96\n1.00\n1.09\n1.00\n1.03\n1.87\n\n\nrpact\n0.78\n1.00\n1.12\n1.00\n1.00\n5.44\n\n\n\nRed : &lt; 50% of N-ratios ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nN-Ratio 2-Arms Time-to-Event\n\n\nAccording to East sample sizes\n\n\nRelevancy\nMin\nQ1\nMoyenne\nMédiane\nQ3\nMax\n\n\n\n\nhigh\n\n\ngsdesign2\n1.00\n1.00\n1.00\n1.00\n1.00\n1.01\n\n\nnquery\n1.00\n1.00\n1.01\n1.00\n1.01\n1.03\n\n\nrashnu\n1.00\n1.00\n1.00\n1.00\n1.00\n1.02\n\n\nrpact\n1.00\n1.00\n1.00\n1.00\n1.00\n1.00\n\n\nmedium\n\n\ngsdesign2\n0.98\n1.00\n1.01\n1.00\n1.01\n1.05\n\n\nnquery\n1.00\n1.00\n1.03\n1.02\n1.04\n1.11\n\n\nrashnu\n1.00\n1.00\n1.01\n1.01\n1.02\n1.07\n\n\nrpact\n0.98\n0.99\n1.00\n1.00\n1.00\n1.00\n\n\nlow\n\n\ngsdesign2\n0.85\n1.00\n1.21\n1.00\n1.07\n5.44\n\n\nnquery\n0.98\n1.00\n1.26\n1.01\n1.13\n2.84\n\n\nrashnu\n0.96\n1.00\n1.09\n1.00\n1.03\n1.87\n\n\nrpact\n0.78\n1.00\n1.12\n1.00\n1.00\n5.44\n\n\n\nRed : &lt; 50% of N-ratios ±10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTab1Tab2\n\n\nSome content for tabset1\n\n\nSome content for tabset2",
     "crumbs": [
       "Book",
       "Time-to-Event endpoints",

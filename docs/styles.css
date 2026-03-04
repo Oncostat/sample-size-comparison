@@ -1,3 +1,4 @@
+/** BIGGER LOGO */
 /* 1) Make the logo actually bigger: kill max-height and set height */
 .navbar-brand .navbar-logo,
 .navbar .navbar-brand img.navbar-logo {
@@ -40,4 +41,33 @@
   .navbar-brand .navbar-logo {
     height: 56px !important;
   }
+}
+
+/** DETAILS */
+/* source: https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/details */
+details {
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+}
+
+summary {
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+
+details[open] {
+  padding: 0.5em;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 0.5em;
+}
+
+/** GT TABLE*/
+.gt_table {
+  margin-left: 1.5rem !important;
+  margin-right: auto !important;
 }
