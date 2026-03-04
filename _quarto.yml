@@ -30,6 +30,8 @@ website:
             href: bin2arms-exact.qmd
           - text: "Lakatos & Lan"
             href: lakatos_n_lan.qmd
+      - text: "Code"
+        href: "explain-code/code-home.qmd"
       - text: "About"
         href: about.qmd
     tools:

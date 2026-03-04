@@ -1,0 +1,15 @@
+---
+title: "How I structured my project"
+subtitle: "subtitle"
+image: "../man/figures/structure.png"
+# bibliography: references.bibtex
+date: last-modified
+format: html
+lightbox:
+  match: auto
+  effect: fade
+  desc-position: right
+---
+
+
+Something about how I structured my code

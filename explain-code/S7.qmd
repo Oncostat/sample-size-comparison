@@ -1,0 +1,11 @@
+---
+title: "S7 Classes for designs and results"
+subtitle: "something maybe"
+image: "../man/figures/S7.png"
+# bibliography: references.bibtex
+date: last-modified
+format: html
+---
+
+
+Something about S7 

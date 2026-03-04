@@ -1,0 +1,14 @@
+---
+title: "How I wrapped R packages' functions"
+subtitle: "And how I included this into the pipeline"
+image: "../man/figures/wrappers.png"
+# bibliography: references.bibtex
+date: last-modified
+format: html
+lightbox:
+  match: auto
+  effect: fade
+  desc-position: right
+---
+
+Something about wrapper memoise etc
