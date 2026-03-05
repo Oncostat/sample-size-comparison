@@ -150,18 +150,6 @@ x$plots$p_n_ratio + theme_darkly()
 #   SharedData$new()
 ```
 
-::: {.panel-tabset}
-
-## Tab1
-
-Some content for **tabset1**
-
-## Tab2
-
-Some content for **tabset2**
-
-:::
-
 ```{r}
 #| warning: false
 # card(
