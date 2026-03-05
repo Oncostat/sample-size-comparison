@@ -71,3 +71,18 @@ details[open] summary {
   margin-left: 1.5rem !important;
   margin-right: auto !important;
 }
+
+/** BSLIB CARDS */
+.bslib-full-screen-exit {
+    margin-top: 60px;
+}
+
+.bslib-card[data-full-screen="true"] {
+    margin-top: 60px;
+}
+
+.bslib-sidebar{
+  top: 0px !important;
+  max-height: 100vh !important;
+}
+

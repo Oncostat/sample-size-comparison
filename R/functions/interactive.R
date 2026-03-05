@@ -1,0 +1,115 @@
+# PLOT INTERACTIVE ----
+plot_interactive <- function(tbl_n_ratio, type, ref = c("east", "nquery")){
+  ref = rlang::arg_match(ref)
+  ref_col_name = if_else(ref == "east", "n_east", "n_nquery")
+  ref_name = if_else(ref == "east", "East", "nQuery")
+
+  p <- ggplot(tbl_n_ratio)
+
+  if (type == "bin") {
+    p <- p + aes("delta pi:" = delta_pi, "pi_c" = pi_c)
+  }
+
+  if (type == "surv") {
+    p <- p + aes("HR:" = hr, "surv_t" = surv_t)
+  }
+
+  p +
+  aes(
+    x = .data[[ref_col_name]],
+    y = .data[["n_ratio"]],
+    color = .data[["method"]],
+    "α:" = alpha,
+    "Power:" = power
+  ) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 1 - er_rate, linetype = "dashed") +
+  geom_hline(yintercept = 1) +
+  geom_hline(yintercept = 1 + er_rate,  linetype = "dashed") +
+  labs(
+    caption = paste0("According to ", ref_name, " sample sizes"),
+    x = paste0("N ", ref_name),
+    y = "N-Ratio",
+    color = "Methods : "
+  ) +
+  scale_colour_brewer(palette = "Set1")
+}
+
+
+
+# FILTERS INTERACTIVE ----
+filters_interactive <- function(shared_data, type){
+  if(type == "bin"){
+    filters <- 
+      list(
+        filter_checkbox("relevancy", "Relevancy:", shared_data, ~ relevancy),
+        filter_checkbox("alpha", "α:", shared_data, ~ alpha),
+        filter_checkbox("power", "Power:", shared_data, ~ power),
+        filter_checkbox("pi_c", "Control proportion:", shared_data, ~ pi_c),
+        filter_checkbox("delta_pi", "Delta-proportion:", shared_data, ~ delta_pi)
+      )
+  }
+  if(type == "surv"){
+    filters <- 
+      list(
+        filter_checkbox("relevancy", "Pertinence :", shared_data, ~ relevancy),
+        filter_checkbox("alpha", "α :", shared_data, ~ alpha),
+        filter_checkbox("power", "Puissance :", shared_data, ~ power),
+        filter_checkbox("hr", "Hazard ratio :", shared_data, ~ hr),
+        filter_checkbox("surv_t", "Survie à 3 ans :", shared_data, ~ surv_t)
+      )
+  }
+
+  filters
+}
+
+# BUILD DESIGN ----
+build_design <- function(shared_data, title, type, ref = c("east", "nquery")){
+  list(
+    title = title,
+    plot = plot_interactive(shared_data, type = type, ref = ref),
+    filters = filters_interactive(shared_data, type = type)
+  )
+}
+# CARD FLATLY ----
+card_flatly <- function(design){
+  card(
+    full_screen = TRUE,
+    card_header(design$title),
+    layout_sidebar(
+      scrollable = FALSE,
+      height = 500,
+      sidebar = sidebar(
+        bg = flatly_body_bg,
+        width = 200,
+        class = "bslib-sidebar",
+        design$filters
+      ),
+      card_body( 
+        ggplotly(design$plot + theme_flatly())
+      )
+    )
+  )
+}
+
+# CARD DARKLY ----
+card_darkly <- function(design){
+  card(
+    full_screen = TRUE,
+    card_header(design$title),
+    layout_sidebar(
+      scrollable = FALSE,
+      height = 500,
+      sidebar = sidebar(
+        bg = darkly_body_bg,
+        width = 200,
+        class = "bslib-sidebar",
+        design$filters
+      ),
+      card_body(
+        ggplotly(design$plot + theme_darkly())
+      )
+    )
+  )
+}

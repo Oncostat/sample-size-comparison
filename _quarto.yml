@@ -21,6 +21,8 @@ website:
     left:
       - text: "Book"
         href: index.qmd
+      - text: "Interactive"
+        href: interactive.qmd
       - text: "More"
         menu:
           - text: "Slides (french)"
