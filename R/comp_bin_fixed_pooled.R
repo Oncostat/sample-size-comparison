@@ -117,7 +117,7 @@ n_ratio <-
 
 cli_alert_success("Combined results")
 
-# Tables & figures
+# Tables & figures ----
 title <- "N-Ratio 2-Arms Binary, pooled-variance"
 ## Tables ----
 table_n_ratio <- 

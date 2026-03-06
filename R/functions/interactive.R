@@ -64,8 +64,8 @@ filters_interactive <- function(shared_data, type){
   filters
 }
 
-# BUILD DESIGN ----
-build_design <- function(shared_data, title, type, ref = c("east", "nquery")){
+# BUILD INTERACTIVE OBJECT ----
+build_interactive <- function(shared_data, title, type, ref = c("east", "nquery")){
   list(
     title = title,
     plot = plot_interactive(shared_data, type = type, ref = ref),
@@ -73,42 +73,44 @@ build_design <- function(shared_data, title, type, ref = c("east", "nquery")){
   )
 }
 # CARD FLATLY ----
-card_flatly <- function(design){
+card_flatly <- function(interactive_object){
   card(
     full_screen = TRUE,
-    card_header(design$title),
+    card_header(interactive_object$title),
     layout_sidebar(
+      class = "p-0", # zero padding
       scrollable = FALSE,
       height = 500,
       sidebar = sidebar(
         bg = flatly_body_bg,
         width = 200,
         class = "bslib-sidebar",
-        design$filters
+        interactive_object$filters
       ),
       card_body( 
-        ggplotly(design$plot + theme_flatly())
+        ggplotly(interactive_object$plot + theme_flatly(base_size = 11))
       )
     )
   )
 }
 
 # CARD DARKLY ----
-card_darkly <- function(design){
+card_darkly <- function(interactive_object){
   card(
     full_screen = TRUE,
-    card_header(design$title),
+    card_header(interactive_object$title),
     layout_sidebar(
+      class = "p-0", # zero padding
       scrollable = FALSE,
       height = 500,
       sidebar = sidebar(
         bg = darkly_body_bg,
         width = 200,
         class = "bslib-sidebar",
-        design$filters
+        interactive_object$filters
       ),
       card_body(
-        ggplotly(design$plot + theme_darkly())
+        ggplotly(interactive_object$plot + theme_darkly(base_size = 11))
       )
     )
   )

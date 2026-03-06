@@ -21,16 +21,26 @@ bin_fixed_pooled <-
     read_rds("outputs/comp_bin_fixed_pooled.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Binary 2-Arm Fixed Design, pooled-variance",
         type = "bin"
+    )
+
+bin_fixed_exact <- 
+    read_rds("outputs/comp_bin_fixed_exact.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Binary 2-Arm Fixed Design, exact test",
+        type = "bin",
+        ref = "nquery"
     )
 
 bin_gs_pooled <- 
     read_rds("outputs/comp_bin_gs_pooled.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Binary 2-Arm GS-Design, pooled-variance",
         type = "bin"
     )
@@ -39,7 +49,7 @@ bin_one_arm_exact <-
     read_rds("outputs/comp_bin_one_arm_exact.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Binary 1-Arm Fixed Design, exact test",
         type = "bin"
     )
@@ -48,7 +58,7 @@ bin_one_arm_pooled <-
     read_rds("outputs/comp_bin_one_arm_pooled.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Binary 1-Arm Fixed Design, normal approx.",
         type = "bin"
     )
@@ -57,7 +67,7 @@ surv_fixed <-
     read_rds("outputs/comp_surv_fixed.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Time-to-Event 2-Arm Fixed Design",
         type = "surv"
     )
@@ -66,7 +76,7 @@ surv_gs <-
     read_rds("outputs/comp_surv_gs.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Time-to-Event 2-Arm GS-Design",
         type = "surv"
     )
@@ -75,7 +85,7 @@ surv_one_arm <-
     read_rds("outputs/comp_surv_one_arm.rds")$n_ratio |> 
     mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
     SharedData$new() |> 
-    build_design(
+    build_interactive(
         title = "Time-to-Event 1-Arm Fixed Design",
         type = "surv",
         ref = "nquery"
@@ -95,7 +105,7 @@ layout_columns(
     # BINARY FIXED POOLED
     card_flatly(bin_fixed_pooled),
     # BINARY FIXED EXACT
-    card(),
+    card_flatly(bin_fixed_exact),
     # BINARY GS-DESIGN POOLED
     card_flatly(bin_gs_pooled),
     # BINARY ONE-ARM normal approx.
@@ -114,7 +124,7 @@ layout_columns(
     # BINARY FIXED POOLED
     card_darkly(bin_fixed_pooled),
     # BINARY FIXED EXACT
-    card(),
+    card_darkly(bin_fixed_exact),
     # BINARY GS-DESIGN POOLED
     card_darkly(bin_gs_pooled),
     # BINARY ONE-ARM normal approx.
