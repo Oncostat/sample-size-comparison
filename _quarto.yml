@@ -71,6 +71,7 @@ website:
 
 format:
   html:
+    page-navigation: true
     highlight-style: github
     code-fold: show
     execute:
