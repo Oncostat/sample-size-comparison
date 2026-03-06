@@ -22,7 +22,7 @@ design_surv_one_arm <- ssc_design(
   endpoint = "survival",
   type = "fixed",
   params = params,
-  computation = "one-arm"
+  # computation = "one-arm"
 )
 cli_alert_success("Params & design")
 
