@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-04">
+<meta name="dcterms.date" content="2026-03-06">
 
-<title>S7 Classes for designs and results</title>
+<title>S7 Classes for Designs and Results</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -44,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-91451eb5fc48bff9700d30fb7ecc94d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d09b78867df270ce7cad3524d708651a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,8 +112,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="S7 Classes for designs and results">
-<meta property="og:description" content="something maybe">
+<meta property="og:title" content="S7 Classes for Designs and Results">
+<meta property="og:description" content="Object-oriented programming in R with S7">
 <meta property="og:image" content="../man/figures/S7.png">
 </head>
 
@@ -328,8 +363,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#designs-ssc_design" id="toc-designs-ssc_design" class="nav-link active" data-scroll-target="#designs-ssc_design">Designs: ssc_design</a>
+  <ul class="collapse">
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">Properties</a></li>
+  <li><a href="#constructor" id="toc-constructor" class="nav-link" data-scroll-target="#constructor">Constructor</a></li>
+  <li><a href="#validator" id="toc-validator" class="nav-link" data-scroll-target="#validator">Validator</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  </ul></li>
+  <li><a href="#results-ssc_results" id="toc-results-ssc_results" class="nav-link" data-scroll-target="#results-ssc_results">Results: ssc_results</a>
+  <ul class="collapse">
+  <li><a href="#properties-1" id="toc-properties-1" class="nav-link" data-scroll-target="#properties-1">Properties</a></li>
+  <li><a href="#validator-1" id="toc-validator-1" class="nav-link" data-scroll-target="#validator-1">Validator</a></li>
+  <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -337,8 +390,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">S7 Classes for designs and results</h1>
-<p class="subtitle lead">something maybe</p>
+<h1 class="title">S7 Classes for Designs and Results</h1>
+<p class="subtitle lead">Object-oriented programming in R with S7</p>
 </div>
 
 
@@ -349,7 +402,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 4, 2026</p>
+      <p class="date">March 6, 2026</p>
     </div>
   </div>
   
@@ -361,9 +414,336 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Something about S7</p>
+<p>R offers several object‑oriented systems (S3, S4, R6), and S7 is the most recent addition: a modern, lightweight, and more predictable approach to defining classes and methods. For statistical workflows—especially those involving complex design objects, parameter grids, and multi‑software comparisons—S7 brings a clean and explicit structure. In this post, I walk through how I use S7 to define two core objects in my sample‑size comparison pipeline:</p>
+<ul>
+<li><a href="https://github.com/Oncostat/sample-size-comparison/blob/dev/R/S7/ssc_design.R">ssc_design</a>: represents a study design (endpoint, type, parameters, computation rules).</li>
+<li><a href="https://github.com/Oncostat/sample-size-comparison/blob/dev/R/S7/ssc_results.R">ssc_results</a>: stores the associated sample size results produced by different software tools.</li>
+</ul>
+<p>See the official <a href="https://rconsortium.github.io/S7/.">S7 Documentation</a></p>
+<hr>
+<section id="designs-ssc_design" class="level2">
+<h2 class="anchored" data-anchor-id="designs-ssc_design">Designs: ssc_design</h2>
+<p>For each type of design, we compute a parameter grid (see the <a href="../explain-code/pipeline.html">pipeline</a>) that we store in a list called <code>params</code>.</p>
+<p>Our goal is to define a class that represents a design object containing all the information required for cross‑software comparisons.</p>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<p>We start by creating a new class using <code>S7::new_class</code>, specifying the properties we want in each object:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ssc_design <span class="ot">&lt;-</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">new_class</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ssc_design"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># PROPERTIES</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">properties =</span> <span class="fu">list</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">endpoint =</span> class_character, <span class="co"># survival or binary</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> class_character, <span class="co"># fixed or gs</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">params =</span> class_list, <span class="co"># grid</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">computation =</span> <span class="fu">new_property</span>(<span class="at">class =</span> class_character, <span class="at">default =</span> <span class="cn">NULL</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The design object contains:</p>
+<ul>
+<li><strong>endpoint</strong>: <code>"binary"</code> or <code>"survival"</code>, depending on the type of endpoint.</li>
+<li><strong>type</strong>: <code>"fixed"</code> or <code>"gs"</code> (group‑sequential).</li>
+<li><strong>params</strong>: a list storing the grid of parameters used for the design.</li>
+<li><strong>computation</strong>: for binary endpoints, this specifies whether the test is <code>"exact"</code>, <code>"pooled"</code>, or <code>"unpooled"</code>. It should be <code>NULL</code> for survival designs.</li>
+</ul>
+</section>
+<section id="constructor" class="level3">
+<h3 class="anchored" data-anchor-id="constructor">Constructor</h3>
+<p>At this stage, only the property types are defined. Next, we define how the object is constructed by writing a constructor:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CONSTUCTOR</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>constructor <span class="ot">=</span> <span class="cf">function</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">endpoint =</span> <span class="fu">c</span>(<span class="st">"binary"</span>, <span class="st">"survival"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"fixed"</span>, <span class="st">"gs"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  params,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">computation =</span> <span class="fu">character</span>(<span class="dv">0</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  endpoint <span class="ot">&lt;-</span> <span class="fu">arg_match</span>(endpoint)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  type <span class="ot">&lt;-</span> <span class="fu">arg_match</span>(type)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">new_object</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">S7_object</span>(),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">endpoint =</span> endpoint,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> type,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">params =</span> params,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">computation =</span> computation</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The constructor controls how a <code>ssc_design</code> object is created and restricts the possible argument values.</p>
+<p>We also want to enforce consistency rules. For example:</p>
+<ul>
+<li>Binary endpoints <strong>must</strong> specify a computation method.</li>
+<li>Survival endpoints <strong>must not</strong> specify a computation method.</li>
+<li>The <code>params</code> list must contain at least <code>$list</code> and <code>$table</code>.</li>
+</ul>
+</section>
+<section id="validator" class="level3">
+<h3 class="anchored" data-anchor-id="validator">Validator</h3>
+<p>We encode these rules in a <code>validator</code>:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>validator <span class="ot">=</span> <span class="cf">function</span>(self) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (self<span class="sc">@</span>endpoint <span class="sc">==</span> <span class="st">"binary"</span>) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span>(self<span class="sc">@</span>computation) <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span>(self<span class="sc">@</span>computation <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"exact"</span>, <span class="st">"pooled"</span>, <span class="st">"unpooled"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ) {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"@computation should be one of exact, pooled or unpooled."</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">length</span>(self<span class="sc">@</span>computation) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"@computation should be NULL for survival endpoint"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">length</span>(self<span class="sc">@</span>params<span class="sc">$</span>list) <span class="sc">==</span> <span class="dv">0</span> <span class="sc">||</span> <span class="fu">length</span>(self<span class="sc">@</span>params<span class="sc">$</span>table) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"@params should contains at least $list and $table."</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The validator is automatically executed when building a <code>ssc_design</code> object, if the object violates any rule, an error is returned.</p>
+<p>Example: the following call triggers a validation error because <code>"poled"</code> is not a valid computation method:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssc_design</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">endpoint =</span> <span class="st">"binary"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"fixed"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> params,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">computation =</span> <span class="st">"poled"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<pre class="console cell-code"><code>Error:
+! &lt;ssc_design&gt; object is invalid:
+- @computation should be one of exact, pooled or unpooled.</code></pre>
+</details>
+</div>
+</section>
+<section id="methods" class="level3">
+<h3 class="anchored" data-anchor-id="methods">Methods</h3>
+<p>A main benefit of defining classes is that you can attach methods to them.<br>
+Below, we create a <code>print</code> method for <code>ssc_design</code>. We also create a helper method <code>show_params()</code>:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method to print params</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">method</span>(show_params, ssc_design) <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  params <span class="ot">&lt;-</span> x<span class="sc">@</span>params</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  params_list <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    params<span class="sc">$</span>list,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">str_flatten</span>(., <span class="at">collapse =</span> <span class="st">", "</span>, <span class="at">last =</span> <span class="st">" and "</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Moving parameters:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  cli<span class="sc">::</span><span class="fu">cli_dl</span>(params_list)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Additional parameters:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  cli<span class="sc">::</span><span class="fu">cli_dl</span>(params<span class="sc">$</span>additional)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Number of parameters combinaisons:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(params<span class="sc">$</span>table))</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Print method</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">method</span>(print, ssc_design) <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  cli<span class="sc">::</span><span class="fu">cli_h2</span>(<span class="st">"SSC {x@endpoint} {x@type} design"</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x<span class="sc">@</span>computation) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    cli<span class="sc">::</span><span class="fu">cli_alert_info</span>(<span class="st">"{.var {x@computation}} computation."</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  cli<span class="sc">::</span><span class="fu">cli_par</span>()</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show_params</span>(x)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Example:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssc_design</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">endpoint =</span> <span class="st">"binary"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"fixed"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">params =</span> params,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">computation =</span> <span class="st">"pooled"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<pre class="console cell-code"><code>── SSC binary fixed design ──
+
+ℹ `pooled` computation.
+Moving parameters:
+alpha: 0.01, 0.05, 0.1, 0.2 and 0.49
+power: 0.51, 0.8, 0.9 and 0.99
+pi_c: 0.1, 0.3, 0.5, 0.8 and 0.9
+delta_pi: 0.05, 0.15, 0.25 and 0.49
+
+Additional parameters:
+sided: 2
+
+Number of parameters combinaisons:
+[1] 300</code></pre>
+</details>
+</div>
+</section>
+</section>
+<section id="results-ssc_results" class="level2">
+<h2 class="anchored" data-anchor-id="results-ssc_results">Results: ssc_results</h2>
+<p>For each design and each software or R package, we want a class that stores the computed sample sizes.</p>
+<section id="properties-1" class="level3">
+<h3 class="anchored" data-anchor-id="properties-1">Properties</h3>
+<p>The <code>ssc_results</code> class contains:</p>
+<ul>
+<li><strong>tbl</strong>: a tibble storing the sample size results,</li>
+<li><strong>design</strong>: the associated <code>ssc_design</code> object,</li>
+<li><strong>method</strong>: the method or software used (e.g.&nbsp;<code>"rpact"</code>, <code>"nQuery"</code>).</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ssc_results <span class="ot">&lt;-</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">new_class</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ssc_results"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># PROPERTIES</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">properties =</span> <span class="fu">list</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">tbl =</span> class_list, <span class="co"># result table</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">design =</span> ssc_design, <span class="co"># design</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">method =</span> class_character <span class="co"># rpact, nQuery ...</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="validator-1" class="level3">
+<h3 class="anchored" data-anchor-id="validator-1">Validator</h3>
+<p>The validator uses the design’s parameter table to ensure:</p>
+<ul>
+<li>the number of results does not exceed the number of parameter combinations,</li>
+<li>there are no duplicated parameter sets,</li>
+<li>all parameter combinations in the results appear in the design’s parameter grid.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># VALIDATOR</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>validator <span class="ot">&lt;-</span> <span class="cf">function</span>(self) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(self<span class="sc">@</span>tbl) <span class="sc">&gt;</span> <span class="fu">nrow</span>(self<span class="sc">@</span>design<span class="sc">@</span>params<span class="sc">$</span>table)) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"@tbl has too many rows according to the parameters."</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  params_names <span class="ot">&lt;-</span> <span class="fu">names</span>(self<span class="sc">@</span>design<span class="sc">@</span>params<span class="sc">$</span>list)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  cond_duplicate <span class="ot">&lt;-</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">@</span>tbl <span class="sc">|&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">all_of</span>(params_names)) <span class="sc">|&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">duplicated</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">any</span>()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (cond_duplicate) {</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"@tbl should not contain any duplicate of input combinations."</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  cond_in_params <span class="ot">&lt;-</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">@</span>tbl <span class="sc">|&gt;</span> </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(self<span class="sc">@</span>design<span class="sc">@</span>params<span class="sc">$</span>table, <span class="at">by =</span> params_names) <span class="sc">|&gt;</span> </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>()</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (cond_in_params <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"@tbl should not contain combinations not present in @params$table."</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="methods-1" class="level3">
+<h3 class="anchored" data-anchor-id="methods-1">Methods</h3>
+<p>We can now instantiate and inspect a results object:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rpact_results <span class="ot">&lt;-</span> <span class="fu">ssc_results</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">tbl =</span> rpact_table_results</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">design =</span> design_bin_fixed_pooled,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"rpact"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Printing:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rpact_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<pre class="console cell-code"><code>── SSC rpact results for binary fixed design ──
+
+# A tibble: 300 × 5
+   alpha power  pi_c delta_pi     n
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+ 1  0.01  0.51   0.1     0.05  1184
+ 2  0.05  0.51   0.1     0.05   690
+ 3  0.1   0.51   0.1     0.05   488
+ 4  0.2   0.51   0.1     0.05   299
+ 5  0.49  0.51   0.1     0.05    90
+ 6  0.01  0.8    0.1     0.05  2041
+ 7  0.05  0.8    0.1     0.05  1372
+ 8  0.1   0.8    0.1     0.05  1080
+ 9  0.2   0.8    0.1     0.05   788
+10  0.49  0.8    0.1     0.05   410
+# ℹ 290 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</details>
+</div>
+<p>Summary:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rpact_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<pre class="console cell-code"><code>── SSC rpact results for binary fixed design ──
+
+     alpha          power             pi_c           delta_pi            n         
+ Min.   :0.01   Min.   :0.5100   Min.   :0.1000   Min.   :0.0500   Min.   :   2.0  
+ 1st Qu.:0.05   1st Qu.:0.7275   1st Qu.:0.1000   1st Qu.:0.0500   1st Qu.:  54.0  
+ Median :0.10   Median :0.8500   Median :0.3000   Median :0.1500   Median : 192.5  
+ Mean   :0.17   Mean   :0.8000   Mean   :0.4067   Mean   :0.2047   Mean   : 832.8  
+ 3rd Qu.:0.20   3rd Qu.:0.9225   3rd Qu.:0.5000   3rd Qu.:0.2500   3rd Qu.: 875.8  
+ Max.   :0.49   Max.   :0.9900   Max.   :0.9000   Max.   :0.4900   Max.   :9578.0 </code></pre>
+</details>
+</div>
+<p>Display the design parameters directly from the results object:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_params</span>(rpact_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<pre class="console cell-code"><code>Moving parameters:
+alpha: 0.01, 0.05, 0.1, 0.2 and 0.49
+power: 0.51, 0.8, 0.9 and 0.99
+pi_c: 0.1, 0.3, 0.5, 0.8 and 0.9
+delta_pi: 0.05, 0.15, 0.25 and 0.49
+
+Additional parameters:
+sided: 2
+
+Number of parameters combinaisons:
+[1] 30</code></pre>
+</details>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

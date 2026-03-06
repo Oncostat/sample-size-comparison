@@ -2,8 +2,8 @@
   {
     "listing": "/explain-code/code-home.html",
     "items": [
-      "/explain-code/structure.html",
       "/explain-code/wrapper.html",
+      "/explain-code/structure.html",
       "/explain-code/pipeline.html",
       "/explain-code/S7.html"
     ]

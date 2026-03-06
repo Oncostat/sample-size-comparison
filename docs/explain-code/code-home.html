@@ -46,9 +46,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-91451eb5fc48bff9700d30fb7ecc94d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d09b78867df270ce7cad3524d708651a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -139,7 +139,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="My R Code explained">
 <meta property="og:description" content="All the internship code in a nutshell">
-<meta property="og:image" content="../man/figures/structure.png">
+<meta property="og:image" content="../man/figures/wrappers.png">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -427,31 +427,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-code-listings">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1772619764000" data-listing-file-modified-sort="1772619764394" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
-<a href="../explain-code/structure.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../man/figures/structure.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-How I structured my project
-</h5>
-<div class="card-text listing-description delink">
-Something about how I structured my code
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Mar 4, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1772619773000" data-listing-file-modified-sort="1772619773051" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="5">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1772801739000" data-listing-file-modified-sort="1772801739526" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="727">
 <a href="../explain-code/wrapper.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -459,23 +435,49 @@ Mar 4, 2026
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-How I wrapped R packages’ functions
+Clean Wrapper Functions for Sample Size Calculations
 </h5>
 <div class="card-text listing-description delink">
-Something about wrapper memoise etc
+To compare sample size methods across different R packages, I needed a consistent interface:<br>
+same inputs, same naming, same output format, and reliable error handling.
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 
 </div>
 <div class="listing-date">
-Mar 4, 2026
+Mar 6, 2026
 </div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1772619778000" data-listing-file-modified-sort="1772619778664" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="6">
+<div class="g-col-1" data-index="1" data-listing-date-sort="1772805461000" data-listing-file-modified-sort="1772805461093" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="474">
+<a href="../explain-code/structure.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../man/figures/structure.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+How I Structured My Project
+</h5>
+<div class="card-text listing-description delink">
+This post gives a high-level overview of how the entire SSC project is organised.<br>
+The project uses a simple but robust structure:
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Mar 6, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-date-sort="1772799552000" data-listing-file-modified-sort="1772799552272" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1512">
 <a href="../explain-code/pipeline.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -483,23 +485,24 @@ Mar 4, 2026
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-My main pipeline
+My Main Pipeline
 </h5>
 <div class="card-text listing-description delink">
-Something about source, cli message, etc
+The entire internship workflow can be launched from a single file, <code>main.R</code>, which executes the full pipeline.<br>
+In this article, I walk through how the pipeline is structured…
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 
 </div>
 <div class="listing-date">
-Mar 4, 2026
+Mar 6, 2026
 </div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-listing-date-sort="1772619756000" data-listing-file-modified-sort="1772619756810" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="4">
+<div class="g-col-1" data-index="3" data-listing-date-sort="1772803730000" data-listing-file-modified-sort="1772803730862" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1526">
 <a href="../explain-code/S7.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -507,17 +510,17 @@ Mar 4, 2026
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-S7 Classes for designs and results
+S7 Classes for Designs and Results
 </h5>
 <div class="card-text listing-description delink">
-Something about S7
+R offers several object‑oriented systems (S3, S4, R6), and S7 is the most recent addition: a modern, lightweight, and more predictable approach to defining classes and…
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 
 </div>
 <div class="listing-date">
-Mar 4, 2026
+Mar 6, 2026
 </div>
 </div>
 </div>

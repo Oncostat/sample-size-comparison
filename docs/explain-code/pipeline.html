@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-04">
+<meta name="dcterms.date" content="2026-03-06">
 
-<title>My main pipeline</title>
+<title>My Main Pipeline</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -44,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-91451eb5fc48bff9700d30fb7ecc94d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d09b78867df270ce7cad3524d708651a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,8 +112,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="My main pipeline">
-<meta property="og:description" content="How things run in my main.R file">
+<meta property="og:title" content="My Main Pipeline">
+<meta property="og:description" content="How everything runs in main.R">
 <meta property="og:image" content="../man/figures/pipeline.png">
 </head>
 
@@ -328,8 +363,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#initialisation" id="toc-initialisation" class="nav-link active" data-scroll-target="#initialisation">Initialisation</a></li>
+  <li><a href="#comparison-scripts" id="toc-comparison-scripts" class="nav-link" data-scroll-target="#comparison-scripts">Comparison scripts</a>
+  <ul class="collapse">
+  <li><a href="#parameters-design" id="toc-parameters-design" class="nav-link" data-scroll-target="#parameters-design">Parameters &amp; Design</a></li>
+  <li><a href="#results-by-method" id="toc-results-by-method" class="nav-link" data-scroll-target="#results-by-method">Results by method</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
+  <li><a href="#tables-figures" id="toc-tables-figures" class="nav-link" data-scroll-target="#tables-figures">Tables &amp; Figures</a></li>
+  <li><a href="#exporting-results" id="toc-exporting-results" class="nav-link" data-scroll-target="#exporting-results">Exporting results</a></li>
+  </ul></li>
+  <li><a href="#execution" id="toc-execution" class="nav-link" data-scroll-target="#execution">Execution</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -337,8 +387,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">My main pipeline</h1>
-<p class="subtitle lead">How things run in my main.R file</p>
+<h1 class="title">My Main Pipeline</h1>
+<p class="subtitle lead">How everything runs in <code>main.R</code></p>
 </div>
 
 
@@ -349,7 +399,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 4, 2026</p>
+      <p class="date">March 6, 2026</p>
     </div>
   </div>
   
@@ -361,9 +411,390 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Something about source, cli message, etc</p>
+<p>The entire internship workflow can be launched from a single file, <code>main.R</code>, which executes the full pipeline.<br>
+In this article, I walk through how the pipeline is structured and how each component contributes to the final sample size comparison results.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialisation ----</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/init.R"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cli<span class="sc">::</span><span class="fu">boxx</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"SSC"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">float =</span> <span class="st">"center"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">border_style =</span> <span class="st">"double"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">padding =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Survival sample size comparison ----</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cli<span class="sc">::</span><span class="fu">cli_h1</span>(<span class="st">"SSC Survival"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_surv_fixed.R"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/lakatos_n_lan.R"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_surv_gs.R"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_surv_one_arm.R"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Binary sample size comparison ----</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>cli<span class="sc">::</span><span class="fu">cli_h1</span>(<span class="st">"SSC Binary"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_bin_fixed_pooled.R"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_bin_fixed_exact.R"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_bin_gs.R"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_bin_one_arm.R"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/comp_bin_one_arm_exact.R"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Write results</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(ssc, <span class="st">"ssc.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="initialisation" class="level2">
+<h2 class="anchored" data-anchor-id="initialisation">Initialisation</h2>
+<p>The <code>init.R</code> file is the first script that runs. It prepares everything needed for the rest of the pipeline:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">suppressWarnings</span>({</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create global variable</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>er_rate <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># error rate 10%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ssc <span class="ot">&lt;-</span> <span class="fu">lst</span>()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>wrapper <span class="ot">&lt;-</span> <span class="fu">lst</span>()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Source functions</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Helper functions</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/functions/checks.R"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrappers</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/functions/rpact_wrapper.R"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Source S7 classes and methods</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/S7/ssc_results.R"</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>This script:</p>
+<ul>
+<li>loads all required packages,</li>
+<li>initializes global objects (<code>ssc</code>, <code>wrapper</code>, error rate, etc.),</li>
+<li>loads helper functions,</li>
+<li>loads wrapper functions for sample size calculations (see the <a href="../explain-code/wrapper.html">Wrapper post</a>),</li>
+<li>loads all S7 classes and methods (see the <a href="../explain-code/S7.html">S7 post</a>).</li>
+</ul>
+<p>It ensures that the environment is clean and that all downstream scripts can run consistently.</p>
+</section>
+<section id="comparison-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-scripts">Comparison scripts</h2>
+<p>Each comparison script corresponds to a specific design, such as <em>Two‑Arm Survival Fixed Design</em>.<br>
+All scripts are independent and follow the same structure.</p>
+<section id="parameters-design" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-design">Parameters &amp; Design</h3>
+<p>We start by defining the parameter grid used to compare different software and R packages:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Params ----</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">lst</span>()</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># List of parameters for grid search</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>list <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.20</span>, <span class="fl">0.49</span>),</span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fu">c</span>(<span class="fl">0.51</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">0.99</span>),</span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">hr =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>, <span class="fl">0.99</span>),</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">surv_t =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>)</span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3">3</button><span id="annotated-cell-3-10" class="code-annotation-target"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>additional <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">event_time =</span> <span class="dv">3</span>,</span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">accrual_time =</span> <span class="dv">3</span>,</span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">follow_up_time =</span> <span class="dv">3</span>,</span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sided =</span> <span class="dv">2</span>,</span>
+<span id="annotated-cell-3-15"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocation_ratio =</span> <span class="dv">1</span></span>
+<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all combinations of params</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4">4</button><span id="annotated-cell-3-18" class="code-annotation-target"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a>params<span class="sc">$</span>table <span class="ot">&lt;-</span> params<span class="sc">$</span>list <span class="sc">|&gt;</span> <span class="fu">expand.grid</span>() <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="1">Initialize the parameters object</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="2">Define all varying parameters used in the grid</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="10" data-code-annotation="3">Define fixed parameters shared across all runs</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="18" data-code-annotation="4">Create the full parameter grid</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>We then instantiate a design object using <code>ssc_design</code>:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>design_surv_fixed <span class="ot">&lt;-</span> <span class="fu">ssc_design</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">endpoint =</span> <span class="st">"survival"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"fixed"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> params</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="results-by-method" class="level3">
+<h3 class="anchored" data-anchor-id="results-by-method">Results by method</h3>
+<p>For every software package or method, we compute sample sizes and wrap the results into an <code>ssc_results</code> object:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a>rpact_wrapper <span class="ot">&lt;-</span> <span class="fu">partial</span>(wrapper<span class="sc">$</span>rpact_surv_fixed, <span class="sc">!!!</span>params<span class="sc">$</span>additional)</span>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>rpact <span class="ot">&lt;-</span></span>
+<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>  params<span class="sc">$</span>table <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nested_res =</span> <span class="fu">pmap_vec</span>(params<span class="sc">$</span>table, rpact_wrapper, <span class="at">.progress =</span> <span class="cn">TRUE</span>)</span>
+<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(nested_res) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ssc_results</span>(<span class="at">design =</span> design_surv_fixed, <span class="at">method =</span> <span class="st">"rpact"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1"><code>partial()</code> passes all non‑varying parameters to the wrapper</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="2">We compute the sample size for each parameter combination in the grid</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>(See the <a href="../explain-code/wrapper.html">Wrappers post</a> for details on how package-specific functions are wrapped.)</p>
+</section>
+<section id="comparison" class="level3">
+<h3 class="anchored" data-anchor-id="comparison">Comparison</h3>
+<p>Next, we join all method-specific results into a single combined table:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lst</span>(rpact, east, nquery, rashnu, gsdesign2) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(get_tbl) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_name_as_suffix</span>(<span class="fu">c</span>(<span class="st">"e"</span>, <span class="st">"n"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    \(x, y) {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">full_join</span>(x, y, <span class="at">by =</span> <span class="fu">join_by</span>(alpha, power, hr, surv_t))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relevancy =</span> <span class="fu">evaluate_relevancy_surv</span>(alpha, power, hr)) <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relevancy =</span> <span class="fu">fct_relevel</span>(relevancy, <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"medium"</span>, <span class="st">"low"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ssc_results</span>(<span class="at">design =</span> design_surv_fixed, <span class="at">method =</span> <span class="st">"combined"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Then we compute the N‑Ratio using a chosen reference method (e.g., <code>"east"</code>):</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_ratio <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  combined <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_tbl</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_n_ratio</span>(<span class="at">ref =</span> <span class="st">"east"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="tables-figures" class="level3">
+<h3 class="anchored" data-anchor-id="tables-figures">Tables &amp; Figures</h3>
+<p>To communicate results, each comparison script generates both tables and figures.</p>
+<p>Tables are built using <strong>gt</strong> and saved in a <code>tables</code> list:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tables and figures ----</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="st">"N-Ratio 2-Arms Time-to-Event"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Tables ----</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>table_n_ratio <span class="ot">&lt;-</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  n_ratio <span class="sc">|&gt;</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_n_ratio</span>(<span class="at">title =</span> title, <span class="at">ref_name =</span> <span class="st">"East"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">lst</span>(table_n_ratio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Figures are built with <strong>ggplot2</strong> and saved in a <code>plots</code> list:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Figures ----</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p_n_ratio <span class="ot">&lt;-</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  n_ratio <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_n_ratio</span>(<span class="at">title =</span> title, <span class="at">ref_name =</span> <span class="st">"East"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">lst</span>(p_n_ratio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="exporting-results" class="level3">
+<h3 class="anchored" data-anchor-id="exporting-results">Exporting results</h3>
+<p>Each script stores its results in the global <code>ssc</code> object:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export results ----</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ssc<span class="sc">$</span>surv<span class="sc">$</span>fixed<span class="sc">$</span>res <span class="ot">&lt;-</span> <span class="fu">lst</span>(rpact, rashnu, gsdesign2, east, nquery)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ssc<span class="sc">$</span>surv<span class="sc">$</span>fixed<span class="sc">$</span>raw <span class="ot">&lt;-</span> <span class="fu">lst</span>(<span class="st">"east"</span> <span class="ot">=</span> east_raw, <span class="st">"nquery"</span> <span class="ot">=</span> nquery_raw)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ssc<span class="sc">$</span>surv<span class="sc">$</span>fixed<span class="sc">$</span>params <span class="ot">&lt;-</span> params</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ssc<span class="sc">$</span>surv<span class="sc">$</span>fixed<span class="sc">$</span>combined <span class="ot">&lt;-</span> combined</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ssc<span class="sc">$</span>bin<span class="sc">$</span>fixed<span class="sc">$</span>tables <span class="ot">&lt;-</span> tables</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ssc<span class="sc">$</span>bin<span class="sc">$</span>fixed<span class="sc">$</span>plots <span class="ot">&lt;-</span> plots</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We also store a standalone object for exporting script‑specific results:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>comp_surv_fixed <span class="ot">&lt;-</span> <span class="fu">lst</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  params,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  combined,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  n_ratio,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  tables,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  plots</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="execution" class="level2">
+<h2 class="anchored" data-anchor-id="execution">Execution</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<pre class="console cell-code"><code>&gt; # Initialisation ----
+&gt; source("R/init.R")
+
+&gt; boxx(
++   "SSC",
++   float = "center",
++   col = "blue",
++   border_style = "double",
++   padding = c(0, 15, 0, 15)
++ )
+                                   ╔═════════════════════════════════╗
+                                   ║               SSC               ║
+                                   ╚═════════════════════════════════╝
+
+&gt; # Survival sample size comparison ----
+&gt; cli_h1("SSC Survival")
+
+── SSC Survival ────────────────────────────────────────────────────────────────────────────────────────
+
+&gt; source("R/comp_surv_fixed.R")
+───────────────────────────────────────── Survival fixed design ────────────────────────────────────────
+✔ Params &amp; design
+✔ Rpact results                                   
+✔ Rashnu results                                  
+✔ GsDesign2 results                               
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; source("R/lakatos_n_lan.R")
+────────────────────────────────── Survival fixed Lakatos &amp; Lan (1992) ─────────────────────────────────
+✔ Params &amp; design
+✔ Rpact results
+✔ Rashnu results
+✔ GsDesign2 results
+✔ East results
+✔ nQuery results
+✔ Combined results
+✔ Tables &amp; figures
+
+&gt; source("R/comp_surv_gs.R")
+─────────────────────────────────── Survival group-sequential design ───────────────────────────────────
+✔ Params &amp; design
+✔ Rpact results
+✔ Gsdesign2 results
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; source("R/comp_surv_one_arm.R")
+──────────────────────────────────────── Survival One-arm design ───────────────────────────────────────
+✔ Params &amp; design
+✔ OneArm2stage results                            
+✔ SampleSizeSingleArmSurvival results             
+✔ Rashnu results                                  
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; # Binary sample size comparison ----
+&gt; cli_h1("SSC Binary")
+
+── SSC Binary ──────────────────────────────────────────────────────────────────────────────────────────
+
+&gt; source("R/comp_bin_fixed_pooled.R")
+──────────────────────────────── Binary fixed design, pooled computation ───────────────────────────────
+✔ Params &amp; design
+✔ Rpact results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; source("R/comp_bin_fixed_exact.R")
+──────────────────────────────── Binary fixed design, exact computation ────────────────────────────────
+✔ Params &amp; design
+✔ bbssr results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; source("R/comp_bin_gs.R")
+──────────────────────────────────── Binary group-sequential design ────────────────────────────────────
+✔ Params &amp; design
+✔ Rpact results                                   
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; source("R/comp_bin_one_arm.R")
+──────────────────────────────────────── One-armed binary design ───────────────────────────────────────
+✔ Params &amp; design
+✔ Rpact results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures
+
+&gt; source("R/comp_bin_one_arm_exact.R")
+───────────────────────────────────── One-armed binary design exact ────────────────────────────────────
+✔ Params &amp; design
+✔ A'Hern results                                  
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables &amp; figures</code></pre>
+</details>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -720,25 +1151,64 @@ ul.task-list li input[type="checkbox"] {
           }
         };
       }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
+        const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+        for (let i=0; i<annoteTargets.length; i++) {
+          const annoteTarget = annoteTargets[i];
+          const targetCell = annoteTarget.getAttribute("data-target-cell");
+          const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+          const contentFn = () => {
+            const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+            if (content) {
+              const tipContent = content.cloneNode(true);
+              tipContent.classList.add("code-annotation-tip-content");
+              return tipContent.outerHTML;
             }
-          });
+          }
+          const config = {
+            allowHTML: true,
+            content: contentFn,
+            onShow: (instance) => {
+              selectCodeLines(instance.reference);
+              instance.reference.classList.add('code-annotation-active');
+              window.tippy.hideAll();
+            },
+            onHide: (instance) => {
+              unselectCodeLines();
+              instance.reference.classList.remove('code-annotation-active');
+            },
+            maxWidth: 300,
+            delay: [50, 0],
+            duration: [200, 0],
+            offset: [5, 10],
+            arrow: true,
+            appendTo: function(el) {
+              return el.parentElement.parentElement.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'quarto',
+            placement: 'right',
+            popperOptions: {
+              modifiers: [
+              {
+                name: 'flip',
+                options: {
+                  flipVariations: false, // true by default
+                  allowedAutoPlacements: ['right'],
+                  fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                },
+              },
+              {
+                name: 'preventOverflow',
+                options: {
+                  mainAxis: false,
+                  altAxis: false
+                }
+              }
+              ]        
+            }      
+          };
+          window.tippy(annoteTarget, config); 
         }
     const findCites = (el) => {
       const parentEl = el.parentElement;

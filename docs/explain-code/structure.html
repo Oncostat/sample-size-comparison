@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-04">
+<meta name="dcterms.date" content="2026-03-06">
 
-<title>How I structured my project</title>
+<title>How I Structured My Project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -44,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-91451eb5fc48bff9700d30fb7ecc94d2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-689a6bcb803c308b0ca4e46029845571.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d09b78867df270ce7cad3524d708651a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,8 +112,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="How I structured my project">
-<meta property="og:description" content="subtitle">
+<meta property="og:title" content="How I Structured My Project">
+<meta property="og:description" content="A big-picture overview of the SSC code">
 <meta property="og:image" content="../man/figures/structure.png">
 </head>
 
@@ -328,8 +363,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#directory-structure" id="toc-directory-structure" class="nav-link active" data-scroll-target="#directory-structure">Directory Structure</a></li>
+  <li><a href="#main.r-the-entry-point" id="toc-main.r-the-entry-point" class="nav-link" data-scroll-target="#main.r-the-entry-point">main.R: the entry point</a></li>
+  <li><a href="#init.r-preparing-the-environment" id="toc-init.r-preparing-the-environment" class="nav-link" data-scroll-target="#init.r-preparing-the-environment">init.R: preparing the environment</a></li>
+  <li><a href="#comparison-scripts-comp_.r" id="toc-comparison-scripts-comp_.r" class="nav-link" data-scroll-target="#comparison-scripts-comp_.r">Comparison scripts (comp_*.R)</a></li>
+  <li><a href="#the-functions-directory" id="toc-the-functions-directory" class="nav-link" data-scroll-target="#the-functions-directory">The functions/ directory</a>
+  <ul class="collapse">
+  <li><a href="#core-helpers" id="toc-core-helpers" class="nav-link" data-scroll-target="#core-helpers"><strong>Core helpers</strong></a></li>
+  <li><a href="#wrappers-for-external-r-packages" id="toc-wrappers-for-external-r-packages" class="nav-link" data-scroll-target="#wrappers-for-external-r-packages"><strong>Wrappers for external R packages</strong></a></li>
+  </ul></li>
+  <li><a href="#the-s7-layer-s7" id="toc-the-s7-layer-s7" class="nav-link" data-scroll-target="#the-s7-layer-s7">The S7 layer (<code>S7/</code>)</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -337,8 +387,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How I structured my project</h1>
-<p class="subtitle lead">subtitle</p>
+<h1 class="title">How I Structured My Project</h1>
+<p class="subtitle lead">A big-picture overview of the SSC code</p>
 </div>
 
 
@@ -349,7 +399,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 4, 2026</p>
+      <p class="date">March 6, 2026</p>
     </div>
   </div>
   
@@ -361,9 +411,130 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Something about how I structured my code</p>
+<p>This post gives a high-level overview of how the entire SSC project is organised.<br>
+The project uses a simple but robust structure:</p>
+<ul>
+<li><strong>a central <code>main.R</code> file</strong>, from which the full pipeline is executed;<br>
+</li>
+<li><strong>modular comparison scripts</strong>, one per design;<br>
+</li>
+<li><strong>a dedicated <code>functions/</code> directory</strong> for all helpers and wrappers;<br>
+</li>
+<li><strong>a small S7 layer</strong> holding the two core classes (<code>ssc_design</code> and <code>ssc_results</code>).</li>
+</ul>
+<section id="directory-structure" class="level2">
+<h2 class="anchored" data-anchor-id="directory-structure">Directory Structure</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── init.R</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>├── main.R</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── comp_surv_fixed.R</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>├── comp_surv_gs.R</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>├── comp_surv_one_arm.R</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>├── comp_bin_fixed_pooled.R</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>├── comp_bin_fixed_exact.R</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>├── comp_bin_gs.R</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>├── comp_bin_one_arm.R</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>├── comp_bin_one_arm_exact.R</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>├── lakatos_n_lan.R</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>├── functions/</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>│   ├── checks.R</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>│   ├── helpers.R</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>│   ├── evaluate_relevancy.R</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>│   ├── exact_2_arms.R</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>│   ├── n_ratio.R</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>│   ├── rpact_wrapper.R</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>│   ├── ahern_wrapper.R</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>│   ├── bbssr_wrapper.R</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>│   ├── gsdesign2_wrapper.R</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>│   ├── rashnu_wrapper.R</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>│   ├── oa2s_wrapper.R</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>│   └── sssas_wrapper.R</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>└── S7/</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    ├── generics.R</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ├── ssc_design.R</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    └── ssc_results.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="main.r-the-entry-point" class="level2">
+<h2 class="anchored" data-anchor-id="main.r-the-entry-point">main.R: the entry point</h2>
+<p><code>main.R</code> is the <strong>orchestrator</strong> of the entire project.<br>
+Running this file executes all steps in the predefined order:</p>
+<ul>
+<li>initialization,</li>
+<li>survival comparisons,</li>
+<li>binary comparisons,</li>
+<li>result combination,</li>
+<li>exporting final outputs.</li>
+</ul>
+<p>This is described in detail in the post:<br>
+<strong>➡️ <a href="../explain-code/pipeline.html"><em>“My main pipeline”</em></a></strong></p>
+</section>
+<section id="init.r-preparing-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="init.r-preparing-the-environment">init.R: preparing the environment</h2>
+<p><code>init.R</code> configures everything needed for the project:</p>
+<ul>
+<li>loads all required packages,</li>
+<li>creates global objects (e.g.&nbsp;<code>ssc</code>, <code>wrapper</code>, error rate),</li>
+<li>sources helper functions,</li>
+<li>loads all wrapper functions,</li>
+<li>loads S7 classes and methods.</li>
+</ul>
+</section>
+<section id="comparison-scripts-comp_.r" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-scripts-comp_.r">Comparison scripts (comp_*.R)</h2>
+<p>Each script corresponds to <strong>one design × one endpoint</strong> and follows the same structure:</p>
+<ol type="1">
+<li>build parameter grid</li>
+<li>create a <code>ssc_design</code> object</li>
+<li>compute results using wrappers</li>
+<li>validate with S7</li>
+<li>combine results</li>
+<li>compute derived metrics (N‑ratio, relevancy)</li>
+<li>generate tables &amp; plots</li>
+<li>export everything inside the <code>ssc</code> object</li>
+</ol>
+<p>This standard pattern is what makes the pipeline extensible: adding a new design simply means adding a new <code>comp_xyz.R</code> following the same recipe.</p>
+</section>
+<section id="the-functions-directory" class="level2">
+<h2 class="anchored" data-anchor-id="the-functions-directory">The functions/ directory</h2>
+<p>This directory contains all <strong>reusable building blocks</strong> of the project:</p>
+<section id="core-helpers" class="level3">
+<h3 class="anchored" data-anchor-id="core-helpers"><strong>Core helpers</strong></h3>
+<ul>
+<li><code>checks.R</code> — input validation</li>
+<li><code>helpers.R</code> — general utilities</li>
+<li><code>evaluate_relevancy.R</code> — rule defining “high / medium / low” relevancy</li>
+<li><code>n_ratio.R</code> — N‑Ratio computation</li>
+</ul>
+</section>
+<section id="wrappers-for-external-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="wrappers-for-external-r-packages"><strong>Wrappers for external R packages</strong></h3>
+<ul>
+<li><code>rpact_wrapper.R</code></li>
+<li><code>bbssr_wrapper.R</code></li>
+<li><code>gsdesign2_wrapper.R</code></li>
+<li><code>rashnu_wrapper.R</code></li>
+<li><code>ahern_wrapper.R</code></li>
+<li><code>exact_2_arms.R</code> — exact binomial implementation</li>
+<li><code>sssas_wrapper.R</code></li>
+<li><code>oa2s_wrapper.R</code></li>
+</ul>
+<p>This part is discussed in detail in the post:<br>
+<strong>➡️ <a href="../explain-code/wrapper.html"><em>“Clean Wrapper Functions for Sample Size Calculations”</em></a></strong></p>
+</section>
+</section>
+<section id="the-s7-layer-s7" class="level2">
+<h2 class="anchored" data-anchor-id="the-s7-layer-s7">The S7 layer (<code>S7/</code>)</h2>
+<p>This folder contains a minimal but powerful object system for the project:</p>
+<ul>
+<li><strong><code>ssc_design.R</code></strong> — defines how a design is represented</li>
+<li><strong><code>ssc_results.R</code></strong> — defines how results are stored &amp; validated</li>
+<li><strong><code>generics.R</code></strong> — shared S7 methods (print, summary, extractors, etc.)</li>
+</ul>
+<p>This is discussed in detail in the post:<br>
+<strong>➡️ <a href="../explain-code/S7.html"><em>“S7 Classes for Designs and Results”</em></a></strong></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
