@@ -1,14 +1,355 @@
 ---
-title: "My main pipeline"
-subtitle: "How things run in my main.R file"
+title: "My Main Pipeline"
+subtitle: "How everything runs in `main.R`"
 image: "../man/figures/pipeline.png"
-# bibliography: references.bibtex
 date: last-modified
 format: html
-lightbox:
-  match: auto
-  effect: fade
-  desc-position: right
+code-annotations: hover
+execute:
+  echo: true
+  eval: false
 ---
 
-Something about source, cli message, etc
+The entire internship workflow can be launched from a single file, `main.R`, which executes the full pipeline.  
+In this article, I walk through how the pipeline is structured and how each component contributes to the final sample size comparison results.
+
+```{r}
+# Initialisation ----
+source("R/init.R")
+
+cli::boxx(
+  "SSC",
+  float = "center",
+  col = "blue",
+  border_style = "double",
+  padding = c(0, 15, 0, 15)
+)
+
+# Survival sample size comparison ----
+cli::cli_h1("SSC Survival")
+source("R/comp_surv_fixed.R")
+source("R/lakatos_n_lan.R")
+source("R/comp_surv_gs.R")
+source("R/comp_surv_one_arm.R")
+
+# Binary sample size comparison ----
+cli::cli_h1("SSC Binary")
+source("R/comp_bin_fixed_pooled.R")
+source("R/comp_bin_fixed_exact.R")
+source("R/comp_bin_gs.R")
+source("R/comp_bin_one_arm.R")
+source("R/comp_bin_one_arm_exact.R")
+
+# Write results
+write_rds(ssc, "ssc.rds")
+```
+
+## Initialisation
+
+The `init.R` file is the first script that runs. It prepares everything needed for the rest of the pipeline:
+
+```{r}
+# load packages
+suppressPackageStartupMessages(suppressWarnings({
+  library(tidyverse)
+    ...
+}))
+
+# Create global variable
+er_rate <- 0.1 # error rate 10%
+ssc <- lst()
+wrapper <- lst()
+
+# Source functions
+## Helper functions
+source("R/functions/checks.R")
+  ...
+
+# Wrappers
+source("R/functions/rpact_wrapper.R")
+  ...
+
+# Source S7 classes and methods
+source("R/S7/ssc_results.R")
+  ...
+```
+
+This script:
+
+-   loads all required packages,
+-   initializes global objects (`ssc`, `wrapper`, error rate, etc.),
+-   loads helper functions,
+-   loads wrapper functions for sample size calculations (see the [Wrapper post](wrapper.qmd)),
+-   loads all S7 classes and methods (see the [S7 post](S7.qmd)).
+
+It ensures that the environment is clean and that all downstream scripts can run consistently.
+
+## Comparison scripts
+
+Each comparison script corresponds to a specific design, such as *Two‑Arm Survival Fixed Design*.  
+All scripts are independent and follow the same structure.
+
+### Parameters & Design
+
+We start by defining the parameter grid used to compare different software and R packages:
+
+```{r}
+#| echo: true
+#| eval: false
+# Params ----
+params <- lst() # <1>
+# List of parameters for grid search
+params$list = list( # <2>
+  alpha = c(0.01, 0.05, 0.1, 0.20, 0.49),
+  power = c(0.51, 0.8, 0.9, 0.99),
+  hr = c(0.1, 0.5, 0.7, 0.9, 0.99),
+  surv_t = c(0.1, 0.3, 0.6, 0.9)
+)
+params$additional <- list( # <3>
+  event_time = 3,
+  accrual_time = 3,
+  follow_up_time = 3,
+  sided = 2,
+  allocation_ratio = 1
+)
+# Get all combinations of params
+params$table <- params$list |> expand.grid() |> as_tibble() # <4>
+```
+
+1.  Initialize the parameters object
+2.  Define all varying parameters used in the grid
+3.  Define fixed parameters shared across all runs
+4.  Create the full parameter grid
+
+We then instantiate a design object using `ssc_design`:
+
+```{r}
+design_surv_fixed <- ssc_design(
+  endpoint = "survival",
+  type = "fixed",
+  params = params
+)
+```
+
+### Results by method
+
+For every software package or method, we compute sample sizes and wrap the results into an `ssc_results` object:
+
+```{r}
+rpact_wrapper <- partial(wrapper$rpact_surv_fixed, !!!params$additional) # <1>
+rpact <-
+  params$table |>
+  mutate(
+    nested_res = pmap_vec(params$table, rpact_wrapper, .progress = TRUE) # <2>
+  ) |>
+  unnest(nested_res) |>
+  ssc_results(design = design_surv_fixed, method = "rpact")
+```
+
+1.  `partial()` passes all non‑varying parameters to the wrapper
+2.  We compute the sample size for each parameter combination in the grid
+
+(See the [Wrappers post](wrapper.qmd) for details on how package-specific functions are wrapped.)
+
+### Comparison
+
+Next, we join all method-specific results into a single combined table:
+
+```{r}
+combined <-
+  lst(rpact, east, nquery, rashnu, gsdesign2) |>
+  map(get_tbl) |>
+  add_name_as_suffix(c("e", "n")) |>
+  reduce(
+    \(x, y) {
+      full_join(x, y, by = join_by(alpha, power, hr, surv_t))
+    }
+  ) |>
+  mutate(relevancy = evaluate_relevancy_surv(alpha, power, hr)) |>
+  mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
+  ssc_results(design = design_surv_fixed, method = "combined")
+```
+
+Then we compute the N‑Ratio using a chosen reference method (e.g., `"east"`):
+
+```{r}
+n_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_n_ratio(ref = "east")
+```
+
+### Tables & Figures
+
+To communicate results, each comparison script generates both tables and figures.
+
+Tables are built using **gt** and saved in a `tables` list:
+
+```{r}
+# Tables and figures ----
+title <- "N-Ratio 2-Arms Time-to-Event"
+## Tables ----
+table_n_ratio <- 
+  n_ratio |> 
+  gt_n_ratio(title = title, ref_name = "East")
+
+tables <- lst(table_n_ratio)
+```
+
+Figures are built with **ggplot2** and saved in a `plots` list:
+
+```{r}
+## Figures ----
+p_n_ratio <- 
+  n_ratio |> 
+  plot_n_ratio(title = title, ref_name = "East")
+
+plots <- lst(p_n_ratio)
+```
+
+### Exporting results
+
+Each script stores its results in the global `ssc` object:
+
+```{r}
+# Export results ----
+ssc$surv$fixed$res <- lst(rpact, rashnu, gsdesign2, east, nquery)
+ssc$surv$fixed$raw <- lst("east" = east_raw, "nquery" = nquery_raw)
+ssc$surv$fixed$params <- params
+ssc$surv$fixed$combined <- combined
+ssc$bin$fixed$tables <- tables
+ssc$bin$fixed$plots <- plots
+```
+
+We also store a standalone object for exporting script‑specific results:
+
+```{r}
+comp_surv_fixed <- lst(
+  params,
+  combined,
+  n_ratio,
+  tables,
+  plots
+)
+```
+
+## Execution
+
+```{console}
+> # Initialisation ----
+> source("R/init.R")
+
+> boxx(
++   "SSC",
++   float = "center",
++   col = "blue",
++   border_style = "double",
++   padding = c(0, 15, 0, 15)
++ )
+                                   ╔═════════════════════════════════╗
+                                   ║               SSC               ║
+                                   ╚═════════════════════════════════╝
+
+> # Survival sample size comparison ----
+> cli_h1("SSC Survival")
+
+── SSC Survival ────────────────────────────────────────────────────────────────────────────────────────
+
+> source("R/comp_surv_fixed.R")
+───────────────────────────────────────── Survival fixed design ────────────────────────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ Rashnu results                                  
+✔ GsDesign2 results                               
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> source("R/lakatos_n_lan.R")
+────────────────────────────────── Survival fixed Lakatos & Lan (1992) ─────────────────────────────────
+✔ Params & design
+✔ Rpact results
+✔ Rashnu results
+✔ GsDesign2 results
+✔ East results
+✔ nQuery results
+✔ Combined results
+✔ Tables & figures
+
+> source("R/comp_surv_gs.R")
+─────────────────────────────────── Survival group-sequential design ───────────────────────────────────
+✔ Params & design
+✔ Rpact results
+✔ Gsdesign2 results
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> source("R/comp_surv_one_arm.R")
+──────────────────────────────────────── Survival One-arm design ───────────────────────────────────────
+✔ Params & design
+✔ OneArm2stage results                            
+✔ SampleSizeSingleArmSurvival results             
+✔ Rashnu results                                  
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> # Binary sample size comparison ----
+> cli_h1("SSC Binary")
+
+── SSC Binary ──────────────────────────────────────────────────────────────────────────────────────────
+
+> source("R/comp_bin_fixed_pooled.R")
+──────────────────────────────── Binary fixed design, pooled computation ───────────────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> source("R/comp_bin_fixed_exact.R")
+──────────────────────────────── Binary fixed design, exact computation ────────────────────────────────
+✔ Params & design
+✔ bbssr results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> source("R/comp_bin_gs.R")
+──────────────────────────────────── Binary group-sequential design ────────────────────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> source("R/comp_bin_one_arm.R")
+──────────────────────────────────────── One-armed binary design ───────────────────────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+
+> source("R/comp_bin_one_arm_exact.R")
+───────────────────────────────────── One-armed binary design exact ────────────────────────────────────
+✔ Params & design
+✔ A'Hern results                                  
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+✔ Tables & figures
+```
+

@@ -71,10 +71,8 @@ website:
 
 format:
   html:
-    code-line-numbers: true
     highlight-style: github
-    code-block-border-left: "#31BAE9" #Change according the theme
-    code-fold: true
+    code-fold: show
     execute:
       echo: false
       warning: false
