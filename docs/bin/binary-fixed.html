@@ -76,10 +76,40 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Two-Arm Fixed Design with Binary endpoints">
-<meta property="og:image" content="binary-fixed_files/figure-html/unnamed-chunk-4-1.svg">
+<meta property="og:description" content="">
+<meta property="og:image" content="binary-fixed_files/figure-html/unnamed-chunk-3-1.svg">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -432,8 +462,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pooled-variance" id="toc-pooled-variance" class="nav-link active" data-scroll-target="#pooled-variance">Pooled-Variance</a></li>
+  <li><a href="#design-space-explored" id="toc-design-space-explored" class="nav-link active" data-scroll-target="#design-space-explored">Design space explored</a>
+  <ul class="collapse">
+  <li><a href="#varying-design-parameters" id="toc-varying-design-parameters" class="nav-link" data-scroll-target="#varying-design-parameters">Varying design parameters</a></li>
+  <li><a href="#fixed-design-assumptions" id="toc-fixed-design-assumptions" class="nav-link" data-scroll-target="#fixed-design-assumptions">Fixed design assumptions</a></li>
+  <li><a href="#relevancy-classification-of-design-scenarios" id="toc-relevancy-classification-of-design-scenarios" class="nav-link" data-scroll-target="#relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</a></li>
+  <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#pooled-variance" id="toc-pooled-variance" class="nav-link" data-scroll-target="#pooled-variance">Pooled-Variance</a></li>
   <li><a href="#exact" id="toc-exact" class="nav-link" data-scroll-target="#exact">Exact</a></li>
+  <li><a href="#interactive-results" id="toc-interactive-results" class="nav-link" data-scroll-target="#interactive-results">Interactive results</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -460,28 +501,85 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="pooled-variance" class="level2">
-<h2 class="anchored" data-anchor-id="pooled-variance">Pooled-Variance</h2>
+<section id="design-space-explored" class="level2">
+<h2 class="anchored" data-anchor-id="design-space-explored">Design space explored</h2>
+<p>All comparisons were performed for a <strong>two-arm, fixed-design randomized clinical trial</strong> with a <strong>binary primary endpoint</strong>. The objective was to compare <strong>sample size calculations</strong> across commonly used software implementations over a broad but controlled design space, assuming a test for a <strong>difference in proportions</strong> under a pooled-variance framework.</p>
+<section id="varying-design-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="varying-design-parameters">Varying design parameters</h3>
+<p>Four key design parameters were varied systematically:</p>
+<ul>
+<li><p><strong>Type I error rate (<span class="math inline">\(\alpha\)</span>, two-sided):</strong><br>
+<span class="math inline">\(\alpha \in {0.01,\ 0.05,\ 0.10,\ 0.20,\ 0.49}\)</span></p></li>
+<li><p><strong>Power (<span class="math inline">\(1 - \beta\)</span>):</strong><br>
+<span class="math inline">\(1 - \beta \in {0.51,\ 0.80,\ 0.90,\ 0.99}\)</span></p></li>
+<li><p><strong>Control-group response rate:</strong><br>
+<span class="math inline">\(\pi_c \in {0.10,\ 0.30,\ 0.50,\ 0.80,\ 0.90}\)</span></p></li>
+<li><p><strong>Treatment effect (difference in proportions):</strong><br>
+<span class="math inline">\(\Delta\pi = \pi_e - \pi_c \in {0.05,\ 0.15,\ 0.25,\ 0.49}\)</span></p></li>
+</ul>
+<p>The experimental-group response rate was derived as<br>
+<span class="math inline">\(\pi_e = \pi_c + \Delta\pi\)</span>,<br>
+with scenarios resulting in <span class="math inline">\(\pi_e &gt; 1\)</span> discarded.</p>
+<p>These parameters yield <strong>300 valid design scenarios</strong> in the full factorial combination.</p>
+</section>
+<section id="fixed-design-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-design-assumptions">Fixed design assumptions</h3>
+<p>To isolate differences due purely to the statistical method or software implementation, the following characteristics of the design were held constant across scenarios:</p>
+<ul>
+<li><strong>Allocation ratio (experimental : control):</strong> 1 : 1</li>
+<li><strong>Test sidedness:</strong> two-sided</li>
+</ul>
+</section>
+<section id="relevancy-classification-of-design-scenarios" class="level3">
+<h3 class="anchored" data-anchor-id="relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</h3>
+<p>To help interpret method agreement across a wide parameter space, each scenario was classified <em>a priori</em> according to its <strong>practical relevance in confirmatory two-arm trials</strong>.</p>
+<ul>
+<li><p><strong>High relevance</strong> scenarios reflect typical late-phase binary-endpoint designs<br>
+(e.g.&nbsp;<span class="math inline">\(\alpha \le 0.10\)</span>, power 80–90%, control rate between 0.2 and 0.6, effect sizes of 10–20 percentage points).</p></li>
+<li><p><strong>Medium relevance</strong> scenarios represent extreme but plausible configurations,<br>
+such as very low or very high baseline rates, or unusually large effect sizes.</p></li>
+<li><p><strong>Low relevance</strong> scenarios include combinations rarely used in practice<br>
+(e.g.&nbsp;<span class="math inline">\(\alpha = 0.49\)</span>, <span class="math inline">\(\Delta\pi = 0.49\)</span> on a high baseline rate, or power close to 50% or 100%).<br>
+These scenarios were retained intentionally to assess numerical stability and robustness of asymptotic approximations.</p></li>
+</ul>
+<p>The classification is descriptive only: it does <strong>not</strong> filter or modify the analysis. Instead, it provides context for understanding discrepancies between methods and differentiating clinically meaningful differences from numerical artifacts.</p>
+</section>
+<section id="scope-of-the-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="scope-of-the-comparison">Scope of the comparison</h3>
+<p>For each of the <strong>300 design scenarios</strong>, all software tools and methods were used to compute the <strong>required total sample size</strong> to achieve the target power under the specified proportions.</p>
+<p>The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="pooled-variance" class="level3">
+<h3 class="anchored" data-anchor-id="pooled-variance">Pooled-Variance</h3>
+<p>Methods compared:</p>
+<ul>
+<li>East: Difference of Proportions test [PN-2S-DI]</li>
+<li>nQuery : PTT36 / Inequality Tests for Difference of Two Proportions</li>
+<li><code>rpact::getSampleSizeRates()</code></li>
+</ul>
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="gtlrgvctbg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gtlrgvctbg table {
+<div id="rohrqophkj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rohrqophkj table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gtlrgvctbg thead, #gtlrgvctbg tbody, #gtlrgvctbg tfoot, #gtlrgvctbg tr, #gtlrgvctbg td, #gtlrgvctbg th {
+#rohrqophkj thead, #rohrqophkj tbody, #rohrqophkj tfoot, #rohrqophkj tr, #rohrqophkj td, #rohrqophkj th {
   border-style: none;
 }
 
-#gtlrgvctbg p {
+#rohrqophkj p {
   margin: 0;
   padding: 0;
 }
 
-#gtlrgvctbg .gt_table {
+#rohrqophkj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -507,12 +605,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_caption {
+#rohrqophkj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gtlrgvctbg .gt_title {
+#rohrqophkj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -524,7 +622,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#gtlrgvctbg .gt_subtitle {
+#rohrqophkj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -536,7 +634,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#gtlrgvctbg .gt_heading {
+#rohrqophkj .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -548,13 +646,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_bottom_border {
+#rohrqophkj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_col_headings {
+#rohrqophkj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -569,7 +667,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_col_heading {
+#rohrqophkj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -589,7 +687,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#gtlrgvctbg .gt_column_spanner_outer {
+#rohrqophkj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -601,15 +699,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#gtlrgvctbg .gt_column_spanner_outer:first-child {
+#rohrqophkj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gtlrgvctbg .gt_column_spanner_outer:last-child {
+#rohrqophkj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gtlrgvctbg .gt_column_spanner {
+#rohrqophkj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -621,11 +719,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#gtlrgvctbg .gt_spanner_row {
+#rohrqophkj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gtlrgvctbg .gt_group_heading {
+#rohrqophkj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -651,7 +749,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#gtlrgvctbg .gt_empty_group_heading {
+#rohrqophkj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -666,15 +764,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#gtlrgvctbg .gt_from_md > :first-child {
+#rohrqophkj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gtlrgvctbg .gt_from_md > :last-child {
+#rohrqophkj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gtlrgvctbg .gt_row {
+#rohrqophkj .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -693,7 +791,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#gtlrgvctbg .gt_stub {
+#rohrqophkj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -706,7 +804,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#gtlrgvctbg .gt_stub_row_group {
+#rohrqophkj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -720,15 +818,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#gtlrgvctbg .gt_row_group_first td {
+#rohrqophkj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gtlrgvctbg .gt_row_group_first th {
+#rohrqophkj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gtlrgvctbg .gt_summary_row {
+#rohrqophkj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -738,16 +836,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#gtlrgvctbg .gt_first_summary_row {
+#rohrqophkj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_first_summary_row.thick {
+#rohrqophkj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gtlrgvctbg .gt_last_summary_row {
+#rohrqophkj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -757,7 +855,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_grand_summary_row {
+#rohrqophkj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -767,7 +865,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#gtlrgvctbg .gt_first_grand_summary_row {
+#rohrqophkj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -777,7 +875,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_last_grand_summary_row_top {
+#rohrqophkj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -787,11 +885,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_striped {
+#rohrqophkj .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#gtlrgvctbg .gt_table_body {
+#rohrqophkj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -800,7 +898,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_footnotes {
+#rohrqophkj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -814,7 +912,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_footnote {
+#rohrqophkj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -823,7 +921,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#gtlrgvctbg .gt_sourcenotes {
+#rohrqophkj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -837,7 +935,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#gtlrgvctbg .gt_sourcenote {
+#rohrqophkj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -845,72 +943,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#gtlrgvctbg .gt_left {
+#rohrqophkj .gt_left {
   text-align: left;
 }
 
-#gtlrgvctbg .gt_center {
+#rohrqophkj .gt_center {
   text-align: center;
 }
 
-#gtlrgvctbg .gt_right {
+#rohrqophkj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gtlrgvctbg .gt_font_normal {
+#rohrqophkj .gt_font_normal {
   font-weight: normal;
 }
 
-#gtlrgvctbg .gt_font_bold {
+#rohrqophkj .gt_font_bold {
   font-weight: bold;
 }
 
-#gtlrgvctbg .gt_font_italic {
+#rohrqophkj .gt_font_italic {
   font-style: italic;
 }
 
-#gtlrgvctbg .gt_super {
+#rohrqophkj .gt_super {
   font-size: 65%;
 }
 
-#gtlrgvctbg .gt_footnote_marks {
+#rohrqophkj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gtlrgvctbg .gt_asterisk {
+#rohrqophkj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gtlrgvctbg .gt_indent_1 {
+#rohrqophkj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gtlrgvctbg .gt_indent_2 {
+#rohrqophkj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gtlrgvctbg .gt_indent_3 {
+#rohrqophkj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gtlrgvctbg .gt_indent_4 {
+#rohrqophkj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gtlrgvctbg .gt_indent_5 {
+#rohrqophkj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gtlrgvctbg .katex-display {
+#rohrqophkj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gtlrgvctbg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rohrqophkj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1005,7 +1103,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="binary-fixed_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1014,23 +1112,23 @@ ul.task-list li input[type="checkbox"] {
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="hcflnpupjx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hcflnpupjx table {
+<div id="vqtxibjsdv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vqtxibjsdv table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hcflnpupjx thead, #hcflnpupjx tbody, #hcflnpupjx tfoot, #hcflnpupjx tr, #hcflnpupjx td, #hcflnpupjx th {
+#vqtxibjsdv thead, #vqtxibjsdv tbody, #vqtxibjsdv tfoot, #vqtxibjsdv tr, #vqtxibjsdv td, #vqtxibjsdv th {
   border-style: none;
 }
 
-#hcflnpupjx p {
+#vqtxibjsdv p {
   margin: 0;
   padding: 0;
 }
 
-#hcflnpupjx .gt_table {
+#vqtxibjsdv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1056,12 +1154,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_caption {
+#vqtxibjsdv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hcflnpupjx .gt_title {
+#vqtxibjsdv .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1073,7 +1171,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#hcflnpupjx .gt_subtitle {
+#vqtxibjsdv .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1085,7 +1183,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#hcflnpupjx .gt_heading {
+#vqtxibjsdv .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -1097,13 +1195,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_bottom_border {
+#vqtxibjsdv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_col_headings {
+#vqtxibjsdv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1118,7 +1216,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_col_heading {
+#vqtxibjsdv .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1138,7 +1236,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#hcflnpupjx .gt_column_spanner_outer {
+#vqtxibjsdv .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1150,15 +1248,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#hcflnpupjx .gt_column_spanner_outer:first-child {
+#vqtxibjsdv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hcflnpupjx .gt_column_spanner_outer:last-child {
+#vqtxibjsdv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hcflnpupjx .gt_column_spanner {
+#vqtxibjsdv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1170,11 +1268,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#hcflnpupjx .gt_spanner_row {
+#vqtxibjsdv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hcflnpupjx .gt_group_heading {
+#vqtxibjsdv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1200,7 +1298,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#hcflnpupjx .gt_empty_group_heading {
+#vqtxibjsdv .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1215,15 +1313,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#hcflnpupjx .gt_from_md > :first-child {
+#vqtxibjsdv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hcflnpupjx .gt_from_md > :last-child {
+#vqtxibjsdv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hcflnpupjx .gt_row {
+#vqtxibjsdv .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1242,7 +1340,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#hcflnpupjx .gt_stub {
+#vqtxibjsdv .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1255,7 +1353,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#hcflnpupjx .gt_stub_row_group {
+#vqtxibjsdv .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1269,15 +1367,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#hcflnpupjx .gt_row_group_first td {
+#vqtxibjsdv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hcflnpupjx .gt_row_group_first th {
+#vqtxibjsdv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hcflnpupjx .gt_summary_row {
+#vqtxibjsdv .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1287,16 +1385,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#hcflnpupjx .gt_first_summary_row {
+#vqtxibjsdv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_first_summary_row.thick {
+#vqtxibjsdv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hcflnpupjx .gt_last_summary_row {
+#vqtxibjsdv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1306,7 +1404,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_grand_summary_row {
+#vqtxibjsdv .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1316,7 +1414,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#hcflnpupjx .gt_first_grand_summary_row {
+#vqtxibjsdv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1326,7 +1424,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_last_grand_summary_row_top {
+#vqtxibjsdv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1336,11 +1434,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_striped {
+#vqtxibjsdv .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#hcflnpupjx .gt_table_body {
+#vqtxibjsdv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1349,7 +1447,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_footnotes {
+#vqtxibjsdv .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1363,7 +1461,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_footnote {
+#vqtxibjsdv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1372,7 +1470,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#hcflnpupjx .gt_sourcenotes {
+#vqtxibjsdv .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1386,7 +1484,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#hcflnpupjx .gt_sourcenote {
+#vqtxibjsdv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1394,72 +1492,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#hcflnpupjx .gt_left {
+#vqtxibjsdv .gt_left {
   text-align: left;
 }
 
-#hcflnpupjx .gt_center {
+#vqtxibjsdv .gt_center {
   text-align: center;
 }
 
-#hcflnpupjx .gt_right {
+#vqtxibjsdv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hcflnpupjx .gt_font_normal {
+#vqtxibjsdv .gt_font_normal {
   font-weight: normal;
 }
 
-#hcflnpupjx .gt_font_bold {
+#vqtxibjsdv .gt_font_bold {
   font-weight: bold;
 }
 
-#hcflnpupjx .gt_font_italic {
+#vqtxibjsdv .gt_font_italic {
   font-style: italic;
 }
 
-#hcflnpupjx .gt_super {
+#vqtxibjsdv .gt_super {
   font-size: 65%;
 }
 
-#hcflnpupjx .gt_footnote_marks {
+#vqtxibjsdv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hcflnpupjx .gt_asterisk {
+#vqtxibjsdv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hcflnpupjx .gt_indent_1 {
+#vqtxibjsdv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hcflnpupjx .gt_indent_2 {
+#vqtxibjsdv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hcflnpupjx .gt_indent_3 {
+#vqtxibjsdv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hcflnpupjx .gt_indent_4 {
+#vqtxibjsdv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hcflnpupjx .gt_indent_5 {
+#vqtxibjsdv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hcflnpupjx .katex-display {
+#vqtxibjsdv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hcflnpupjx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vqtxibjsdv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1554,35 +1652,48 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="binary-fixed_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
+<ul>
+<li>In <strong>high‑ and medium‑relevancy</strong> designs, both <code>nQuery</code> and <code>rpact</code> show <strong>excellent agreement</strong> with East, with N‑ratios consistently centered around 1.00 and virtually no dispersion.</li>
+<li>Even in the <strong>low‑relevancy</strong> region, the two methods remain very close to 1.00. A few isolated deviations appear, but they correspond to designs with extreme proportions or highly unbalanced variance assumptions.</li>
+<li>The plot confirms this stability: points are tightly clustered at 1.00 across the full range of East sample sizes, with only a small number of outliers in the low‑relevancy panel.</li>
+<li>No systematic bias is visible for either method, and neither method shows drift with increasing sample size.</li>
+</ul>
+<p><strong>Overall:</strong> for two‑arm binary fixed‑design trials using the Z‑pooled test, <code>nQuery</code> and <code>rpact</code> reproduce East’s sample sizes with <strong>near‑perfect consistency</strong>, with meaningful differences only in edge‑case, low‑practicality scenarios.</p>
 </section>
-<section id="exact" class="level2">
-<h2 class="anchored" data-anchor-id="exact">Exact</h2>
+<section id="exact" class="level3">
+<h3 class="anchored" data-anchor-id="exact">Exact</h3>
+<p>Methods compared:</p>
+<ul>
+<li>East: Difference of Proportions test [PN-2S-DI]</li>
+<li>nQuery : PTT36 / Inequality Tests for Difference of Two Proportions</li>
+<li><code>bbssr::BinarySampleSize(test = "Fisher")</code></li>
+</ul>
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="clzfnbkxqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#clzfnbkxqf table {
+<div id="epyazpxtjt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#epyazpxtjt table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#clzfnbkxqf thead, #clzfnbkxqf tbody, #clzfnbkxqf tfoot, #clzfnbkxqf tr, #clzfnbkxqf td, #clzfnbkxqf th {
+#epyazpxtjt thead, #epyazpxtjt tbody, #epyazpxtjt tfoot, #epyazpxtjt tr, #epyazpxtjt td, #epyazpxtjt th {
   border-style: none;
 }
 
-#clzfnbkxqf p {
+#epyazpxtjt p {
   margin: 0;
   padding: 0;
 }
 
-#clzfnbkxqf .gt_table {
+#epyazpxtjt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1608,12 +1719,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_caption {
+#epyazpxtjt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#clzfnbkxqf .gt_title {
+#epyazpxtjt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1625,7 +1736,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#clzfnbkxqf .gt_subtitle {
+#epyazpxtjt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1637,7 +1748,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#clzfnbkxqf .gt_heading {
+#epyazpxtjt .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1649,13 +1760,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_bottom_border {
+#epyazpxtjt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_col_headings {
+#epyazpxtjt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1670,7 +1781,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_col_heading {
+#epyazpxtjt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1690,7 +1801,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#clzfnbkxqf .gt_column_spanner_outer {
+#epyazpxtjt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1702,15 +1813,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#clzfnbkxqf .gt_column_spanner_outer:first-child {
+#epyazpxtjt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#clzfnbkxqf .gt_column_spanner_outer:last-child {
+#epyazpxtjt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#clzfnbkxqf .gt_column_spanner {
+#epyazpxtjt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1722,11 +1833,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#clzfnbkxqf .gt_spanner_row {
+#epyazpxtjt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#clzfnbkxqf .gt_group_heading {
+#epyazpxtjt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1752,7 +1863,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#clzfnbkxqf .gt_empty_group_heading {
+#epyazpxtjt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1767,15 +1878,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#clzfnbkxqf .gt_from_md > :first-child {
+#epyazpxtjt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#clzfnbkxqf .gt_from_md > :last-child {
+#epyazpxtjt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#clzfnbkxqf .gt_row {
+#epyazpxtjt .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1794,7 +1905,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#clzfnbkxqf .gt_stub {
+#epyazpxtjt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1807,7 +1918,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#clzfnbkxqf .gt_stub_row_group {
+#epyazpxtjt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1821,15 +1932,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#clzfnbkxqf .gt_row_group_first td {
+#epyazpxtjt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#clzfnbkxqf .gt_row_group_first th {
+#epyazpxtjt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#clzfnbkxqf .gt_summary_row {
+#epyazpxtjt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1839,16 +1950,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#clzfnbkxqf .gt_first_summary_row {
+#epyazpxtjt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_first_summary_row.thick {
+#epyazpxtjt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#clzfnbkxqf .gt_last_summary_row {
+#epyazpxtjt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1858,7 +1969,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_grand_summary_row {
+#epyazpxtjt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1868,7 +1979,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#clzfnbkxqf .gt_first_grand_summary_row {
+#epyazpxtjt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1878,7 +1989,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_last_grand_summary_row_top {
+#epyazpxtjt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1888,11 +1999,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_striped {
+#epyazpxtjt .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#clzfnbkxqf .gt_table_body {
+#epyazpxtjt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1901,7 +2012,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_footnotes {
+#epyazpxtjt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1915,7 +2026,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_footnote {
+#epyazpxtjt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1924,7 +2035,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#clzfnbkxqf .gt_sourcenotes {
+#epyazpxtjt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1938,7 +2049,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#clzfnbkxqf .gt_sourcenote {
+#epyazpxtjt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1946,72 +2057,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#clzfnbkxqf .gt_left {
+#epyazpxtjt .gt_left {
   text-align: left;
 }
 
-#clzfnbkxqf .gt_center {
+#epyazpxtjt .gt_center {
   text-align: center;
 }
 
-#clzfnbkxqf .gt_right {
+#epyazpxtjt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#clzfnbkxqf .gt_font_normal {
+#epyazpxtjt .gt_font_normal {
   font-weight: normal;
 }
 
-#clzfnbkxqf .gt_font_bold {
+#epyazpxtjt .gt_font_bold {
   font-weight: bold;
 }
 
-#clzfnbkxqf .gt_font_italic {
+#epyazpxtjt .gt_font_italic {
   font-style: italic;
 }
 
-#clzfnbkxqf .gt_super {
+#epyazpxtjt .gt_super {
   font-size: 65%;
 }
 
-#clzfnbkxqf .gt_footnote_marks {
+#epyazpxtjt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#clzfnbkxqf .gt_asterisk {
+#epyazpxtjt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#clzfnbkxqf .gt_indent_1 {
+#epyazpxtjt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#clzfnbkxqf .gt_indent_2 {
+#epyazpxtjt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#clzfnbkxqf .gt_indent_3 {
+#epyazpxtjt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#clzfnbkxqf .gt_indent_4 {
+#epyazpxtjt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#clzfnbkxqf .gt_indent_5 {
+#epyazpxtjt .gt_indent_5 {
   text-indent: 25px;
 }
 
-#clzfnbkxqf .katex-display {
+#epyazpxtjt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#clzfnbkxqf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#epyazpxtjt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2111,7 +2222,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="binary-fixed_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -2120,23 +2231,23 @@ ul.task-list li input[type="checkbox"] {
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="cihjhqbote" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cihjhqbote table {
+<div id="cqbnbhsubn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cqbnbhsubn table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cihjhqbote thead, #cihjhqbote tbody, #cihjhqbote tfoot, #cihjhqbote tr, #cihjhqbote td, #cihjhqbote th {
+#cqbnbhsubn thead, #cqbnbhsubn tbody, #cqbnbhsubn tfoot, #cqbnbhsubn tr, #cqbnbhsubn td, #cqbnbhsubn th {
   border-style: none;
 }
 
-#cihjhqbote p {
+#cqbnbhsubn p {
   margin: 0;
   padding: 0;
 }
 
-#cihjhqbote .gt_table {
+#cqbnbhsubn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2162,12 +2273,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_caption {
+#cqbnbhsubn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cihjhqbote .gt_title {
+#cqbnbhsubn .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -2179,7 +2290,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#cihjhqbote .gt_subtitle {
+#cqbnbhsubn .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -2191,7 +2302,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#cihjhqbote .gt_heading {
+#cqbnbhsubn .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -2203,13 +2314,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_bottom_border {
+#cqbnbhsubn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_col_headings {
+#cqbnbhsubn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2224,7 +2335,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_col_heading {
+#cqbnbhsubn .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2244,7 +2355,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#cihjhqbote .gt_column_spanner_outer {
+#cqbnbhsubn .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2256,15 +2367,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#cihjhqbote .gt_column_spanner_outer:first-child {
+#cqbnbhsubn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cihjhqbote .gt_column_spanner_outer:last-child {
+#cqbnbhsubn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cihjhqbote .gt_column_spanner {
+#cqbnbhsubn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2276,11 +2387,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#cihjhqbote .gt_spanner_row {
+#cqbnbhsubn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cihjhqbote .gt_group_heading {
+#cqbnbhsubn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2306,7 +2417,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#cihjhqbote .gt_empty_group_heading {
+#cqbnbhsubn .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -2321,15 +2432,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#cihjhqbote .gt_from_md > :first-child {
+#cqbnbhsubn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cihjhqbote .gt_from_md > :last-child {
+#cqbnbhsubn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cihjhqbote .gt_row {
+#cqbnbhsubn .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -2348,7 +2459,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#cihjhqbote .gt_stub {
+#cqbnbhsubn .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2361,7 +2472,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#cihjhqbote .gt_stub_row_group {
+#cqbnbhsubn .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2375,15 +2486,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#cihjhqbote .gt_row_group_first td {
+#cqbnbhsubn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cihjhqbote .gt_row_group_first th {
+#cqbnbhsubn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cihjhqbote .gt_summary_row {
+#cqbnbhsubn .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2393,16 +2504,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#cihjhqbote .gt_first_summary_row {
+#cqbnbhsubn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_first_summary_row.thick {
+#cqbnbhsubn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cihjhqbote .gt_last_summary_row {
+#cqbnbhsubn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2412,7 +2523,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_grand_summary_row {
+#cqbnbhsubn .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2422,7 +2533,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#cihjhqbote .gt_first_grand_summary_row {
+#cqbnbhsubn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2432,7 +2543,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_last_grand_summary_row_top {
+#cqbnbhsubn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2442,11 +2553,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_striped {
+#cqbnbhsubn .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#cihjhqbote .gt_table_body {
+#cqbnbhsubn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2455,7 +2566,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_footnotes {
+#cqbnbhsubn .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2469,7 +2580,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_footnote {
+#cqbnbhsubn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2478,7 +2589,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#cihjhqbote .gt_sourcenotes {
+#cqbnbhsubn .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2492,7 +2603,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#cihjhqbote .gt_sourcenote {
+#cqbnbhsubn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2500,72 +2611,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#cihjhqbote .gt_left {
+#cqbnbhsubn .gt_left {
   text-align: left;
 }
 
-#cihjhqbote .gt_center {
+#cqbnbhsubn .gt_center {
   text-align: center;
 }
 
-#cihjhqbote .gt_right {
+#cqbnbhsubn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cihjhqbote .gt_font_normal {
+#cqbnbhsubn .gt_font_normal {
   font-weight: normal;
 }
 
-#cihjhqbote .gt_font_bold {
+#cqbnbhsubn .gt_font_bold {
   font-weight: bold;
 }
 
-#cihjhqbote .gt_font_italic {
+#cqbnbhsubn .gt_font_italic {
   font-style: italic;
 }
 
-#cihjhqbote .gt_super {
+#cqbnbhsubn .gt_super {
   font-size: 65%;
 }
 
-#cihjhqbote .gt_footnote_marks {
+#cqbnbhsubn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cihjhqbote .gt_asterisk {
+#cqbnbhsubn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cihjhqbote .gt_indent_1 {
+#cqbnbhsubn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cihjhqbote .gt_indent_2 {
+#cqbnbhsubn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cihjhqbote .gt_indent_3 {
+#cqbnbhsubn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cihjhqbote .gt_indent_4 {
+#cqbnbhsubn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cihjhqbote .gt_indent_5 {
+#cqbnbhsubn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cihjhqbote .katex-display {
+#cqbnbhsubn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cihjhqbote div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cqbnbhsubn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2665,14 +2776,33 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-9-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="binary-fixed_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
+<ul>
+<li>Using <strong>nQuery as the reference</strong>, <code>bbssr</code> stays reasonably close across all relevancy levels, with N‑ratios typically fluctuating around 1.00 and stabilising as sample sizes increase.</li>
+<li>East, however, shows <strong>systematic underestimation</strong> relative to nQuery.</li>
+<li>In <strong>high</strong> and <strong>medium‑relevancy</strong> scenarios, <code>bbssr</code> converges smoothly toward the reference, while East remains consistently below 1.00.</li>
+<li>In the <strong>low‑relevancy</strong> region, both methods show more dispersion, but the general pattern remains unchanged:
+<ul>
+<li><code>bbssr</code> ≈ nQuery<br>
+</li>
+<li><strong>East &lt; nQuery</strong> (structural methodological difference)</li>
+</ul></li>
+<li>These differences arise from the underlying exact‑test implementations, see more at <a href="../bin2arms-exact.html">“What Do East and nQuery Compute <em>Exactly</em> ?”</a>.</li>
+</ul>
+<p><strong>Overall:</strong> for exact tests in two‑arm binary designs, <code>bbssr</code> aligns well with nQuery, while East produces consistently smaller sample sizes.</p>
+</section>
+<section id="interactive-results" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-results">Interactive results</h3>
+<p>You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.</p>
+<p><strong>➡️ <a href="../interactive.html"><em>“Interactive results”</em></a></strong></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

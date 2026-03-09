@@ -500,7 +500,8 @@ window.Quarto = {
 </header>
 
 
-<p>Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations. Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the <strong>Z‑test for proportions</strong> (in its pooled and unpooled forms) and <strong>Fisher’s exact test</strong>. Although these methods target the same inferential question, they rely on different assumptions and approximations. Understanding their distinctions, strengths, and limitations is essential when selecting an appropriate test for a given dataset.</p>
+<p>Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations.</p>
+<p>Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the <strong>Z‑test for proportions</strong> (in its pooled and unpooled forms) and <strong>Fisher’s exact test</strong>. Although these methods target the same inferential question, they rely on different assumptions and approximations.</p>
 <section id="ztests-for-comparing-two-proportions" class="level2">
 <h2 class="anchored" data-anchor-id="ztests-for-comparing-two-proportions">Z‑tests for comparing two proportions</h2>
 <p>The Z‑test relies on the <strong>normal approximation</strong> of the sampling distribution of the difference in observed proportions. These proportions are defined as:</p>
@@ -573,7 +574,15 @@ P = \frac{
 </section>
 <section id="other-exact-tests" class="level2">
 <h2 class="anchored" data-anchor-id="other-exact-tests">Other Exact Tests</h2>
-<p>Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available. Other procedures, such as Barnard’s exact test, Boschloo’s test, and exact unconditional tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate. However, because they require more complex algorithms, involve subtle methodological considerations, and are less commonly implemented in standard software, we do not explore them in detail here. Fisher’s test remains the primary practical choice for most applications, especially when reproducibility and widespread software support are priorities. See REFERENCE TO GOSUKE HOMMA for more details on exact test</p>
+<p>Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available. Other procedures, such as :</p>
+<ul>
+<li>Barnard’s exact test</li>
+<li>Boschloo’s test</li>
+<li>Exact unconditional tests</li>
+</ul>
+<p>Those tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate.</p>
+<p>However, because they require more complex algorithms, involve subtle methodological considerations, and are less commonly implemented in standard software, we do not explore them in detail here. Fisher’s test remains the primary practical choice for most applications, especially when reproducibility and widespread software support are priorities.</p>
+<p>See REFERENCE TO GOSUKE HOMMA for more details on exact test See VIGNETTE EXACT TEST for a deeper comparison of exact test used in East and nQuery</p>
 
 
 </section>

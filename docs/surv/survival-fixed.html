@@ -469,6 +469,10 @@ window.Quarto = {
   <li><a href="#relevancy-classification-of-design-scenarios" id="toc-relevancy-classification-of-design-scenarios" class="nav-link" data-scroll-target="#relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</a></li>
   <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
   </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#interactive-results" id="toc-interactive-results" class="nav-link" data-scroll-target="#interactive-results">Interactive results</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -495,27 +499,14 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Draft made with ChatGPT
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Methods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.</p>
-</div>
-</div>
-<details>
-<summary>
-Configuration requise
-</summary>
-<p>
-Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinateur doit disposer d’une mémoire et, idéalement, d’un stockage à long terme. Un dispositif d’entrée ainsi qu’un dispositif de sortie sont recommandés.
-</p>
-</details>
+<!-- <details>
+  <summary>Configuration requise</summary>
+  <p>
+    Nécessite un ordinateur équipé d'un système d'exploitation. L'ordinateur
+    doit disposer d'une mémoire et, idéalement, d'un stockage à long terme. Un
+    dispositif d'entrée ainsi qu'un dispositif de sortie sont recommandés.
+  </p>
+</details> -->
 <section id="design-space-explored" class="level2">
 <h2 class="anchored" data-anchor-id="design-space-explored">Design space explored</h2>
 <p>All comparisons were conducted for a <strong>two-arm, fixed-design randomized clinical trial</strong> with a <strong>time-to-event primary endpoint</strong>, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.</p>
@@ -534,11 +525,12 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 </ul>
 <p>The 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption for the control group, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.</p>
 <p>The full factorial combination of these parameters yielded <strong>400 distinct design scenarios</strong>.</p>
-<hr>
 </section>
 <section id="fixed-design-assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="fixed-design-assumptions">Fixed design assumptions</h3>
 <p>To isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:</p>
+<div class="columns">
+<div class="column">
 <ul>
 <li><strong>Accrual duration:</strong> 3 years<br>
 </li>
@@ -549,6 +541,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 <li><strong>Test sidedness:</strong> two-sided logrank test</li>
 </ul>
 <p>Accrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.</p>
+</div><div class="column">
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
@@ -571,7 +564,9 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 </div>
 </div>
 </div>
-<hr>
+</div>
+</div>
+<!-- end columns -->
 </section>
 <section id="relevancy-classification-of-design-scenarios" class="level3">
 <h3 class="anchored" data-anchor-id="relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</h3>
@@ -582,7 +577,6 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 <li><strong>Low relevance</strong> scenarios include parameter combinations that are rarely used in practice (e.g.&nbsp;very high <span class="math inline">\(\alpha\)</span>, near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.</li>
 </ul>
 <p>This classification was not used to filter results but rather to <strong>contextualize observed discrepancies</strong> between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.</p>
-<hr>
 </section>
 <section id="scope-of-the-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="scope-of-the-comparison">Scope of the comparison</h3>
@@ -590,29 +584,41 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 <ol type="1">
 <li>The <strong>required number of events</strong> to achieve the target power under the specified hazard ratio, and<br>
 </li>
-<li>When supported by the method, the corresponding <strong>total sample size</strong>, accounting for accrual and follow-up.</li>
+<li>Tthe corresponding <strong>total sample size</strong>, accounting for accrual and follow-up.</li>
 </ol>
 <p>The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>Methods compared:</p>
+<ul>
+<li>East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]</li>
+<li>nQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival</li>
+<li><code>rpact::getSampleSizeSurvival()</code></li>
+<li><code>rashnu::lakatosSampleSizeSurvival()</code></li>
+<li><code>gsDesign2::fixed_design_ahr()</code></li>
+</ul>
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="ratrnfpikh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ratrnfpikh table {
+<div id="cttdcmeeeb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cttdcmeeeb table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ratrnfpikh thead, #ratrnfpikh tbody, #ratrnfpikh tfoot, #ratrnfpikh tr, #ratrnfpikh td, #ratrnfpikh th {
+#cttdcmeeeb thead, #cttdcmeeeb tbody, #cttdcmeeeb tfoot, #cttdcmeeeb tr, #cttdcmeeeb td, #cttdcmeeeb th {
   border-style: none;
 }
 
-#ratrnfpikh p {
+#cttdcmeeeb p {
   margin: 0;
   padding: 0;
 }
 
-#ratrnfpikh .gt_table {
+#cttdcmeeeb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -638,12 +644,12 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-left-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_caption {
+#cttdcmeeeb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ratrnfpikh .gt_title {
+#cttdcmeeeb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -655,7 +661,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-width: 0;
 }
 
-#ratrnfpikh .gt_subtitle {
+#cttdcmeeeb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -667,7 +673,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-top-width: 0;
 }
 
-#ratrnfpikh .gt_heading {
+#cttdcmeeeb .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -679,13 +685,13 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_bottom_border {
+#cttdcmeeeb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_col_headings {
+#cttdcmeeeb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -700,7 +706,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_col_heading {
+#cttdcmeeeb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -720,7 +726,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   overflow-x: hidden;
 }
 
-#ratrnfpikh .gt_column_spanner_outer {
+#cttdcmeeeb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -732,15 +738,15 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 4px;
 }
 
-#ratrnfpikh .gt_column_spanner_outer:first-child {
+#cttdcmeeeb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ratrnfpikh .gt_column_spanner_outer:last-child {
+#cttdcmeeeb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ratrnfpikh .gt_column_spanner {
+#cttdcmeeeb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -752,11 +758,11 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   width: 100%;
 }
 
-#ratrnfpikh .gt_spanner_row {
+#cttdcmeeeb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ratrnfpikh .gt_group_heading {
+#cttdcmeeeb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -782,7 +788,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   text-align: left;
 }
 
-#ratrnfpikh .gt_empty_group_heading {
+#cttdcmeeeb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -797,15 +803,15 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   vertical-align: middle;
 }
 
-#ratrnfpikh .gt_from_md > :first-child {
+#cttdcmeeeb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ratrnfpikh .gt_from_md > :last-child {
+#cttdcmeeeb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ratrnfpikh .gt_row {
+#cttdcmeeeb .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -824,7 +830,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   overflow-x: hidden;
 }
 
-#ratrnfpikh .gt_stub {
+#cttdcmeeeb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -837,7 +843,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#ratrnfpikh .gt_stub_row_group {
+#cttdcmeeeb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -851,15 +857,15 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   vertical-align: top;
 }
 
-#ratrnfpikh .gt_row_group_first td {
+#cttdcmeeeb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ratrnfpikh .gt_row_group_first th {
+#cttdcmeeeb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ratrnfpikh .gt_summary_row {
+#cttdcmeeeb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -869,16 +875,16 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#ratrnfpikh .gt_first_summary_row {
+#cttdcmeeeb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_first_summary_row.thick {
+#cttdcmeeeb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ratrnfpikh .gt_last_summary_row {
+#cttdcmeeeb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -888,7 +894,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_grand_summary_row {
+#cttdcmeeeb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -898,7 +904,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#ratrnfpikh .gt_first_grand_summary_row {
+#cttdcmeeeb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -908,7 +914,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-top-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_last_grand_summary_row_top {
+#cttdcmeeeb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -918,11 +924,11 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_striped {
+#cttdcmeeeb .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#ratrnfpikh .gt_table_body {
+#cttdcmeeeb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -931,7 +937,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_footnotes {
+#cttdcmeeeb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -945,7 +951,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_footnote {
+#cttdcmeeeb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -954,7 +960,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#ratrnfpikh .gt_sourcenotes {
+#cttdcmeeeb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -968,7 +974,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#ratrnfpikh .gt_sourcenote {
+#cttdcmeeeb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -976,72 +982,72 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#ratrnfpikh .gt_left {
+#cttdcmeeeb .gt_left {
   text-align: left;
 }
 
-#ratrnfpikh .gt_center {
+#cttdcmeeeb .gt_center {
   text-align: center;
 }
 
-#ratrnfpikh .gt_right {
+#cttdcmeeeb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ratrnfpikh .gt_font_normal {
+#cttdcmeeeb .gt_font_normal {
   font-weight: normal;
 }
 
-#ratrnfpikh .gt_font_bold {
+#cttdcmeeeb .gt_font_bold {
   font-weight: bold;
 }
 
-#ratrnfpikh .gt_font_italic {
+#cttdcmeeeb .gt_font_italic {
   font-style: italic;
 }
 
-#ratrnfpikh .gt_super {
+#cttdcmeeeb .gt_super {
   font-size: 65%;
 }
 
-#ratrnfpikh .gt_footnote_marks {
+#cttdcmeeeb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ratrnfpikh .gt_asterisk {
+#cttdcmeeeb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ratrnfpikh .gt_indent_1 {
+#cttdcmeeeb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ratrnfpikh .gt_indent_2 {
+#cttdcmeeeb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ratrnfpikh .gt_indent_3 {
+#cttdcmeeeb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ratrnfpikh .gt_indent_4 {
+#cttdcmeeeb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ratrnfpikh .gt_indent_5 {
+#cttdcmeeeb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ratrnfpikh .katex-display {
+#cttdcmeeeb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ratrnfpikh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cttdcmeeeb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1204,23 +1210,23 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="yvxcyshyky" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yvxcyshyky table {
+<div id="nrdlutfdfv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nrdlutfdfv table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yvxcyshyky thead, #yvxcyshyky tbody, #yvxcyshyky tfoot, #yvxcyshyky tr, #yvxcyshyky td, #yvxcyshyky th {
+#nrdlutfdfv thead, #nrdlutfdfv tbody, #nrdlutfdfv tfoot, #nrdlutfdfv tr, #nrdlutfdfv td, #nrdlutfdfv th {
   border-style: none;
 }
 
-#yvxcyshyky p {
+#nrdlutfdfv p {
   margin: 0;
   padding: 0;
 }
 
-#yvxcyshyky .gt_table {
+#nrdlutfdfv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1246,12 +1252,12 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-left-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_caption {
+#nrdlutfdfv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yvxcyshyky .gt_title {
+#nrdlutfdfv .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1263,7 +1269,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-width: 0;
 }
 
-#yvxcyshyky .gt_subtitle {
+#nrdlutfdfv .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1275,7 +1281,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-top-width: 0;
 }
 
-#yvxcyshyky .gt_heading {
+#nrdlutfdfv .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -1287,13 +1293,13 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_bottom_border {
+#nrdlutfdfv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_col_headings {
+#nrdlutfdfv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1308,7 +1314,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_col_heading {
+#nrdlutfdfv .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1328,7 +1334,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   overflow-x: hidden;
 }
 
-#yvxcyshyky .gt_column_spanner_outer {
+#nrdlutfdfv .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1340,15 +1346,15 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 4px;
 }
 
-#yvxcyshyky .gt_column_spanner_outer:first-child {
+#nrdlutfdfv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yvxcyshyky .gt_column_spanner_outer:last-child {
+#nrdlutfdfv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yvxcyshyky .gt_column_spanner {
+#nrdlutfdfv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1360,11 +1366,11 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   width: 100%;
 }
 
-#yvxcyshyky .gt_spanner_row {
+#nrdlutfdfv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yvxcyshyky .gt_group_heading {
+#nrdlutfdfv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1390,7 +1396,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   text-align: left;
 }
 
-#yvxcyshyky .gt_empty_group_heading {
+#nrdlutfdfv .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1405,15 +1411,15 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   vertical-align: middle;
 }
 
-#yvxcyshyky .gt_from_md > :first-child {
+#nrdlutfdfv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yvxcyshyky .gt_from_md > :last-child {
+#nrdlutfdfv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yvxcyshyky .gt_row {
+#nrdlutfdfv .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1432,7 +1438,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   overflow-x: hidden;
 }
 
-#yvxcyshyky .gt_stub {
+#nrdlutfdfv .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1445,7 +1451,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#yvxcyshyky .gt_stub_row_group {
+#nrdlutfdfv .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1459,15 +1465,15 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   vertical-align: top;
 }
 
-#yvxcyshyky .gt_row_group_first td {
+#nrdlutfdfv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yvxcyshyky .gt_row_group_first th {
+#nrdlutfdfv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yvxcyshyky .gt_summary_row {
+#nrdlutfdfv .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1477,16 +1483,16 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#yvxcyshyky .gt_first_summary_row {
+#nrdlutfdfv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_first_summary_row.thick {
+#nrdlutfdfv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yvxcyshyky .gt_last_summary_row {
+#nrdlutfdfv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1496,7 +1502,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_grand_summary_row {
+#nrdlutfdfv .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1506,7 +1512,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#yvxcyshyky .gt_first_grand_summary_row {
+#nrdlutfdfv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1516,7 +1522,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-top-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_last_grand_summary_row_top {
+#nrdlutfdfv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1526,11 +1532,11 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_striped {
+#nrdlutfdfv .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#yvxcyshyky .gt_table_body {
+#nrdlutfdfv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1539,7 +1545,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-bottom-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_footnotes {
+#nrdlutfdfv .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1553,7 +1559,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_footnote {
+#nrdlutfdfv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1562,7 +1568,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#yvxcyshyky .gt_sourcenotes {
+#nrdlutfdfv .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1576,7 +1582,7 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   border-right-color: #D3D3D3;
 }
 
-#yvxcyshyky .gt_sourcenote {
+#nrdlutfdfv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1584,72 +1590,72 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
   padding-right: 5px;
 }
 
-#yvxcyshyky .gt_left {
+#nrdlutfdfv .gt_left {
   text-align: left;
 }
 
-#yvxcyshyky .gt_center {
+#nrdlutfdfv .gt_center {
   text-align: center;
 }
 
-#yvxcyshyky .gt_right {
+#nrdlutfdfv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yvxcyshyky .gt_font_normal {
+#nrdlutfdfv .gt_font_normal {
   font-weight: normal;
 }
 
-#yvxcyshyky .gt_font_bold {
+#nrdlutfdfv .gt_font_bold {
   font-weight: bold;
 }
 
-#yvxcyshyky .gt_font_italic {
+#nrdlutfdfv .gt_font_italic {
   font-style: italic;
 }
 
-#yvxcyshyky .gt_super {
+#nrdlutfdfv .gt_super {
   font-size: 65%;
 }
 
-#yvxcyshyky .gt_footnote_marks {
+#nrdlutfdfv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yvxcyshyky .gt_asterisk {
+#nrdlutfdfv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yvxcyshyky .gt_indent_1 {
+#nrdlutfdfv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yvxcyshyky .gt_indent_2 {
+#nrdlutfdfv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yvxcyshyky .gt_indent_3 {
+#nrdlutfdfv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yvxcyshyky .gt_indent_4 {
+#nrdlutfdfv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yvxcyshyky .gt_indent_5 {
+#nrdlutfdfv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yvxcyshyky .katex-display {
+#nrdlutfdfv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yvxcyshyky div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nrdlutfdfv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1809,6 +1815,18 @@ Nécessite un ordinateur équipé d’un système d’exploitation. L’ordinate
 </div>
 </div>
 </div>
+<ul>
+<li>In <strong>high‑relevancy</strong> settings, all methods yield N‑ratios extremely close to 1.00, showing near‑perfect agreement with East for typical time‑to‑event designs.</li>
+<li><strong>Medium‑relevancy</strong> scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.</li>
+<li><strong>Low‑relevancy</strong> cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.</li>
+<li>When ignoring these outlier regions, all four implementations again converge tightly around 1.00.</li>
+<li>Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See <a href="../lakatos_n_lan.html">Lakatos and Lan</a> post for more details)</li>
+</ul>
+<p><strong>Overall:</strong> within realistic design regions, the four methods provide <strong>highly consistent fixed‑design TTE sample sizes</strong> relative to East.</p>
+<section id="interactive-results" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-results">Interactive results</h3>
+<p>You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.</p>
+<p><strong>➡️ <a href="../interactive.html"><em>“Interactive results”</em></a></strong></p>
 
 
 </section>
