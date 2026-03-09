@@ -27,7 +27,32 @@ The full factorial combination of these parameters yielded **81 distinct design 
 
 ### Fixed design assumptions
 
+```{r}
+p_study <- 
+  ggplot()+
+  geom_segment(aes(x = 0, y = 0, xend = 3, yend = 2))+
+  geom_segment(aes(x = 3, y = 2, xend = 6, yend = 2))+
+  annotate("text", x = 1.5, y = 0, label = "Accrual Time = 3") +
+  annotate("text", x = 4.5, y = 0, label = "Minimum Follow-up Time = 3") +
+  geom_segment(aes(x = 3, y = 0, xend = 3, yend = 2), linetype = "dashed")+
+  annotate("text", x = 3, y = -0.1, label = "Study duration = 6") +
+  geom_point(aes(x = 6, y = 2))+
+  labs(x = "Time in years", y = "Number of patients") +
+  scale_x_continuous(
+      breaks = c(0, 3, 6),
+      minor_breaks = 0:6,
+    )  +
+  scale_y_continuous(
+    breaks = NULL,
+    minor_breaks = NULL,
+    expand = c(0, 0.1)
+  )
+```
+
 To isolate the impact of the statistical methodology and software implementation, the following parameters were held constant across all scenarios:
+
+::: {.columns}
+::: {.column}
 
 -   **Number of interim looks:** $k = 4$
 -   **Information fractions:** equally spaced
@@ -38,34 +63,29 @@ To isolate the impact of the statistical methodology and software implementation
 -   **Test sidedness:** two‑sided
 -   **Censoring:** administrative only (no additional loss to follow‑up or competing risks)
 
+:::
+::: {.column}
+::: {.light-content}
+```{r}
+#| out-width: 100%
+p_study + theme_flatly(base_size = 15)
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+p_study + theme_darkly(base_size = 15)
+```
+:::
+:::
+:::
+<!-- end columns -->
+
 Group‑sequential boundaries were generated using **Lan–DeMets spending functions**:
 
 -   **Alpha‑spending:** O’Brien–Fleming–like
 -   **Beta‑spending:** O’Brien–Fleming–like, non‑binding.
-
-```{r}
-ggplot()+
-geom_segment(aes(x = 0, y = 0, xend = 3, yend = 2))+
-geom_segment(aes(x = 3, y = 2, xend = 6, yend = 2))+
-annotate("text", x = 1.5, y = 0, label = "Accrual Time = 3") +
-annotate("text", x = 4.5, y = 0, label = "Minimum Follow-up Time = 3") +
-geom_segment(aes(x = 3, y = 0, xend = 3, yend = 2), linetype = "dashed")+
-annotate("text", x = 3, y = -0.1, label = "Study duration = 6") +
-geom_point(aes(x = 6, y = 2))+
-labs(x = "Time in years", y = "Number of patients") +
-scale_x_continuous(
-    breaks = c(0, 3, 6),
-    minor_breaks = 0:6,
-  )  +
-scale_y_continuous(
-  breaks = NULL,
-  minor_breaks = NULL,
-  expand = c(0, 0.1)
-) +
-theme_classic()
-```
-
----
 
 ### Relevancy classification of design scenarios
 
@@ -77,24 +97,25 @@ To aid interpretation of results across a wide parameter space, each design scen
 
 This classification was not used to filter results but rather to **contextualize observed discrepancies** between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.
 
----
-
 ### Scope of the comparison
 
 For each of the 81 scenarios, all methods and software implementations were used to compute:
 
 1. The **required number of events** to achieve the target power under the specified hazard ratio, and  
-2. When supported by the method, the corresponding **total sample size**, accounting for accrual and follow-up.
+2. The corresponding **total sample size**, accounting for accrual and follow-up.
 
 The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
 
 ## Results
-```{r}
-x <- read_rds("../outputs/comp_surv_gs.rds")
-```
+
+Methods compared: 
+
+- East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
+- `rpact::getSampleSizeSurvival()`
+- `gsDesign2::gs_design_ahr()`
 
 ```{r}
-# datatable(x$n_ratio)
+x <- read_rds("../outputs/comp_surv_gs.rds")
 ```
 
 ::: {.light-content}
@@ -112,3 +133,17 @@ gt_theme_darkly(x$tables$table_n_ratio)
 x$plots$p_n_ratio + theme_darkly()
 ```
 :::
+
+- In **high‑relevancy** designs, both `gsdesign2` and `rpact` remain close to East, with N‑ratios typically between ~0.95 and 1.05. Small systematic shifts appear, but overall alignment is good for standard TTE GS setups.
+- For **medium‑relevancy** scenarios, the dispersion increases and the curves reveal some parameter‑dependent patterns. Deviations remain moderate, but neither method stays perfectly centered around 1.00 across the full range.
+- In **low‑relevancy** cases, discrepancies become more pronounced. Both methods deviate from the 1.00 baseline in opposite directions depending on the region, reflecting unstable behaviour in designs that are not operationally realistic.
+- These differences are expected: Group-sequential Time-to-Event formulas are more sensitive to event‑timing assumptions, and the “low‑relevancy” scenarios include parameter combinations that would not be used in practice.
+- `nQuery` is not included because the version used does **not** provide group‑sequential designs for Time-to-Event endpoints.
+
+**Overall:** within realistic design regions, both `gsdesign2` and `rpact` reproduce East’s GS TTE sample sizes reasonably well, with wider divergence appearing only in non‑practical parameter regions.
+
+### Interactive results
+
+You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
+
+**➡️ [*“Interactive results”*](../interactive.qmd)**

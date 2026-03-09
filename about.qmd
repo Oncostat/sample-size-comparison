@@ -2,24 +2,92 @@
 title: "About"
 ---
 
-This project is part of an internship at INSERM's Oncostat.
-The Oncostat team ressources:
+## About me
 
-- [Website](https://oncostat.github.io/)
-- [GitHub](https://github.com/oncostat)
-- [Gustave Roussy's website](https://www.gustaveroussy.fr/fr/oncostat)
-- [CESP's website](https://cesp.inserm.fr/fr/equipe/oncostat)
-- [Hal](https://inserm.hal.science/ONCOSTAT)
+- 👤 **Name:** Thomas Arocena  
+- 🎓 **Status:** Engineering student (gap year internship)  
+- 💻 **GitHub:** <https://github.com/thomasarocena>  
+- 🆔 **ORCID:** <https://orcid.org/0009-0002-7014-220X>  
+- 🔗 **LinkedIn:** <https://www.linkedin.com/in/thomasarocena>  
 
-The website is build with Quarto. To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+## About the project
 
+This website was developed as part of a **2½‑month internship project**, carried out during my **gap year as a student in engineering school**.  
+The project consists of validating R sample‑size computation functions by comparing grid‑based outputs with those from East and nQuery, providing a neutral comparison of the resulting sample sizes.
+
+### Who worked on the project
+
+The project was carried out by me, **Thomas Arocena**, engineering student, with a focus on:
+
+- 📐 **Comparing sample‑size methods**  
+  - benchmarking R package functions against **East** and **nQuery**  
+  - building a reproducible **grid‑based workflow**  
+  - providing a neutral comparison of resulting sample sizes
+
+- 🧹 **Clean and well‑documented code**  
+  - tidy, modular R scripts  
+  - clear function structure and comments  
+  - emphasis on reproducibility and transparent methodology
+
+- 🌐 **A reader‑friendly Quarto website**  
+  - presenting results in an accessible, structured, and didactic format  
+  - mixing explanations, code, outputs, and references  
+  - making technical content understandable to a broader audience
+
+- 🔓 **Open‑science principles**  
+  - all code, documentation, and materials available on **GitHub**  
+  - full referencing of methods, packages, and tools  
+  - designed for long‑term reusability and transparency
+
+### Supervision
+
+The internship was supervised by:
+
+- **Dan Chaltiel** 
+  - GitHub: <https://github.com/DanChaltiel>
+  - ORCID: <https://orcid.org/0000-0003-3488-779X>  
+  - Email: *Dan.CHALTIEL@gustaveroussy.fr*  
+
+- **Anne Lourdessamy**
+  - ORCID: <https://orcid.org/0009-0006-9051-3302> 
+  - Email: *Anne.LOURDESSAMY@gustaveroussy.fr*
+
+### Location
+
+The internship took place within **Oncostat**, the biostatistics team of  
+**Gustave Roussy** and **CESP (Inserm UMR 1018)**, based in Villejuif.
+
+## About Oncostat
+
+**Oncostat** is a biostatistics and methodology team dedicated to oncology research, with a focus on clinical trials, observational studies, survival analysis, and reproducible data workflows.
+
+Our mission is to support and develop **transparent, rigorous, and reproducible statistical methods** for cancer research, working closely with clinicians, epidemiologists, and translational researchers.
+
+The project brings together members from **Gustave Roussy** and **CESP (UMR 1018, Inserm)**, combining methodological expertise and clinical insight to tackle modern challenges in cancer research.
+
+## Institutions & Links
+
+- 🌐 Oncostat website — <https://oncostat.github.io/>  
+- 💻 GitHub organization — <https://github.com/oncostat>  
+- 🏥 Gustave Roussy — <https://www.gustaveroussy.fr/fr/oncostat>  
+- 🧪 CESP (Inserm UMR 1018) — <https://cesp.inserm.fr/fr/equipe/oncostat>  
+- 📄 Publications on HAL — <https://inserm.hal.science/ONCOSTAT>
+
+---
+
+## Where to find us
 
 ```{r}
 #| column: screen
 longitude <- 2.3486887844529427
-lattitude <- 48.79549511936336
+latitude  <- 48.79549511936336
 library(leaflet)
-leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=longitude, lat=lattitude, popup="Where the Oncostat team makes magic")
+
+leaflet() |>
+  addTiles() |>
+  addMarkers(
+    lng = longitude,
+    lat = latitude,
+    popup = "Where the Oncostat team makes magic"
+  )
 ```

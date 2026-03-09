@@ -3,7 +3,9 @@ title: "Binary Tests"
 # bibliography: references.bibtex
 ---
 
-Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations. Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the **Z‑test for proportions** (in its pooled and unpooled forms) and **Fisher’s exact test**. Although these methods target the same inferential question, they rely on different assumptions and approximations. Understanding their distinctions, strengths, and limitations is essential when selecting an appropriate test for a given dataset.
+Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations.
+
+Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the **Z‑test for proportions** (in its pooled and unpooled forms) and **Fisher’s exact test**. Although these methods target the same inferential question, they rely on different assumptions and approximations.
 
 
 ## Z‑tests for comparing two proportions
@@ -85,6 +87,17 @@ These properties make Fisher’s test a gold standard in fields like genetics, s
 While exact, Fisher’s test can be computationally intensive for very large sample sizes, although modern software typically handles tables in the thousands without difficulty. Additionally, for large samples, Fisher’s test may be overly conservative, producing slightly larger p‑values than approximate tests.
 
 ## Other Exact Tests 
-Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available. Other procedures, such as Barnard’s exact test, Boschloo’s test, and exact unconditional tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate.
+
+Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available.
+Other procedures, such as :
+
+- Barnard’s exact test
+- Boschloo’s test
+- Exact unconditional tests
+
+Those tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate.
+
 However, because they require more complex algorithms, involve subtle methodological considerations, and are less commonly implemented in standard software, we do not explore them in detail here. Fisher’s test remains the primary practical choice for most applications, especially when reproducibility and widespread software support are priorities.
+
 See REFERENCE TO GOSUKE HOMMA for more details on exact test
+See VIGNETTE EXACT TEST for a deeper comparison of exact test used in East and nQuery

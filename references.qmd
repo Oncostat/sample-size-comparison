@@ -1,6 +1,9 @@
 ---
+title: "References"
 bibliography: references.bibtex
 nocite: |
   @*
 ---
 
+::: {#refs}
+:::

@@ -3,25 +3,19 @@ title: "Two-Arm Fixed Design with Time-to-Event endpoints"
 # bibliography: references.bibtex
 ---
 
-::: {.callout-caution}
-## Draft made with ChatGPT
-Methods explainations has been made using ChatGPT which had shown several approximation in the subject. This part has to be reviewed.
-:::
-
-
 ```{r}
 #| label: setup
 source("../quarto-setup.R")
 ```
 
-<details>
+<!-- <details>
   <summary>Configuration requise</summary>
   <p>
     Nécessite un ordinateur équipé d'un système d'exploitation. L'ordinateur
     doit disposer d'une mémoire et, idéalement, d'un stockage à long terme. Un
     dispositif d'entrée ainsi qu'un dispositif de sortie sont recommandés.
   </p>
-</details>
+</details> -->
 
 ## Design space explored
 
@@ -47,19 +41,9 @@ The 3-year survival probability was used to calibrate the baseline hazard under 
 
 The full factorial combination of these parameters yielded **400 distinct design scenarios**.
 
----
-
 ### Fixed design assumptions
 
 To isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:
-
-- **Accrual duration:** 3 years  
-- **Additional follow-up after end of accrual:** 3 years   
-- **Allocation ratio (experimental : control):** 1 : 1  
-- **Test sidedness:** two-sided logrank test  
-
-Accrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.
-
 ```{r}
 p_study <- 
   ggplot()+
@@ -82,21 +66,33 @@ p_study <-
   )
 ```
 
+::: {.columns}
+::: {.column}
+
+- **Accrual duration:** 3 years  
+- **Additional follow-up after end of accrual:** 3 years   
+- **Allocation ratio (experimental : control):** 1 : 1  
+- **Test sidedness:** two-sided logrank test  
+
+Accrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.
+:::
+::: {.column}
 ::: {.light-content}
 ```{r}
 #| out-width: 100%
-p_study + theme_flatly()
+p_study + theme_flatly(base_size = 15)
 ```
 :::
 
 ::: {.dark-content}
 ```{r}
 #| out-width: 100%
-p_study + theme_darkly()
+p_study + theme_darkly(base_size = 15)
 ```
 :::
-
----
+:::
+:::
+<!-- end columns -->
 
 ### Relevancy classification of design scenarios
 
@@ -108,16 +104,25 @@ To aid interpretation of results across a wide parameter space, each design scen
 
 This classification was not used to filter results but rather to **contextualize observed discrepancies** between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.
 
----
-
 ### Scope of the comparison
 
 For each of the 400 scenarios, all methods and software implementations were used to compute:
 
 1. The **required number of events** to achieve the target power under the specified hazard ratio, and  
-2. When supported by the method, the corresponding **total sample size**, accounting for accrual and follow-up.
+2. Tthe corresponding **total sample size**, accounting for accrual and follow-up.
 
 The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
+
+## Results 
+
+Methods compared:
+
+- East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
+- nQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival
+- `rpact::getSampleSizeSurvival()`
+- `rashnu::lakatosSampleSizeSurvival()`
+- `gsDesign2::fixed_design_ahr()`
+
 
 ```{r}
 x <- read_rds("../outputs/comp_surv_fixed.rds")
@@ -143,49 +148,16 @@ x$plots$p_n_ratio + theme_darkly()
 ```
 :::
 
-```{r}
-# shared_tbl <- 
-#   tbl |> 
-#   mutate(across(names(params$list), as_factor)) |> 
-#   SharedData$new()
-```
+- In **high‑relevancy** settings, all methods yield N‑ratios extremely close to 1.00, showing near‑perfect agreement with East for typical time‑to‑event designs.
+- **Medium‑relevancy** scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.
+- **Low‑relevancy** cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.
+- When ignoring these outlier regions, all four implementations again converge tightly around 1.00.
+- Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See [Lakatos and Lan](../lakatos_n_lan.qmd) post for more details)
 
-```{r}
-#| warning: false
-# card(
-#   height = 300,
-#   full_screen = TRUE,
-#   card_header("Survival fixed sample size",
-#     tooltip(
-#         bs_icon("info-circle"),
-#         "East is considered the references"
-#     )),
-#   layout_sidebar(
-#     fillable = TRUE,
-#     sidebar = sidebar(
-#       filter_checkbox("relevancy", "Relevancy:", shared_tbl, ~ relevancy),
-#       filter_checkbox("alpha", "Alpha (Type I error):", shared_tbl, ~ alpha),
-#       filter_checkbox("power", "Power:", shared_tbl, ~ power),
-#       filter_checkbox("hr", "Hazard ratio :", shared_tbl, ~ hr),
-#       filter_checkbox("surv_t", "Survival probability at 3 years:", shared_tbl, ~ surv_t)
-#     ),
-#     plot_ly(shared_tbl) |> 
-#         add_trace(
-#         x = ~ n_east,
-#         y = ~ n_rpact,
-#         color = ~ relevancy,
-#         type = "scatter",
-#         mode = "markers"
-#     ), 
-#     plot_ly(shared_tbl) |> 
-#         add_trace(
-#             x = ~ n_east,
-#             y = ~ n_nquery,
-#             color = ~ relevancy,
-#             type = "scatter",
-#             mode = "markers"
-#         ),
-#     datatable(shared_tbl)
-#   )
-# )
-```
+**Overall:** within realistic design regions, the four methods provide **highly consistent fixed‑design TTE sample sizes** relative to East.
+
+### Interactive results
+
+You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
+
+**➡️ [*“Interactive results”*](../interactive.qmd)**
