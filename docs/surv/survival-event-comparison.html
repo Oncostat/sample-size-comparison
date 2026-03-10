@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Two-Arm Fixed Design with Binary endpoints</title>
+<title>Required Events in Time‑to‑Event Designs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../bin/binary-gs.html" rel="next">
-<link href="../bin/binary-methods.html" rel="prev">
 <link href="../SCC-HexSticker.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -76,43 +74,14 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Two-Arm Fixed Design with Binary endpoints">
-<meta property="og:description" content="">
-<meta property="og:image" content="binary-fixed_files/figure-html/unnamed-chunk-3-1.svg">
+<meta property="og:title" content="Required Events in Time‑to‑Event Designs">
+<meta property="og:description" content="Numerical comparison across East, nQuery, and R">
+<meta property="og:image" content="../man/figures/events.png">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -293,7 +262,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Book</span></a>
   </li>  
   <li class="nav-item">
@@ -354,16 +323,6 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../bin/binary-fixed.html">Two-arm Fixed Design</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
   <div id="quarto-announcement" data-announcement-id="1051a7ac8d80ea527570a42686afb81c" class="alert alert-warning hidden"><div class="quarto-announcement-content">
 <p><strong>WIP</strong> - this website is in progress, official release 12/03/2026</p>
 </div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
@@ -371,120 +330,14 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Time-to-Event endpoints</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../surv/survival-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Method: Sample Size Computation For Survival Endpoints</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm Fixed Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../surv/survival-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm GS-Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-arm Fixed Design</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Binary endpoints</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bin/binary-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Method: Binary Tests</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bin/binary-fixed.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Two-arm Fixed Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bin/binary-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm GS-Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-arm Fixed Design</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#design-space-explored" id="toc-design-space-explored" class="nav-link active" data-scroll-target="#design-space-explored">Design space explored</a>
-  <ul class="collapse">
-  <li><a href="#varying-design-parameters" id="toc-varying-design-parameters" class="nav-link" data-scroll-target="#varying-design-parameters">Varying design parameters</a></li>
-  <li><a href="#fixed-design-assumptions" id="toc-fixed-design-assumptions" class="nav-link" data-scroll-target="#fixed-design-assumptions">Fixed design assumptions</a></li>
-  <li><a href="#relevancy-classification-of-design-scenarios" id="toc-relevancy-classification-of-design-scenarios" class="nav-link" data-scroll-target="#relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</a></li>
-  <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
-  </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
-  <ul class="collapse">
-  <li><a href="#pooled-variance" id="toc-pooled-variance" class="nav-link" data-scroll-target="#pooled-variance">Pooled-Variance</a></li>
-  <li><a href="#exact" id="toc-exact" class="nav-link" data-scroll-target="#exact">Exact</a></li>
-  <li><a href="#interactive-results" id="toc-interactive-results" class="nav-link" data-scroll-target="#interactive-results">Interactive results</a></li>
-  </ul></li>
+  <li><a href="#fixed-design" id="toc-fixed-design" class="nav-link active" data-scroll-target="#fixed-design">Fixed Design</a></li>
+  <li><a href="#group-sequential-design" id="toc-group-sequential-design" class="nav-link" data-scroll-target="#group-sequential-design">Group-Sequential Design</a></li>
   </ul>
 </nav>
     </div>
@@ -492,9 +345,10 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../bin/binary-fixed.html">Two-arm Fixed Design</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Two-Arm Fixed Design with Binary endpoints</h1>
+<h1 class="title">Required Events in Time‑to‑Event Designs</h1>
+<p class="subtitle lead"><em>Numerical comparison across East, nQuery, and R</em></p>
 </div>
 
 
@@ -511,94 +365,29 @@ window.Quarto = {
 </header>
 
 
-<section id="design-space-explored" class="level2">
-<h2 class="anchored" data-anchor-id="design-space-explored">Design space explored</h2>
-<p>All comparisons were performed for a <strong>two-arm, fixed-design randomized clinical trial</strong> with a <strong>binary primary endpoint</strong>. The objective was to compare <strong>sample size calculations</strong> across commonly used software implementations over a broad but controlled design space, assuming a test for a <strong>difference in proportions</strong> under a pooled-variance framework.</p>
-<section id="varying-design-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="varying-design-parameters">Varying design parameters</h3>
-<p>Four key design parameters were varied systematically:</p>
-<ul>
-<li><p><strong>Type I error rate (<span class="math inline">\(\alpha\)</span>, two-sided):</strong><br>
-<span class="math inline">\(\alpha \in {0.01,\ 0.05,\ 0.10,\ 0.20,\ 0.49}\)</span></p></li>
-<li><p><strong>Power (<span class="math inline">\(1 - \beta\)</span>):</strong><br>
-<span class="math inline">\(1 - \beta \in {0.51,\ 0.80,\ 0.90,\ 0.99}\)</span></p></li>
-<li><p><strong>Control-group response rate:</strong><br>
-<span class="math inline">\(\pi_c \in {0.10,\ 0.30,\ 0.50,\ 0.80,\ 0.90}\)</span></p></li>
-<li><p><strong>Treatment effect (difference in proportions):</strong><br>
-<span class="math inline">\(\Delta\pi = \pi_e - \pi_c \in {0.05,\ 0.15,\ 0.25,\ 0.49}\)</span></p></li>
-</ul>
-<p>The experimental-group response rate was derived as<br>
-<span class="math inline">\(\pi_e = \pi_c + \Delta\pi\)</span>,<br>
-with scenarios resulting in <span class="math inline">\(\pi_e &gt; 1\)</span> discarded.</p>
-<p>These parameters yield <strong>300 valid design scenarios</strong> in the full factorial combination.</p>
-</section>
-<section id="fixed-design-assumptions" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-design-assumptions">Fixed design assumptions</h3>
-<p>To isolate differences due purely to the statistical method or software implementation, the following characteristics of the design were held constant across scenarios:</p>
-<ul>
-<li><strong>Allocation ratio (experimental : control):</strong> 1 : 1</li>
-<li><strong>Test sidedness:</strong> two-sided</li>
-</ul>
-</section>
-<section id="relevancy-classification-of-design-scenarios" class="level3">
-<h3 class="anchored" data-anchor-id="relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</h3>
-<p>To help interpret method agreement across the full parameter grid, each scenario was classified <em>a priori</em> according to its <strong>practical relevance</strong>.<br>
-The classification follows a rule‑based system determined solely by the Type I error rate and power:</p>
-<ul>
-<li><p><strong>High relevance</strong><br>
-Scenarios with <span class="math display">\[
-  0.02 &lt; \alpha &lt; 0.15 \quad\text{and}\quad \text{power} &gt; 0.75,
-\]</span> representing operating characteristics commonly used in realistic confirmatory settings.</p></li>
-<li><p><strong>Medium relevance</strong><br>
-Scenarios not meeting the criteria for “high” or “low.”<br>
-These correspond to plausible but less conventional values of α and power used in exploratory or constrained designs.</p></li>
-<li><p><strong>Low relevance</strong><br>
-Scenarios with <span class="math display">\[
-  \alpha &gt; 0.20
-  \quad\text{or}\quad
-  \text{power} &lt; 0.60
-  \quad\text{or}\quad
-  \text{power} \ge 0.99.
-\]</span> These configurations are rarely used operationally (e.g., extremely liberal α or near‑perfect power), but are retained to evaluate numerical behavior in challenging cases.</p></li>
-</ul>
-<p>The classification does <strong>not</strong> filter scenarios nor influence computation; it simply contextualizes discrepancies between methods across a wide design space.</p>
-</section>
-<section id="scope-of-the-comparison" class="level3">
-<h3 class="anchored" data-anchor-id="scope-of-the-comparison">Scope of the comparison</h3>
-<p>For each of the <strong>300 design scenarios</strong>, all software tools and methods were used to compute the <strong>required total sample size</strong> to achieve the target power under the specified proportions.</p>
-<p>The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.</p>
-</section>
-</section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">Results</h2>
-<section id="pooled-variance" class="level3">
-<h3 class="anchored" data-anchor-id="pooled-variance">Pooled-Variance</h3>
-<p>Methods compared:</p>
-<ul>
-<li>East: Difference of Proportions test [PN-2S-DI]</li>
-<li>nQuery : PTT36 / Inequality Tests for Difference of Two Proportions</li>
-<li><code>rpact::getSampleSizeRates()</code></li>
-</ul>
+<p>This short note complements the comparison of sample size calculations by focusing specifically on the <strong>required number of events</strong> for time‑to‑event designs. Using the same scenarios and assumptions, we report the numerical results obtained from East, nQuery, and R implementations, highlighting how closely the tools agree—both for fixed designs and group‑sequential settings. The tables and plots below summarize these event‑based results.</p>
+<section id="fixed-design" class="level2">
+<h2 class="anchored" data-anchor-id="fixed-design">Fixed Design</h2>
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="hmjpuhvxzh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hmjpuhvxzh table {
+<div id="bxqucepyuq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bxqucepyuq table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hmjpuhvxzh thead, #hmjpuhvxzh tbody, #hmjpuhvxzh tfoot, #hmjpuhvxzh tr, #hmjpuhvxzh td, #hmjpuhvxzh th {
+#bxqucepyuq thead, #bxqucepyuq tbody, #bxqucepyuq tfoot, #bxqucepyuq tr, #bxqucepyuq td, #bxqucepyuq th {
   border-style: none;
 }
 
-#hmjpuhvxzh p {
+#bxqucepyuq p {
   margin: 0;
   padding: 0;
 }
 
-#hmjpuhvxzh .gt_table {
+#bxqucepyuq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -624,12 +413,12 @@ Scenarios with <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_caption {
+#bxqucepyuq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hmjpuhvxzh .gt_title {
+#bxqucepyuq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -641,7 +430,7 @@ Scenarios with <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#hmjpuhvxzh .gt_subtitle {
+#bxqucepyuq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -653,7 +442,7 @@ Scenarios with <span class="math display">\[
   border-top-width: 0;
 }
 
-#hmjpuhvxzh .gt_heading {
+#bxqucepyuq .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -665,13 +454,13 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_bottom_border {
+#bxqucepyuq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_col_headings {
+#bxqucepyuq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -686,7 +475,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_col_heading {
+#bxqucepyuq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -706,7 +495,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#hmjpuhvxzh .gt_column_spanner_outer {
+#bxqucepyuq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -718,15 +507,15 @@ Scenarios with <span class="math display">\[
   padding-right: 4px;
 }
 
-#hmjpuhvxzh .gt_column_spanner_outer:first-child {
+#bxqucepyuq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hmjpuhvxzh .gt_column_spanner_outer:last-child {
+#bxqucepyuq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hmjpuhvxzh .gt_column_spanner {
+#bxqucepyuq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -738,11 +527,11 @@ Scenarios with <span class="math display">\[
   width: 100%;
 }
 
-#hmjpuhvxzh .gt_spanner_row {
+#bxqucepyuq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hmjpuhvxzh .gt_group_heading {
+#bxqucepyuq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -768,7 +557,7 @@ Scenarios with <span class="math display">\[
   text-align: left;
 }
 
-#hmjpuhvxzh .gt_empty_group_heading {
+#bxqucepyuq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -783,15 +572,15 @@ Scenarios with <span class="math display">\[
   vertical-align: middle;
 }
 
-#hmjpuhvxzh .gt_from_md > :first-child {
+#bxqucepyuq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hmjpuhvxzh .gt_from_md > :last-child {
+#bxqucepyuq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hmjpuhvxzh .gt_row {
+#bxqucepyuq .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -810,7 +599,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#hmjpuhvxzh .gt_stub {
+#bxqucepyuq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -823,7 +612,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#hmjpuhvxzh .gt_stub_row_group {
+#bxqucepyuq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -837,15 +626,15 @@ Scenarios with <span class="math display">\[
   vertical-align: top;
 }
 
-#hmjpuhvxzh .gt_row_group_first td {
+#bxqucepyuq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hmjpuhvxzh .gt_row_group_first th {
+#bxqucepyuq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hmjpuhvxzh .gt_summary_row {
+#bxqucepyuq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -855,16 +644,16 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#hmjpuhvxzh .gt_first_summary_row {
+#bxqucepyuq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_first_summary_row.thick {
+#bxqucepyuq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hmjpuhvxzh .gt_last_summary_row {
+#bxqucepyuq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -874,7 +663,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_grand_summary_row {
+#bxqucepyuq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -884,7 +673,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#hmjpuhvxzh .gt_first_grand_summary_row {
+#bxqucepyuq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -894,7 +683,7 @@ Scenarios with <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_last_grand_summary_row_top {
+#bxqucepyuq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -904,11 +693,11 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_striped {
+#bxqucepyuq .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#hmjpuhvxzh .gt_table_body {
+#bxqucepyuq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -917,7 +706,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_footnotes {
+#bxqucepyuq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -931,7 +720,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_footnote {
+#bxqucepyuq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -940,7 +729,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#hmjpuhvxzh .gt_sourcenotes {
+#bxqucepyuq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -954,7 +743,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#hmjpuhvxzh .gt_sourcenote {
+#bxqucepyuq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -962,72 +751,72 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#hmjpuhvxzh .gt_left {
+#bxqucepyuq .gt_left {
   text-align: left;
 }
 
-#hmjpuhvxzh .gt_center {
+#bxqucepyuq .gt_center {
   text-align: center;
 }
 
-#hmjpuhvxzh .gt_right {
+#bxqucepyuq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hmjpuhvxzh .gt_font_normal {
+#bxqucepyuq .gt_font_normal {
   font-weight: normal;
 }
 
-#hmjpuhvxzh .gt_font_bold {
+#bxqucepyuq .gt_font_bold {
   font-weight: bold;
 }
 
-#hmjpuhvxzh .gt_font_italic {
+#bxqucepyuq .gt_font_italic {
   font-style: italic;
 }
 
-#hmjpuhvxzh .gt_super {
+#bxqucepyuq .gt_super {
   font-size: 65%;
 }
 
-#hmjpuhvxzh .gt_footnote_marks {
+#bxqucepyuq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hmjpuhvxzh .gt_asterisk {
+#bxqucepyuq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hmjpuhvxzh .gt_indent_1 {
+#bxqucepyuq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hmjpuhvxzh .gt_indent_2 {
+#bxqucepyuq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hmjpuhvxzh .gt_indent_3 {
+#bxqucepyuq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hmjpuhvxzh .gt_indent_4 {
+#bxqucepyuq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hmjpuhvxzh .gt_indent_5 {
+#bxqucepyuq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hmjpuhvxzh .katex-display {
+#bxqucepyuq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hmjpuhvxzh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bxqucepyuq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1035,1124 +824,10 @@ Scenarios with <span class="math display">\[
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #2C3E50; font-size: 21px; font-weight: 700">N-Ratio 2-Arms Binary, pooled-variance</td>
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #2C3E50; font-size: 21px; font-weight: 700">E-Ratio 2-Arms Time-to-Event</td>
 </tr>
 <tr class="gt_heading even">
 <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #18BC9C; font-size: 16.8px; font-style: italic">According to East sample sizes</td>
-</tr>
-<tr class="gt_col_headings header">
-<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Relevancy</th>
-<th id="Min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Min</th>
-<th id="Q1" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Q1</th>
-<th id="Moyenne" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Moyenne</th>
-<th id="Médiane" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Médiane</th>
-<th id="Q3" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Q3</th>
-<th id="Max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Max</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="gt_group_heading_row odd">
-<th colspan="7" id="high" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #46D99C" scope="colgroup">high</th>
-</tr>
-<tr class="gt_row_group_first even">
-<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
-<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Moyenne" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Médiane" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.01</td>
-</tr>
-<tr class="odd">
-<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Moyenne" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Médiane" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-<tr class="gt_group_heading_row even">
-<th colspan="7" id="medium" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D2B55B" scope="colgroup">medium</th>
-</tr>
-<tr class="gt_row_group_first odd">
-<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
-<td class="gt_row gt_right" headers="medium stub_1_3 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Moyenne" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Médiane" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-<tr class="even">
-<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Moyenne" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Médiane" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-<tr class="gt_group_heading_row odd">
-<th colspan="7" id="low" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D97A7A" scope="colgroup">low</th>
-</tr>
-<tr class="gt_row_group_first even">
-<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
-<td class="gt_row gt_right" headers="low stub_1_5 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.88</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Moyenne" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Médiane" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.11</td>
-</tr>
-<tr class="odd">
-<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Moyenne" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Médiane" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="dark-content">
-<div class="cell">
-<div class="cell-output-display">
-<div id="dsamlvduhx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dsamlvduhx table {
-  font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#dsamlvduhx thead, #dsamlvduhx tbody, #dsamlvduhx tfoot, #dsamlvduhx tr, #dsamlvduhx td, #dsamlvduhx th {
-  border-style: none;
-}
-
-#dsamlvduhx p {
-  margin: 0;
-  padding: 0;
-}
-
-#dsamlvduhx .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #FFFFFF;
-  font-size: 16.8px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #222222;
-  width: auto;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#dsamlvduhx .gt_title {
-  color: #FFFFFF;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #222222;
-  border-bottom-width: 0;
-}
-
-#dsamlvduhx .gt_subtitle {
-  color: #FFFFFF;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #222222;
-  border-top-width: 0;
-}
-
-#dsamlvduhx .gt_heading {
-  background-color: #222222;
-  text-align: left;
-  border-bottom-color: #222222;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_col_heading {
-  color: #FFFFFF;
-  background-color: #222222;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#dsamlvduhx .gt_column_spanner_outer {
-  color: #FFFFFF;
-  background-color: #222222;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#dsamlvduhx .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#dsamlvduhx .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#dsamlvduhx .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#dsamlvduhx .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#dsamlvduhx .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #FFFFFF;
-  background-color: #222222;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#dsamlvduhx .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #FFFFFF;
-  background-color: #222222;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#dsamlvduhx .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#dsamlvduhx .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#dsamlvduhx .gt_row {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: none;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#dsamlvduhx .gt_stub {
-  color: #FFFFFF;
-  background-color: #222222;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#dsamlvduhx .gt_stub_row_group {
-  color: #FFFFFF;
-  background-color: #222222;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#dsamlvduhx .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#dsamlvduhx .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#dsamlvduhx .gt_summary_row {
-  color: #FFFFFF;
-  background-color: #222222;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#dsamlvduhx .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#dsamlvduhx .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_grand_summary_row {
-  color: #FFFFFF;
-  background-color: #222222;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#dsamlvduhx .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_striped {
-  background-color: rgba(68, 68, 68, 0.75);
-}
-
-#dsamlvduhx .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_footnotes {
-  color: #FFFFFF;
-  background-color: #222222;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#dsamlvduhx .gt_sourcenotes {
-  color: #FFFFFF;
-  background-color: #222222;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#dsamlvduhx .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#dsamlvduhx .gt_left {
-  text-align: left;
-}
-
-#dsamlvduhx .gt_center {
-  text-align: center;
-}
-
-#dsamlvduhx .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#dsamlvduhx .gt_font_normal {
-  font-weight: normal;
-}
-
-#dsamlvduhx .gt_font_bold {
-  font-weight: bold;
-}
-
-#dsamlvduhx .gt_font_italic {
-  font-style: italic;
-}
-
-#dsamlvduhx .gt_super {
-  font-size: 65%;
-}
-
-#dsamlvduhx .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#dsamlvduhx .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#dsamlvduhx .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#dsamlvduhx .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#dsamlvduhx .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#dsamlvduhx .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#dsamlvduhx .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#dsamlvduhx .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#dsamlvduhx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading header">
-<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-size: 21px; font-weight: 700">N-Ratio 2-Arms Binary, pooled-variance</td>
-</tr>
-<tr class="gt_heading even">
-<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #00BC8C; font-size: 16.8px; font-style: italic">According to East sample sizes</td>
-</tr>
-<tr class="gt_col_headings header">
-<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Relevancy</th>
-<th id="Min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Min</th>
-<th id="Q1" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Q1</th>
-<th id="Moyenne" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Moyenne</th>
-<th id="Médiane" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Médiane</th>
-<th id="Q3" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Q3</th>
-<th id="Max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Max</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="gt_group_heading_row odd">
-<th colspan="7" id="high" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #46D99C" scope="colgroup">high</th>
-</tr>
-<tr class="gt_row_group_first even">
-<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
-<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Moyenne" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Médiane" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.01</td>
-</tr>
-<tr class="odd">
-<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Moyenne" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Médiane" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-<tr class="gt_group_heading_row even">
-<th colspan="7" id="medium" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D2B55B" scope="colgroup">medium</th>
-</tr>
-<tr class="gt_row_group_first odd">
-<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
-<td class="gt_row gt_right" headers="medium stub_1_3 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Moyenne" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Médiane" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-<tr class="even">
-<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Moyenne" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Médiane" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-<tr class="gt_group_heading_row odd">
-<th colspan="7" id="low" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D97A7A" scope="colgroup">low</th>
-</tr>
-<tr class="gt_row_group_first even">
-<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
-<td class="gt_row gt_right" headers="low stub_1_5 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.88</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Moyenne" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Médiane" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.11</td>
-</tr>
-<tr class="odd">
-<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Moyenne" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Médiane" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li>In <strong>high‑ and medium‑relevancy</strong> designs, both <code>nQuery</code> and <code>rpact</code> show <strong>excellent agreement</strong> with East, with N‑ratios consistently centered around 1.00 and virtually no dispersion.</li>
-<li>Even in the <strong>low‑relevancy</strong> region, the two methods remain very close to 1.00. A few isolated deviations appear, but they correspond to designs with extreme proportions or highly unbalanced variance assumptions.</li>
-<li>The plot confirms this stability: points are tightly clustered at 1.00 across the full range of East sample sizes, with only a small number of outliers in the low‑relevancy panel.</li>
-<li>No systematic bias is visible for either method, and neither method shows drift with increasing sample size.</li>
-</ul>
-<p><strong>Overall:</strong> for two‑arm binary fixed‑design trials using the Z‑pooled test, <code>nQuery</code> and <code>rpact</code> reproduce East’s sample sizes with <strong>near‑perfect consistency</strong>, with meaningful differences only in edge‑case, low‑practicality scenarios.</p>
-</section>
-<section id="exact" class="level3">
-<h3 class="anchored" data-anchor-id="exact">Exact</h3>
-<p>Methods compared:</p>
-<ul>
-<li>East: Difference of Proportions test [PN-2S-DI]</li>
-<li>nQuery : PTT36 / Inequality Tests for Difference of Two Proportions</li>
-<li><code>bbssr::BinarySampleSize(test = "Fisher")</code></li>
-</ul>
-<div class="light-content">
-<div class="cell">
-<div class="cell-output-display">
-<div id="cnbvhgfawx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cnbvhgfawx table {
-  font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#cnbvhgfawx thead, #cnbvhgfawx tbody, #cnbvhgfawx tfoot, #cnbvhgfawx tr, #cnbvhgfawx td, #cnbvhgfawx th {
-  border-style: none;
-}
-
-#cnbvhgfawx p {
-  margin: 0;
-  padding: 0;
-}
-
-#cnbvhgfawx .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16.8px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#cnbvhgfawx .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#cnbvhgfawx .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#cnbvhgfawx .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#cnbvhgfawx .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#cnbvhgfawx .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#cnbvhgfawx .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#cnbvhgfawx .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#cnbvhgfawx .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#cnbvhgfawx .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#cnbvhgfawx .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#cnbvhgfawx .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#cnbvhgfawx .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#cnbvhgfawx .gt_row {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: none;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#cnbvhgfawx .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#cnbvhgfawx .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#cnbvhgfawx .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#cnbvhgfawx .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#cnbvhgfawx .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#cnbvhgfawx .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#cnbvhgfawx .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#cnbvhgfawx .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_striped {
-  background-color: rgba(44, 62, 80, 0.04);
-}
-
-#cnbvhgfawx .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#cnbvhgfawx .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#cnbvhgfawx .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#cnbvhgfawx .gt_left {
-  text-align: left;
-}
-
-#cnbvhgfawx .gt_center {
-  text-align: center;
-}
-
-#cnbvhgfawx .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#cnbvhgfawx .gt_font_normal {
-  font-weight: normal;
-}
-
-#cnbvhgfawx .gt_font_bold {
-  font-weight: bold;
-}
-
-#cnbvhgfawx .gt_font_italic {
-  font-style: italic;
-}
-
-#cnbvhgfawx .gt_super {
-  font-size: 65%;
-}
-
-#cnbvhgfawx .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#cnbvhgfawx .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#cnbvhgfawx .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#cnbvhgfawx .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#cnbvhgfawx .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#cnbvhgfawx .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#cnbvhgfawx .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#cnbvhgfawx .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#cnbvhgfawx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading header">
-<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #2C3E50; font-size: 21px; font-weight: 700">N-Ratio 2-Arms Binary, exact test</td>
-</tr>
-<tr class="gt_heading even">
-<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #18BC9C; font-size: 16.8px; font-style: italic">According to nQuery sample sizes</td>
 </tr>
 <tr class="gt_col_headings header">
 <th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Relevancy</th>
@@ -2169,71 +844,120 @@ Scenarios with <span class="math display">\[
 <th colspan="7" id="high" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #46D99C" scope="colgroup">high</th>
 </tr>
 <tr class="gt_row_group_first even">
-<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">bbssr</th>
-<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.81</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.98</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
 <td class="gt_row gt_right" headers="high stub_1_1 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.05</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.01</td>
 </tr>
 <tr class="odd">
-<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">east</th>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.64</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.86</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Mean" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.90</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Median" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.91</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.95</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">1.00</td>
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+</tr>
+<tr class="even">
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rashnu</th>
+<td class="gt_row gt_right" headers="high stub_1_3 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.01</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
 </tr>
 <tr class="gt_group_heading_row even">
 <th colspan="7" id="medium" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D2B55B" scope="colgroup">medium</th>
 </tr>
 <tr class="gt_row_group_first odd">
-<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">bbssr</th>
-<td class="gt_row gt_right" headers="medium stub_1_3 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.80</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.98</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.03</td>
+<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="medium stub_1_5 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.01</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.05</td>
 </tr>
 <tr class="even">
-<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">east</th>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Min" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.60</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q1" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.87</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Mean" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.92</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Median" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.94</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q3" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Max" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">1.07</td>
+<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.98</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rashnu</th>
+<td class="gt_row gt_right" headers="medium stub_1_7 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.01</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.03</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.08</td>
+</tr>
+<tr class="even">
+<th id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
 </tr>
 <tr class="gt_group_heading_row odd">
 <th colspan="7" id="low" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D97A7A" scope="colgroup">low</th>
 </tr>
 <tr class="gt_row_group_first even">
-<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">bbssr</th>
-<td class="gt_row gt_right" headers="low stub_1_5 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.79</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.98</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.05</td>
+<th id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="low stub_1_9 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.23</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.07</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">5.44</td>
 </tr>
 <tr class="odd">
-<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">east</th>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Min" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.57</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q1" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.83</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Mean" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.89</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Median" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.92</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q3" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Max" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">1.07</td>
+<th id="stub_1_10" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.75</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.99</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
 </tr>
-</tbody><tfoot>
-<tr class="gt_sourcenotes odd">
-<td colspan="7" class="gt_sourcenote" style="color: rgba(44,62,80,0.55); font-size: 11.424px; text-transform: uppercase">Red : &lt; 50% of N-ratios ±10%</td>
+<tr class="even">
+<th id="stub_1_11" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rashnu</th>
+<td class="gt_row gt_right" headers="low stub_1_11 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.11</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.06</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">2.00</td>
 </tr>
-</tfoot>
-
+<tr class="odd">
+<th id="stub_1_12" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.14</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">5.44</td>
+</tr>
+</tbody>
 </table>
 
 </div>
@@ -2241,7 +965,7 @@ Scenarios with <span class="math display">\[
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="survival-event-comparison_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -2250,23 +974,23 @@ Scenarios with <span class="math display">\[
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="kmbrxfozcq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kmbrxfozcq table {
+<div id="pehapkpxpj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pehapkpxpj table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kmbrxfozcq thead, #kmbrxfozcq tbody, #kmbrxfozcq tfoot, #kmbrxfozcq tr, #kmbrxfozcq td, #kmbrxfozcq th {
+#pehapkpxpj thead, #pehapkpxpj tbody, #pehapkpxpj tfoot, #pehapkpxpj tr, #pehapkpxpj td, #pehapkpxpj th {
   border-style: none;
 }
 
-#kmbrxfozcq p {
+#pehapkpxpj p {
   margin: 0;
   padding: 0;
 }
 
-#kmbrxfozcq .gt_table {
+#pehapkpxpj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2292,12 +1016,12 @@ Scenarios with <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_caption {
+#pehapkpxpj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kmbrxfozcq .gt_title {
+#pehapkpxpj .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -2309,7 +1033,7 @@ Scenarios with <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#kmbrxfozcq .gt_subtitle {
+#pehapkpxpj .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -2321,7 +1045,7 @@ Scenarios with <span class="math display">\[
   border-top-width: 0;
 }
 
-#kmbrxfozcq .gt_heading {
+#pehapkpxpj .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -2333,13 +1057,13 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_bottom_border {
+#pehapkpxpj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_col_headings {
+#pehapkpxpj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2354,7 +1078,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_col_heading {
+#pehapkpxpj .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2374,7 +1098,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#kmbrxfozcq .gt_column_spanner_outer {
+#pehapkpxpj .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2386,15 +1110,15 @@ Scenarios with <span class="math display">\[
   padding-right: 4px;
 }
 
-#kmbrxfozcq .gt_column_spanner_outer:first-child {
+#pehapkpxpj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kmbrxfozcq .gt_column_spanner_outer:last-child {
+#pehapkpxpj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kmbrxfozcq .gt_column_spanner {
+#pehapkpxpj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2406,11 +1130,11 @@ Scenarios with <span class="math display">\[
   width: 100%;
 }
 
-#kmbrxfozcq .gt_spanner_row {
+#pehapkpxpj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kmbrxfozcq .gt_group_heading {
+#pehapkpxpj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2436,7 +1160,7 @@ Scenarios with <span class="math display">\[
   text-align: left;
 }
 
-#kmbrxfozcq .gt_empty_group_heading {
+#pehapkpxpj .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -2451,15 +1175,15 @@ Scenarios with <span class="math display">\[
   vertical-align: middle;
 }
 
-#kmbrxfozcq .gt_from_md > :first-child {
+#pehapkpxpj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kmbrxfozcq .gt_from_md > :last-child {
+#pehapkpxpj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kmbrxfozcq .gt_row {
+#pehapkpxpj .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -2478,7 +1202,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#kmbrxfozcq .gt_stub {
+#pehapkpxpj .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2491,7 +1215,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#kmbrxfozcq .gt_stub_row_group {
+#pehapkpxpj .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2505,15 +1229,15 @@ Scenarios with <span class="math display">\[
   vertical-align: top;
 }
 
-#kmbrxfozcq .gt_row_group_first td {
+#pehapkpxpj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kmbrxfozcq .gt_row_group_first th {
+#pehapkpxpj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kmbrxfozcq .gt_summary_row {
+#pehapkpxpj .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2523,16 +1247,16 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#kmbrxfozcq .gt_first_summary_row {
+#pehapkpxpj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_first_summary_row.thick {
+#pehapkpxpj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kmbrxfozcq .gt_last_summary_row {
+#pehapkpxpj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2542,7 +1266,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_grand_summary_row {
+#pehapkpxpj .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2552,7 +1276,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#kmbrxfozcq .gt_first_grand_summary_row {
+#pehapkpxpj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2562,7 +1286,7 @@ Scenarios with <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_last_grand_summary_row_top {
+#pehapkpxpj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2572,11 +1296,11 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_striped {
+#pehapkpxpj .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#kmbrxfozcq .gt_table_body {
+#pehapkpxpj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2585,7 +1309,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_footnotes {
+#pehapkpxpj .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2599,7 +1323,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_footnote {
+#pehapkpxpj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2608,7 +1332,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#kmbrxfozcq .gt_sourcenotes {
+#pehapkpxpj .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2622,7 +1346,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#kmbrxfozcq .gt_sourcenote {
+#pehapkpxpj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2630,72 +1354,72 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#kmbrxfozcq .gt_left {
+#pehapkpxpj .gt_left {
   text-align: left;
 }
 
-#kmbrxfozcq .gt_center {
+#pehapkpxpj .gt_center {
   text-align: center;
 }
 
-#kmbrxfozcq .gt_right {
+#pehapkpxpj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kmbrxfozcq .gt_font_normal {
+#pehapkpxpj .gt_font_normal {
   font-weight: normal;
 }
 
-#kmbrxfozcq .gt_font_bold {
+#pehapkpxpj .gt_font_bold {
   font-weight: bold;
 }
 
-#kmbrxfozcq .gt_font_italic {
+#pehapkpxpj .gt_font_italic {
   font-style: italic;
 }
 
-#kmbrxfozcq .gt_super {
+#pehapkpxpj .gt_super {
   font-size: 65%;
 }
 
-#kmbrxfozcq .gt_footnote_marks {
+#pehapkpxpj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kmbrxfozcq .gt_asterisk {
+#pehapkpxpj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kmbrxfozcq .gt_indent_1 {
+#pehapkpxpj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kmbrxfozcq .gt_indent_2 {
+#pehapkpxpj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kmbrxfozcq .gt_indent_3 {
+#pehapkpxpj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kmbrxfozcq .gt_indent_4 {
+#pehapkpxpj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kmbrxfozcq .gt_indent_5 {
+#pehapkpxpj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kmbrxfozcq .katex-display {
+#pehapkpxpj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kmbrxfozcq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pehapkpxpj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2703,10 +1427,10 @@ Scenarios with <span class="math display">\[
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-size: 21px; font-weight: 700">N-Ratio 2-Arms Binary, exact test</td>
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-size: 21px; font-weight: 700">E-Ratio 2-Arms Time-to-Event</td>
 </tr>
 <tr class="gt_heading even">
-<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #00BC8C; font-size: 16.8px; font-style: italic">According to nQuery sample sizes</td>
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #00BC8C; font-size: 16.8px; font-style: italic">According to East sample sizes</td>
 </tr>
 <tr class="gt_col_headings header">
 <th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Relevancy</th>
@@ -2723,64 +1447,1224 @@ Scenarios with <span class="math display">\[
 <th colspan="7" id="high" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #46D99C" scope="colgroup">high</th>
 </tr>
 <tr class="gt_row_group_first even">
-<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">bbssr</th>
-<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.81</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.98</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
 <td class="gt_row gt_right" headers="high stub_1_1 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.05</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.01</td>
 </tr>
 <tr class="odd">
-<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">east</th>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.64</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.86</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Mean" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.90</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Median" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.91</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.95</td>
-<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">1.00</td>
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+</tr>
+<tr class="even">
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rashnu</th>
+<td class="gt_row gt_right" headers="high stub_1_3 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.01</td>
+<td class="gt_row gt_right" headers="high stub_1_3 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_4 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
 </tr>
 <tr class="gt_group_heading_row even">
 <th colspan="7" id="medium" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D2B55B" scope="colgroup">medium</th>
 </tr>
 <tr class="gt_row_group_first odd">
-<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">bbssr</th>
-<td class="gt_row gt_right" headers="medium stub_1_3 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.80</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.98</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="medium stub_1_3 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.03</td>
+<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="medium stub_1_5 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.01</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right" headers="medium stub_1_5 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.05</td>
 </tr>
 <tr class="even">
-<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">east</th>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Min" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.60</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q1" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.87</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Mean" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.92</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Median" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.94</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q3" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Max" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">1.07</td>
+<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.98</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_6 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rashnu</th>
+<td class="gt_row gt_right" headers="medium stub_1_7 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.01</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.03</td>
+<td class="gt_row gt_right" headers="medium stub_1_7 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.08</td>
+</tr>
+<tr class="even">
+<th id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_8 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
 </tr>
 <tr class="gt_group_heading_row odd">
 <th colspan="7" id="low" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D97A7A" scope="colgroup">low</th>
 </tr>
 <tr class="gt_row_group_first even">
-<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">bbssr</th>
-<td class="gt_row gt_right" headers="low stub_1_5 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.79</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.98</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
-<td class="gt_row gt_right" headers="low stub_1_5 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.05</td>
+<th id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="low stub_1_9 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.23</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.07</td>
+<td class="gt_row gt_right" headers="low stub_1_9 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">5.44</td>
 </tr>
 <tr class="odd">
-<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">east</th>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Min" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.57</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q1" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.83</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Mean" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.89</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Median" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.92</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q3" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.97</td>
-<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Max" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">1.07</td>
+<th id="stub_1_10" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">nquery</th>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.75</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.99</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_10 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+</tr>
+<tr class="even">
+<th id="stub_1_11" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rashnu</th>
+<td class="gt_row gt_right" headers="low stub_1_11 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.11</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.06</td>
+<td class="gt_row gt_right" headers="low stub_1_11 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">2.00</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_12" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.14</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_12 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">5.44</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="survival-event-comparison_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="group-sequential-design" class="level2">
+<h2 class="anchored" data-anchor-id="group-sequential-design">Group-Sequential Design</h2>
+<div class="light-content">
+<div class="cell">
+<div class="cell-output-display">
+<div id="vvjvbszieh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vvjvbszieh table {
+  font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vvjvbszieh thead, #vvjvbszieh tbody, #vvjvbszieh tfoot, #vvjvbszieh tr, #vvjvbszieh td, #vvjvbszieh th {
+  border-style: none;
+}
+
+#vvjvbszieh p {
+  margin: 0;
+  padding: 0;
+}
+
+#vvjvbszieh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16.8px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vvjvbszieh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vvjvbszieh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vvjvbszieh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vvjvbszieh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vvjvbszieh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vvjvbszieh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vvjvbszieh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vvjvbszieh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vvjvbszieh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vvjvbszieh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vvjvbszieh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vvjvbszieh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vvjvbszieh .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vvjvbszieh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvjvbszieh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vvjvbszieh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vvjvbszieh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vvjvbszieh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvjvbszieh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vvjvbszieh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvjvbszieh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_striped {
+  background-color: rgba(44, 62, 80, 0.04);
+}
+
+#vvjvbszieh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvjvbszieh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vvjvbszieh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvjvbszieh .gt_left {
+  text-align: left;
+}
+
+#vvjvbszieh .gt_center {
+  text-align: center;
+}
+
+#vvjvbszieh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vvjvbszieh .gt_font_normal {
+  font-weight: normal;
+}
+
+#vvjvbszieh .gt_font_bold {
+  font-weight: bold;
+}
+
+#vvjvbszieh .gt_font_italic {
+  font-style: italic;
+}
+
+#vvjvbszieh .gt_super {
+  font-size: 65%;
+}
+
+#vvjvbszieh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vvjvbszieh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vvjvbszieh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vvjvbszieh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vvjvbszieh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vvjvbszieh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vvjvbszieh .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vvjvbszieh .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vvjvbszieh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #2C3E50; font-size: 21px; font-weight: 700">E-Ratio 2-Arms Time-to-Event GS-design</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #18BC9C; font-size: 16.8px; font-style: italic">According to East sample sizes</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Relevancy</th>
+<th id="Min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Min</th>
+<th id="Q1" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Q1</th>
+<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Mean</th>
+<th id="Median" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Median</th>
+<th id="Q3" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Q3</th>
+<th id="Max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #2C3E50; font-size: 17.136px; font-weight: 600; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #2C3E5038" scope="col">Max</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<th colspan="7" id="high" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #46D99C" scope="colgroup">high</th>
+</tr>
+<tr class="gt_row_group_first even">
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.93</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.95</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.95</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.96</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.96</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.03</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.03</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.04</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.04</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<th colspan="7" id="medium" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D2B55B" scope="colgroup">medium</th>
+</tr>
+<tr class="gt_row_group_first odd">
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="medium stub_1_3 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.90</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.92</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.93</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.95</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.97</td>
+</tr>
+<tr class="even">
+<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.97</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.04</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">1.05</td>
+</tr>
+<tr class="gt_group_heading_row odd">
+<th colspan="7" id="low" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D97A7A" scope="colgroup">low</th>
+</tr>
+<tr class="gt_row_group_first even">
+<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="low stub_1_5 Min" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.88</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Q1" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.90</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Mean" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.92</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Median" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.92</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Q3" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Max" style="text-align: left; color: #2C3E50; font-size: 15.96px; font-weight: 400;">0.96</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Min" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.76</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q1" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.79</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Mean" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.86</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Median" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.86</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q3" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Max" style="text-align: left; background-color: #E74C3C; color: #2C3E50; font-style: italic; font-size: 15.96px; font-weight: 400;">1.00</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_sourcenotes odd">
+<td colspan="7" class="gt_sourcenote" style="color: rgba(44,62,80,0.55); font-size: 11.424px; text-transform: uppercase">Red : &lt; 50% of N-ratios ±10%</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="survival-event-comparison_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="dark-content">
+<div class="cell">
+<div class="cell-output-display">
+<div id="qxuwznuykq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qxuwznuykq table {
+  font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qxuwznuykq thead, #qxuwznuykq tbody, #qxuwznuykq tfoot, #qxuwznuykq tr, #qxuwznuykq td, #qxuwznuykq th {
+  border-style: none;
+}
+
+#qxuwznuykq p {
+  margin: 0;
+  padding: 0;
+}
+
+#qxuwznuykq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #FFFFFF;
+  font-size: 16.8px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #222222;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qxuwznuykq .gt_title {
+  color: #FFFFFF;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #222222;
+  border-bottom-width: 0;
+}
+
+#qxuwznuykq .gt_subtitle {
+  color: #FFFFFF;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #222222;
+  border-top-width: 0;
+}
+
+#qxuwznuykq .gt_heading {
+  background-color: #222222;
+  text-align: left;
+  border-bottom-color: #222222;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_col_heading {
+  color: #FFFFFF;
+  background-color: #222222;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qxuwznuykq .gt_column_spanner_outer {
+  color: #FFFFFF;
+  background-color: #222222;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qxuwznuykq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qxuwznuykq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qxuwznuykq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qxuwznuykq .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qxuwznuykq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #FFFFFF;
+  background-color: #222222;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qxuwznuykq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #FFFFFF;
+  background-color: #222222;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qxuwznuykq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qxuwznuykq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qxuwznuykq .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qxuwznuykq .gt_stub {
+  color: #FFFFFF;
+  background-color: #222222;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuwznuykq .gt_stub_row_group {
+  color: #FFFFFF;
+  background-color: #222222;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qxuwznuykq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qxuwznuykq .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qxuwznuykq .gt_summary_row {
+  color: #FFFFFF;
+  background-color: #222222;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuwznuykq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qxuwznuykq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_grand_summary_row {
+  color: #FFFFFF;
+  background-color: #222222;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuwznuykq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_striped {
+  background-color: rgba(68, 68, 68, 0.75);
+}
+
+#qxuwznuykq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_footnotes {
+  color: #FFFFFF;
+  background-color: #222222;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuwznuykq .gt_sourcenotes {
+  color: #FFFFFF;
+  background-color: #222222;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qxuwznuykq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qxuwznuykq .gt_left {
+  text-align: left;
+}
+
+#qxuwznuykq .gt_center {
+  text-align: center;
+}
+
+#qxuwznuykq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qxuwznuykq .gt_font_normal {
+  font-weight: normal;
+}
+
+#qxuwznuykq .gt_font_bold {
+  font-weight: bold;
+}
+
+#qxuwznuykq .gt_font_italic {
+  font-style: italic;
+}
+
+#qxuwznuykq .gt_super {
+  font-size: 65%;
+}
+
+#qxuwznuykq .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#qxuwznuykq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qxuwznuykq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qxuwznuykq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qxuwznuykq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qxuwznuykq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qxuwznuykq .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#qxuwznuykq .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#qxuwznuykq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="7" class="gt_heading gt_title gt_font_normal" style="color: #FFFFFF; font-size: 21px; font-weight: 700">E-Ratio 2-Arms Time-to-Event GS-design</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #00BC8C; font-size: 16.8px; font-style: italic">According to East sample sizes</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Relevancy</th>
+<th id="Min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Min</th>
+<th id="Q1" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Q1</th>
+<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Mean</th>
+<th id="Median" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Median</th>
+<th id="Q3" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Q3</th>
+<th id="Max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #FFFFFF; font-size: 17.136px; font-weight: 700; border-bottom-width: 1.5px; border-bottom-style: solid; border-bottom-color: #FFFFFF8C" scope="col">Max</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<th colspan="7" id="high" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #46D99C" scope="colgroup">high</th>
+</tr>
+<tr class="gt_row_group_first even">
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="high stub_1_1 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.93</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.95</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.95</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.96</td>
+<td class="gt_row gt_right" headers="high stub_1_1 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.96</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.03</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.03</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.04</td>
+<td class="gt_row gt_right gt_striped" headers="high stub_1_2 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.04</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<th colspan="7" id="medium" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D2B55B" scope="colgroup">medium</th>
+</tr>
+<tr class="gt_row_group_first odd">
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="medium stub_1_3 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.90</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.92</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.93</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.95</td>
+<td class="gt_row gt_right" headers="medium stub_1_3 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.97</td>
+</tr>
+<tr class="even">
+<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.97</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.00</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.02</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.04</td>
+<td class="gt_row gt_right gt_striped" headers="medium stub_1_4 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">1.05</td>
+</tr>
+<tr class="gt_group_heading_row odd">
+<th colspan="7" id="low" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #D97A7A" scope="colgroup">low</th>
+</tr>
+<tr class="gt_row_group_first even">
+<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">gsdesign2</th>
+<td class="gt_row gt_right" headers="low stub_1_5 Min" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.88</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Q1" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.90</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Mean" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.92</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Median" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.92</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Q3" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right" headers="low stub_1_5 Max" style="text-align: left; color: #FFFFFF; font-size: 15.96px; font-weight: 400;">0.96</td>
+</tr>
+<tr class="odd">
+<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">rpact</th>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Min" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.76</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q1" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.79</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Mean" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.86</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Median" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.86</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Q3" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">0.94</td>
+<td class="gt_row gt_right gt_striped" headers="low stub_1_6 Max" style="text-align: left; background-color: #E74C3C; color: #FFFFFF; font-style: italic; font-size: 15.96px; font-weight: 400;">1.00</td>
 </tr>
 </tbody><tfoot>
 <tr class="gt_sourcenotes odd">
@@ -2795,33 +2679,14 @@ Scenarios with <span class="math display">\[
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="binary-fixed_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="survival-event-comparison_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<ul>
-<li>Using <strong>nQuery as the reference</strong>, <code>bbssr</code> stays reasonably close across all relevancy levels, with N‑ratios typically fluctuating around 1.00 and stabilising as sample sizes increase.</li>
-<li>East, however, shows <strong>systematic underestimation</strong> relative to nQuery.</li>
-<li>In <strong>high</strong> and <strong>medium‑relevancy</strong> scenarios, <code>bbssr</code> converges smoothly toward the reference, while East remains consistently below 1.00.</li>
-<li>In the <strong>low‑relevancy</strong> region, both methods show more dispersion, but the general pattern remains unchanged:
-<ul>
-<li><code>bbssr</code> ≈ nQuery<br>
-</li>
-<li><strong>East &lt; nQuery</strong> (structural methodological difference)</li>
-</ul></li>
-<li>These differences arise from the underlying exact‑test implementations, see more at <a href="../bin2arms-exact.html">“What Do East and nQuery Compute <em>Exactly</em> ?”</a>.</li>
-</ul>
-<p><strong>Overall:</strong> for exact tests in two‑arm binary designs, <code>bbssr</code> aligns well with nQuery, while East produces consistently smaller sample sizes.</p>
-</section>
-<section id="interactive-results" class="level3">
-<h3 class="anchored" data-anchor-id="interactive-results">Interactive results</h3>
-<p>You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.</p>
-<p><strong>➡️ <a href="../interactive.html"><em>“Interactive results”</em></a></strong></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -3238,18 +3103,6 @@ Scenarios with <span class="math display">\[
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../bin/binary-methods.html" class="pagination-link" aria-label="Method: Binary Tests">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Method: Binary Tests</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../bin/binary-gs.html" class="pagination-link" aria-label="Two-arm GS-Design">
-        <span class="nav-page-text">Two-arm GS-Design</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

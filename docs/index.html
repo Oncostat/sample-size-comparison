@@ -6,10 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Arocena Thomas">
-<meta name="author" content="Dan Chaltiel">
-<meta name="author" content="Anne Lourdessamy">
-<meta name="dcterms.date" content="2026-03-04">
+<meta name="dcterms.date" content="2026-03-10">
 
 <title>Sample Size Comparison</title>
 <style>
@@ -34,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./surv/survival-endpoint.html" rel="next">
+<link href="./introduction.html" rel="next">
 <link href="./SCC-HexSticker.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-listing/list.min.js"></script>
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
@@ -51,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d09b78867df270ce7cad3524d708651a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dark-ec44932d24012a477ec4f2c7a0e84d1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="site_libs/bootstrap/bootstrap-938e39ae0343df1635225689909c9f07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -142,8 +139,8 @@ window.Quarto = {
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Sample Size Comparison">
-<meta property="og:description" content="R as an alternative to East and nQuery ?">
-<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta property="og:description" content="Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne">
+<meta property="og:image" content=".\man/figures/oreilly-ssc.png">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -316,8 +313,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man\figures\SSC-banner.png" alt="" class="navbar-logo light-content">
-    <img src="./man\figures\SSC-banner.png" alt="" class="navbar-logo dark-content">
+    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -350,6 +347,10 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="./lakatos_n_lan.html">
  <span class="dropdown-text">Lakatos &amp; Lan</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./surv/survival-event-comparison.html">
+ <span class="dropdown-text">Required Events</span></a>
   </li>  
     </ul>
   </li>
@@ -389,7 +390,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -407,6 +408,12 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -422,25 +429,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./surv/survival-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sample Size computation methods for survival endpoints</span></a>
+ <span class="menu-text">Method: Sample Size Computation For Survival Endpoints</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Arm Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">Two-arm Fixed Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./surv/survival-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Arm Group-sequential Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">Two-arm GS-Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-Arm Fixed Design with Time-to-Event endpoints</span></a>
+ <span class="menu-text">One-arm Fixed Design</span></a>
   </div>
 </li>
       </ul>
@@ -457,25 +464,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bin/binary-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Binary Tests</span></a>
+ <span class="menu-text">Method: Binary Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Arm Fixed Design with Binary endpoints</span></a>
+ <span class="menu-text">Two-arm Fixed Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bin/binary-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-Arm Group-Sequential-Design with Binary endpoints</span></a>
+ <span class="menu-text">Two-arm GS-Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-Arm Fixed Design with Binary endpoints</span></a>
+ <span class="menu-text">One-arm Fixed Design</span></a>
   </div>
 </li>
       </ul>
@@ -496,14 +503,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#motivations" id="toc-motivations" class="nav-link active" data-scroll-target="#motivations">Motivations</a>
-  <ul class="collapse">
-  <li><a href="#why-r-for-sample-size-calculation" id="toc-why-r-for-sample-size-calculation" class="nav-link" data-scroll-target="#why-r-for-sample-size-calculation">Why R for sample size calculation ?</a></li>
-  </ul></li>
-  <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
+  <li><a href="#results-summary" id="toc-results-summary" class="nav-link active" data-scroll-target="#results-summary">Results summary</a></li>
   <li><a href="#additional-content" id="toc-additional-content" class="nav-link" data-scroll-target="#additional-content">Additional content:</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr"><i class="bi bi-file-slides-fill"></i>Presentation (in french)</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr"><i class="bi bi-file-slides-fill"></i>Slides (in french)</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -512,41 +515,18 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Sample Size Comparison</h1>
-<p class="subtitle lead">R as an alternative to East and nQuery ?</p>
+<p class="subtitle lead">Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne</p>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Arocena Thomas <a href="mailto:arocena.thomas@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0002-7014-220X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Oncostat
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Dan Chaltiel <a href="mailto:dan.chaltiel@gustaveroussy.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-3488-779X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Anne Lourdessamy <a href="mailto:anne.lourdessamy@gustaveroussy.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0006-9051-3302" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 4, 2026</p>
+      <p class="date">March 10, 2026</p>
     </div>
   </div>
   
@@ -558,114 +538,90 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Work In Progress
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The website is in construction, It will be completed in the next weeks so be patient ;)</p>
-</div>
-</div>
-<p>Welcome to this project dedicated to a focused comparison of computed sample sizes produced by East, nQuery, and R packages. This work looks specifically at the numerical results generated by each tool, placing them side by side to examine their consistency, differences, and overall behavior. Rather than exploring technical details on this page, the goal here is to offer a clear entry point into a structured comparison based purely on output values. I invite you to explore the results and discover how these tools align — or differ — when it comes to calculating sample size.</p>
-<section id="motivations" class="level2">
-<h2 class="anchored" data-anchor-id="motivations">Motivations</h2>
-<section id="why-r-for-sample-size-calculation" class="level3">
-<h3 class="anchored" data-anchor-id="why-r-for-sample-size-calculation">Why R for sample size calculation ?</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><strong>Welcome</strong> to the website dedicated to presenting the results of the <em>Sample Size Comparison</em> project. This site brings together several complementary sections designed to guide you through the work:</p>
 <ul>
-<li>Do all analysis in R without having to use an external tool</li>
-<li>Share code to someone (better than share an East of nQuery project)</li>
-<li>Avoid problem with export</li>
-<li>Free and open-source code, allows to open issue, ask new feature, fork the code</li>
+<li><a href="./index.html"><strong>Book</strong></a> — the core of the project, where each study design is documented with its methodology, assumptions, and comparative results.</li>
+<li><a href="./interactive.html"><strong>Interactive</strong></a> — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.</li>
+<li><strong>More</strong> — additional material related to the main topic, including slides and side analyses.</li>
+<li><a href="./explain-code/code-home.html"><strong>Code</strong></a> — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.</li>
 </ul>
-</section>
-</section>
-<section id="scope-of-the-comparison" class="level2">
-<h2 class="anchored" data-anchor-id="scope-of-the-comparison">Scope of the comparison</h2>
+<p>Together, these sections provide a unified space to navigate the project, understand the methodological insights, and interact directly with the underlying analyses.</p>
+</div><div class="column" style="width:40%;">
+<div class="shadow-box">
+<p><img src=".\man/figures/oreilly-ssc.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<section id="results-summary" class="level2">
+<h2 class="anchored" data-anchor-id="results-summary">Results summary</h2>
+<p>Below is a concise overview of the main findings from the <em>Sample Size Comparison</em> project.<br>
+This summary is intended for readers who want the key takeaways without exploring the full “Book” section.</p>
+<p>The table compares, for each endpoint and design type, the statistical test used, and how well the implemented R calculations matched the software(East or nQuery) reference values.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 11%">
-<col style="width: 24%">
-<col style="width: 12%">
-<col style="width: 19%">
-<col style="width: 32%">
+<col style="width: 13%">
+<col style="width: 42%">
+<col style="width: 17%">
+<col style="width: 27%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Endpoints</th>
-<th style="text-align: left;">Design Type</th>
-<th style="text-align: right;">Computation</th>
-<th style="text-align: left;">Software</th>
-<th style="text-align: left;">R package</th>
+<th style="text-align: left;">Design type</th>
+<th style="text-align: left;">Test</th>
+<th style="text-align: left;">R/Software matching</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">Two-arm Fixed</td>
-<td style="text-align: right;">Pooled</td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">🟥Rpact, <del>🟨bbssr</del></td>
+<td style="text-align: left;">TTE</td>
+<td style="text-align: left;">2‑Arm fixed design</td>
+<td style="text-align: left;">Log‑rank</td>
+<td style="text-align: left;">🟢 Perfect</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TTE</td>
+<td style="text-align: left;">2‑Arm group‑sequential design</td>
+<td style="text-align: left;">Log‑rank</td>
+<td style="text-align: left;">🟡 Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TTE</td>
+<td style="text-align: left;">1‑Arm fixed design</td>
+<td style="text-align: left;">Log‑rank</td>
+<td style="text-align: left;">🔵 Poor</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Binary</td>
-<td style="text-align: left;">Two-arm Fixed</td>
-<td style="text-align: right;">Unpooled</td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">2‑Arm fixed design</td>
+<td style="text-align: left;">Exact</td>
+<td style="text-align: left;">🟡 Good</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Binary</td>
-<td style="text-align: left;">Two-arm Fixed</td>
-<td style="text-align: right;">Exact</td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">🟨bbssr</td>
+<td style="text-align: left;">2‑Arm fixed design</td>
+<td style="text-align: left;">Z‑Pooled</td>
+<td style="text-align: left;">🟢 Perfect</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Binary</td>
-<td style="text-align: left;">Two-arm Group-Sequential</td>
-<td style="text-align: right;">Pooled</td>
-<td style="text-align: left;">🟧East</td>
-<td style="text-align: left;">🟥Rpact</td>
+<td style="text-align: left;">2‑Arm group‑sequential design</td>
+<td style="text-align: left;">Z‑Pooled</td>
+<td style="text-align: left;">🟢 Perfect</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Binary</td>
-<td style="text-align: left;">One-arm Fixed</td>
-<td style="text-align: right;">Exact</td>
-<td style="text-align: left;">🟧East</td>
-<td style="text-align: left;">A’Hern(no package)</td>
+<td style="text-align: left;">1‑Arm fixed design</td>
+<td style="text-align: left;">Exact</td>
+<td style="text-align: left;">🟡 Good</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Binary</td>
-<td style="text-align: left;">One-arm Fixed</td>
-<td style="text-align: right;">Non_exact?</td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">🟥Rpact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Survival</td>
-<td style="text-align: left;">Two-arm Fixed</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">🟥Rpact, 🟪Rashnu, 🟫gsDesign2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Survival</td>
-<td style="text-align: left;">Two-arm Group-Sequential</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">🟥Rpact, 🟫gsDesign2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Survival</td>
-<td style="text-align: left;">One-arm Fixed</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">🟧East, 🟦nQuery</td>
-<td style="text-align: left;">oa2s<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, sssas<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, 🟪Rashnu</td>
+<td style="text-align: left;">1‑Arm fixed design</td>
+<td style="text-align: left;">1‑Arm Z test</td>
+<td style="text-align: left;">🟢 Perfect</td>
 </tr>
 </tbody>
 </table>
@@ -754,14 +710,7 @@ Mar 4, 2026
 
 </section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>OneArm2stage<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>SampleSizeSingleArmSurvival<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1179,8 +1128,8 @@ Mar 4, 2026
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./surv/survival-endpoint.html" class="pagination-link" aria-label="Time-to-Event endpoints">
-        <span class="nav-page-text">Time-to-Event endpoints</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
