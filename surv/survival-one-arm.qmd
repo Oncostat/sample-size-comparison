@@ -86,14 +86,28 @@ p_study + theme_darkly(base_size = 15)
 
 ### Relevancy classification of design scenarios
 
-To aid interpretation of results across a wide parameter space, each design scenario was classified *a priori* according to its **practical relevance in confirmatory clinical trials**. Scenarios were categorized as **high**, **medium**, or **low relevance**, based on the extremeness of the design parameters.
+Each scenario was assigned a relevancy category based solely on the Type I error rate and power, following the same rule‑based system used for two‑arm designs:
 
-- **High relevance** scenarios correspond to commonly used design choices in late-phase clinical trials (e.g. $\alpha \leq 0.10$, power 80–90%, HR in the range 0.5–0.7).
-- **Medium relevance** scenarios represent extreme but plausible configurations that may arise in specific settings, such as rare diseases or early stopping considerations (e.g. $\alpha = 0.20$, HR $\leq 0.10$ or HR $\geq 0.90$).
-- **Low relevance** scenarios include parameter combinations that are rarely used in practice (e.g. very high $\alpha$, near-null treatment effects, or power close to 50% or 100%) and were included primarily to assess the numerical behavior and robustness of asymptotic approximations.
+*   **High relevance**
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75.
+    $$
+    These represent realistic single‑arm designs commonly used in phase II studies, especially in rare‑disease contexts.
 
-This classification was not used to filter results but rather to **contextualize observed discrepancies** between methods and to distinguish clinically meaningful differences from purely theoretical or numerical artifacts.
+*   **Medium relevance**  
+    Scenarios not meeting the criteria for high or low relevance; these represent plausible but less standard design choices.
 
+*   **Low relevance**
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    These combinations are rarely used in practice but included intentionally to explore numerical robustness across asymptotic and exact methods.
+
+The classification is descriptive only and does not filter or influence sample size computations.
 
 ### Scope of the comparison
 

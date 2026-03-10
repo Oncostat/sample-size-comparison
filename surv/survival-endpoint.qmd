@@ -29,20 +29,42 @@ flowchart TB
 ```
 :::
 
-For clinical trials we often consider the overall survival (OS) as endpoint. We consider that we have a control group with a certain survival function $S_c(t)$ that represent the probability of survival at time $t$. We want to prove that a treatment is helpful. There are three ways to express that that are equivalent : 
+In many clinical trials, the primary endpoint is **time‑to‑event**, most commonly **overall survival (OS)** or **progression‑free survival (PFS)**.  
+In such studies, each patient contributes a **survival time** and an **event indicator**, and comparisons between treatment groups rely on **survival curves** and **hazard functions** rather than simple proportions.
 
-- Difference at a certain time: $S_e(\tau) = S_c(\tau) + 0.1$ at time $\tau$, people in the treatment group survive 10% more.
-- Median survival : $S_c(t_c) = 0.5$ and $S_e(t_c + 1) = 0.5$, the median survival time, the time at which half the patients died is one year later for the treatment group.
-- Hazard ratio : $S_e(t) = S_e(t)^\text{HR}$, where HR is the hazard ratio.
+When two groups are compared—typically a *control arm* receiving standard of care and an *experimental arm* receiving a new treatment—improvement can be expressed in several equivalent ways:
 
-The proportional hazard assumption assume that $\forall t, \exists r\in \mathbb{R}^+_*, r = \frac{\log(S_e(t))}{\log(S_c(t))}$
+-   **Difference in survival probability at a specific time**, e.g.  
+    $S_e(\tau) = S_c(\tau) + 0.10$: at time $\tau$, the treatment increases survival by 10 percentage points.
 
-- We will talks about the different computational methods to get the numbers of required events and indivuals to reach a specific trial design in [**Sample size computation methods for log-rank test**](survival-methods.qmd)
+-   **Difference in median survival**, e.g.  
+    $S_c(t_c)=0.5$ and $S_e(t_c+1)=0.5$: the treatment extends the median survival time by one year.
 
-- We will then compare the results of different softwares and R package in the case of a trial without any interim analysis in [**SSC for a Two-Arm Fixed Design with Time-to-Event endpoints**](survival-fixed.qmd)
+-   **Hazard ratio (HR)** under the proportional hazards assumption:  
+    $S_e(t) = S_c(t)^{\text{HR}}$.  
+    Here, the HR summarizes the relative risk of the event at any time.
 
-- We will compare some results in the case of a trial with interim analysis, also called a group-sequential design, in [**SSC for a Two-Arm Group-Sequential Design with Time-to-Event endpoints**](survival-gs.qmd)
+with $S_c(t)$ and $S_e(t)$ denoting the survival functions of the control and experimental groups, respectively.
 
-- Finally we will compare sample sizes within a one-arm design trial, in [**SSC for a One-Arm Design with Time-to-Event endpoints**](survival-one-arm.qmd)
+The **proportional hazards condition** states that
+
+$$
+\exists r \in \mathbb{R}^+_*, \forall t, \quad r = \frac{\log S_e(t)}{\log S_c(t)} ,
+$$
+
+so that the treatment effect is constant on the log‑hazard scale.
+
+This chapter focuses on methods for **designing clinical trials with Time-to-Event endpoints**, with an emphasis on how different statistical software and R packages compute **sample sizes** under various scenarios.
+
+More specifically:
+
+-   In [**Sample size computation methods for log-rank test**](survival-methods.qmd), we introduce the classical formulas for calculating the number of required events and sample size in survival trials, and we discuss their assumptions and limitations.
+
+-   In [**Two-Arm Fixed Design with Time-to-Event endpoints**](survival-fixed.qmd), we compare results from different software and R packages for trials *without* interim analyses.
+
+-   In [**Two-Arm Group-Sequential Design with Time-to-Event endpoints**](survival-gs.qmd), we extend the comparison to trials with *interim analyses*, also known as group‑sequential designs.
+
+-   Finally, in [**One-Arm Design with Time-to-Event endpoints**](survival-one-arm.qmd), we examine sample size calculations for single‑arm designs, frequently used in rare diseases or in early‑phase oncology trials where randomized comparisons are not feasible.
+
 
 

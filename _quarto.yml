@@ -3,6 +3,7 @@ project:
   output-dir: docs
 
 website:
+  image: "https://quarto.org/quarto-dark-bg.jpeg"
   announcement: 
     content: "**WIP** - this website is in progress, official release 12/03/2026" 
     position: below-navbar 
@@ -13,9 +14,8 @@ website:
         href: about.qmd
   favicon: SCC-HexSticker.png
   open-graph: true
-  # title: "SSC"
   navbar:
-    logo: man\figures\SSC-banner.png
+    logo: man\figures\ssc-flatly-banner.png
     background: primary
     search: true
     left:
@@ -32,6 +32,8 @@ website:
             href: bin2arms-exact.qmd
           - text: "Lakatos & Lan"
             href: lakatos_n_lan.qmd
+          - text: "Required Events"
+            href: surv/survival-event-comparison.qmd
       - text: "Code"
         href: "explain-code/code-home.qmd"
       - text: "About"
@@ -47,25 +49,34 @@ website:
             href: https://github.com/Oncostat/sample-size-comparison/issues/new
   sidebar:
     - title : "Book"
-      # logo: SCC-HexSticker.png
       style: "docked"
       contents:
-        - text: "Introduction"
+        - text: "Welcome"
           href: index.qmd
+        - text: "Introduction"
+          href: introduction.qmd
         - section: "Time-to-Event endpoints"
           href: surv/survival-endpoint.qmd
           contents:
-            - surv/survival-methods.qmd
-            - surv/survival-fixed.qmd
-            - surv/survival-gs.qmd
-            - surv/survival-one-arm.qmd
+            - text: "Method: Sample Size Computation For Survival Endpoints"
+              href: surv/survival-methods.qmd
+            - text: "Two-arm Fixed Design"
+              href: surv/survival-fixed.qmd
+            - text: "Two-arm GS-Design"
+              href: surv/survival-gs.qmd
+            - text: "One-arm Fixed Design"
+              href: surv/survival-one-arm.qmd
         - section: "Binary endpoints"
           href: bin/binary-endpoints.qmd
           contents:
-            - bin/binary-methods.qmd
-            - bin/binary-fixed.qmd
-            - bin/binary-gs.qmd
-            - bin/binary-one-arm.qmd
+            - text: "Method: Binary Tests"
+              href: bin/binary-methods.qmd
+            - text: "Two-arm Fixed Design"
+              href: bin/binary-fixed.qmd
+            - text: "Two-arm GS-Design"
+              href: bin/binary-gs.qmd
+            - text: "One-arm Fixed Design"
+              href: bin/binary-one-arm.qmd
         - text: "References"
           href: references.qmd
 
@@ -80,8 +91,7 @@ format:
       message: false
     theme:
       light: flatly
-      dark: darkly
-      # - styles.scss
+      dark: [darkly, custom-dark.scss]
     toc: true
     css: styles.css
 fig-format: svg

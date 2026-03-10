@@ -58,29 +58,38 @@ To ensure comparability between methods and isolate software‑level differences
 
 No adjustments for stratification, covariates, or missingness were included. The focus is strictly on sample size determination under the assumed null response rate $\pi_c$.
 
-
 ### Relevancy classification of design scenarios
 
-The same classification used in other sections was applied to contextualize results:
+Relevancy was determined using the same rule‑based criteria applied in the two‑arm sections, relying only on α and power:
 
--   **High relevance** scenarios reflect typical late-phase binary-endpoint designs  
-    (e.g. $\alpha \le 0.10$, power 80–90%, control rate between 0.2 and 0.6, effect sizes of 10–20 percentage points).
+*   **High relevance**  
+    Scenarios satisfying
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75.
+    $$
+    These constitute realistic one‑arm designs often used in phase II or rare‑disease contexts.
 
--   **Medium relevance** scenarios represent extreme but plausible configurations,  
-    such as very low or very high baseline rates, or unusually large effect sizes.
+*   **Medium relevance**  
+    Scenarios not meeting criteria for high or low relevance, representing plausible but less standard combinations of α and power.
 
--   **Low relevance** scenarios include combinations rarely used in practice  
-    (e.g. $\alpha = 0.49$, $\Delta\pi = 0.49$ on a high baseline rate, or power close to 50% or 100%).  
-    These scenarios were retained intentionally to assess numerical stability and robustness of asymptotic approximations.
+*   **Low relevance**  
+    Scenarios with
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    Such settings are operationally uncommon but included to stress‑test asymptotic and exact methods across extreme operating conditions.
 
-This classification was not used to restrict the analysis; it is only meant to contextualize discrepancies and identify when differences reflect methodological subtleties rather than clinically meaningful effects.
+The classification is used purely for interpretability and does not impact sample size computations.
 
 ## Results
 
 ### One‑sample Z-test
 
 Methods compared :
-
 
 - East : Single Proportion test [PN-1S-SP]
 - nQuery : POT0 / Chi Square Test for One Proportion

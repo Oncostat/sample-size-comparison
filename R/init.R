@@ -18,6 +18,7 @@ wrapper <- lst()
 ## Intermediate functions
 source("R/functions/checks.R")
 source("R/functions/n_ratio.R")
+source("R/functions/e_ratio.R")
 source("R/functions/helpers.R")
 source("R/functions/evaluate_relevancy.R")
 

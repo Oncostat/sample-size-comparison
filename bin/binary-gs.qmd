@@ -50,19 +50,28 @@ Stopping for futility followed a **non‑binding** rule so that crossing the fut
 
 ### Relevancy classification of design scenarios
 
-The same **high / medium / low relevance** classification used in the fixed-design case was applied:
+As in the fixed‑design setting, each scenario was assigned a relevancy category based solely on α and power:
 
--   **High relevance** scenarios reflect typical late-phase binary-endpoint designs  
-    (e.g. $\alpha \le 0.10$, power 80–90%, control rate between 0.2 and 0.6, effect sizes of 10–20 percentage points).
+*   **High relevance**
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75.
+    $$
+    These settings correspond to realistic, routinely used confirmatory designs—now extended to the group-sequential framework.
 
--   **Medium relevance** scenarios represent extreme but plausible configurations,  
-    such as very low or very high baseline rates, or unusually large effect sizes.
+*   **Medium relevance**  
+    Scenarios falling outside the high and low regions, representing plausible but less typical combinations of α and power encountered in exploratory or early‑phase program designs.
 
--   **Low relevance** scenarios include combinations rarely used in practice  
-    (e.g. $\alpha = 0.49$, $\Delta\pi = 0.49$ on a high baseline rate, or power close to 50% or 100%).  
-    These scenarios were retained intentionally to assess numerical stability and robustness of asymptotic approximations.
+*   **Low relevance**
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    These extreme configurations are not typical for group‑sequential confirmatory trials but are kept intentionally to examine numerical robustness of spending‑function implementations.
 
-This classification was not used to restrict the analysis; it is only meant to contextualize discrepancies and identify when differences reflect methodological subtleties rather than clinically meaningful effects.
+The categorization is descriptive and plays no role in filtering or weighting the results; it serves purely to guide interpretation.
 
 ## Results
 

@@ -99,6 +99,11 @@ combined <-
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_gs, method = "combined")
 
+e_ratio <- 
+  combined |>
+  get_tbl() |> 
+  get_e_ratio(ref = "east")
+
 n_ratio <- 
   combined |>
   get_tbl() |> 
@@ -107,20 +112,29 @@ n_ratio <-
 cli_alert_success("Combined results")
 
 # Table & figures ----
-title <- "N-Ratio 2-Arms Time-to-Event GS-design"
+title_er <- "E-Ratio 2-Arms Time-to-Event GS-design"
+title_nr <- "N-Ratio 2-Arms Time-to-Event GS-design"
 ## Tables ----
+table_e_ratio <- 
+  e_ratio |> 
+  gt_e_ratio(title = title_er, ref_name = "East")
+
 table_n_ratio <- 
   n_ratio |> 
-  gt_n_ratio(title = title, ref_name = "East")
+  gt_n_ratio(title = title_nr, ref_name = "East")
 
-tables <- lst(table_n_ratio)
+tables <- lst(table_e_ratio, table_n_ratio)
 
 ## Figures ----
+p_e_ratio <- 
+  e_ratio |> 
+  plot_e_ratio(title = title_er, ref_name = "East")
+
 p_n_ratio <- 
   n_ratio |> 
-  plot_n_ratio(title = title, ref_name = "East")
+  plot_n_ratio(title = title_nr, ref_name = "East")
 
-plots <- lst(p_n_ratio)
+plots <- lst(p_e_ratio, p_n_ratio)
 cli_alert_success("Tables & figures")
 
 # Export results ----

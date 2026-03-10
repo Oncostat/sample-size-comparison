@@ -86,3 +86,17 @@ details[open] summary {
   max-height: 100vh !important;
 }
 
+
+/** SHADOW BOX FOR COVER*/
+.shadow-box {
+  padding: 0.1rem;
+  border-radius: 8px;
+  background:"#FFFFFF";
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.shadow-box img {
+  width: 100%;
+  border-radius: 6px;
+}

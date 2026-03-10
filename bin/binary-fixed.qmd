@@ -40,22 +40,34 @@ To isolate differences due purely to the statistical method or software implemen
 -   **Allocation ratio (experimental : control):** 1 : 1
 -   **Test sidedness:** two-sided
 
-
 ### Relevancy classification of design scenarios
 
-To help interpret method agreement across a wide parameter space, each scenario was classified *a priori* according to its **practical relevance in confirmatory two-arm trials**.
+To help interpret method agreement across the full parameter grid, each scenario was classified *a priori* according to its **practical relevance**.  
+The classification follows a rule‑based system determined solely by the Type I error rate and power:
 
--   **High relevance** scenarios reflect typical late-phase binary-endpoint designs  
-    (e.g. $\alpha \le 0.10$, power 80–90%, control rate between 0.2 and 0.6, effect sizes of 10–20 percentage points).
+-   **High relevance**  
+    Scenarios with
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75,
+    $$
+    representing operating characteristics commonly used in realistic confirmatory settings.
 
--   **Medium relevance** scenarios represent extreme but plausible configurations,  
-    such as very low or very high baseline rates, or unusually large effect sizes.
+-   **Medium relevance**  
+    Scenarios not meeting the criteria for “high” or “low.”  
+    These correspond to plausible but less conventional values of α and power used in exploratory or constrained designs.
 
--   **Low relevance** scenarios include combinations rarely used in practice  
-    (e.g. $\alpha = 0.49$, $\Delta\pi = 0.49$ on a high baseline rate, or power close to 50% or 100%).  
-    These scenarios were retained intentionally to assess numerical stability and robustness of asymptotic approximations.
+-   **Low relevance**  
+    Scenarios with
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    These configurations are rarely used operationally (e.g., extremely liberal α or near‑perfect power), but are retained to evaluate numerical behavior in challenging cases.
 
-The classification is descriptive only: it does **not** filter or modify the analysis. Instead, it provides context for understanding discrepancies between methods and differentiating clinically meaningful differences from numerical artifacts.
+The classification does **not** filter scenarios nor influence computation; it simply contextualizes discrepancies between methods across a wide design space.
 
 ### Scope of the comparison
 
