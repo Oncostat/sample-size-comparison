@@ -1,7 +1,6 @@
 ---
 title: "Sample Size Comparison"
 subtitle: "Arocena Thomas, Chaltiel Dan & Lourdessamy Anne"
-bibliography: references.bibtex
 date: last-modified
 other-links:
   - text: Slides (in french)
@@ -11,10 +10,9 @@ listing:
   id: sample-listings
   type: grid
   contents:
-    - "bin2arms-exact.qmd"
+    - "site-files/additional-content/bin2arms-exact.qmd"
     - "presentation/presentation-fr.qmd"
-    - "lakatos_n_lan.qmd"
-    # - "surv/survival-event-comparison.qmd"
+    - "site-files/additional-content/lakatos_n_lan.qmd"
 ---
 
 ::: {.columns}
@@ -24,16 +22,16 @@ listing:
 This site brings together several complementary sections designed to guide you through the work:
 
 - [**Book**](index.qmd) — the core of the project, where each study design is documented with its methodology, assumptions, and comparative results.
-- [**Interactive**](interactive.qmd) — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.
+- [**Interactive**](site-files/interactive/interactive.qmd) — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.
 - **More** — additional material related to the main topic, including slides and side analyses.
-- [**Code**](explain-code/code-home.qmd) — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.
+- [**Code**](site-files/explain-code/code-home.qmd) — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.
 
 Together, these sections provide a unified space to navigate the project, understand the methodological insights, and interact directly with the underlying analyses.
 :::
 
 ::: {.column width="40%"}
 <div class="shadow-box">
-  ![](/man/figures/oreilly-ssc.png)
+  ![](man/figures/oreilly-ssc.png)
 </div>
 :::
 
@@ -48,9 +46,9 @@ The table compares, for each endpoint and design type, the statistical test used
 
 | Endpoints | Design type                   | Test         | R/Software matching |
 | :-------- | :---------------------------- | :----------- | :------------------ |
-| TTE       | 2‑Arm fixed design            | Log‑rank     | 🟢 Perfect          |
-| TTE       | 2‑Arm group‑sequential design | Log‑rank     | 🟡 Good             |
-| TTE       | 1‑Arm fixed design            | Log‑rank     | 🔵 Poor             |
+| survival  | 2‑Arm fixed design            | Log‑rank     | 🟢 Perfect          |
+| survival  | 2‑Arm group‑sequential design | Log‑rank     | 🟡 Good             |
+| survival  | 1‑Arm fixed design            | Log‑rank     | 🔵 Poor             |
 | Binary    | 2‑Arm fixed design            | Exact        | 🟡 Good             |
 | Binary    | 2‑Arm fixed design            | Z‑Pooled     | 🟢 Perfect          |
 | Binary    | 2‑Arm group‑sequential design | Z‑Pooled     | 🟢 Perfect          |
