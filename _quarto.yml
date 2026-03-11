@@ -3,41 +3,32 @@ project:
   output-dir: docs
 
 website:
-  image: "https://quarto.org/quarto-dark-bg.jpeg"
-  announcement: 
-    content: "**WIP** - this website is in progress, official release 12/03/2026" 
-    position: below-navbar 
-    type: warning
-  page-footer:
-    center: 
-      - text: "About"
-        href: about.qmd
+  image: "man/figure/oreilly-ssc.png"
   favicon: SCC-HexSticker.png
   open-graph: true
   navbar:
-    logo: man\figures\ssc-flatly-banner.png
-    background: primary
-    search: true
+    logo: man\figures\ssc-flatly-banner.png 
     left:
       - text: "Book"
         href: index.qmd
       - text: "Interactive"
-        href: interactive.qmd
+        href: site-files/interactive/interactive.qmd
       - text: "More"
         menu:
           - text: "Slides (french)"
             href: presentation/presentation-fr.qmd
             target: _blank
           - text: "About Exact test"
-            href: bin2arms-exact.qmd
+            href: site-files/additional-content/bin2arms-exact.qmd
           - text: "Lakatos & Lan"
-            href: lakatos_n_lan.qmd
+            href: site-files/additional-content/lakatos_n_lan.qmd
           - text: "Required Events"
-            href: surv/survival-event-comparison.qmd
+            href: site-files/additional-content/survival-event-comparison.qmd
       - text: "Code"
-        href: "explain-code/code-home.qmd"
+        href: "site-files/explain-code/code-home.qmd"
+    right:
       - text: "About"
-        href: about.qmd
+        href: site-files/about.qmd
     tools:
       - icon: globe
         href: https://oncostat.github.io/
@@ -54,37 +45,41 @@ website:
         - text: "Welcome"
           href: index.qmd
         - text: "Introduction"
-          href: introduction.qmd
-        - section: "Time-to-Event endpoints"
-          href: surv/survival-endpoint.qmd
+          href: site-files/book/introduction.qmd
+        - section: "Survival endpoints"
           contents:
-            - text: "Method: Sample Size Computation For Survival Endpoints"
-              href: surv/survival-methods.qmd
+            - text: Introduction
+              href: site-files/book/surv/survival-endpoint.qmd
+            - text: "Method: Survival Sample Size Computation"
+              href: site-files/book/surv/survival-methods.qmd
             - text: "Two-arm Fixed Design"
-              href: surv/survival-fixed.qmd
+              href: site-files/book/surv/survival-fixed.qmd
             - text: "Two-arm GS-Design"
-              href: surv/survival-gs.qmd
+              href: site-files/book/surv/survival-gs.qmd
             - text: "One-arm Fixed Design"
-              href: surv/survival-one-arm.qmd
+              href: site-files/book/surv/survival-one-arm.qmd
         - section: "Binary endpoints"
-          href: bin/binary-endpoints.qmd
           contents:
+            - text: Introduction
+              href: site-files/book/bin/binary-endpoints.qmd
             - text: "Method: Binary Tests"
-              href: bin/binary-methods.qmd
+              href: site-files/book/bin/binary-methods.qmd
             - text: "Two-arm Fixed Design"
-              href: bin/binary-fixed.qmd
+              href: site-files/book/bin/binary-fixed.qmd
             - text: "Two-arm GS-Design"
-              href: bin/binary-gs.qmd
+              href: site-files/book/bin/binary-gs.qmd
             - text: "One-arm Fixed Design"
-              href: bin/binary-one-arm.qmd
+              href: site-files/book/bin/binary-one-arm.qmd
+        - text: "Conclusion"
+          href: site-files/book/conclusion.qmd
         - text: "References"
-          href: references.qmd
+          href: site-files/book/references.qmd
 
 format:
   html:
     page-navigation: true
     highlight-style: github
-    code-fold: show
+    code-fold: true
     execute:
       echo: false
       warning: false
