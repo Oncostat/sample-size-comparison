@@ -89,14 +89,20 @@ details[open] summary {
 
 /** SHADOW BOX FOR COVER*/
 .shadow-box {
-  padding: 0.1rem;
+  padding: 0.5em;
   border-radius: 8px;
-  background:"#FFFFFF";
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  border: 1px solid rgba(0,0,0,0.05);
+  background: white;
+  box-shadow: 0 5px 30px var(--bs-light);
+  border: 1px solid var(--bs-light);
 }
 
 .shadow-box img {
   width: 100%;
   border-radius: 6px;
+}
+
+/** SIDEBAR ACTIVE COLOR & BORDER*/
+.sidebar-item-container .active {
+  border-bottom: 1px double var(--bs-success);
+  color: var(--bs-success) !important;
 }

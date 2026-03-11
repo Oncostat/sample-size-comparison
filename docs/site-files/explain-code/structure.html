@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-03-11">
 
-<title>Sample Size Comparison</title>
+<title>How I Structured My Project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,35 +21,67 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./site-files/book/introduction.html" rel="next">
-<link href="./SCC-HexSticker.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-6be18d429dc9246597ff3d64b11c9f27.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../SCC-HexSticker.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-6be18d429dc9246597ff3d64b11c9f27.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,73 +109,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-sample-listings .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-sample-listings'] = new List('listing-sample-listings', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Sample Size Comparison">
-<meta property="og:description" content="Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne">
-<meta property="og:image" content="man/figures/oreilly-ssc.png">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="How I Structured My Project">
+<meta property="og:description" content="A big-picture overview of the SSC code">
+<meta property="og:image" content="../../man/figures/structure.png">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -312,9 +286,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
-    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -324,11 +298,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Book</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/interactive/interactive.html"> 
+    <a class="nav-link" href="../../site-files/interactive/interactive.html"> 
 <span class="menu-text">Interactive</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -337,31 +311,31 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
-    <a class="dropdown-item" href="./presentation/presentation-fr.html" target="_blank">
+    <a class="dropdown-item" href="../../presentation/presentation-fr.html" target="_blank">
  <span class="dropdown-text">Slides (french)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/bin2arms-exact.html">
+    <a class="dropdown-item" href="../../site-files/additional-content/bin2arms-exact.html">
  <span class="dropdown-text">About Exact test</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/lakatos_n_lan.html">
+    <a class="dropdown-item" href="../../site-files/additional-content/lakatos_n_lan.html">
  <span class="dropdown-text">Lakatos &amp; Lan</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/survival-event-comparison.html">
+    <a class="dropdown-item" href="../../site-files/additional-content/survival-event-comparison.html">
  <span class="dropdown-text">Required Events</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/explain-code/code-home.html"> 
+    <a class="nav-link" href="../../site-files/explain-code/code-home.html"> 
 <span class="menu-text">Code</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/about.html"> 
+    <a class="nav-link" href="../../site-files/about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -387,143 +361,28 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Welcome</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Survival endpoints</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Method: Survival Sample Size Computation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm Fixed Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm GS-Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-arm Fixed Design</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Binary endpoints</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Method: Binary Tests</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm Fixed Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-gs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-arm GS-Design</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">One-arm Fixed Design</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Conclusion</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./site-files/book/references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#results-summary" id="toc-results-summary" class="nav-link active" data-scroll-target="#results-summary">Results summary</a></li>
-  <li><a href="#additional-content" id="toc-additional-content" class="nav-link" data-scroll-target="#additional-content">Additional content:</a></li>
+  <li><a href="#directory-structure" id="toc-directory-structure" class="nav-link active" data-scroll-target="#directory-structure">Directory Structure</a></li>
+  <li><a href="#main.r-the-entry-point" id="toc-main.r-the-entry-point" class="nav-link" data-scroll-target="#main.r-the-entry-point">main.R: the entry point</a></li>
+  <li><a href="#init.r-preparing-the-environment" id="toc-init.r-preparing-the-environment" class="nav-link" data-scroll-target="#init.r-preparing-the-environment">init.R: preparing the environment</a></li>
+  <li><a href="#comparison-scripts-comp_.r" id="toc-comparison-scripts-comp_.r" class="nav-link" data-scroll-target="#comparison-scripts-comp_.r">Comparison scripts (comp_*.R)</a></li>
+  <li><a href="#the-functions-directory" id="toc-the-functions-directory" class="nav-link" data-scroll-target="#the-functions-directory">The functions/ directory</a>
+  <ul class="collapse">
+  <li><a href="#core-helpers" id="toc-core-helpers" class="nav-link" data-scroll-target="#core-helpers"><strong>Core helpers</strong></a></li>
+  <li><a href="#wrappers-for-external-r-packages" id="toc-wrappers-for-external-r-packages" class="nav-link" data-scroll-target="#wrappers-for-external-r-packages"><strong>Wrappers for external R packages</strong></a></li>
+  </ul></li>
+  <li><a href="#the-s7-layer-s7" id="toc-the-s7-layer-s7" class="nav-link" data-scroll-target="#the-s7-layer-s7">The S7 layer (<code>S7/</code>)</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr"><i class="bi bi-file-slides-fill"></i>Slides (in french)</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -531,8 +390,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Sample Size Comparison</h1>
-<p class="subtitle lead">Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne</p>
+<h1 class="title">How I Structured My Project</h1>
+<p class="subtitle lead">A big-picture overview of the SSC code</p>
 </div>
 
 
@@ -555,174 +414,127 @@ window.Quarto = {
 </header>
 
 
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>Welcome</strong> to the website dedicated to presenting the results of the <em>Sample Size Comparison</em> project. This site brings together several complementary sections designed to guide you through the work:</p>
+<p>This post gives a high-level overview of how the entire SSC project is organised.<br>
+The project uses a simple but robust structure:</p>
 <ul>
-<li><a href="./index.html"><strong>Book</strong></a> — the core of the project, where each study design is documented with its methodology, assumptions, and comparative results.</li>
-<li><a href="./site-files/interactive/interactive.html"><strong>Interactive</strong></a> — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.</li>
-<li><strong>More</strong> — additional material related to the main topic, including slides and side analyses.</li>
-<li><a href="./site-files/explain-code/code-home.html"><strong>Code</strong></a> — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.</li>
+<li><strong>a central <code>main.R</code> file</strong>, from which the full pipeline is executed;<br>
+</li>
+<li><strong>modular comparison scripts</strong>, one per design;<br>
+</li>
+<li><strong>a dedicated <code>functions/</code> directory</strong> for all helpers and wrappers;<br>
+</li>
+<li><strong>a small S7 layer</strong> holding the two core classes (<code>ssc_design</code> and <code>ssc_results</code>).</li>
 </ul>
-<p>Together, these sections provide a unified space to navigate the project, understand the methodological insights, and interact directly with the underlying analyses.</p>
-</div><div class="column" style="width:40%;">
-<div class="shadow-box">
-<p><img src="man/figures/oreilly-ssc.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<section id="results-summary" class="level2">
-<h2 class="anchored" data-anchor-id="results-summary">Results summary</h2>
-<p>Below is a concise overview of the main findings from the <em>Sample Size Comparison</em> project.<br>
-This summary is intended for readers who want the key takeaways without exploring the full “Book” section.</p>
-<p>The table compares, for each endpoint and design type, the statistical test used, and how well the implemented R calculations matched the software(East or nQuery) reference values.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 42%">
-<col style="width: 17%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Endpoints</th>
-<th style="text-align: left;">Design type</th>
-<th style="text-align: left;">Test</th>
-<th style="text-align: left;">R/Software matching</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">2‑Arm group‑sequential design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🔵 Poor</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Exact</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Z‑Pooled</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm group‑sequential design</td>
-<td style="text-align: left;">Z‑Pooled</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">Exact</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">1‑Arm Z test</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-</tbody>
-</table>
+<section id="directory-structure" class="level2">
+<h2 class="anchored" data-anchor-id="directory-structure">Directory Structure</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── init.R</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>├── main.R</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── comp_surv_fixed.R</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>├── comp_surv_gs.R</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>├── comp_surv_one_arm.R</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>├── comp_bin_fixed_pooled.R</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>├── comp_bin_fixed_exact.R</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>├── comp_bin_gs.R</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>├── comp_bin_one_arm.R</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>├── comp_bin_one_arm_exact.R</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>├── lakatos_n_lan.R</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>├── functions/</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>│   ├── checks.R</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>│   ├── helpers.R</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>│   ├── evaluate_relevancy.R</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>│   ├── exact_2_arms.R</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>│   ├── n_ratio.R</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>│   ├── rpact_wrapper.R</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>│   ├── ahern_wrapper.R</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>│   ├── bbssr_wrapper.R</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>│   ├── gsdesign2_wrapper.R</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>│   ├── rashnu_wrapper.R</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>│   ├── oa2s_wrapper.R</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>│   └── sssas_wrapper.R</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>└── S7/</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    ├── generics.R</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ├── ssc_design.R</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    └── ssc_results.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="additional-content" class="level2">
-<h2 class="anchored" data-anchor-id="additional-content">Additional content:</h2>
-<div id="listing-sample-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1773222993000" data-listing-file-modified-sort="1773222993903" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="39" data-listing-word-count-sort="7778">
-<a href="./presentation/presentation-fr.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/presentation-fr.PNG" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Comparaison des méthodes de calcul de la taille d’échantillon
-</h5>
-<div class="card-text listing-description delink">
-
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1773234515000" data-listing-file-modified-sort="1773234515770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="318">
-<a href="./site-files/additional-content/lakatos_n_lan.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/lakatos_n_lan-table.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Comparison of Lakatos &amp; Lan (1992), nQuery, EAST and R packages
-</h5>
-<div class="card-text listing-description delink">
-This analysis started from a simple question:
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1773236947000" data-listing-file-modified-sort="1773236947999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="471">
-<a href="./site-files/additional-content/bin2arms-exact.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/exact.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-What Do East and nQuery Compute <em>Exactly</em> ?
-</h5>
-<div class="card-text listing-description delink">
-Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what <strong>nQuery</strong> and <strong>East</strong> are <em>ex…</em><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-
+<section id="main.r-the-entry-point" class="level2">
+<h2 class="anchored" data-anchor-id="main.r-the-entry-point">main.R: the entry point</h2>
+<p><code>main.R</code> is the <strong>orchestrator</strong> of the entire project.<br>
+Running this file executes all steps in the predefined order:</p>
+<ul>
+<li>initialization,</li>
+<li>survival comparisons,</li>
+<li>binary comparisons,</li>
+<li>result combination,</li>
+<li>exporting final outputs.</li>
+</ul>
+<p>This is described in detail in the post:<br>
+<strong>➡️ <a href="../../site-files/explain-code/pipeline.html"><em>“My main pipeline”</em></a></strong></p>
+</section>
+<section id="init.r-preparing-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="init.r-preparing-the-environment">init.R: preparing the environment</h2>
+<p><code>init.R</code> configures everything needed for the project:</p>
+<ul>
+<li>loads all required packages,</li>
+<li>creates global objects (e.g.&nbsp;<code>ssc</code>, <code>wrapper</code>, error rate),</li>
+<li>sources helper functions,</li>
+<li>loads all wrapper functions,</li>
+<li>loads S7 classes and methods.</li>
+</ul>
+</section>
+<section id="comparison-scripts-comp_.r" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-scripts-comp_.r">Comparison scripts (comp_*.R)</h2>
+<p>Each script corresponds to <strong>one design × one endpoint</strong> and follows the same structure:</p>
+<ol type="1">
+<li>build parameter grid</li>
+<li>create a <code>ssc_design</code> object</li>
+<li>compute results using wrappers</li>
+<li>validate with S7</li>
+<li>combine results</li>
+<li>compute derived metrics (N‑ratio, relevancy)</li>
+<li>generate tables &amp; plots</li>
+<li>export everything inside the <code>ssc</code> object</li>
+</ol>
+<p>This standard pattern is what makes the pipeline extensible: adding a new design simply means adding a new <code>comp_xyz.R</code> following the same recipe.</p>
+</section>
+<section id="the-functions-directory" class="level2">
+<h2 class="anchored" data-anchor-id="the-functions-directory">The functions/ directory</h2>
+<p>This directory contains all <strong>reusable building blocks</strong> of the project:</p>
+<section id="core-helpers" class="level3">
+<h3 class="anchored" data-anchor-id="core-helpers"><strong>Core helpers</strong></h3>
+<ul>
+<li><code>checks.R</code> — input validation</li>
+<li><code>helpers.R</code> — general utilities</li>
+<li><code>evaluate_relevancy.R</code> — rule defining “high / medium / low” relevancy</li>
+<li><code>n_ratio.R</code> — N‑Ratio computation</li>
+</ul>
+</section>
+<section id="wrappers-for-external-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="wrappers-for-external-r-packages"><strong>Wrappers for external R packages</strong></h3>
+<ul>
+<li><code>rpact_wrapper.R</code></li>
+<li><code>bbssr_wrapper.R</code></li>
+<li><code>gsdesign2_wrapper.R</code></li>
+<li><code>rashnu_wrapper.R</code></li>
+<li><code>ahern_wrapper.R</code></li>
+<li><code>exact_2_arms.R</code> — exact binomial implementation</li>
+<li><code>sssas_wrapper.R</code></li>
+<li><code>oa2s_wrapper.R</code></li>
+</ul>
+<p>This part is discussed in detail in the post:<br>
+<strong>➡️ <a href="../../site-files/explain-code/wrapper.html"><em>“Clean Wrapper Functions for Sample Size Calculations”</em></a></strong></p>
+</section>
+</section>
+<section id="the-s7-layer-s7" class="level2">
+<h2 class="anchored" data-anchor-id="the-s7-layer-s7">The S7 layer (<code>S7/</code>)</h2>
+<p>This folder contains a minimal but powerful object system for the project:</p>
+<ul>
+<li><strong><code>ssc_design.R</code></strong> — defines how a design is represented</li>
+<li><strong><code>ssc_results.R</code></strong> — defines how results are stored &amp; validated</li>
+<li><strong><code>generics.R</code></strong> — shared S7 methods (print, summary, extractors, etc.)</li>
+</ul>
+<p>This is discussed in detail in the post:<br>
+<strong>➡️ <a href="../../site-files/explain-code/S7.html"><em>“S7 Classes for Designs and Results”</em></a></strong></p>
 
 
 </section>
@@ -1141,15 +953,6 @@ Mar 11, 2026
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./site-files/book/introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

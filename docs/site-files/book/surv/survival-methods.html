@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-11">
 
-<title>Sample Size Comparison</title>
+<title>Sample Size computation methods for survival endpoints</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,32 +23,31 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./site-files/book/introduction.html" rel="next">
-<link href="./SCC-HexSticker.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-6be18d429dc9246597ff3d64b11c9f27.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../site-files/book/surv/survival-fixed.html" rel="next">
+<link href="../../../site-files/book/surv/survival-endpoint.html" rel="prev">
+<link href="../../../SCC-HexSticker.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-6be18d429dc9246597ff3d64b11c9f27.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-sample-listings .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-sample-listings'] = new List('listing-sample-listings', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -137,10 +106,10 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Sample Size Comparison">
-<meta property="og:description" content="Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne">
-<meta property="og:image" content="man/figures/oreilly-ssc.png">
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="Sample Size computation methods for survival endpoints">
+<meta property="og:description" content="">
+<meta property="og:image" content="man/figure/oreilly-ssc.png">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -312,9 +281,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
-    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -324,11 +293,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../../index.html" aria-current="page"> 
 <span class="menu-text">Book</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/interactive/interactive.html"> 
+    <a class="nav-link" href="../../../site-files/interactive/interactive.html"> 
 <span class="menu-text">Interactive</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -337,31 +306,31 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
-    <a class="dropdown-item" href="./presentation/presentation-fr.html" target="_blank">
+    <a class="dropdown-item" href="../../../presentation/presentation-fr.html" target="_blank">
  <span class="dropdown-text">Slides (french)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/bin2arms-exact.html">
+    <a class="dropdown-item" href="../../../site-files/additional-content/bin2arms-exact.html">
  <span class="dropdown-text">About Exact test</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/lakatos_n_lan.html">
+    <a class="dropdown-item" href="../../../site-files/additional-content/lakatos_n_lan.html">
  <span class="dropdown-text">Lakatos &amp; Lan</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/survival-event-comparison.html">
+    <a class="dropdown-item" href="../../../site-files/additional-content/survival-event-comparison.html">
  <span class="dropdown-text">Required Events</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/explain-code/code-home.html"> 
+    <a class="nav-link" href="../../../site-files/explain-code/code-home.html"> 
 <span class="menu-text">Code</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/about.html"> 
+    <a class="nav-link" href="../../../site-files/about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -392,7 +361,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../site-files/book/surv/survival-endpoint.html">Survival endpoints</a></li><li class="breadcrumb-item"><a href="../../../site-files/book/surv/survival-methods.html">Method: Survival Sample Size Computation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -406,13 +375,13 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -427,31 +396,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-methods.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-methods.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Method: Survival Sample Size Computation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm Fixed Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-gs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-gs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm GS-Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">One-arm Fixed Design</span></a>
   </div>
 </li>
@@ -468,31 +437,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-methods.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-methods.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Method: Binary Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm Fixed Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-gs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-gs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm GS-Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">One-arm Fixed Design</span></a>
   </div>
 </li>
@@ -500,13 +469,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/conclusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/conclusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conclusion</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/references.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -520,19 +489,37 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#results-summary" id="toc-results-summary" class="nav-link active" data-scroll-target="#results-summary">Results summary</a></li>
-  <li><a href="#additional-content" id="toc-additional-content" class="nav-link" data-scroll-target="#additional-content">Additional content:</a></li>
+  <li><a href="#determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method" id="toc-determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method" class="nav-link active" data-scroll-target="#determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method">Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)</a>
+  <ul class="collapse">
+  <li><a href="#asymptotic-behavior-of-the-log-rank-statistic" id="toc-asymptotic-behavior-of-the-log-rank-statistic" class="nav-link" data-scroll-target="#asymptotic-behavior-of-the-log-rank-statistic">Asymptotic Behavior of the Log-Rank Statistic</a></li>
+  <li><a href="#power-requirement-and-required-number-of-events" id="toc-power-requirement-and-required-number-of-events" class="nav-link" data-scroll-target="#power-requirement-and-required-number-of-events">Power Requirement and Required Number of Events</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#from-required-number-of-events-to-sample-size" id="toc-from-required-number-of-events-to-sample-size" class="nav-link" data-scroll-target="#from-required-number-of-events-to-sample-size">From Required Number of Events to Sample Size</a>
+  <ul class="collapse">
+  <li><a href="#event-probability-for-an-individual-subject" id="toc-event-probability-for-an-individual-subject" class="nav-link" data-scroll-target="#event-probability-for-an-individual-subject">Event Probability for an Individual Subject</a></li>
+  <li><a href="#expected-number-of-events-in-the-trial" id="toc-expected-number-of-events-in-the-trial" class="nav-link" data-scroll-target="#expected-number-of-events-in-the-trial">Expected Number of Events in the Trial</a></li>
+  <li><a href="#incorporating-accrual-over-time" id="toc-incorporating-accrual-over-time" class="nav-link" data-scroll-target="#incorporating-accrual-over-time">Incorporating Accrual Over Time</a></li>
+  <li><a href="#exponential-survival-model" id="toc-exponential-survival-model" class="nav-link" data-scroll-target="#exponential-survival-model">Exponential Survival Model</a></li>
+  <li><a href="#determination-of-sample-size" id="toc-determination-of-sample-size" class="nav-link" data-scroll-target="#determination-of-sample-size">Determination of Sample Size</a></li>
+  </ul></li>
+  <li><a href="#generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos" id="toc-generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos" class="nav-link" data-scroll-target="#generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos">Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos</a>
+  <ul class="collapse">
+  <li><a href="#expected-number-of-events-as-a-function-of-calendar-time" id="toc-expected-number-of-events-as-a-function-of-calendar-time" class="nav-link" data-scroll-target="#expected-number-of-events-as-a-function-of-calendar-time">Expected Number of Events as a Function of Calendar Time</a></li>
+  <li><a href="#kimtsiatis-information-framework" id="toc-kimtsiatis-information-framework" class="nav-link" data-scroll-target="#kimtsiatis-information-framework">Kim–Tsiatis Information Framework</a></li>
+  <li><a href="#lakatos-extension-to-general-accrual-and-survival-models" id="toc-lakatos-extension-to-general-accrual-and-survival-models" class="nav-link" data-scroll-target="#lakatos-extension-to-general-accrual-and-survival-models">Lakatos’ Extension to General Accrual and Survival Models</a></li>
+  <li><a href="#conceptual-implication" id="toc-conceptual-implication" class="nav-link" data-scroll-target="#conceptual-implication">Conceptual Implication</a></li>
+  </ul></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr"><i class="bi bi-file-slides-fill"></i>Slides (in french)</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../site-files/book/surv/survival-endpoint.html">Survival endpoints</a></li><li class="breadcrumb-item"><a href="../../../site-files/book/surv/survival-methods.html">Method: Survival Sample Size Computation</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Sample Size Comparison</h1>
-<p class="subtitle lead">Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne</p>
+<h1 class="title">Sample Size computation methods for survival endpoints</h1>
 </div>
 
 
@@ -540,12 +527,6 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 11, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -555,176 +536,266 @@ window.Quarto = {
 </header>
 
 
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>Welcome</strong> to the website dedicated to presenting the results of the <em>Sample Size Comparison</em> project. This site brings together several complementary sections designed to guide you through the work:</p>
-<ul>
-<li><a href="./index.html"><strong>Book</strong></a> — the core of the project, where each study design is documented with its methodology, assumptions, and comparative results.</li>
-<li><a href="./site-files/interactive/interactive.html"><strong>Interactive</strong></a> — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.</li>
-<li><strong>More</strong> — additional material related to the main topic, including slides and side analyses.</li>
-<li><a href="./site-files/explain-code/code-home.html"><strong>Code</strong></a> — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.</li>
-</ul>
-<p>Together, these sections provide a unified space to navigate the project, understand the methodological insights, and interact directly with the underlying analyses.</p>
-</div><div class="column" style="width:40%;">
-<div class="shadow-box">
-<p><img src="man/figures/oreilly-ssc.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<section id="results-summary" class="level2">
-<h2 class="anchored" data-anchor-id="results-summary">Results summary</h2>
-<p>Below is a concise overview of the main findings from the <em>Sample Size Comparison</em> project.<br>
-This summary is intended for readers who want the key takeaways without exploring the full “Book” section.</p>
-<p>The table compares, for each endpoint and design type, the statistical test used, and how well the implemented R calculations matched the software(East or nQuery) reference values.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 42%">
-<col style="width: 17%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Endpoints</th>
-<th style="text-align: left;">Design type</th>
-<th style="text-align: left;">Test</th>
-<th style="text-align: left;">R/Software matching</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">2‑Arm group‑sequential design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🔵 Poor</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Exact</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Z‑Pooled</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm group‑sequential design</td>
-<td style="text-align: left;">Z‑Pooled</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">Exact</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">1‑Arm Z test</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-</tbody>
-</table>
+<section id="determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method" class="level2">
+<h2 class="anchored" data-anchor-id="determination-of-the-required-number-of-events-under-proportional-hazards-schoenfeld-method">Determination of the Required Number of Events Under Proportional Hazards (Schoenfeld Method)</h2>
+<p>Consider a two-arm randomized clinical trial with a survival endpoint analyzed using the log-rank test or, equivalently, the score test from the Cox proportional hazards model. Let <span class="math inline">\(\lambda_1(t)\)</span> and <span class="math inline">\(\lambda_2(t)\)</span> denote the hazard functions in the two treatment groups. Under the proportional hazards assumption,</p>
+<p><span class="math display">\[
+\lambda_2(t) = \lambda_1(t)\exp(\theta),
+\]</span></p>
+<p>where <span class="math inline">\(\theta = \log(\mathrm{HR})\)</span> is the log hazard ratio under the alternative hypothesis.</p>
+<section id="asymptotic-behavior-of-the-log-rank-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-behavior-of-the-log-rank-statistic">Asymptotic Behavior of the Log-Rank Statistic</h3>
+<p>Let <span class="math inline">\(U\)</span> denote the score statistic for testing the null hypothesis<br>
+<span class="math inline">\(H_0: \theta = 0\)</span>. Under standard regularity conditions and for large samples, the log-rank statistic is asymptotically normally distributed:</p>
+<p><span class="math display">\[
+U \;\overset{approx}{\sim}\; \mathcal{N}\!\left(E_\theta(U), \; \mathrm{Var}_0(U)\right).
+\]</span></p>
+<p>Under proportional hazards and equal allocation between treatment groups, Schoenfeld showed that the variance of the partial likelihood estimator <span class="math inline">\(\hat{\theta}\)</span> can be approximated by</p>
+<p><span class="math display">\[
+\mathrm{Var}(\hat{\theta}) \;\approx\; \frac{4}{e},
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> denotes the total number of observed events across both groups.</p>
+<p>This approximation reflects the fact that each observed event contributes a fixed amount of information to the estimation of <span class="math inline">\(\theta\)</span>, depending only on the relative sizes of the risk sets and not on the baseline hazard function.</p>
 </section>
-<section id="additional-content" class="level2">
-<h2 class="anchored" data-anchor-id="additional-content">Additional content:</h2>
-<div id="listing-sample-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1773222993000" data-listing-file-modified-sort="1773222993903" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="39" data-listing-word-count-sort="7778">
-<a href="./presentation/presentation-fr.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/presentation-fr.PNG" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Comparaison des méthodes de calcul de la taille d’échantillon
-</h5>
-<div class="card-text listing-description delink">
+<section id="power-requirement-and-required-number-of-events" class="level3">
+<h3 class="anchored" data-anchor-id="power-requirement-and-required-number-of-events">Power Requirement and Required Number of Events</h3>
+<p>To achieve power <span class="math inline">\(1 - \beta\)</span> at a two-sided significance level <span class="math inline">\(\alpha\)</span>, the standardized Wald (or score) statistic must satisfy</p>
+<p><span class="math display">\[
+\frac{|\theta|}{\sqrt{\mathrm{Var}(\hat{\theta})}}
+\;\ge\;
+z_{1-\alpha/2} + z_{1-\beta},
+\]</span></p>
+<p>where <span class="math inline">\(z_{1-\alpha/2}\)</span> and <span class="math inline">\(z_{1-\beta}\)</span> denote the corresponding quantiles of the standard normal distribution (<a href="https://en.wikipedia.org/wiki/Standard_score">z-score</a>).</p>
+<p>Substituting the variance approximation yields</p>
+<p><span class="math display">\[
+|\theta| \sqrt{\frac{e}{4}}
+\;\ge\;
+z_{1-\alpha/2} + z_{1-\beta}.
+\]</span></p>
+<p>Solving for <span class="math inline">\(e\)</span> gives the required number of events:</p>
+<p><span class="math display">\[
+e
+\;=\;
+\frac{4\,(z_{1-\alpha/2} + z_{1-\beta})^2}{\theta^2}
+\;=\;
+\frac{4\,(z_{1-\alpha/2} + z_{1-\beta})^2}{\left(\log \mathrm{HR}\right)^2}.
+\]</span></p>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<p>The Schoenfeld formula specifies the <strong>minimum number of events</strong> required for the log-rank test to detect a given hazard ratio with pre-specified type I error and power under the proportional hazards assumption. The required number of events depends only on:</p>
+<ul>
+<li>the targeted effect size <span class="math inline">\(\theta = \log(\mathrm{HR})\)</span>,</li>
+<li>the type I error rate <span class="math inline">\(\alpha\)</span>,</li>
+<li>the type II error rate <span class="math inline">\(\beta\)</span>,</li>
+<li>the allocation ratio between treatment groups.</li>
+</ul>
+<p>It does <strong>not</strong> depend on the accrual pattern, follow-up duration, censoring mechanism, or the form of the baseline hazard. These design features affect the calendar time and total sample size needed to observe the required number of events, but not the number of events itself.</p>
+<!-- ### References
 
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1773234515000" data-listing-file-modified-sort="1773234515770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="318">
-<a href="./site-files/additional-content/lakatos_n_lan.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/lakatos_n_lan-table.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Comparison of Lakatos &amp; Lan (1992), nQuery, EAST and R packages
-</h5>
-<div class="card-text listing-description delink">
-This analysis started from a simple question:
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1773236947000" data-listing-file-modified-sort="1773236947999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="471">
-<a href="./site-files/additional-content/bin2arms-exact.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/exact.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-What Do East and nQuery Compute <em>Exactly</em> ?
-</h5>
-<div class="card-text listing-description delink">
-Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what <strong>nQuery</strong> and <strong>East</strong> are <em>ex…</em><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
+- Schoenfeld, D. (1983). *Sample-Size Formula for the Proportional-Hazards Regression Model*. **Biometrics**, 39(2), 499–503.  
+- Cox, D. R. (1972). *Regression Models and Life-Tables*. **Journal of the Royal Statistical Society, Series B**, 34(2), 187–220. -->
+</section>
+</section>
+<section id="from-required-number-of-events-to-sample-size" class="level2">
+<h2 class="anchored" data-anchor-id="from-required-number-of-events-to-sample-size">From Required Number of Events to Sample Size</h2>
+<p>The Schoenfeld method determines the number of events required to achieve a specified type I error rate and power for comparing two survival distributions under the proportional hazards assumption. To complete the trial design, this required number of events must be translated into a total sample size. This step requires explicit assumptions on the accrual process, survival distributions, and censoring mechanisms.</p>
+<section id="event-probability-for-an-individual-subject" class="level3">
+<h3 class="anchored" data-anchor-id="event-probability-for-an-individual-subject">Event Probability for an Individual Subject</h3>
+<p>Let <span class="math inline">\(T\)</span> denote the event time and <span class="math inline">\(C\)</span> the censoring time for a randomly selected subject. An event is observed if <span class="math inline">\(T \le C\)</span>. The probability that a subject experiences the event during the study is therefore</p>
+<p><span class="math display">\[
+p = \Pr(T \le C).
+\]</span></p>
+<p>Under independent censoring, this probability can be written as</p>
+<p><span class="math display">\[
+p = \int_0^\infty S_C(t)\, dF_T(t),
+\]</span></p>
+<p>where <span class="math inline">\(F_T\)</span> is the distribution function of the event time and <span class="math inline">\(S_C\)</span> is the survival function of the censoring time.</p>
+<p>In the simplest case of no censoring other than administrative censoring at time <span class="math inline">\(\tau\)</span>,</p>
+<p><span class="math display">\[
+p = 1 - S_T(\tau).
+\]</span></p>
+</section>
+<section id="expected-number-of-events-in-the-trial" class="level3">
+<h3 class="anchored" data-anchor-id="expected-number-of-events-in-the-trial">Expected Number of Events in the Trial</h3>
+<p>Let <span class="math inline">\(N\)</span> denote the total number of randomized subjects. Assuming independence across subjects, the expected total number of observed events is</p>
+<p><span class="math display">\[
+E(D) = N \times \bar{p},
+\]</span></p>
+<p>where <span class="math inline">\(\bar{p}\)</span> is the average probability of observing an event across treatment groups.</p>
+<p>For a two-group trial with allocation proportions <span class="math inline">\(\pi_1\)</span> and <span class="math inline">\(\pi_2\)</span>, and group-specific event probabilities <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>,</p>
+<p><span class="math display">\[
+E(D) = N \left( \pi_1 p_1 + \pi_2 p_2 \right).
+\]</span></p>
+<p>The required sample size is then obtained by solving</p>
+<p><span class="math display">\[
+E(D) \ge e,
+\]</span></p>
+<p>where <span class="math inline">\(e\)</span> is the required number of events derived from the Schoenfeld formula.</p>
+</section>
+<section id="incorporating-accrual-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="incorporating-accrual-over-time">Incorporating Accrual Over Time</h3>
+<p>In most clinical trials, subjects are accrued over a finite accrual period rather than simultaneously. Let <span class="math inline">\(A\)</span> denote the accrual time and <span class="math inline">\(\tau\)</span> the total study duration. If subjects enter the study at time <span class="math inline">\(U \sim \text{Uniform}(0, A)\)</span>, the event probability becomes conditional on the entry time:</p>
+<p><span class="math display">\[
+p = \Pr(T \le \tau - U).
+\]</span></p>
+<p>Taking expectation over the accrual distribution yields</p>
+<p><span class="math display">\[
+p = \frac{1}{A} \int_0^A \left[ 1 - S_T(\tau - u) \right] \, du.
+\]</span></p>
+<p>This formulation shows that staggered entry reduces the average event probability relative to fixed follow-up.</p>
+</section>
+<section id="exponential-survival-model" class="level3">
+<h3 class="anchored" data-anchor-id="exponential-survival-model">Exponential Survival Model</h3>
+<p>Under an exponential survival model with hazard rate <span class="math inline">\(\lambda\)</span>,</p>
+<p><span class="math display">\[
+S_T(t) = \exp(-\lambda t),
+\]</span></p>
+<p>the average event probability under uniform accrual simplifies to</p>
+<p><span class="math display">\[
+p = 1 - \frac{1}{A} \int_0^A \exp\!\left[-\lambda(\tau - u)\right] du
+= 1 - \frac{1 - \exp(-\lambda \tau)}{\lambda A}.
+\]</span></p>
+<p>Group-specific hazards <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> yield corresponding event probabilities <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>.</p>
+</section>
+<section id="determination-of-sample-size" class="level3">
+<h3 class="anchored" data-anchor-id="determination-of-sample-size">Determination of Sample Size</h3>
+<p>Combining the above elements, the required sample size is obtained as</p>
+<p><span class="math display">\[
+N = \frac{e}{\pi_1 p_1 + \pi_2 p_2}.
+\]</span></p>
+<p>Thus, the total sample size depends on:</p>
+<ul>
+<li>the required number of events <span class="math inline">\(e\)</span>,</li>
+<li>the allocation proportions,</li>
+<li>the assumed survival distributions,</li>
+<li>the accrual pattern,</li>
+<li>the censoring mechanism.</li>
+</ul>
+<p>Unlike the required number of events, which depends only on the targeted effect size and error rates, the required sample size is <strong>design-specific</strong> and sensitive to assumptions about follow-up and event rates.</p>
+</section>
+</section>
+<section id="generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos" class="level2">
+<h2 class="anchored" data-anchor-id="generalization-of-the-expected-number-of-events-kimtsiatis-and-lakatos">Generalization of the Expected Number of Events: Kim–Tsiatis and Lakatos</h2>
+<p>The derivations above express the expected number of observed events as a simple product of the total sample size and an average event probability. While this formulation is sufficient under strong simplifying assumptions (e.g., exponential survival, uniform accrual, administrative censoring only), it becomes inadequate when survival and accrual processes vary over calendar time.</p>
+<p>Kim and Tsiatis (1990) and Lakatos (1988) generalize this framework by modeling the <strong>accumulation of events as a stochastic process evolving over calendar time</strong>, rather than as a fixed expectation at a single analysis time.</p>
+<section id="expected-number-of-events-as-a-function-of-calendar-time" class="level3">
+<h3 class="anchored" data-anchor-id="expected-number-of-events-as-a-function-of-calendar-time">Expected Number of Events as a Function of Calendar Time</h3>
+<p>Let <span class="math inline">\(D(t)\)</span> denote the total number of observed events by calendar time <span class="math inline">\(t\)</span>. The key object of interest is the expected event count</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\},
+\]</span></p>
+<p>where the expectation is taken under the alternative hypothesis <span class="math inline">\(\theta = \log(\mathrm{HR})\)</span>.</p>
+<p>For a two-group trial, this expectation can be expressed as</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\}
+=
+\sum_{k=1}^{2}
+\int_0^t
+E_\theta\!\left[ Y_k(u) \right]
+\lambda_k(u)\, du,
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(Y_k(u)\)</span> is the number of subjects at risk in group <span class="math inline">\(k\)</span> at time <span class="math inline">\(u\)</span>,</li>
+<li><span class="math inline">\(\lambda_k(u)\)</span> is the hazard function in group <span class="math inline">\(k\)</span>.</li>
+</ul>
+<p>This formulation shows that the expected number of events depends on the <strong>entire history of accrual, survival, and censoring up to time <span class="math inline">\(t\)</span></strong>.</p>
+</section>
+<section id="kimtsiatis-information-framework" class="level3">
+<h3 class="anchored" data-anchor-id="kimtsiatis-information-framework">Kim–Tsiatis Information Framework</h3>
+<p>Kim and Tsiatis (1990) derived expressions for the expectation and variance of the log-rank statistic as functions of calendar time. Under proportional hazards, their results imply that the information accumulated by time <span class="math inline">\(t\)</span> is proportional to the expected number of events:</p>
+<p><span class="math display">\[
+I(t) \;\propto\; E_\theta\{D(t)\}.
+\]</span></p>
+<p>Consequently, the target number of events <span class="math inline">\(e\)</span> obtained from the Schoenfeld method defines a target information level, and the design problem becomes finding the calendar time <span class="math inline">\(t\)</span> (and corresponding sample size) such that</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\} = e.
+\]</span></p>
+<p>This approach replaces the static expectation <span class="math inline">\(E(D)\)</span> with a <strong>time-indexed event accumulation process</strong>, enabling explicit modeling of interim analyses and information fractions.</p>
+</section>
+<section id="lakatos-extension-to-general-accrual-and-survival-models" class="level3">
+<h3 class="anchored" data-anchor-id="lakatos-extension-to-general-accrual-and-survival-models">Lakatos’ Extension to General Accrual and Survival Models</h3>
+<p>Lakatos further extended the Kim–Tsiatis framework by allowing:</p>
+<ul>
+<li>non-constant and piecewise-defined hazard functions,</li>
+<li>non-uniform and time-dependent accrual rates,</li>
+<li>independent random censoring and drop-out.</li>
+</ul>
+<p>In this setting, the risk process <span class="math inline">\(Y_k(t)\)</span> is governed by a multi-state stochastic model, and the expected event count is obtained through numerical integration over small time intervals:</p>
+<p><span class="math display">\[
+E_\theta\{D(t)\}
+=
+\sum_{k=1}^{2}
+\int_0^t
+\bar{Y}_k(u)\, \lambda_k(u)\, du,
+\]</span></p>
+<p>where <span class="math inline">\(\bar{Y}_k(u)\)</span> denotes the expected number of subjects at risk at time <span class="math inline">\(u\)</span>, accounting for staggered entry and censoring.</p>
+<p>This formulation provides a general and flexible mapping between calendar time, sample size, and expected information, subsuming simpler exponential and uniform-accrual models as special cases.</p>
+</section>
+<section id="conceptual-implication" class="level3">
+<h3 class="anchored" data-anchor-id="conceptual-implication">Conceptual Implication</h3>
+<p>The progression from simple event probabilities to the Kim–Tsiatis and Lakatos formulations reflects a shift from <strong>static</strong> to <strong>dynamic</strong> modeling of information. While the required number of events is determined solely by the targeted effect size and error rates, the translation of this requirement into sample size and study duration depends on the full temporal structure of the trial.</p>
+<p>Thus, Kim–Tsiatis and Lakatos provide the mathematical foundation for event-driven designs by generalizing the expectation <span class="math inline">\(E(D)\)</span> into a continuous-time information accumulation process.</p>
+<!-- ### References
+
+- Kim, K., & Tsiatis, A. A. (1990). *Study duration for clinical trials with survival response and interim analysis*. **Biometrics**, 46, 81–92.  
+- Lakatos, E. (1988). *Sample sizes based on the log-rank statistic in complex clinical trials*. **Journal of the American Statistical Association**, 83(402), 289–301. -->
+<!-- ## Méthode de Schoenfeld
+
+Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
+
+Prenons $\alpha$ l'erreur de type I et $\beta$ l'erreur de type II. Alors, en notant $e$ le nombre d'evènement nécessaire, la formule (simple) de Schoenfeld donne :
+
+$$
+e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
+$${#eq-schoenfeld}
+
+Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$, égale au quantile $(1-x)$ de la distribution normale standard.
+
+## Lakatos
+Chaine de Markov, mouvement brownien.
 
 
+rpact :
+The formula of Kim & Tsiatis (Biometrics, 1990) is used to calculate the expected number of events
+under the alternative (see also Lakatos & Lan, Statistics in Medicine, 1992). These formulas are
+generalized to piecewise survival times and non-constant piecewise accrual over time.
 
+gsDesign2 :
+Computes fixed design sample size (given power) or power (given sample size) by:
+fixed_design_ahr() - Average hazard ratio method.
+fixed_design_fh() - Weighted logrank test with Fleming-Harrington weights (Farrington and Manning, 1990).
+fixed_design_mb() - Weighted logrank test with Magirr-Burman weights.
+fixed_design_lf() - Lachin-Foulkes method (Lachin and Foulkes, 1986).
+fixed_design_maxcombo() - MaxCombo method.
+fixed_design_rmst() - RMST method.
+fixed_design_milestone() - Milestone method.
+Additionally, fixed_design_rd() provides fixed design for binary endpoint with treatment effect measuring in risk difference.
+
+rashnu :
+lakatosSampleSize : Lakatos
+two_prop_size: on sait pas 
+oneSurvSampleSize :
+Fleming TR, Harrington DP. (1991). Counting Processes and Survival Analysis. New York: Wiley, pp. 236–237, Example 6.3.1.
+
+Andersen PK, Borgan O, Gill RD, Keiding N. (1993). Statistical Models Based on Counting Processes. New York: Springer-Verlag, pp. 176–287, Section IV.1–3.
+
+Bie O, Borgan O, Liestol K. (1987). Confidence intervals and confidence bands for the cumulative hazard rate function and their small sample properties. Scandinavian Journal of Statistics, 14(3), 221–233.
+
+Borgan O, Liestol K. (1990). A note on confidence intervals and bands for the survival function based on transformations. Scandinavian Journal of Statistics, 17(1), 35–41.
+
+Nagashima K, Noma H, Sato Y, Gosho M. (2020). Sample size calculations for single-arm survival studies using transformations of the Kaplan–Meier estimator. Pharmaceutical Statistics. https://doi.org/10.1002/pst.2090 Available at: https://arxiv.org/abs/2012.03355
+
+Binary :
+The Fisher exact test : east, nQuery, bbssr
+The Z-pooled exact unconditional test (Z-pool) : east, nquery, bbssr, rpact
+The Z-unpooled exact unconditional test (Z-unpooled) : east, nquery
+
+https://stattools.crab.org/Calculators/oneNonParametricSurvival.htm -->
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1143,10 +1214,13 @@ Mar 11, 2026
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../../site-files/book/surv/survival-endpoint.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./site-files/book/introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../site-files/book/surv/survival-fixed.html" class="pagination-link" aria-label="Two-arm Fixed Design">
+        <span class="nav-page-text">Two-arm Fixed Design</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-11">
 
-<title>Sample Size Comparison</title>
+<title>Binary Tests</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,32 +23,31 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./site-files/book/introduction.html" rel="next">
-<link href="./SCC-HexSticker.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-6be18d429dc9246597ff3d64b11c9f27.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../site-files/book/bin/binary-fixed.html" rel="next">
+<link href="../../../site-files/book/bin/binary-endpoints.html" rel="prev">
+<link href="../../../SCC-HexSticker.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-6be18d429dc9246597ff3d64b11c9f27.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-61a1875eb053d5a0b07caf66c11d84c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-sample-listings .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-sample-listings'] = new List('listing-sample-listings', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -137,10 +106,10 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Sample Size Comparison">
-<meta property="og:description" content="Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne">
-<meta property="og:image" content="man/figures/oreilly-ssc.png">
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="Binary Tests">
+<meta property="og:description" content="">
+<meta property="og:image" content="man/figure/oreilly-ssc.png">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -312,9 +281,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
-    <img src="./man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -324,11 +293,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../../index.html" aria-current="page"> 
 <span class="menu-text">Book</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/interactive/interactive.html"> 
+    <a class="nav-link" href="../../../site-files/interactive/interactive.html"> 
 <span class="menu-text">Interactive</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -337,31 +306,31 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
-    <a class="dropdown-item" href="./presentation/presentation-fr.html" target="_blank">
+    <a class="dropdown-item" href="../../../presentation/presentation-fr.html" target="_blank">
  <span class="dropdown-text">Slides (french)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/bin2arms-exact.html">
+    <a class="dropdown-item" href="../../../site-files/additional-content/bin2arms-exact.html">
  <span class="dropdown-text">About Exact test</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/lakatos_n_lan.html">
+    <a class="dropdown-item" href="../../../site-files/additional-content/lakatos_n_lan.html">
  <span class="dropdown-text">Lakatos &amp; Lan</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./site-files/additional-content/survival-event-comparison.html">
+    <a class="dropdown-item" href="../../../site-files/additional-content/survival-event-comparison.html">
  <span class="dropdown-text">Required Events</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/explain-code/code-home.html"> 
+    <a class="nav-link" href="../../../site-files/explain-code/code-home.html"> 
 <span class="menu-text">Code</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./site-files/about.html"> 
+    <a class="nav-link" href="../../../site-files/about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -392,7 +361,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../site-files/book/bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../../../site-files/book/bin/binary-methods.html">Method: Binary Tests</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -406,13 +375,13 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -427,31 +396,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-endpoint.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-methods.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-methods.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Method: Survival Sample Size Computation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-fixed.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm Fixed Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-gs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-gs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm GS-Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/surv/survival-one-arm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">One-arm Fixed Design</span></a>
   </div>
 </li>
@@ -468,31 +437,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-endpoints.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-methods.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-methods.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Method: Binary Tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-fixed.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm Fixed Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-gs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-gs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-arm GS-Design</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/bin/binary-one-arm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">One-arm Fixed Design</span></a>
   </div>
 </li>
@@ -500,13 +469,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/conclusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/conclusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Conclusion</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./site-files/book/references.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../site-files/book/references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -520,19 +489,29 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#results-summary" id="toc-results-summary" class="nav-link active" data-scroll-target="#results-summary">Results summary</a></li>
-  <li><a href="#additional-content" id="toc-additional-content" class="nav-link" data-scroll-target="#additional-content">Additional content:</a></li>
+  <li><a href="#ztests-for-comparing-two-proportions" id="toc-ztests-for-comparing-two-proportions" class="nav-link active" data-scroll-target="#ztests-for-comparing-two-proportions">Z‑tests for comparing two proportions</a>
+  <ul class="collapse">
+  <li><a href="#pooled-ztest" id="toc-pooled-ztest" class="nav-link" data-scroll-target="#pooled-ztest">Pooled Z‑test</a></li>
+  <li><a href="#unpooled-ztest" id="toc-unpooled-ztest" class="nav-link" data-scroll-target="#unpooled-ztest">Unpooled Z‑test</a></li>
+  <li><a href="#when-to-use-each-ztest" id="toc-when-to-use-each-ztest" class="nav-link" data-scroll-target="#when-to-use-each-ztest">When to use each Z‑test</a></li>
+  </ul></li>
+  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s Exact Test</a>
+  <ul class="collapse">
+  <li><a href="#exact-inference-for-22-contingency-tables" id="toc-exact-inference-for-22-contingency-tables" class="nav-link" data-scroll-target="#exact-inference-for-22-contingency-tables">Exact inference for 2×2 contingency tables</a></li>
+  <li><a href="#advantages-of-fishers-test" id="toc-advantages-of-fishers-test" class="nav-link" data-scroll-target="#advantages-of-fishers-test">Advantages of Fisher’s test</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul></li>
+  <li><a href="#other-exact-tests" id="toc-other-exact-tests" class="nav-link" data-scroll-target="#other-exact-tests">Other Exact Tests</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr"><i class="bi bi-file-slides-fill"></i>Slides (in french)</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../site-files/book/bin/binary-endpoints.html">Binary endpoints</a></li><li class="breadcrumb-item"><a href="../../../site-files/book/bin/binary-methods.html">Method: Binary Tests</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Sample Size Comparison</h1>
-<p class="subtitle lead">Arocena Thomas, Chaltiel Dan &amp; Lourdessamy Anne</p>
+<h1 class="title">Binary Tests</h1>
 </div>
 
 
@@ -540,12 +519,6 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 11, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -555,174 +528,89 @@ window.Quarto = {
 </header>
 
 
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>Welcome</strong> to the website dedicated to presenting the results of the <em>Sample Size Comparison</em> project. This site brings together several complementary sections designed to guide you through the work:</p>
-<ul>
-<li><a href="./index.html"><strong>Book</strong></a> — the core of the project, where each study design is documented with its methodology, assumptions, and comparative results.</li>
-<li><a href="./site-files/interactive/interactive.html"><strong>Interactive</strong></a> — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.</li>
-<li><strong>More</strong> — additional material related to the main topic, including slides and side analyses.</li>
-<li><a href="./site-files/explain-code/code-home.html"><strong>Code</strong></a> — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.</li>
-</ul>
-<p>Together, these sections provide a unified space to navigate the project, understand the methodological insights, and interact directly with the underlying analyses.</p>
-</div><div class="column" style="width:40%;">
-<div class="shadow-box">
-<p><img src="man/figures/oreilly-ssc.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<section id="results-summary" class="level2">
-<h2 class="anchored" data-anchor-id="results-summary">Results summary</h2>
-<p>Below is a concise overview of the main findings from the <em>Sample Size Comparison</em> project.<br>
-This summary is intended for readers who want the key takeaways without exploring the full “Book” section.</p>
-<p>The table compares, for each endpoint and design type, the statistical test used, and how well the implemented R calculations matched the software(East or nQuery) reference values.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 42%">
-<col style="width: 17%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Endpoints</th>
-<th style="text-align: left;">Design type</th>
-<th style="text-align: left;">Test</th>
-<th style="text-align: left;">R/Software matching</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">2‑Arm group‑sequential design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">survival</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">Log‑rank</td>
-<td style="text-align: left;">🔵 Poor</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Exact</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm fixed design</td>
-<td style="text-align: left;">Z‑Pooled</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">2‑Arm group‑sequential design</td>
-<td style="text-align: left;">Z‑Pooled</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">Exact</td>
-<td style="text-align: left;">🟡 Good</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Binary</td>
-<td style="text-align: left;">1‑Arm fixed design</td>
-<td style="text-align: left;">1‑Arm Z test</td>
-<td style="text-align: left;">🟢 Perfect</td>
-</tr>
-</tbody>
-</table>
+<p>Binary outcomes are among the most common data types encountered in clinical trials, epidemiological studies, and many industrial or quality‑control applications. Typical examples include response/no response, success/failure, presence/absence of an event, or cure/not cured. When comparing two independent groups, the primary question is often whether the true underlying event probabilities differ between the two populations.</p>
+<p>Several classical statistical tests—both approximate and exact—can be used to evaluate this difference. Among the most widely used are the <strong>Z‑test for proportions</strong> (in its pooled and unpooled forms) and <strong>Fisher’s exact test</strong>. Although these methods target the same inferential question, they rely on different assumptions and approximations.</p>
+<section id="ztests-for-comparing-two-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="ztests-for-comparing-two-proportions">Z‑tests for comparing two proportions</h2>
+<p>The Z‑test relies on the <strong>normal approximation</strong> of the sampling distribution of the difference in observed proportions. These proportions are defined as:</p>
+<p><span class="math display">\[
+\hat{p}_1 = \frac{x_1}{n_1}, \qquad
+\hat{p}_2 = \frac{x_2}{n_2},
+\]</span></p>
+<p>where <span class="math inline">\(x_1\)</span> and $<span class="math inline">\(x_2\)</span> are the number of observed events in groups 1 and 2, and <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are the group sample sizes. Under sufficiently large sample sizes, the difference <span class="math inline">\(\hat{p}_1 - \hat{p}_2\)</span> is approximately normally distributed. The main practical question becomes how to estimate the variance of this difference. Two distinct approaches exist: one assumes a common underlying proportion under the null hypothesis (“pooled” variance), and the other does not (“unpooled” variance).</p>
+<section id="pooled-ztest" class="level3">
+<h3 class="anchored" data-anchor-id="pooled-ztest">Pooled Z‑test</h3>
+<p>The pooled Z‑test explicitly uses the null hypothesis <span class="math inline">\(H_0: p_1 = p_2\)</span>. If this assumption is true, both groups share a common underlying event probability <span class="math inline">\(p\)</span>. The best estimate of this common probability is obtained by pooling the data:</p>
+<p><span class="math display">\[
+\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}.
+\]</span></p>
+<p>The test statistic is then computed as:</p>
+<p><span class="math display">\[
+Z = \frac{\hat{p}_1 - \hat{p}_2}
+{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}}.
+\]</span></p>
+<p>Because it forces equality of the two probabilities under the null, the pooled Z‑test is considered the <strong>canonical large‑sample test for comparing two proportions</strong>. It is also the basis for many confidence‑interval formulas and for tests used in regulatory biostatistics. However, the pooled variance estimate may be inaccurate when event counts are low, when proportions are near 0 or 1, or when group sizes are small.</p>
 </section>
-<section id="additional-content" class="level2">
-<h2 class="anchored" data-anchor-id="additional-content">Additional content:</h2>
-<div id="listing-sample-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1773222993000" data-listing-file-modified-sort="1773222993903" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="39" data-listing-word-count-sort="7778">
-<a href="./presentation/presentation-fr.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/presentation-fr.PNG" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Comparaison des méthodes de calcul de la taille d’échantillon
-</h5>
-<div class="card-text listing-description delink">
-
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1773234515000" data-listing-file-modified-sort="1773234515770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="318">
-<a href="./site-files/additional-content/lakatos_n_lan.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/lakatos_n_lan-table.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Comparison of Lakatos &amp; Lan (1992), nQuery, EAST and R packages
-</h5>
-<div class="card-text listing-description delink">
-This analysis started from a simple question:
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1773236947000" data-listing-file-modified-sort="1773236947999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="471">
-<a href="./site-files/additional-content/bin2arms-exact.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./man/figures/exact.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-What Do East and nQuery Compute <em>Exactly</em> ?
-</h5>
-<div class="card-text listing-description delink">
-Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what <strong>nQuery</strong> and <strong>East</strong> are <em>ex…</em><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Arocena Thomas, Dan Chaltiel, Anne Lourdessamy
-</div>
-<div class="listing-date">
-Mar 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-
+<section id="unpooled-ztest" class="level3">
+<h3 class="anchored" data-anchor-id="unpooled-ztest">Unpooled Z‑test</h3>
+<p>The unpooled Z‑test (also called the “Wald test” version) does not assume equal variances under the null. Instead, each group’s proportion is paired with its own variance estimate:</p>
+<p><span class="math display">\[
+Z = \frac{\hat{p}_1 - \hat{p}_2}
+{\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} +
+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}}.
+\]</span></p>
+<p>This version is sometimes preferred for estimation‑focused analyses or when the null hypothesis does not reasonably imply equal underlying event probabilities. However, the unpooled approach can behave poorly in small samples because the variance estimates may be unstable, leading to inaccurate p‑values and confidence intervals.</p>
+</section>
+<section id="when-to-use-each-ztest" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-each-ztest">When to use each Z‑test</h3>
+<ul>
+<li>The <strong>pooled Z‑test</strong> is the standard choice for <strong>formal hypothesis testing</strong> when sample sizes are moderately large and the focus is on testing <span class="math inline">\(p_1 = p_2\)</span>.</li>
+<li>The <strong>unpooled test</strong> may be more appropriate when estimating the difference in proportions and constructing confidence intervals, especially if the true underlying probabilities are expected to differ substantially.</li>
+</ul>
+<p>Nevertheless, both tests rely on the normal approximation, which may be unreliable for small datasets, sparse tables, or extreme proportions.</p>
+</section>
+</section>
+<section id="fishers-exact-test" class="level2">
+<h2 class="anchored" data-anchor-id="fishers-exact-test">Fisher’s Exact Test</h2>
+<section id="exact-inference-for-22-contingency-tables" class="level3">
+<h3 class="anchored" data-anchor-id="exact-inference-for-22-contingency-tables">Exact inference for 2×2 contingency tables</h3>
+<p>Fisher’s exact test provides an alternative that does <strong>not</strong> rely on large‑sample approximations. It is based on the exact probability distribution of a 2×2 contingency table under the null hypothesis of independence (or equivalently, equal proportions). For event counts <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> with fixed margins <span class="math inline">\(n_1, n_2\)</span>, the probability of observing a particular table is:</p>
+<p><span class="math display">\[
+P = \frac{
+\binom{n_1}{x_1}\binom{n_2}{x_2}
+}{
+\binom{n_1+n_2}{x_1+x_2}
+}.
+\]</span></p>
+<p>This probability is derived from the <strong>hypergeometric distribution</strong>, reflecting the number of ways one can allocate events across two groups while keeping row and column totals fixed.</p>
+</section>
+<section id="advantages-of-fishers-test" class="level3">
+<h3 class="anchored" data-anchor-id="advantages-of-fishers-test">Advantages of Fisher’s test</h3>
+<p>Fisher’s exact test is extremely valuable in situations where the assumptions of the Z‑tests break down:</p>
+<ul>
+<li><strong>Small sample sizes:</strong> When event counts are low, Fisher’s test remains valid and unbiased.</li>
+<li><strong>Proportions near 0 or 1:</strong> Exact inference avoids the poor performance of normal approximations.</li>
+<li><strong>Sparse tables:</strong> Even extreme cases—such as zero events in one group—are handled correctly.</li>
+<li><strong>No reliance on asymptotics:</strong> Results are exact, not approximate.</li>
+</ul>
+<p>These properties make Fisher’s test a gold standard in fields like genetics, safety analyses, rare‑event clinical trial monitoring, and pharmaceutical quality control.</p>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p>While exact, Fisher’s test can be computationally intensive for very large sample sizes, although modern software typically handles tables in the thousands without difficulty. Additionally, for large samples, Fisher’s test may be overly conservative, producing slightly larger p‑values than approximate tests.</p>
+</section>
+</section>
+<section id="other-exact-tests" class="level2">
+<h2 class="anchored" data-anchor-id="other-exact-tests">Other Exact Tests</h2>
+<p>Although Fisher’s exact test is the most widely known and widely used exact method for 2×2 contingency tables, it is not the only exact test available. Other procedures, such as :</p>
+<ul>
+<li>Barnard’s exact test</li>
+<li>Boschloo’s test</li>
+<li>Exact unconditional tests</li>
+</ul>
+<p>Those tests offer potential advantages in specific scenarios, particularly with small samples or highly unbalanced designs. These methods often provide greater statistical power than Fisher’s test while still retaining exact control of the Type I error rate.</p>
+<p>However, because they require more complex algorithms, involve subtle methodological considerations, and are less commonly implemented in standard software, we do not explore them in detail here. Fisher’s test remains the primary practical choice for most applications, especially when reproducibility and widespread software support are priorities.</p>
+<p>See <a href="https://htmlpreview.github.io/?https://github.com/gosukehommaEX/bbssr/blob/main/doc/bbssr-statistical-methods.html">Statistical Methods in bbssr</a> for more details on exact test. See <a href="https://www.nbi.dk/~petersen/Teaching/Stat2009/Barnard_ExactTest_TwoBinomials.pdf">Conditional vs Unconditional Exact Tests</a> to appreciate the difference between Fisher’s and Barnard’s exact tests.</p>
 
 
 </section>
@@ -1143,10 +1031,13 @@ Mar 11, 2026
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../../site-files/book/bin/binary-endpoints.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./site-files/book/introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../site-files/book/bin/binary-fixed.html" class="pagination-link" aria-label="Two-arm Fixed Design">
+        <span class="nav-page-text">Two-arm Fixed Design</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
