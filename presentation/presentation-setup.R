@@ -16,8 +16,7 @@ source("../R/functions/checks.R")
 source("../R/functions/evaluate_relevancy.R")
 
 # Load results ----
-ssc <- read_rds("../ssc2.rds")
-ssc$bin$fixed_exact <- read_rds("../ssc.rds")$bin$fixed_exact #cannot execute the whole pipeline for the moment
+ssc <- read_rds("../outputs/ssc.rds")
 
 # Error rate ----
 er_rate <- 0.1 # 10%

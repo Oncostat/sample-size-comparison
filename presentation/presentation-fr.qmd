@@ -47,7 +47,7 @@ author:
     role: "Encadrante"
 date: last-modified
 lang: fr
-bibliography: ../references.bibtex
+bibliography: ../site-files/references.bibtex
 nocite: |
   @*
 ---
