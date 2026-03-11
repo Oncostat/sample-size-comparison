@@ -1,0 +1,152 @@
+---
+title: "Clean Wrapper Functions for Sample Size Calculations"
+subtitle: "Structuring wrapper functions for clarity, consistency, and safety"
+image: "../../man/figures/wrappers.png"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+To compare sample size methods across different R packages, I needed a consistent interface:  
+same inputs, same naming, same output format, and reliable error handling.  
+
+For this reason, each package-specific function was **wrapped** so that:
+
+- it accepts the same parameter grid,
+- it harmonises arguments (e.g. `power` instead of `beta`),
+- it returns results in a standard format,
+- failures are handled cleanly (important when testing extreme parameter values).
+
+Below is an example.
+
+## Example: the `rpact` wrapper for 2-arm survival fixed designs
+
+```{r}
+wrapper$rpact_surv_fixed <- function(
+  alpha,
+  power,
+  hr,
+  surv_t,
+  event_time,
+  accrual_time,
+  follow_up_time,
+  sided = 2,
+  computation = c("Schoenfeld", "Freedman", "HsiehFreedman"),
+  allocation_ratio = 1,
+  dropout_rate_1 = 0,
+  dropout_rate_2 = 0,
+  error = NA_real_
+) {
+  # Check that those parameters are between 0 and 1 (excluded).
+  check_probability(c(alpha, power, hr, surv_t))
+  # Check that those parameters are between 0 and 1 (included).
+  check_probability(c(dropout_rate_1, dropout_rate_2), with_bounds = TRUE)
+
+  computation <- arg_match(computation)
+
+  tryCatch(
+    {
+      sample_size_info <- rpact::getSampleSizeSurvival(
+        alpha = alpha,
+        beta = 1 - power,
+        hazardRatio = hr,
+        pi2 = 1 - surv_t,
+        eventTime = event_time,
+        typeOfComputation = computation,
+        sided = sided,
+        followUpTime = follow_up_time,
+        accrualTime = c(0, accrual_time),
+        allocationRatioPlanned = allocation_ratio,
+        dropoutRate1 = dropout_rate_1,
+        dropoutRate2 = dropout_rate_2,
+      )
+
+      return(tibble(
+        e = ceiling(sample_size_info$eventsFixed),
+        n = ceiling(sample_size_info$nFixed)
+      ))
+    },
+
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
+  )
+}
+```
+
+This wrapper accomplishes several things:
+
+-   **Parameter harmonisation** (e.g. pass `power` instead of `beta`).
+-   **Consistent output**: always returns a tibble with `e` (events) and `n` (sample size), both rounded up.
+-   **Error protection**: `tryCatch()` ensures that invalid or extreme inputs return `NA`s instead of crashing the pipeline.
+-   **Control of defaults**: dropout rates, sidedness, and computation mode can be overridden but have sensible defaults.
+
+This design allows all wrappers—across all packages—to behave similarly.
+
+
+## Integration into the pipeline
+
+The parameter object `params` contains:
+
+-   `params$table`: the grid of varying parameters,
+-   `params$additional`: fixed parameters for the design.
+
+The first step is to bind the non‑varying parameters to the wrapper using `purrr::partial()`:
+
+```{r}
+rpact_wrapper <- partial(wrapper$rpact_surv_fixed, !!!params$additional)
+```
+
+This only works when the names in `params$additional` match the argument names in the wrapper.  
+More details:
+
+-   [`purrr::partial`documentation](https://purrr.tidyverse.org/reference/partial.html)
+-   [`!!!` Rlang injection](https://rlang.r-lib.org/reference/topic-inject.html)
+
+### Mapping the parameter grid
+
+We then apply the wrapper to each row of the parameter grid and wrap the result in a `ssc_results` object:
+
+```{r}
+rpact <-
+  params$table |>
+  mutate(
+    nested_res = pmap_vec(params$table, rpact_wrapper, .progress = TRUE)
+  ) |>
+  unnest(nested_res) |>
+  ssc_results(design = design_surv_fixed, method = "rpact")
+```
+
+-   `pmap_vec()` applies the wrapper to each combination of `alpha`, `power`, `hr`, and `surv_t`.
+-    Each call returns a tibble with columns `e` and `n`.
+-   `unnest()` expands these into separate columns.
+-   `ssc_results()` validates the structure and links results to the design specification.
+
+At this point, the results are harmonised with all other methods.
+
+## Memoisation
+
+Some sample size functions are computationally expensive.  
+To speed up the pipeline, all wrappers are **memoised**, meaning that if a function is called again with the same inputs, the cached result is returned immediately.
+
+All wrappers are stored in a list named `wrapper`, so memoisation can be applied with a single call:
+
+```{r}
+wrapper = map(
+  wrapper,
+  ~ memoise::memoise(.x, cache = cachem::cache_disk("the_cache_of_the_memoise"))
+)
+```
+
+This automatically creates a disk cache:
+
+-   The **first** call with a given combination of inputs computes the sample size.
+-   All **subsequent** calls using the same arguments load the result from `"the_cache_of_the_memoise"`.
+
+This dramatically reduces computation time, especially when:
+
+-   exploring large parameter grids,
+-   repeating runs,
+-   running Quarto rendering.

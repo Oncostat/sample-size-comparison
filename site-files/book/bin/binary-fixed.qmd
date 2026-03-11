@@ -1,0 +1,159 @@
+---
+title: "Two-Arm Fixed Design with Binary endpoints"
+bibliography: ../../references.bibtex
+---
+
+```{r}
+#| label: setup
+source("../results-setup.R")
+```
+
+## Design space explored
+
+All comparisons were performed for a **two-arm, fixed-design randomized clinical trial** with a **binary primary endpoint**. The objective was to compare **sample size calculations** across commonly used software implementations over a broad but controlled design space, assuming a test for a **difference in proportions** under a pooled-variance framework.
+
+### Varying design parameters
+
+Four key design parameters were varied systematically:
+
+-   **Type I error rate ($\alpha$, two-sided):**  
+    $\alpha \in {0.01,\ 0.05,\ 0.10,\ 0.20,\ 0.49}$
+
+-   **Power ($1 - \beta$):**  
+    $1 - \beta \in {0.51,\ 0.80,\ 0.90,\ 0.99}$
+
+-   **Control-group response rate:**  
+    $\pi_c \in {0.10,\ 0.30,\ 0.50,\ 0.80,\ 0.90}$
+
+-   **Treatment effect (difference in proportions):**  
+    $\Delta\pi = \pi_e - \pi_c \in {0.05,\ 0.15,\ 0.25,\ 0.49}$
+
+The experimental-group response rate was derived as  
+$\pi_e = \pi_c + \Delta\pi$,  
+with scenarios resulting in $\pi_e > 1$ discarded.
+
+These parameters yield **300 valid design scenarios** in the full factorial combination.
+
+### Fixed design assumptions
+
+To isolate differences due purely to the statistical method or software implementation, the following characteristics of the design were held constant across scenarios:
+
+-   **Allocation ratio (experimental : control):** 1 : 1
+-   **Test sidedness:** two-sided
+
+### Relevancy classification of design scenarios
+
+To help interpret method agreement across the full parameter grid, each scenario was classified *a priori* according to its **practical relevance**.  
+The classification follows a rule‑based system determined solely by the Type I error rate and power:
+
+-   **High relevance**  
+    Scenarios with
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75,
+    $$
+    representing operating characteristics commonly used in realistic confirmatory settings.
+
+-   **Medium relevance**  
+    Scenarios not meeting the criteria for “high” or “low.”  
+    These correspond to plausible but less conventional values of α and power used in exploratory or constrained designs.
+
+-   **Low relevance**  
+    Scenarios with
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    These configurations are rarely used operationally (e.g., extremely liberal α or near‑perfect power), but are retained to evaluate numerical behavior in challenging cases.
+
+The classification does **not** filter scenarios nor influence computation; it simply contextualizes discrepancies between methods across a wide design space.
+
+### Scope of the comparison
+
+For each of the **300 design scenarios**, all software tools and methods were used to compute the **required total sample size** to achieve the target power under the specified proportions.
+
+The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
+
+## Results
+
+### Pooled-Variance
+
+Methods compared: 
+
+- East: Difference of Proportions test [PN-2S-DI]
+- nQuery : PTT36 / Inequality Tests for Difference of Two Proportions
+- `rpact::getSampleSizeRates()`
+
+```{r}
+x_pooled <- read_rds("../../../outputs/comp_bin_fixed_pooled.rds")
+```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x_pooled$tables$table_n_ratio)
+x_pooled$plots$p_n_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x_pooled$tables$table_n_ratio) 
+x_pooled$plots$p_n_ratio + theme_darkly()
+```
+:::
+
+- In **high‑ and medium‑relevancy** designs, both `nQuery` and `rpact` show **excellent agreement** with East, with N‑ratios consistently centered around 1.00 and virtually no dispersion.
+- Even in the **low‑relevancy** region, the two methods remain very close to 1.00. A few isolated deviations appear, but they correspond to designs with extreme proportions or highly unbalanced variance assumptions.
+- The plot confirms this stability: points are tightly clustered at 1.00 across the full range of East sample sizes, with only a small number of outliers in the low‑relevancy panel.
+- No systematic bias is visible for either method, and neither method shows drift with increasing sample size.
+
+**Overall:** for two‑arm binary fixed‑design trials using the Z‑pooled test, `nQuery` and `rpact` reproduce East’s sample sizes with **near‑perfect consistency**, with meaningful differences only in edge‑case, low‑practicality scenarios.
+
+### Exact 
+
+Methods compared: 
+
+- East: Difference of Proportions test [PN-2S-DI]
+- nQuery : PTT36 / Inequality Tests for Difference of Two Proportions
+- `bbssr::BinarySampleSize(test = "Fisher")`
+
+```{r}
+x_exact <- read_rds("../../../outputs/comp_bin_fixed_exact.rds")
+```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x_exact$tables$table_n_ratio)
+x_exact$plots$p_n_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x_exact$tables$table_n_ratio) 
+x_exact$plots$p_n_ratio + theme_darkly()
+```
+:::
+
+
+- Using **nQuery as the reference**, `bbssr` stays reasonably close across all relevancy levels, with N‑ratios typically fluctuating around 1.00 and stabilising as sample sizes increase.
+- East, however, shows **systematic underestimation** relative to nQuery.
+- In **high** and **medium‑relevancy** scenarios, `bbssr` converges smoothly toward the reference, while East remains consistently below 1.00.
+- In the **low‑relevancy** region, both methods show more dispersion, but the general pattern remains unchanged:  
+    - `bbssr` ≈ nQuery  
+    - **East < nQuery** (structural methodological difference)
+- These differences arise from the underlying exact‑test implementations, see more at ["What Do East and nQuery Compute *Exactly* ?"](../../additional-content/bin2arms-exact.qmd).
+
+**Overall:** for exact tests in two‑arm binary designs, `bbssr` aligns well with nQuery, while East produces consistently smaller sample sizes.
+
+### Interactive results
+
+You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
+
+**➡️ [*“Interactive results”*](../../interactive/interactive.qmd)**

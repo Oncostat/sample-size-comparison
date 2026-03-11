@@ -1,0 +1,164 @@
+---
+title: "Interactive results"
+---
+
+```{r}
+#| label: setup
+source("interactive.R")
+er_rate <- 0.1
+```
+
+```{r}
+# label: load-shared-data
+bin_fixed_pooled <- 
+    read_rds("../../outputs/comp_bin_fixed_pooled.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Binary 2-Arm Fixed Design, pooled-variance",
+        type = "bin"
+    )
+
+bin_fixed_exact <- 
+    read_rds("../../outputs/comp_bin_fixed_exact.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Binary 2-Arm Fixed Design, exact test",
+        type = "bin",
+        ref = "nquery"
+    )
+
+bin_gs_pooled <- 
+    read_rds("../../outputs/comp_bin_gs_pooled.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Binary 2-Arm GS-Design, pooled-variance",
+        type = "bin"
+    )
+
+bin_one_arm_exact <- 
+    read_rds("../../outputs/comp_bin_one_arm_exact.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Binary 1-Arm Fixed Design, exact test",
+        type = "bin"
+    )
+
+bin_one_arm_pooled <- 
+    read_rds("../../outputs/comp_bin_one_arm_pooled.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "pi_c", "delta_pi"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Binary 1-Arm Fixed Design, normal approx.",
+        type = "bin"
+    )
+
+surv_fixed <- 
+    read_rds("../../outputs/comp_surv_fixed.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Survival 2-Arm Fixed Design",
+        type = "surv"
+    )
+
+surv_gs <- 
+    read_rds("../../outputs/comp_surv_gs.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Survival 2-Arm GS-Design",
+        type = "surv"
+    )
+
+surv_one_arm <-
+    read_rds("../../outputs/comp_surv_one_arm.rds")$n_ratio |> 
+    mutate(across(c("alpha", "power", "hr", "surv_t"), as_factor)) |> 
+    SharedData$new() |> 
+    build_interactive(
+        title = "Survival 1-Arm Fixed Design",
+        type = "surv",
+        ref = "nquery"
+    )
+```
+
+:::{.column-screen-inset-shaded}
+::: {.panel-tabset}
+
+## Binary
+
+::: {.light-content}
+```{r}
+layout_columns(
+    col_widths = c(6, 6),  # 2 cards per row on large screens
+    gap = "1.5rem",
+    # BINARY FIXED POOLED
+    card_flatly(bin_fixed_pooled),
+    # BINARY FIXED EXACT
+    card_flatly(bin_fixed_exact),
+    # BINARY GS-DESIGN POOLED
+    card_flatly(bin_gs_pooled),
+    # BINARY ONE-ARM normal approx.
+    card_flatly(bin_one_arm_pooled),
+    # BINARY ONE-ARM exact test
+    card_flatly(bin_one_arm_exact)
+)
+```
+:::
+
+::: {.dark-content}
+```{r}
+layout_columns(
+    col_widths = c(6, 6),  # 2 cards per row on large screens
+    gap = "1.5rem",
+    # BINARY FIXED POOLED
+    card_darkly(bin_fixed_pooled),
+    # BINARY FIXED EXACT
+    card_darkly(bin_fixed_exact),
+    # BINARY GS-DESIGN POOLED
+    card_darkly(bin_gs_pooled),
+    # BINARY ONE-ARM normal approx.
+    card_darkly(bin_one_arm_pooled),
+    # BINARY ONE-ARM exact test
+    card_darkly(bin_one_arm_exact)
+)
+```
+:::
+
+## Survival
+
+::: {.light-content}
+```{r}
+layout_columns(
+    col_widths = c(6, 6),
+    gap = "1.5rem",
+    # SURVIVAL FIXED
+    card_flatly(surv_fixed),
+    # SURVIVAL GS
+    card_flatly(surv_gs),
+    # SURVIVAL ONE-ARM
+    card_flatly(surv_one_arm)
+)
+```
+:::
+
+::: {.dark-content}
+```{r}
+layout_columns(
+    col_widths = c(6, 6),
+    gap = "1.5rem",
+    # SURVIVAL FIXED
+    card_darkly(surv_fixed),
+    # SURVIVAL GS
+    card_darkly(surv_gs),
+    # SURVIVAL ONE-ARM
+    card_darkly(surv_one_arm)
+)
+```
+:::
+
+:::
+:::

@@ -1,0 +1,53 @@
+---
+title: "Required Events in Time‑to‑Event Designs"
+subtitle: "*Numerical comparison across East, nQuery, and R*"
+image: "../../man/figures/events.png"
+---
+
+This short note complements the comparison of sample size calculations by focusing specifically on the **required number of events** for time‑to‑event designs. Using the same scenarios and assumptions, we report the numerical results obtained from East, nQuery, and R implementations, highlighting how closely the tools agree—both for fixed designs and group‑sequential settings. The tables and plots below summarize these event‑based results.
+
+```{r}
+#| label: setup
+source("additional-content-setup.R")
+```
+
+```{r}
+fixed <- read_rds("../../outputs/comp_surv_fixed.rds")
+gs <- read_rds("../../outputs/comp_surv_gs.rds")
+```
+
+## Fixed Design
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(fixed$tables$table_e_ratio)
+fixed$plots$p_e_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(fixed$tables$table_e_ratio) 
+fixed$plots$p_e_ratio + theme_darkly()
+```
+:::
+
+## Group-Sequential Design 
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(gs$tables$table_e_ratio)
+gs$plots$p_e_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(gs$tables$table_e_ratio) 
+gs$plots$p_e_ratio + theme_darkly()
+```
+:::
