@@ -112,8 +112,8 @@ n_ratio <-
 cli_alert_success("Combined results")
 
 # Table & figures ----
-title_er <- "E-Ratio 2-Arms Time-to-Event GS-design"
-title_nr <- "N-Ratio 2-Arms Time-to-Event GS-design"
+title_er <- "E-Ratio 2-Arms Survival GS-design"
+title_nr <- "N-Ratio 2-Arms Survival GS-design"
 ## Tables ----
 table_e_ratio <- 
   e_ratio |> 

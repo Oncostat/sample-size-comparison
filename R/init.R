@@ -23,13 +23,13 @@ source("R/functions/helpers.R")
 source("R/functions/evaluate_relevancy.R")
 
 # Wrappers
-source("R/functions/oa2s_wrapper.R")
-source("R/functions/rpact_wrapper.R")
-source("R/functions/bbssr_wrapper.R")
-source("R/functions/sssas_wrapper.R")
-source("R/functions/ahern_wrapper.R")
-source("R/functions/rashnu_wrapper.R")
-source("R/functions/gsdesign2_wrapper.R")
+source("R/wrappers/oa2s_wrapper.R")
+source("R/wrappers/rpact_wrapper.R")
+source("R/wrappers/bbssr_wrapper.R")
+source("R/wrappers/sssas_wrapper.R")
+source("R/wrappers/ahern_wrapper.R")
+source("R/wrappers/rashnu_wrapper.R")
+source("R/wrappers/gsdesign2_wrapper.R")
 
 # Memoise wrappers
 wrapper = map(

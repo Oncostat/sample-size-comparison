@@ -121,7 +121,7 @@ n_ratio <-
 cli_alert_success("Combined results")
 
 # Tables and figures ----
-title <- "N-Ratio 1-Arm Time-to-Event"
+title <- "N-Ratio 1-Arm Survival"
 ## Tables ----
 table_n_ratio <- 
   n_ratio |> 
