@@ -209,7 +209,28 @@ gt_lakatos_n_lan <-
   ) |> 
   tab_footnote(md("<span style='color:#75cec6ff'>**Blue**</span>: Computed sample sizes")) |> 
   tab_footnote(md("<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article"))
-cli_alert_success("Tables & figures")
+
+plot_lakatos_n_lan <-
+  combined  |> 
+  get_tbl()  |> 
+  rename(n_Freedman = n_F) |> 
+  mutate(across(starts_with("n_"), ~ ./n_east)) |> 
+  select(-n_east) |> 
+  pivot_longer(cols = starts_with("n_"), names_to ="method", values_to = "N")  |> 
+  mutate(method = str_remove(method, "n_")) |>
+  ggplot() +
+  aes(x = paste0("HR: ",hr,", Accrual", accrual_time), y = N, color = method) +
+  geom_jitter(height = 0, width = 0.1) +
+  geom_hline(yintercept = 1 + c(-1, 1) * er_rate, linetype = "dashed") +
+  geom_hline(yintercept = 1) + 
+  facet_wrap(surv_t ~ ., scales = "free") +
+  scale_color_ssc() +
+  labs(
+    title ="N-Ratio by method",
+    subtitle ="For both 0.2 and 0.8 survival",
+    x = NULL,
+    y = "N / N-East", 
+  )
 
 # Put into the scc object
 ssc$surv$fixed$res_lnl <- lst(rpact, rashnu, gsdesign2, east, nquery)
@@ -217,6 +238,6 @@ ssc$surv$fixed$raw_lnl <- lst("east" = east_raw, "nquery" = nquery_raw)
 ssc$surv$fixed$params_lnl <- params
 ssc$surv$fixed$combined_lnl <- combined
 
-lakatos_n_lan <- lst(get_tbl(combined), gt_lakatos_n_lan)
+lakatos_n_lan <- lst(get_tbl(combined), gt_lakatos_n_lan, plot_lakatos_n_lan)
 
 # write_rds(lakatos_n_lan, "outputs/lakatos_n_lan.rds")

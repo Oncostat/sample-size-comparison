@@ -77,6 +77,20 @@ gt_theme_darkly(x$gt_lakatos_n_lan)
 
 - rpact, gsDesign2, and East do not match any single historical method, but their outputs cluster tightly together, and they generally fall closer to the Lakatos values than to Freedman or RGS.
 
+::: {.light-content}
+```{r}
+#| out-width: 100%
+x$plot_lakatos_n_lan + theme_flatly() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+x$plot_lakatos_n_lan + theme_darkly() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+:::
+
 
 
 
