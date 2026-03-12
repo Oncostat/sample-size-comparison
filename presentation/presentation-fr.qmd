@@ -21,7 +21,7 @@ format:
           header: 
             "<div class='menubar'>
               <a href='#'>
-                <img class='logo' src='../SCC-HexSticker.png' width='70' style='margin:0px 10px'>
+                <img class='logo' src='../man/figures/SSC-HexSticker.png' width='70' style='margin:0px 10px'>
               </a>
               <ul class='menu'></ul>
             <div>"
@@ -45,7 +45,7 @@ author:
     email: anne.lourdessamy@gustaveroussy.fr
     orcid: 0009-0006-9051-3302
     role: "Encadrante"
-date: last-modified
+date: 02/25/2026
 lang: fr
 bibliography: ../site-files/references.bibtex
 nocite: |

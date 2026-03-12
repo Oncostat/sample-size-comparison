@@ -2,33 +2,113 @@
 
 <!-- README.md is generated from README.Qmd. Please edit that file -->
 
-# Oncostat’s Sample Size Comparison <a href='https://github.com/Oncostat/sample-size-comparison'><img src='man\figures\SCC-HexSticker.png' align="right" height="175" /></a>
+# Oncostat’s Sample Size Comparison <a href='https://github.com/Oncostat/sample-size-comparison'><img src='man\figures\SSC-HexSticker.png' align="right" height="175" /></a>
 
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/Oncostat-green.svg)](https://oncostat.github.io/)
 
-## R as an alternative to East and nQuery for computing sample size.
+This repository presents a systematic comparison of **sample size
+calculations implemented in R** with those from two widely used
+commercial tools: **East** and **nQuery**.
 
-The article of the comparison is available
-[HERE](https://oncostat.github.io/sample-size-comparison/). Presentation
-(in french) is available
-[HERE](https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr).
+## R as an alternative to East and nQuery.
 
-### Designs & compared method
+Below is a concise overview of the main findings from the *Sample Size
+Comparison* project.  
+The table compares, for each endpoint and design type, the statistical
+test used, and how well the implemented R calculations matched the
+software(East or nQuery) reference values.
 
-| Endpoints | Design Type | Computation | Software | R package |
-|:---|:---|---:|:---|:---|
-| Binary | Two-arm Fixed | Pooled | 🟧East, 🟦nQuery | 🟥Rpact, ~~🟨bbssr~~ |
-| Binary | Two-arm Fixed | Unpooled | 🟧East, 🟦nQuery | \- |
-| Binary | Two-arm Fixed | Exact | 🟧East, 🟦nQuery | 🟨bbssr |
-| Binary | Two-arm Group-Sequential | Pooled | 🟧East | 🟥Rpact |
-| Binary | One-arm Fixed | Exact | 🟧East | A’Hern(no package) |
-| Binary | One-arm Fixed | Non_exact? | 🟧East, 🟦nQuery | 🟥Rpact |
-| Survival | Two-arm Fixed |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟪Rashnu, 🟫gsDesign2 |
-| Survival | Two-arm Group-Sequential |  | 🟧East, 🟦nQuery | 🟥Rpact, 🟫gsDesign2 |
-| Survival | One-arm Fixed |  | 🟧East, 🟦nQuery | oa2s[^1], sssas[^2], 🟪Rashnu |
+| Endpoints | Design type                   | Test         | R/Software matching |
+|:----------|:------------------------------|:-------------|:--------------------|
+| survival  | 2‑Arm fixed design            | Log‑rank     | 🟢 Perfect          |
+| survival  | 2‑Arm group‑sequential design | Log‑rank     | 🟡 Good             |
+| survival  | 1‑Arm fixed design            | Log‑rank     | 🔵 Poor             |
+| Binary    | 2‑Arm fixed design            | Exact        | 🟡 Good             |
+| Binary    | 2‑Arm fixed design            | Z‑Pooled     | 🟢 Perfect          |
+| Binary    | 2‑Arm group‑sequential design | Z‑Pooled     | 🟢 Perfect          |
+| Binary    | 1‑Arm fixed design            | Exact        | 🟡 Good             |
+| Binary    | 1‑Arm fixed design            | 1‑Arm Z test | 🟢 Perfect          |
 
-[^1]: OneArm2stage
+Legend:  
+🟢 **Perfect** = identical or extremely close values  
+🟡 **Good** = small but acceptable discrepancies  
+🔵 **Poor** = substantial differences requiring further investigation
 
-[^2]: SampleSizeSingleArmSurvival
+------------------------------------------------------------------------
+
+## [Website](https://github.com/Oncostat/sample-size-comparison)
+
+Browse the interactive website to explore results, methodology, and
+reproducible R code.
+
+<p align="center">
+
+<a href='https://github.com/Oncostat/sample-size-comparison'>
+<img src='man\figures\ssc-website-screenshot.png' height="400" /> </a>
+</p>
+
+------------------------------------------------------------------------
+
+## [Slides (in french)](https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr)
+
+Slides from the 25/02/2026 presentation at Gustave Roussy
+
+<p align="center">
+
+<a href='https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr'>
+<img src='man\figures\presentation-fr.png' height="400" /> </a>
+</p>
+
+------------------------------------------------------------------------
+
+## R directory Structure
+
+Quick overview of how the entire SSC project is organised:
+
+- **a central `main.R` file**, from which the full pipeline is
+  executed;  
+- **modular comparison scripts**, one per design;  
+- **dedicated `functions/` and `wrappers/` directory** for all helpers
+  and wrappers;  
+- **a small S7 layer** holding the two core classes (`ssc_design` and
+  `ssc_results`).
+
+``` ascii
+R/
+├── init.R
+├── main.R
+├── comparison/
+│   ├── comp_bin_fixed_exact.R
+│   ├── comp_bin_fixed_pooled.R
+│   ├── comp_bin_gs.R
+│   ├── comp_bin_one_arm_exact.R
+│   ├── comp_bin_one_arm.R
+│   ├── comp_surv_fixed.R
+│   ├── comp_surv_gs.R
+│   └── comp_surv_one_arm.R
+├── functions/
+│   ├── checks.R
+│   ├── e_ratio.R
+│   ├── evaluate_relevancy.R
+│   ├── helpers.R
+│   ├── n_ratio.R
+│   └── exact_wrapper.R
+├── S7/
+│   ├── generics.R
+│   ├── ssc_design.R
+│   └── ssc_results.R
+├── side-analysis/
+│   ├── bin2arms_exact.R
+│   └── lakatos_n_lan.R
+└── wrappers/
+    ├── ahern_wrapper.R
+    ├── bbssr_wrapper.R
+    ├── exact_wrapper.R
+    ├── gsdesign2_wrapper.R
+    ├── oa2s_wrapper.R
+    ├── rashnu_wrapper.R
+    ├── rpact_wrapper.R
+    └── sssas_wrapper.R
+```
