@@ -51,27 +51,56 @@ The `init.R` file is the first script that runs. It prepares everything needed f
 ```{r}
 # load packages
 suppressPackageStartupMessages(suppressWarnings({
+  library(S7)
+  library(gt)
+  library(cli)
+  library(rlang)
   library(tidyverse)
-    ...
 }))
 
-# Create global variable
+# Error rate 
 er_rate <- 0.1 # error rate 10%
+
+# List to export
 ssc <- lst()
 wrapper <- lst()
 
 # Source functions
-## Helper functions
+## Intermediate functions
 source("R/functions/checks.R")
-  ...
+source("R/functions/n_ratio.R")
+source("R/functions/e_ratio.R")
+source("R/functions/helpers.R")
+source("R/functions/evaluate_relevancy.R")
 
 # Wrappers
-source("R/functions/rpact_wrapper.R")
-  ...
+source("R/wrappers/oa2s_wrapper.R")
+source("R/wrappers/rpact_wrapper.R")
+source("R/wrappers/bbssr_wrapper.R")
+source("R/wrappers/sssas_wrapper.R")
+source("R/wrappers/ahern_wrapper.R")
+source("R/wrappers/rashnu_wrapper.R")
+source("R/wrappers/gsdesign2_wrapper.R")
+
+# Memoise wrappers
+wrapper = map(
+  wrapper,
+  ~ memoise::memoise(.x, cache = cachem::cache_disk("the_cache_of_the_memoise"))
+)
 
 # Source S7 classes and methods
+source("R/S7/generics.R")
+source("R/S7/ssc_design.R")
 source("R/S7/ssc_results.R")
-  ...
+
+# BOXX
+boxx(
+  "SSC",
+  float = "center",
+  col = "blue",
+  border_style = "double",
+  padding = c(0, 15, 0, 15)
+) |> print()
 ```
 
 This script:
@@ -237,28 +266,78 @@ comp_surv_fixed <- lst(
 
 By using the `cli` package, the script outputs a series of messages (and eventually warnings and errors) that allow following the execution.
 
-```{console}
+```default
 > # Initialisation ----
 > source("R/init.R")
+                          ╔═════════════════════════════════╗
+                          ║               SSC               ║
+                          ╚═════════════════════════════════╝
 
-> boxx(
-+   "SSC",
-+   float = "center",
-+   col = "blue",
-+   border_style = "double",
-+   padding = c(0, 15, 0, 15)
-+ )
-                                   ╔═════════════════════════════════╗
-                                   ║               SSC               ║
-                                   ╚═════════════════════════════════╝
+> # Binary sample size comparison ----
+> cli_h1("SSC-Binary")
+
+── SSC-Binary ────────────────────────────────────────────────────────────────────────
+
+> source("R/comparison/comp_bin_fixed_pooled.R")
+─────────────────────── Binary fixed design, pooled computation ──────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
+
+> source("R/comparison/comp_bin_fixed_exact.R")
+─────────────────────── Binary fixed design, exact computation ───────────────────────
+✔ Params & design
+✔ bbssr results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
+
+> source("R/comparison/comp_bin_gs.R")
+─────────────────────────── Binary group-sequential design ───────────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
+
+> source("R/comparison/comp_bin_one_arm.R")
+─────────────────────────────── One-armed binary design ──────────────────────────────
+✔ Params & design
+✔ Rpact results                                   
+✔ East results
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
+
+> source("R/comparison/comp_bin_one_arm_exact.R")
+──────────────────────────── One-armed binary design exact ───────────────────────────
+✔ Params & design
+✔ A'Hern results                                  
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
 
 > # Survival sample size comparison ----
-> cli_h1("SSC Survival")
+> cli_h1("SSC-Survival")
 
-── SSC Survival ────────────────────────────────────────────────────────────────────────────────────────
+── SSC-Survival ──────────────────────────────────────────────────────────────────────
 
-> source("R/comp_surv_fixed.R")
-───────────────────────────────────────── Survival fixed design ────────────────────────────────────────
+> source("R/comparison/comp_surv_fixed.R")
+──────────────────────────────── Survival fixed design ───────────────────────────────
 ✔ Params & design
 ✔ Rpact results                                   
 ✔ Rashnu results                                  
@@ -266,11 +345,44 @@ By using the `cli` package, the script outputs a series of messages (and eventua
 ✔ East results
 ✔ nQuery results
 ✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
 ✔ Tables & figures
 
-> source("R/lakatos_n_lan.R")
-────────────────────────────────── Survival fixed Lakatos & Lan (1992) ─────────────────────────────────
+> source("R/comparison/comp_surv_gs.R")
+────────────────────────── Survival group-sequential design ──────────────────────────
+✔ Params & design
+✔ Rpact results
+✔ Gsdesign2 results
+✔ East results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
+
+> source("R/comparison/comp_surv_one_arm.R")
+─────────────────────────────── Survival One-arm design ──────────────────────────────
+✔ Params & design
+✔ OneArm2stage results                            
+✔ SampleSizeSingleArmSurvival results             
+✔ Rashnu results                                  
+✔ nQuery results
+✔ Combined results
+`summarise()` has grouped output by 'relevancy'. You can override using the `.groups`
+argument.
+✔ Tables & figures
+
+> # Additional analysis ----
+> cli_h1("SSC-side-analysis")
+
+── SSC-side-analysis ─────────────────────────────────────────────────────────────────
+
+> source("R/side-analysis/lakatos_n_lan.R")
+───────────────────────── Survival fixed Lakatos & Lan (1992) ────────────────────────
 ✔ Params & design
 ✔ Rpact results
 ✔ Rashnu results
@@ -280,78 +392,16 @@ By using the `cli` package, the script outputs a series of messages (and eventua
 ✔ Combined results
 ✔ Tables & figures
 
-> source("R/comp_surv_gs.R")
-─────────────────────────────────── Survival group-sequential design ───────────────────────────────────
-✔ Params & design
-✔ Rpact results
-✔ Gsdesign2 results
-✔ East results
-✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
-✔ Tables & figures
-
-> source("R/comp_surv_one_arm.R")
-──────────────────────────────────────── Survival One-arm design ───────────────────────────────────────
-✔ Params & design
-✔ OneArm2stage results                            
-✔ SampleSizeSingleArmSurvival results             
-✔ Rashnu results                                  
-✔ nQuery results
-✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
-✔ Tables & figures
-
-> # Binary sample size comparison ----
-> cli_h1("SSC Binary")
-
-── SSC Binary ──────────────────────────────────────────────────────────────────────────────────────────
-
-> source("R/comp_bin_fixed_pooled.R")
-──────────────────────────────── Binary fixed design, pooled computation ───────────────────────────────
-✔ Params & design
-✔ Rpact results                                   
+> source("R/side-analysis/bin2arms_exact.R")
+──────────────────────── Exact computations for Binary Two-Arm ───────────────────────
+✔ Params
+✔ bbssr exact results
 ✔ East results
 ✔ nQuery results
 ✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
 ✔ Tables & figures
 
-> source("R/comp_bin_fixed_exact.R")
-──────────────────────────────── Binary fixed design, exact computation ────────────────────────────────
-✔ Params & design
-✔ bbssr results                                   
-✔ East results
-✔ nQuery results
-✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
-✔ Tables & figures
-
-> source("R/comp_bin_gs.R")
-──────────────────────────────────── Binary group-sequential design ────────────────────────────────────
-✔ Params & design
-✔ Rpact results                                   
-✔ East results
-✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
-✔ Tables & figures
-
-> source("R/comp_bin_one_arm.R")
-──────────────────────────────────────── One-armed binary design ───────────────────────────────────────
-✔ Params & design
-✔ Rpact results                                   
-✔ East results
-✔ nQuery results
-✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
-✔ Tables & figures
-
-> source("R/comp_bin_one_arm_exact.R")
-───────────────────────────────────── One-armed binary design exact ────────────────────────────────────
-✔ Params & design
-✔ A'Hern results                                  
-✔ East results
-✔ Combined results
-`summarise()` has grouped output by 'relevancy'. You can override using the `.groups` argument.
-✔ Tables & figures
+> # Export results ----
+> # write_rds(ssc, "outputs/ssc.rds")
 ```
 

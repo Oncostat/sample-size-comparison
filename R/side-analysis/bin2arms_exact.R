@@ -1,3 +1,4 @@
+cli_rule(center = "Exact computations for Binary Two-Arm")
 # Params ----
 params <- lst()
 params$list <- list(
@@ -12,6 +13,7 @@ params$table <-
   expand.grid() |>
   as_tibble() |>
   filter(delta_pi + pi_c < 1)
+cli_alert_success("Params")
 
 # Exact methods wrappers ----
 fisher_wrapper <- partial(wrapper$bbssr_bin_fixed, !!!params$additional, test = "Fisher")
@@ -41,6 +43,7 @@ boschloo <-
   params$table |>
   mutate(n = pmap_vec(params$table, boschloo_wrapper, .progress = TRUE)) 
 
+cli_alert_success("bbssr exact results")
 # East ----
 east <- 
   list.files(
@@ -59,6 +62,7 @@ east <-
   arrange(alpha, pi_c, delta_pi, power) |> 
   mutate(power = signif(power, 1))
 
+cli_alert_success("East results")
 # nQuery ----
 nquery_raw <- read.csv2("data-raw/nquery_bin_fixed_exact.csv")
 transposed <- data.frame(t(nquery_raw[-1]))
@@ -91,6 +95,7 @@ nquery <-
     delta_pi = signif(delta_pi, 2) 
   )
 
+cli_alert_success("nQuery results")
 # Combined results ----
 combined <- 
   lst(
@@ -141,6 +146,7 @@ n_ratio_nquery <-
     values_to = "n_ratio"
   )
 
+cli_alert_success("Combined results")
 # Tables & figures ----
 ## Tables ----
 gt_n_ratio_east <- 
@@ -219,6 +225,7 @@ p_n_ratio_nquery <-
   scale_color_ssc()
 
 plots <- lst(p_n_ratio_east, p_n_ratio_nquery)
+cli_alert_success("Tables & figures")
 
 # Export Results ----
 explore_bin2exact <- lst(

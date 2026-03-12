@@ -118,7 +118,7 @@ This directory contains all **reusable building blocks** of the project:
 This part is discussed in detail in the post:  
 **➡️ [*“Clean Wrapper Functions for Sample Size Calculations”*](wrapper.qmd)**
 
-## The S7 layer (`S7/`)
+## The S7 layer (S7/)
 
 This folder contains a minimal but powerful object system for the project:
 
