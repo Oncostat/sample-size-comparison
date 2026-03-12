@@ -20,32 +20,38 @@ The project uses a simple but robust structure:
 R/
 ├── init.R
 ├── main.R
-├── comp_surv_fixed.R
-├── comp_surv_gs.R
-├── comp_surv_one_arm.R
-├── comp_bin_fixed_pooled.R
-├── comp_bin_fixed_exact.R
-├── comp_bin_gs.R
-├── comp_bin_one_arm.R
-├── comp_bin_one_arm_exact.R
-├── lakatos_n_lan.R
+├── comparison/
+│   ├── comp_bin_fixed_exact.R
+│   ├── comp_bin_fixed_pooled.R
+│   ├── comp_bin_gs.R
+│   ├── comp_bin_one_arm_exact.R
+│   ├── comp_bin_one_arm.R
+│   ├── comp_surv_fixed.R
+│   ├── comp_surv_gs.R
+│   └── comp_surv_one_arm.R
 ├── functions/
 │   ├── checks.R
-│   ├── helpers.R
+│   ├── e_ratio.R
 │   ├── evaluate_relevancy.R
-│   ├── exact_2_arms.R
+│   ├── helpers.R
 │   ├── n_ratio.R
-│   ├── rpact_wrapper.R
-│   ├── ahern_wrapper.R
-│   ├── bbssr_wrapper.R
-│   ├── gsdesign2_wrapper.R
-│   ├── rashnu_wrapper.R
-│   ├── oa2s_wrapper.R
-│   └── sssas_wrapper.R
-└── S7/
-    ├── generics.R
-    ├── ssc_design.R
-    └── ssc_results.R
+│   └── exact_wrapper.R
+├── S7/
+│   ├── generics.R
+│   ├── ssc_design.R
+│   └── ssc_results.R
+├── side-analysis/
+│   ├── bin2arms_exact.R
+│   └── lakatos_n_lan.R
+└── wrappers/
+    ├── ahern_wrapper.R
+    ├── bbssr_wrapper.R
+    ├── exact_wrapper.R
+    ├── gsdesign2_wrapper.R
+    ├── oa2s_wrapper.R
+    ├── rashnu_wrapper.R
+    ├── rpact_wrapper.R
+    └── sssas_wrapper.R
 ```
 
 ## main.R: the entry point
