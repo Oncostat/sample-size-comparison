@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../../../">
 <link href="../../../site-files/book/surv/survival-gs.html" rel="next">
 <link href="../../../site-files/book/surv/survival-methods.html" rel="prev">
-<link href="../../../SCC-HexSticker.png" rel="icon" type="image/png">
+<link href="../../../man/figures/ssc-favicon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -282,8 +282,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
-    <img src="../../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
+    <img src="../../../man/figures/ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../../../man/figures/ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -496,10 +496,9 @@ window.Quarto = {
   <li><a href="#relevancy-classification-of-design-scenarios" id="toc-relevancy-classification-of-design-scenarios" class="nav-link" data-scroll-target="#relevancy-classification-of-design-scenarios">Relevancy classification of design scenarios</a></li>
   <li><a href="#scope-of-the-comparison" id="toc-scope-of-the-comparison" class="nav-link" data-scroll-target="#scope-of-the-comparison">Scope of the comparison</a></li>
   </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
-  <ul class="collapse">
+  <li><a href="#methods-compared" id="toc-methods-compared" class="nav-link" data-scroll-target="#methods-compared">Methods compared:</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#interactive-results" id="toc-interactive-results" class="nav-link" data-scroll-target="#interactive-results">Interactive results</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -628,9 +627,8 @@ Scenarios where <span class="math display">\[
 <p>The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.</p>
 </section>
 </section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>Methods compared:</p>
+<section id="methods-compared" class="level2">
+<h2 class="anchored" data-anchor-id="methods-compared">Methods compared:</h2>
 <ul>
 <li>East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]</li>
 <li>nQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival</li>
@@ -638,26 +636,37 @@ Scenarios where <span class="math display">\[
 <li><code>rashnu::lakatosSampleSizeSurvival()</code></li>
 <li><code>gsDesign2::fixed_design_ahr()</code></li>
 </ul>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>📌<strong>Overall:</strong> within realistic design regions, the four methods provide <strong>highly consistent fixed‑design survival sample sizes</strong> relative to East.</p>
+<ul>
+<li>In <strong>high‑relevancy</strong> settings, all methods yield N‑ratios extremely close to 1.00, showing near‑perfect agreement with East for typical time‑to‑event designs.</li>
+<li><strong>Medium‑relevancy</strong> scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.</li>
+<li><strong>Low‑relevancy</strong> cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.</li>
+<li>When ignoring these outlier regions, all four implementations again converge tightly around 1.00.</li>
+<li>Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See <a href="../lakatos_n_lan.qmd">Lakatos and Lan</a> post for more details)</li>
+</ul>
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="dxvbupmwaz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dxvbupmwaz table {
+<div id="rkqbrnoatm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rkqbrnoatm table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dxvbupmwaz thead, #dxvbupmwaz tbody, #dxvbupmwaz tfoot, #dxvbupmwaz tr, #dxvbupmwaz td, #dxvbupmwaz th {
+#rkqbrnoatm thead, #rkqbrnoatm tbody, #rkqbrnoatm tfoot, #rkqbrnoatm tr, #rkqbrnoatm td, #rkqbrnoatm th {
   border-style: none;
 }
 
-#dxvbupmwaz p {
+#rkqbrnoatm p {
   margin: 0;
   padding: 0;
 }
 
-#dxvbupmwaz .gt_table {
+#rkqbrnoatm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -683,12 +692,12 @@ Scenarios where <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_caption {
+#rkqbrnoatm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dxvbupmwaz .gt_title {
+#rkqbrnoatm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -700,7 +709,7 @@ Scenarios where <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#dxvbupmwaz .gt_subtitle {
+#rkqbrnoatm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -712,7 +721,7 @@ Scenarios where <span class="math display">\[
   border-top-width: 0;
 }
 
-#dxvbupmwaz .gt_heading {
+#rkqbrnoatm .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -724,13 +733,13 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_bottom_border {
+#rkqbrnoatm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_col_headings {
+#rkqbrnoatm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -745,7 +754,7 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_col_heading {
+#rkqbrnoatm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -765,7 +774,7 @@ Scenarios where <span class="math display">\[
   overflow-x: hidden;
 }
 
-#dxvbupmwaz .gt_column_spanner_outer {
+#rkqbrnoatm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -777,15 +786,15 @@ Scenarios where <span class="math display">\[
   padding-right: 4px;
 }
 
-#dxvbupmwaz .gt_column_spanner_outer:first-child {
+#rkqbrnoatm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dxvbupmwaz .gt_column_spanner_outer:last-child {
+#rkqbrnoatm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dxvbupmwaz .gt_column_spanner {
+#rkqbrnoatm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -797,11 +806,11 @@ Scenarios where <span class="math display">\[
   width: 100%;
 }
 
-#dxvbupmwaz .gt_spanner_row {
+#rkqbrnoatm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dxvbupmwaz .gt_group_heading {
+#rkqbrnoatm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -827,7 +836,7 @@ Scenarios where <span class="math display">\[
   text-align: left;
 }
 
-#dxvbupmwaz .gt_empty_group_heading {
+#rkqbrnoatm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -842,15 +851,15 @@ Scenarios where <span class="math display">\[
   vertical-align: middle;
 }
 
-#dxvbupmwaz .gt_from_md > :first-child {
+#rkqbrnoatm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dxvbupmwaz .gt_from_md > :last-child {
+#rkqbrnoatm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dxvbupmwaz .gt_row {
+#rkqbrnoatm .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -869,7 +878,7 @@ Scenarios where <span class="math display">\[
   overflow-x: hidden;
 }
 
-#dxvbupmwaz .gt_stub {
+#rkqbrnoatm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -882,7 +891,7 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#dxvbupmwaz .gt_stub_row_group {
+#rkqbrnoatm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -896,15 +905,15 @@ Scenarios where <span class="math display">\[
   vertical-align: top;
 }
 
-#dxvbupmwaz .gt_row_group_first td {
+#rkqbrnoatm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dxvbupmwaz .gt_row_group_first th {
+#rkqbrnoatm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dxvbupmwaz .gt_summary_row {
+#rkqbrnoatm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -914,16 +923,16 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#dxvbupmwaz .gt_first_summary_row {
+#rkqbrnoatm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_first_summary_row.thick {
+#rkqbrnoatm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dxvbupmwaz .gt_last_summary_row {
+#rkqbrnoatm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -933,7 +942,7 @@ Scenarios where <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_grand_summary_row {
+#rkqbrnoatm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -943,7 +952,7 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#dxvbupmwaz .gt_first_grand_summary_row {
+#rkqbrnoatm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -953,7 +962,7 @@ Scenarios where <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_last_grand_summary_row_top {
+#rkqbrnoatm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -963,11 +972,11 @@ Scenarios where <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_striped {
+#rkqbrnoatm .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#dxvbupmwaz .gt_table_body {
+#rkqbrnoatm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -976,7 +985,7 @@ Scenarios where <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_footnotes {
+#rkqbrnoatm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -990,7 +999,7 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_footnote {
+#rkqbrnoatm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -999,7 +1008,7 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#dxvbupmwaz .gt_sourcenotes {
+#rkqbrnoatm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1013,7 +1022,7 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dxvbupmwaz .gt_sourcenote {
+#rkqbrnoatm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1021,72 +1030,72 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#dxvbupmwaz .gt_left {
+#rkqbrnoatm .gt_left {
   text-align: left;
 }
 
-#dxvbupmwaz .gt_center {
+#rkqbrnoatm .gt_center {
   text-align: center;
 }
 
-#dxvbupmwaz .gt_right {
+#rkqbrnoatm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dxvbupmwaz .gt_font_normal {
+#rkqbrnoatm .gt_font_normal {
   font-weight: normal;
 }
 
-#dxvbupmwaz .gt_font_bold {
+#rkqbrnoatm .gt_font_bold {
   font-weight: bold;
 }
 
-#dxvbupmwaz .gt_font_italic {
+#rkqbrnoatm .gt_font_italic {
   font-style: italic;
 }
 
-#dxvbupmwaz .gt_super {
+#rkqbrnoatm .gt_super {
   font-size: 65%;
 }
 
-#dxvbupmwaz .gt_footnote_marks {
+#rkqbrnoatm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dxvbupmwaz .gt_asterisk {
+#rkqbrnoatm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dxvbupmwaz .gt_indent_1 {
+#rkqbrnoatm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dxvbupmwaz .gt_indent_2 {
+#rkqbrnoatm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dxvbupmwaz .gt_indent_3 {
+#rkqbrnoatm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dxvbupmwaz .gt_indent_4 {
+#rkqbrnoatm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dxvbupmwaz .gt_indent_5 {
+#rkqbrnoatm .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dxvbupmwaz .katex-display {
+#rkqbrnoatm .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dxvbupmwaz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rkqbrnoatm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1240,7 +1249,7 @@ Scenarios where <span class="math display">\[
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="survival-fixed_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="survival-fixed_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1249,23 +1258,23 @@ Scenarios where <span class="math display">\[
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="zzllsfiqli" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zzllsfiqli table {
+<div id="fegxqhvkep" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fegxqhvkep table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zzllsfiqli thead, #zzllsfiqli tbody, #zzllsfiqli tfoot, #zzllsfiqli tr, #zzllsfiqli td, #zzllsfiqli th {
+#fegxqhvkep thead, #fegxqhvkep tbody, #fegxqhvkep tfoot, #fegxqhvkep tr, #fegxqhvkep td, #fegxqhvkep th {
   border-style: none;
 }
 
-#zzllsfiqli p {
+#fegxqhvkep p {
   margin: 0;
   padding: 0;
 }
 
-#zzllsfiqli .gt_table {
+#fegxqhvkep .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1291,12 +1300,12 @@ Scenarios where <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_caption {
+#fegxqhvkep .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zzllsfiqli .gt_title {
+#fegxqhvkep .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1308,7 +1317,7 @@ Scenarios where <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#zzllsfiqli .gt_subtitle {
+#fegxqhvkep .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1320,7 +1329,7 @@ Scenarios where <span class="math display">\[
   border-top-width: 0;
 }
 
-#zzllsfiqli .gt_heading {
+#fegxqhvkep .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -1332,13 +1341,13 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_bottom_border {
+#fegxqhvkep .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_col_headings {
+#fegxqhvkep .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1353,7 +1362,7 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_col_heading {
+#fegxqhvkep .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1373,7 +1382,7 @@ Scenarios where <span class="math display">\[
   overflow-x: hidden;
 }
 
-#zzllsfiqli .gt_column_spanner_outer {
+#fegxqhvkep .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1385,15 +1394,15 @@ Scenarios where <span class="math display">\[
   padding-right: 4px;
 }
 
-#zzllsfiqli .gt_column_spanner_outer:first-child {
+#fegxqhvkep .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zzllsfiqli .gt_column_spanner_outer:last-child {
+#fegxqhvkep .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zzllsfiqli .gt_column_spanner {
+#fegxqhvkep .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1405,11 +1414,11 @@ Scenarios where <span class="math display">\[
   width: 100%;
 }
 
-#zzllsfiqli .gt_spanner_row {
+#fegxqhvkep .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zzllsfiqli .gt_group_heading {
+#fegxqhvkep .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1435,7 +1444,7 @@ Scenarios where <span class="math display">\[
   text-align: left;
 }
 
-#zzllsfiqli .gt_empty_group_heading {
+#fegxqhvkep .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1450,15 +1459,15 @@ Scenarios where <span class="math display">\[
   vertical-align: middle;
 }
 
-#zzllsfiqli .gt_from_md > :first-child {
+#fegxqhvkep .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zzllsfiqli .gt_from_md > :last-child {
+#fegxqhvkep .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zzllsfiqli .gt_row {
+#fegxqhvkep .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1477,7 +1486,7 @@ Scenarios where <span class="math display">\[
   overflow-x: hidden;
 }
 
-#zzllsfiqli .gt_stub {
+#fegxqhvkep .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1490,7 +1499,7 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#zzllsfiqli .gt_stub_row_group {
+#fegxqhvkep .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1504,15 +1513,15 @@ Scenarios where <span class="math display">\[
   vertical-align: top;
 }
 
-#zzllsfiqli .gt_row_group_first td {
+#fegxqhvkep .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zzllsfiqli .gt_row_group_first th {
+#fegxqhvkep .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zzllsfiqli .gt_summary_row {
+#fegxqhvkep .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1522,16 +1531,16 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#zzllsfiqli .gt_first_summary_row {
+#fegxqhvkep .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_first_summary_row.thick {
+#fegxqhvkep .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zzllsfiqli .gt_last_summary_row {
+#fegxqhvkep .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1541,7 +1550,7 @@ Scenarios where <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_grand_summary_row {
+#fegxqhvkep .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1551,7 +1560,7 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#zzllsfiqli .gt_first_grand_summary_row {
+#fegxqhvkep .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1561,7 +1570,7 @@ Scenarios where <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_last_grand_summary_row_top {
+#fegxqhvkep .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1571,11 +1580,11 @@ Scenarios where <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_striped {
+#fegxqhvkep .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#zzllsfiqli .gt_table_body {
+#fegxqhvkep .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1584,7 +1593,7 @@ Scenarios where <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_footnotes {
+#fegxqhvkep .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1598,7 +1607,7 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_footnote {
+#fegxqhvkep .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1607,7 +1616,7 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#zzllsfiqli .gt_sourcenotes {
+#fegxqhvkep .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1621,7 +1630,7 @@ Scenarios where <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zzllsfiqli .gt_sourcenote {
+#fegxqhvkep .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1629,72 +1638,72 @@ Scenarios where <span class="math display">\[
   padding-right: 5px;
 }
 
-#zzllsfiqli .gt_left {
+#fegxqhvkep .gt_left {
   text-align: left;
 }
 
-#zzllsfiqli .gt_center {
+#fegxqhvkep .gt_center {
   text-align: center;
 }
 
-#zzllsfiqli .gt_right {
+#fegxqhvkep .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zzllsfiqli .gt_font_normal {
+#fegxqhvkep .gt_font_normal {
   font-weight: normal;
 }
 
-#zzllsfiqli .gt_font_bold {
+#fegxqhvkep .gt_font_bold {
   font-weight: bold;
 }
 
-#zzllsfiqli .gt_font_italic {
+#fegxqhvkep .gt_font_italic {
   font-style: italic;
 }
 
-#zzllsfiqli .gt_super {
+#fegxqhvkep .gt_super {
   font-size: 65%;
 }
 
-#zzllsfiqli .gt_footnote_marks {
+#fegxqhvkep .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zzllsfiqli .gt_asterisk {
+#fegxqhvkep .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zzllsfiqli .gt_indent_1 {
+#fegxqhvkep .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zzllsfiqli .gt_indent_2 {
+#fegxqhvkep .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zzllsfiqli .gt_indent_3 {
+#fegxqhvkep .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zzllsfiqli .gt_indent_4 {
+#fegxqhvkep .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zzllsfiqli .gt_indent_5 {
+#fegxqhvkep .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zzllsfiqli .katex-display {
+#fegxqhvkep .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zzllsfiqli div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fegxqhvkep div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1848,27 +1857,19 @@ Scenarios where <span class="math display">\[
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="survival-fixed_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="survival-fixed_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<ul>
-<li>In <strong>high‑relevancy</strong> settings, all methods yield N‑ratios extremely close to 1.00, showing near‑perfect agreement with East for typical time‑to‑event designs.</li>
-<li><strong>Medium‑relevancy</strong> scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.</li>
-<li><strong>Low‑relevancy</strong> cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.</li>
-<li>When ignoring these outlier regions, all four implementations again converge tightly around 1.00.</li>
-<li>Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See <a href="../lakatos_n_lan.qmd">Lakatos and Lan</a> post for more details)</li>
-</ul>
-<p><strong>Overall:</strong> within realistic design regions, the four methods provide <strong>highly consistent fixed‑design survival sample sizes</strong> relative to East.</p>
-<section id="interactive-results" class="level3">
-<h3 class="anchored" data-anchor-id="interactive-results">Interactive results</h3>
+</section>
+<section id="interactive-results" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-results">Interactive results</h2>
 <p>You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.</p>
 <p><strong>➡️ <a href="../../../site-files/interactive/interactive.html"><em>“Interactive results”</em></a></strong></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

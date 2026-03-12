@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../../">
 <link href="../../site-files/book/references.html" rel="next">
 <link href="../../site-files/book/bin/binary-one-arm.html" rel="prev">
-<link href="../../SCC-HexSticker.png" rel="icon" type="image/png">
+<link href="../../man/figures/ssc-favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -253,8 +253,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
-    <img src="../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
+    <img src="../../man/figures/ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../../man/figures/ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -455,8 +455,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview-of-methods-compared" id="toc-overview-of-methods-compared" class="nav-link active" data-scroll-target="#overview-of-methods-compared">Overview of Methods Compared</a></li>
+  <li><a href="#summary-of-agreement-between-r-and-commercial-software" id="toc-summary-of-agreement-between-r-and-commercial-software" class="nav-link" data-scroll-target="#summary-of-agreement-between-r-and-commercial-software">Summary of Agreement Between R and Commercial Software</a></li>
+  <li><a href="#practical-guidance-for-package-selection" id="toc-practical-guidance-for-package-selection" class="nav-link" data-scroll-target="#practical-guidance-for-package-selection">Practical Guidance for Package Selection</a>
+  <ul class="collapse">
+  <li><a href="#twoarm-survival-sample-size-fixed-or-gs" id="toc-twoarm-survival-sample-size-fixed-or-gs" class="nav-link" data-scroll-target="#twoarm-survival-sample-size-fixed-or-gs">→ Two‑arm survival sample size (fixed or GS)</a></li>
+  <li><a href="#twoarm-binary-designs" id="toc-twoarm-binary-designs" class="nav-link" data-scroll-target="#twoarm-binary-designs">→ Two‑arm binary designs</a></li>
+  <li><a href="#onearm-binary-designs" id="toc-onearm-binary-designs" class="nav-link" data-scroll-target="#onearm-binary-designs">→ One‑arm binary designs</a></li>
+  <li><a href="#onearm-survival" id="toc-onearm-survival" class="nav-link" data-scroll-target="#onearm-survival">→ One‑arm survival</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -481,9 +495,192 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Something to conclude</p>
+<p>R provides a <strong>credible, transparent, and reproducible</strong> alternative to commercial software for many standard sample size calculations in oncology.<br>
+For most practical two‑arm designs, alignment with East and nQuery is excellent.<br>
+Some niche designs,especially <strong>one‑arm survival</strong> or <strong>exact binary models</strong> still require careful interpretation and sometimes additional validation.</p>
+<section id="overview-of-methods-compared" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-methods-compared">Overview of Methods Compared</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 21%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Endpoint</th>
+<th>Design Type</th>
+<th>Test</th>
+<th>Software</th>
+<th>R Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Survival</td>
+<td>Two‑arm Fixed</td>
+<td>Log-rank</td>
+<td>East, nQuery</td>
+<td>rpact, rashnu, gsDesign2</td>
+</tr>
+<tr class="even">
+<td>Survival</td>
+<td>Two‑arm Group‑Sequential</td>
+<td>Log-rank</td>
+<td>East, nQuery</td>
+<td>rpact, gsDesign2</td>
+</tr>
+<tr class="odd">
+<td>Survival</td>
+<td>One‑arm Fixed</td>
+<td>Log-rank</td>
+<td>East, nQuery</td>
+<td>OneArm2stage, SampleSizeSingleArmSurvival, rashnu</td>
+</tr>
+<tr class="even">
+<td>Binary</td>
+<td>Two‑arm Fixed</td>
+<td>Z‑Pooled</td>
+<td>East, nQuery</td>
+<td>rpact</td>
+</tr>
+<tr class="odd">
+<td>Binary</td>
+<td>Two‑arm Fixed</td>
+<td>Exact</td>
+<td>East, nQuery</td>
+<td>bbssr</td>
+</tr>
+<tr class="even">
+<td>Binary</td>
+<td>Two‑arm Group‑Sequential</td>
+<td>Z‑Pooled</td>
+<td>East</td>
+<td>rpact</td>
+</tr>
+<tr class="odd">
+<td>Binary</td>
+<td>One‑arm Fixed</td>
+<td>Exact</td>
+<td>East</td>
+<td>A’Hern (no package)</td>
+</tr>
+<tr class="even">
+<td>Binary</td>
+<td>One‑arm Fixed</td>
+<td>1‑arm Z‑test</td>
+<td>East, nQuery</td>
+<td>rpact</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="summary-of-agreement-between-r-and-commercial-software" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-agreement-between-r-and-commercial-software">Summary of Agreement Between R and Commercial Software</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 42%">
+<col style="width: 17%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Endpoint</th>
+<th style="text-align: left;">Design type</th>
+<th style="text-align: left;">Test</th>
+<th style="text-align: left;">R/Software matching</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">survival</td>
+<td style="text-align: left;">2‑Arm fixed design</td>
+<td style="text-align: left;">Log‑rank</td>
+<td style="text-align: left;">🟢 Perfect</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">survival</td>
+<td style="text-align: left;">2‑Arm group‑sequential design</td>
+<td style="text-align: left;">Log‑rank</td>
+<td style="text-align: left;">🟡 Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">survival</td>
+<td style="text-align: left;">1‑Arm fixed design</td>
+<td style="text-align: left;">Log‑rank</td>
+<td style="text-align: left;">🔵 Poor</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">2‑Arm fixed design</td>
+<td style="text-align: left;">Exact</td>
+<td style="text-align: left;">🟡 Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">2‑Arm fixed design</td>
+<td style="text-align: left;">Z‑Pooled</td>
+<td style="text-align: left;">🟢 Perfect</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">2‑Arm group‑sequential design</td>
+<td style="text-align: left;">Z‑Pooled</td>
+<td style="text-align: left;">🟢 Perfect</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">1‑Arm fixed design</td>
+<td style="text-align: left;">Exact</td>
+<td style="text-align: left;">🟡 Good</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Binary</td>
+<td style="text-align: left;">1‑Arm fixed design</td>
+<td style="text-align: left;">1‑Arm Z test</td>
+<td style="text-align: left;">🟢 Perfect</td>
+</tr>
+</tbody>
+</table>
+<p>Legend:<br>
+🟢 <strong>Perfect</strong> = identical or extremely close values<br>
+🟡 <strong>Good</strong> = acceptable differences<br>
+🔵 <strong>Poor</strong> = substantial discrepancies requiring caution</p>
+</section>
+<section id="practical-guidance-for-package-selection" class="level2">
+<h2 class="anchored" data-anchor-id="practical-guidance-for-package-selection">Practical Guidance for Package Selection</h2>
+<p><strong>If you need…</strong></p>
+<section id="twoarm-survival-sample-size-fixed-or-gs" class="level3">
+<h3 class="anchored" data-anchor-id="twoarm-survival-sample-size-fixed-or-gs">→ Two‑arm survival sample size (fixed or GS)</h3>
+<p>Use <a href="https://www.rpact.org/"><strong>rpact</strong></a> or <a href="https://merck.github.io/gsDesign2/"><strong>gsDesign2</strong></a>.<br>
+They are stable, well-documented, and closely match commercial software.</p>
+</section>
+<section id="twoarm-binary-designs" class="level3">
+<h3 class="anchored" data-anchor-id="twoarm-binary-designs">→ Two‑arm binary designs</h3>
+<ul>
+<li><strong>Z‑test designs</strong> → <a href="https://www.rpact.org/"><strong>rpact</strong></a> is excellent.<br>
+</li>
+<li><strong>Exact tests</strong> → <a href="https://github.com/gosukehommaEX/bbssr"><strong>bbssr</strong></a> is appropriate, but expect minor deviations vs nQuery. <strong>bbssr</strong> allows better understanting and handling of exact tests.</li>
+</ul>
+</section>
+<section id="onearm-binary-designs" class="level3">
+<h3 class="anchored" data-anchor-id="onearm-binary-designs">→ One‑arm binary designs</h3>
+<ul>
+<li><strong>Exact (A’Hern)</strong> → implemented manually (no package), results consistent.<br>
+</li>
+<li><strong>One‑arm Z‑test</strong> → <a href="https://www.rpact.org/"><strong>rpact</strong></a> again performs well.</li>
+</ul>
+</section>
+<section id="onearm-survival" class="level3">
+<h3 class="anchored" data-anchor-id="onearm-survival">→ One‑arm survival</h3>
+<p>Proceed with caution. Existing R packages implement valid statistical methods but <strong>not the same</strong> as nQuery. This require additional work.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

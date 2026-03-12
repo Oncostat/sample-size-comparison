@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-11">
+<meta name="dcterms.date" content="2026-03-12">
 
 <title>How I Structured My Project</title>
 <style>
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../SCC-HexSticker.png" rel="icon" type="image/png">
+<link href="../../man/figures/ssc-favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -287,8 +287,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
-    <img src="../../man\figures\ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
+    <img src="../../man/figures/ssc-flatly-banner.png" alt="" class="navbar-logo light-content">
+    <img src="../../man/figures/ssc-flatly-banner.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -375,12 +375,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#main.r-the-entry-point" id="toc-main.r-the-entry-point" class="nav-link" data-scroll-target="#main.r-the-entry-point">main.R: the entry point</a></li>
   <li><a href="#init.r-preparing-the-environment" id="toc-init.r-preparing-the-environment" class="nav-link" data-scroll-target="#init.r-preparing-the-environment">init.R: preparing the environment</a></li>
   <li><a href="#comparison-scripts-comp_.r" id="toc-comparison-scripts-comp_.r" class="nav-link" data-scroll-target="#comparison-scripts-comp_.r">Comparison scripts (comp_*.R)</a></li>
-  <li><a href="#the-functions-directory" id="toc-the-functions-directory" class="nav-link" data-scroll-target="#the-functions-directory">The functions/ directory</a>
+  <li><a href="#functions-and-wrappers-directories" id="toc-functions-and-wrappers-directories" class="nav-link" data-scroll-target="#functions-and-wrappers-directories">functions/ and wrappers/ directories</a>
   <ul class="collapse">
   <li><a href="#core-helpers" id="toc-core-helpers" class="nav-link" data-scroll-target="#core-helpers"><strong>Core helpers</strong></a></li>
   <li><a href="#wrappers-for-external-r-packages" id="toc-wrappers-for-external-r-packages" class="nav-link" data-scroll-target="#wrappers-for-external-r-packages"><strong>Wrappers for external R packages</strong></a></li>
   </ul></li>
-  <li><a href="#the-s7-layer-s7" id="toc-the-s7-layer-s7" class="nav-link" data-scroll-target="#the-s7-layer-s7">The S7 layer (<code>S7/</code>)</a></li>
+  <li><a href="#the-s7-layer-s7" id="toc-the-s7-layer-s7" class="nav-link" data-scroll-target="#the-s7-layer-s7">The S7 layer (S7/)</a></li>
   </ul>
 </nav>
     </div>
@@ -402,7 +402,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 11, 2026</p>
+      <p class="date">March 12, 2026</p>
     </div>
   </div>
   
@@ -421,7 +421,7 @@ The project uses a simple but robust structure:</p>
 </li>
 <li><strong>modular comparison scripts</strong>, one per design;<br>
 </li>
-<li><strong>a dedicated <code>functions/</code> directory</strong> for all helpers and wrappers;<br>
+<li><strong>dedicated <code>functions/</code> and <code>wrappers/</code> directory</strong> for all helpers and wrappers;<br>
 </li>
 <li><strong>a small S7 layer</strong> holding the two core classes (<code>ssc_design</code> and <code>ssc_results</code>).</li>
 </ul>
@@ -430,32 +430,38 @@ The project uses a simple but robust structure:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R/</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── init.R</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>├── main.R</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── comp_surv_fixed.R</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>├── comp_surv_gs.R</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>├── comp_surv_one_arm.R</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>├── comp_bin_fixed_pooled.R</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>├── comp_bin_fixed_exact.R</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>├── comp_bin_gs.R</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>├── comp_bin_one_arm.R</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>├── comp_bin_one_arm_exact.R</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>├── lakatos_n_lan.R</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── comparison/</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>│   ├── comp_bin_fixed_exact.R</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>│   ├── comp_bin_fixed_pooled.R</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>│   ├── comp_bin_gs.R</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>│   ├── comp_bin_one_arm_exact.R</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>│   ├── comp_bin_one_arm.R</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>│   ├── comp_surv_fixed.R</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>│   ├── comp_surv_gs.R</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>│   └── comp_surv_one_arm.R</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>├── functions/</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>│   ├── checks.R</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>│   ├── helpers.R</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>│   ├── e_ratio.R</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>│   ├── evaluate_relevancy.R</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>│   ├── exact_2_arms.R</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>│   ├── helpers.R</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>│   ├── n_ratio.R</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>│   ├── rpact_wrapper.R</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>│   ├── ahern_wrapper.R</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>│   ├── bbssr_wrapper.R</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>│   ├── gsdesign2_wrapper.R</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>│   ├── rashnu_wrapper.R</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>│   ├── oa2s_wrapper.R</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>│   └── sssas_wrapper.R</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>└── S7/</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    ├── generics.R</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ├── ssc_design.R</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    └── ssc_results.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>│   └── exact_wrapper.R</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>├── S7/</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>│   ├── generics.R</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>│   ├── ssc_design.R</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>│   └── ssc_results.R</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>├── side-analysis/</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>│   ├── bin2arms_exact.R</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>│   └── lakatos_n_lan.R</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>└── wrappers/</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ├── ahern_wrapper.R</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    ├── bbssr_wrapper.R</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    ├── exact_wrapper.R</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    ├── gsdesign2_wrapper.R</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    ├── oa2s_wrapper.R</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    ├── rashnu_wrapper.R</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    ├── rpact_wrapper.R</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    └── sssas_wrapper.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="main.r-the-entry-point" class="level2">
 <h2 class="anchored" data-anchor-id="main.r-the-entry-point">main.R: the entry point</h2>
@@ -497,9 +503,9 @@ Running this file executes all steps in the predefined order:</p>
 </ol>
 <p>This standard pattern is what makes the pipeline extensible: adding a new design simply means adding a new <code>comp_xyz.R</code> following the same recipe.</p>
 </section>
-<section id="the-functions-directory" class="level2">
-<h2 class="anchored" data-anchor-id="the-functions-directory">The functions/ directory</h2>
-<p>This directory contains all <strong>reusable building blocks</strong> of the project:</p>
+<section id="functions-and-wrappers-directories" class="level2">
+<h2 class="anchored" data-anchor-id="functions-and-wrappers-directories">functions/ and wrappers/ directories</h2>
+<p>These directories contains all <strong>reusable building blocks</strong> of the project:</p>
 <section id="core-helpers" class="level3">
 <h3 class="anchored" data-anchor-id="core-helpers"><strong>Core helpers</strong></h3>
 <ul>
@@ -526,7 +532,7 @@ Running this file executes all steps in the predefined order:</p>
 </section>
 </section>
 <section id="the-s7-layer-s7" class="level2">
-<h2 class="anchored" data-anchor-id="the-s7-layer-s7">The S7 layer (<code>S7/</code>)</h2>
+<h2 class="anchored" data-anchor-id="the-s7-layer-s7">The S7 layer (S7/)</h2>
 <p>This folder contains a minimal but powerful object system for the project:</p>
 <ul>
 <li><strong><code>ssc_design.R</code></strong> — defines how a design is represented</li>
