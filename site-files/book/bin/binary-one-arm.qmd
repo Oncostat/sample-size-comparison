@@ -85,8 +85,6 @@ Relevancy was determined using the same rule‑based criteria applied in the two
 
 The classification is used purely for interpretability and does not impact sample size computations.
 
-## Results
-
 ## One‑sample Z-test
 
 ### Methods compared
@@ -171,7 +169,7 @@ Because of these structural differences, **A’Hern is not expected to match Eas
 
 **Overall:** the observed discrepancies reflect **fundamental differences in how exact one‑arm binary designs are defined and optimised**.
 
-### Interactive results
+## Interactive results
 
 You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
 

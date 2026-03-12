@@ -142,10 +142,6 @@ The design space was intentionally chosen to span both conventional trial settin
 x <- read_rds("../../../outputs/comp_surv_one_arm.rds")
 ```
 
-```{r}
-datatable(x$n_ratio)
-```
-
 ::: {.light-content}
 ```{r}
 #| out-width: 100%

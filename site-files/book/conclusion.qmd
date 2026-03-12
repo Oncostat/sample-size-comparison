@@ -55,5 +55,4 @@ They are stable, well-documented, and closely match commercial software.
 - **One‑arm Z‑test** → [**rpact**](https://www.rpact.org/) again performs well.
 
 ### → One‑arm survival  
-Proceed with caution. Existing R packages implement valid statistical methods but **not the same** as nQuery.
-This require additional work.
+Proceed with caution. Existing R packages use methods that differ from nQuery, leading to inconsistent results. Without consensus, caution is needed and further work may be required.
