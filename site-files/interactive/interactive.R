@@ -148,7 +148,7 @@ card_darkly <- function(interactive_object){
         interactive_object$filters
       ),
       card_body(
-        ggplotly(interactive_object$plot + theme_darkly(base_size = 11)) |> 
+        ggplotly(interactive_object$plot + theme_darkly(base_size = 11), dynamicTicks = TRUE) |> 
         config(
           modeBarButtonsToRemove = c(
             'zoom',

@@ -74,13 +74,18 @@ As in the fixed‑design setting, each scenario was assigned a relevancy categor
 
 The categorization is descriptive and plays no role in filtering or weighting the results; it serves purely to guide interpretation.
 
-## Results
-
-Method compared:
+## Method compared:
 
 - East: Difference of Proportions test [PN-2S-DI]
 - `rpact::getSampleSizeRates(design = rpact::getDesignGroupSequential)`
 
+## Results
+
+📌**Overall:** `rpact` reproduces East’s group‑sequential Z‑pooled binary sample sizes with **near‑perfect consistency**, including in extended design regions.
+
+- Across **all relevancy levels**, `rpact` shows **excellent agreement** with East, with N‑ratios clustering tightly around 1.00.
+- In **high** and **medium‑relevancy** scenarios, variation is minimal: nearly all designs fall within a very narrow band (≈0.98–1.02), indicating practical equivalence.
+- In the **low‑relevancy** region, a small number of mild deviations appear, but no systematic trend is observed. These differences stem from edge‑case parameter combinations rather than method behaviour.
 
 ```{r}
 x_pooled <- read_rds("../../../outputs/comp_bin_gs_pooled.rds")
@@ -102,14 +107,8 @@ x_pooled$plots$p_n_ratio + theme_darkly()
 ```
 :::
 
-- Across **all relevancy levels**, `rpact` shows **excellent agreement** with East, with N‑ratios clustering tightly around 1.00.
-- In **high** and **medium‑relevancy** scenarios, variation is minimal: nearly all designs fall within a very narrow band (≈0.98–1.02), indicating practical equivalence.
-- In the **low‑relevancy** region, a small number of mild deviations appear, but no systematic trend is observed. These differences stem from edge‑case parameter combinations rather than method behaviour.
-
-**Overall:** `rpact` reproduces East’s group‑sequential Z‑pooled binary sample sizes with **near‑perfect consistency**, including in extended design regions.
-
-### Interactive results
+## Interactive results
 
 You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
 
-**➡️ [*“Interactive results”*](../interactive/interactive.qmd)**
+**➡️ [*“Interactive results”*](../../interactive/interactive.qmd)**

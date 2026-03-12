@@ -118,14 +118,25 @@ For each of the 400 scenarios, all methods and software implementations were use
 
 The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
 
-## Results 
-
-Methods compared:
+## Methods compared
 
 - nQuery : SOT1 / One Sample Log-Rank Test with Accrual
 - `OneArm2stage::phase2.TTE()`^[Our rewrite that accepts accrual time (see [Fork-repo](https://github.com/thomas-arocena/OneArm2stage/tree/accrual-time) for more details)]
 - `SampleSizeSingleArmSurvival::calcSampleSizeArcsine()` 
 - `rashnu::oneSurvSampleSize()`
+
+## Results 
+
+📌**Overall:** unlike the two‑arm survival settings, the one‑arm fixed survival framework shows **major method‑specific differences**, with no implementation providing close agreement with nQuery across realistic or extended design regions.
+
+- Across all relevancy levels, **none** of the evaluated methods reproduce nQuery’s sample sizes closely. Even our rewrite of `OneArm2Stage` (expected to match nQuery) shows systematic deviations, typically **below 1.00** in high‑ and medium‑relevancy settings.
+- The `rashnu` and `sssas` methods implement the approach of @Nagashima_Noma_Sato_Gosho_2020 based on an arcsin transformation of the **Kaplan–Meier estimator**. These two methods consistently yield **larger** sample sizes than nQuery, resulting in N‑ratios frequently well **above 1.00**, sometimes substantially so.
+- In **high‑relevancy** designs, all three methods already differ from nQuery, with `OneArm2Stage` underestimating and the Nagashima‑based methods overestimating. Dispersion is wide and no method stays close to the reference band.
+- In **medium** and **low‑relevancy** scenarios, discrepancies become even larger. Extreme deviations are driven by designs where nQuery outputs very large sample sizes, amplifying differences between formulas and underlying assumptions.
+- Overall pattern:  
+  - **OneArm2Stage < nQuery** (systematic underestimation)  
+  - **Nagashima‑based methods > nQuery** (systematic overestimation)  
+  - **No method aligns tightly with nQuery**.
 
 ```{r}
 x <- read_rds("../../../outputs/comp_surv_one_arm.rds")
@@ -151,18 +162,7 @@ x$plots$p_n_ratio + theme_darkly()
 ```
 :::
 
-- Across all relevancy levels, **none** of the evaluated methods reproduce nQuery’s sample sizes closely. Even our rewrite of `OneArm2Stage` (expected to match nQuery) shows systematic deviations, typically **below 1.00** in high‑ and medium‑relevancy settings.
-- The `rashnu` and `sssas` methods implement the approach of @Nagashima_Noma_Sato_Gosho_2020 based on an arcsin transformation of the Kaplan–Meier estimator. These two methods consistently yield **larger** sample sizes than nQuery, resulting in N‑ratios frequently well **above 1.00**, sometimes substantially so.
-- In **high‑relevancy** designs, all three methods already differ from nQuery, with `OneArm2Stage` underestimating and the Nagashima‑based methods overestimating. Dispersion is wide and no method stays close to the reference band.
-- In **medium** and **low‑relevancy** scenarios, discrepancies become even larger. Extreme deviations are driven by designs where nQuery outputs very large sample sizes, amplifying differences between formulas and underlying assumptions.
-- Overall pattern:  
-  - **OneArm2Stage < nQuery** (systematic underestimation)  
-  - **Nagashima‑based methods > nQuery** (systematic overestimation)  
-  - **No method aligns tightly with nQuery**.
-
-**Overall:** unlike the two‑arm survival settings, the one‑arm fixed survival framework shows **major method‑specific differences**, with no implementation providing close agreement with nQuery across realistic or extended design regions.
-
-### Interactive results
+## Interactive results
 
 You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
 

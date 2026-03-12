@@ -131,9 +131,7 @@ For each of the 400 scenarios, all methods and software implementations were use
 
 The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
 
-## Results 
-
-Methods compared:
+## Methods compared:
 
 - East: Log Rank Test Given Accrual Duration and Study Duration [SU-2S-LRSD]
 - nQuery : STT1 / Two Sample Log-Rank Test of Exponential Survival
@@ -141,13 +139,18 @@ Methods compared:
 - `rashnu::lakatosSampleSizeSurvival()`
 - `gsDesign2::fixed_design_ahr()`
 
+## Results 
+
+📌**Overall:** within realistic design regions, the four methods provide **highly consistent fixed‑design survival sample sizes** relative to East.
+
+- In **high‑relevancy** settings, all methods yield N‑ratios extremely close to 1.00, showing near‑perfect agreement with East for typical time‑to‑event designs.
+- **Medium‑relevancy** scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.
+- **Low‑relevancy** cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.
+- When ignoring these outlier regions, all four implementations again converge tightly around 1.00.
+- Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See [Lakatos and Lan](../lakatos_n_lan.qmd) post for more details)
 
 ```{r}
 x <- read_rds("../../../outputs/comp_surv_fixed.rds")
-```
-
-```{r}
-# datatable(x$n_ratio)
 ```
 
 ::: {.light-content}
@@ -166,15 +169,7 @@ x$plots$p_n_ratio + theme_darkly()
 ```
 :::
 
-- In **high‑relevancy** settings, all methods yield N‑ratios extremely close to 1.00, showing near‑perfect agreement with East for typical time‑to‑event designs.
-- **Medium‑relevancy** scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.
-- **Low‑relevancy** cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.
-- When ignoring these outlier regions, all four implementations again converge tightly around 1.00.
-- Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See [Lakatos and Lan](../lakatos_n_lan.qmd) post for more details)
-
-**Overall:** within realistic design regions, the four methods provide **highly consistent fixed‑design survival sample sizes** relative to East.
-
-### Interactive results
+## Interactive results
 
 You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
 
