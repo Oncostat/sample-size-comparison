@@ -45,7 +45,7 @@ reproducible R code.
 
 <p align="center">
 
-<a href='https://github.com/Oncostat/sample-size-comparison'>
+<a href='https://oncostat.github.io/sample-size-comparison/'>
 <img src='man\figures\ssc-website-screenshot.png' height="400" /> </a>
 </p>
 
