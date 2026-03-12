@@ -3,11 +3,11 @@ project:
   output-dir: docs
 
 website:
-  image: "man/figure/oreilly-ssc.png"
-  favicon: SCC-HexSticker.png
+  image: man/figure/oreilly-ssc.png
+  favicon: man/figures/ssc-flatly-banner.png 
   open-graph: true
   navbar:
-    logo: man\figures\ssc-flatly-banner.png 
+    logo: man/figures/ssc-flatly-banner.png 
     left:
       - text: "Book"
         href: index.qmd
