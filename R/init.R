@@ -41,3 +41,12 @@ wrapper = map(
 source("R/S7/generics.R")
 source("R/S7/ssc_design.R")
 source("R/S7/ssc_results.R")
+
+# BOXX
+boxx(
+  "SSC",
+  float = "center",
+  col = "blue",
+  border_style = "double",
+  padding = c(0, 15, 0, 15)
+) |> print()

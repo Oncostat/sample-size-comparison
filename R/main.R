@@ -1,14 +1,6 @@
 # Initialisation ----
 source("R/init.R")
 
-boxx(
-  "SSC",
-  float = "center",
-  col = "blue",
-  border_style = "double",
-  padding = c(0, 15, 0, 15)
-)
-
 # Binary sample size comparison ----
 cli_h1("SSC-Binary")
 source("R/comparison/comp_bin_fixed_pooled.R")
