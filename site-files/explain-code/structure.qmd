@@ -11,7 +11,7 @@ The project uses a simple but robust structure:
 
 - **a central `main.R` file**, from which the full pipeline is executed;  
 - **modular comparison scripts**, one per design;  
-- **a dedicated `functions/` directory** for all helpers and wrappers;  
+- **dedicated `functions/` and `wrappers/` directory** for all helpers and wrappers;  
 - **a small S7 layer** holding the two core classes (`ssc_design` and `ssc_results`).
 
 ## Directory Structure
@@ -93,9 +93,9 @@ Each script corresponds to **one design × one endpoint** and follows the same s
 
 This standard pattern is what makes the pipeline extensible: adding a new design simply means adding a new `comp_xyz.R` following the same recipe.
 
-## The functions/ directory
+## functions/ and wrappers/ directories
 
-This directory contains all **reusable building blocks** of the project:
+These directories contains all **reusable building blocks** of the project:
 
 ### **Core helpers**
 
