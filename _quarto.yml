@@ -4,7 +4,7 @@ project:
 
 website:
   image: man/figure/oreilly-ssc.png
-  favicon: man/figures/ssc-flatly-banner.png 
+  favicon: man/figures/ssc-favicon.png 
   open-graph: true
   navbar:
     logo: man/figures/ssc-flatly-banner.png 
