@@ -213,7 +213,7 @@ gt_lakatos_n_lan <-
 plot_lakatos_n_lan <-
   combined  |> 
   get_tbl()  |> 
-  rename(n_Freedman = n_F) |> 
+  rename(n_Freedman = n_F, n_Lakatos = n_L) |> 
   mutate(across(starts_with("n_"), ~ ./n_east)) |> 
   select(-n_east) |> 
   pivot_longer(cols = starts_with("n_"), names_to ="method", values_to = "N")  |> 
