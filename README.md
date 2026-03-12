@@ -58,7 +58,7 @@ Slides from the 25/02/2026 presentation at Gustave Roussy
 <p align="center">
 
 <a href='https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr'>
-<img src='man\figures\presentation-fr.png' height="400" /> </a>
+<img src='man\figures\presentation.png' height="400" /> </a>
 </p>
 
 ------------------------------------------------------------------------

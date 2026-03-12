@@ -1,7 +1,7 @@
 ---
 title: "Comparaison des méthodes de calcul de la taille d’échantillon"
 subtitle: "{{< fa brands r-project >}} comme alternative à East et nQuery"
-image: "../man/figures/presentation-fr.PNG"
+image: "../man/figures/presentation.png"
 format:
   clean-revealjs:
     title-slide-attributes:
