@@ -68,13 +68,13 @@ combined <-
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
-  mutate(relevancy = evaluate_relevancy_bin(alpha*2, power)) |> # Relevancy is computed for 2-sided alpha 
+  mutate(relevancy = evaluate_relevancy_bin(alpha * 2, power)) |> # Relevancy is computed for 2-sided alpha
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_gs_pooled, method = "combined")
 
-n_ratio <- 
+n_ratio <-
   combined |>
-  get_tbl() |> 
+  get_tbl() |>
   get_n_ratio(ref = "east")
 
 cli_alert_success("Combined results")
@@ -82,15 +82,15 @@ cli_alert_success("Combined results")
 # Tables & figures
 title <- "N-Ratio 2-Arms Binary GS-design, pooled-variance"
 ## Tables ----
-table_n_ratio <- 
-  n_ratio |> 
+table_n_ratio <-
+  n_ratio |>
   gt_n_ratio(title = title, ref_name = "East")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
-p_n_ratio <- 
-  n_ratio |> 
+p_n_ratio <-
+  n_ratio |>
   plot_n_ratio(title = title, ref_name = "East")
 
 plots <- lst(p_n_ratio)

@@ -30,7 +30,7 @@ ahern_wrapper <- partial(wrapper$ahern, !!!params$additional)
 ahern <-
   params$table |>
   mutate(n = pmap(params$table, ahern_wrapper, .progress = TRUE)) |>
-  unnest(n) |> 
+  unnest(n) |>
   mutate(relevancy = evaluate_relevancy_bin(alpha, power)) |>
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_one_arm_exact, method = "ahern")
@@ -57,16 +57,17 @@ east <-
     pi_e = "π1",
     n = "Sample Size"
   ) |>
-  mutate(delta_pi = pi_e - pi_c) |>  
-  select(-pi_e) |> 
-  mutate(power = case_when(
+  mutate(delta_pi = pi_e - pi_c) |>
+  select(-pi_e) |>
+  mutate(
+    power = case_when(
       power < 0.75 ~ 0.51,
       power < 0.86 ~ 0.8,
       power < 0.99 ~ 0.9,
       .default = 0.99
     )
   ) |>
-  distinct(alpha, power, pi_c, delta_pi, .keep_all = TRUE) |> 
+  distinct(alpha, power, pi_c, delta_pi, .keep_all = TRUE) |>
   mutate(
     across(names(params$list), \(x) {
       closest(x, params$list[[cur_column()]])
@@ -81,13 +82,13 @@ combined <-
   map(get_tbl) |>
   add_name_as_suffix(c("e", "n")) |>
   reduce(\(x, y) full_join(x, y, by = join_by(alpha, power, pi_c, delta_pi))) |>
-  mutate(relevancy = evaluate_relevancy_bin(alpha*2, power)) |> # Relevancy is computed for 2-sided alpha 
+  mutate(relevancy = evaluate_relevancy_bin(alpha * 2, power)) |> # Relevancy is computed for 2-sided alpha
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_one_arm_exact, method = "combined")
 
-n_ratio <- 
+n_ratio <-
   combined |>
-  get_tbl() |> 
+  get_tbl() |>
   drop_na(n_ahern) |> # Only method with lots of NAs for big sample size -> Clearest for plot
   get_n_ratio(ref = "east")
 
@@ -96,15 +97,15 @@ cli_alert_success("Combined results")
 # Tables & figures
 title <- "N-Ratio 1-Arms Binary, exact computation"
 ## Tables ----
-table_n_ratio <- 
+table_n_ratio <-
   n_ratio |>
   gt_n_ratio(title = title, ref_name = "East")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
-p_n_ratio <- 
-  n_ratio |> 
+p_n_ratio <-
+  n_ratio |>
   plot_n_ratio(title = title, ref_name = "East")
 
 plots <- lst(p_n_ratio)

@@ -7,7 +7,7 @@ suppressPackageStartupMessages(suppressWarnings({
   library(tidyverse)
 }))
 
-# Error rate 
+# Error rate
 er_rate <- 0.1 # error rate 10%
 
 # List to export
@@ -49,4 +49,5 @@ boxx(
   col = "blue",
   border_style = "double",
   padding = c(0, 15, 0, 15)
-) |> print()
+) |>
+  print()

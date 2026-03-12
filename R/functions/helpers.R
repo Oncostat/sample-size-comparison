@@ -2,7 +2,7 @@
 #'
 #' @param a The vector of numericals to approx
 #' @param x The vector of values used for approximation
-#' 
+#'
 #' @examples
 #' closest(c(1.2, 1.7, 2.1), 1:2)
 closest <- function(a, x) {

@@ -16,6 +16,6 @@ suppressPackageStartupMessages(suppressWarnings({
 # source("../../R/S7/ssc_design.R")
 # source("../../R/S7/ssc_results.R")
 
-# Theming 
+# Theming
 source("../theming_flatly.R")
 source("../theming_darkly.R")

@@ -1,5 +1,5 @@
 wrapper$sssas <- function(
-  alpha, 
+  alpha,
   power,
   surv_t,
   hr,
@@ -8,7 +8,7 @@ wrapper$sssas <- function(
   follow_up_time = 3,
   sided = 2,
   error = NA_real_
-){
+) {
   # Check that those parameters are between 0 and 1 (excluded).
   check_probability(c(alpha, power, hr, surv_t))
 
@@ -18,7 +18,7 @@ wrapper$sssas <- function(
       sample_size_info <- SampleSizeSingleArmSurvival::calcSampleSizeArcsine(
         S0 = surv_t,
         S1 = surv_t**hr,
-        alpha = alpha/sided, # always one-sided
+        alpha = alpha / sided, # always one-sided
         power = power,
         accrual = accrual_time,
         followup = follow_up_time,

@@ -44,7 +44,7 @@ evaluate_relevancy_bin <- function(
 
   relevancy = case_when(
     alpha > 0.2 | power < 0.6 | power >= 0.99 ~ "low",
-    alpha > 0.02 & alpha < 0.15 & power > 0.75  ~ "high",
+    alpha > 0.02 & alpha < 0.15 & power > 0.75 ~ "high",
     .default = "medium"
   )
 

@@ -1,20 +1,24 @@
-#* GGPLOT2 and GT Themes for Darkly 
+#* GGPLOT2 and GT Themes for Darkly
 
 # Darkly palette (Bootswatch) ----
-  # source: https://github.com/thomaspark/bootswatch/blob/v5/dist/darkly/_variables.scss
-  darkly_primary    <- "#375a7f"  # blue
-  darkly_secondary  <- "#444444"  # gray-700
-  darkly_body_bg    <- "#222222"  # gray-900
-  darkly_body_color <- "#ffffff"  # text on dark bg
-  darkly_success    <- "#00bc8c"  # teal
-  darkly_info       <- "#3498db"  # cyan
+# source: https://github.com/thomaspark/bootswatch/blob/v5/dist/darkly/_variables.scss
+darkly_primary <- "#375a7f" # blue
+darkly_secondary <- "#444444" # gray-700
+darkly_body_bg <- "#222222" # gray-900
+darkly_body_color <- "#ffffff" # text on dark bg
+darkly_success <- "#00bc8c" # teal
+darkly_info <- "#3498db" # cyan
 
 # Darkly ggplot theme ----
 theme_darkly <- function(
   base_size = 10,
   base_family = "Lato"
-){
-  theme_minimal(base_size = base_size, base_family = base_family, ink = darkly_body_color) +
+) {
+  theme_minimal(
+    base_size = base_size,
+    base_family = base_family,
+    ink = darkly_body_color
+  ) +
     theme(
       # Base text
       text = element_text(
@@ -26,21 +30,21 @@ theme_darkly <- function(
 
       # Titles
       plot.title = element_text(
-        size   = base_size * 1.25,
-        face   = "bold",
+        size = base_size * 1.25,
+        face = "bold",
         margin = margin(b = 10),
         colour = darkly_body_color
       ),
       plot.subtitle = element_text(
-        size   = base_size * 1.02,
-        face   = "italic",
-        colour = darkly_success,  # Darkly uses darkly_success/teal for links & accents
+        size = base_size * 1.02,
+        face = "italic",
+        colour = darkly_success, # Darkly uses darkly_success/teal for links & accents
         margin = margin(b = 16)
       ),
       plot.caption = element_text(
-        size   = base_size * 0.72,
+        size = base_size * 0.72,
         colour = scales::alpha(darkly_body_color, 0.6),
-        hjust  = 0
+        hjust = 0
       ),
       plot.title.position = "plot",
 
@@ -56,15 +60,15 @@ theme_darkly <- function(
 
       # Grid (subtle, light lines on dark)
       panel.grid.major.y = element_line(
-        colour   = scales::alpha(darkly_body_color, 0.10),
+        colour = scales::alpha(darkly_body_color, 0.10),
         linewidth = 0.4
       ),
       panel.grid.major.x = element_blank(),
-      panel.grid.minor   = element_blank(),
+      panel.grid.minor = element_blank(),
 
       # Backgrounds
       panel.background = element_rect(fill = darkly_body_bg, colour = NA),
-      plot.background  = element_rect(fill = darkly_body_bg, colour = NA),
+      plot.background = element_rect(fill = darkly_body_bg, colour = NA),
 
       # Legend
       legend.position = "bottom",
@@ -75,8 +79,11 @@ theme_darkly <- function(
         face = "bold",
         colour = darkly_body_color
       ),
-      legend.text = element_text(size = base_size * 0.78, colour = darkly_body_color),
-      legend.key  = element_blank(),
+      legend.text = element_text(
+        size = base_size * 0.78,
+        colour = darkly_body_color
+      ),
+      legend.key = element_blank(),
 
       # Facets
       strip.background = element_rect(
@@ -85,8 +92,8 @@ theme_darkly <- function(
       ),
       strip.text = element_text(
         colour = darkly_body_color,
-        face   = "bold",
-        size   = base_size * 0.85
+        face = "bold",
+        size = base_size * 0.85
       ),
 
       # Margins
@@ -106,14 +113,14 @@ gt_theme_darkly <- function(data, base_size = 16.8, ...) {
       data_row.padding = px(6),
 
       # Remove outer borders
-      table.border.top.style    = "none",
+      table.border.top.style = "none",
       table.border.bottom.style = "none",
-      table.border.left.style   = "none",
-      table.border.right.style  = "none",
+      table.border.left.style = "none",
+      table.border.right.style = "none",
 
       # Background and striping tuned for dark mode
       table.background.color = darkly_body_bg,
-      row.striping.background_color = scales::alpha(darkly_secondary, 0.75), 
+      row.striping.background_color = scales::alpha(darkly_secondary, 0.75),
       row.striping.include_table_body = TRUE,
 
       # No internal grid rules (keeps it clean)
@@ -139,12 +146,12 @@ gt_theme_darkly <- function(data, base_size = 16.8, ...) {
       style = list(
         cell_text(
           weight = "700",
-          color  = darkly_body_color,
-          size   = px(base_size * 1.02)
+          color = darkly_body_color,
+          size = px(base_size * 1.02)
         ),
         cell_borders(
-          sides  = "bottom",
-          color  = scales::alpha(darkly_body_color, 0.55),
+          sides = "bottom",
+          color = scales::alpha(darkly_body_color, 0.55),
           weight = px(1.5)
         )
       ),
@@ -155,9 +162,9 @@ gt_theme_darkly <- function(data, base_size = 16.8, ...) {
     tab_style(
       style = list(
         cell_text(
-          size   = px(base_size * 1.25),
+          size = px(base_size * 1.25),
           weight = "700",
-          color  = darkly_body_color
+          color = darkly_body_color
         )
       ),
       locations = cells_title(groups = "title")
@@ -168,8 +175,8 @@ gt_theme_darkly <- function(data, base_size = 16.8, ...) {
       style = list(
         cell_text(
           style = "italic",
-          size  = px(base_size * 1.00),
-          color = darkly_success  # Darkly darkly_success (teal) as accent
+          size = px(base_size * 1.00),
+          color = darkly_success # Darkly darkly_success (teal) as accent
         )
       ),
       locations = cells_title(groups = "subtitle")

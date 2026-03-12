@@ -55,14 +55,15 @@ east <-
     n = "Sample Size"
   ) |>
   mutate(alpha = 2 * alpha) |> #One-sided test
-  arrange(alpha, pi_c, delta_pi, power)  |> 
-  mutate(power = case_when(
+  arrange(alpha, pi_c, delta_pi, power) |>
+  mutate(
+    power = case_when(
       power < 0.75 ~ 0.51,
       power < 0.88 ~ 0.8,
       power < 0.95 ~ 0.9,
       .default = 0.99
     )
-  ) |> 
+  ) |>
   ssc_results(design = design_bin_fixed_exact, method = "east")
 cli_alert_success("East results")
 
@@ -110,9 +111,9 @@ combined <-
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_bin_fixed_exact, method = "combined")
 
-n_ratio <- 
+n_ratio <-
   combined |>
-  get_tbl() |> 
+  get_tbl() |>
   get_n_ratio(ref = "nquery")
 
 cli_alert_success("Combined results")
@@ -120,15 +121,15 @@ cli_alert_success("Combined results")
 # Tables & figures ----
 title <- "N-Ratio 2-Arms Binary, exact test"
 ## Tables ----
-table_n_ratio <- 
-  n_ratio |> 
+table_n_ratio <-
+  n_ratio |>
   gt_n_ratio(title = title, ref_name = "nQuery")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
-p_n_ratio <- 
-  n_ratio |> 
+p_n_ratio <-
+  n_ratio |>
   plot_n_ratio(title = title, ref_name = "nQuery")
 
 plots <- lst(p_n_ratio)

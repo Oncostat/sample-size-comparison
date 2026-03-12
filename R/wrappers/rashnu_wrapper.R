@@ -86,7 +86,7 @@ wrapper$rashnu_surv_fixed <- function(
 }
 
 wrapper$rashnu_surv_one_arm <- function(
-  alpha, 
+  alpha,
   power,
   surv_t,
   hr,
@@ -96,8 +96,7 @@ wrapper$rashnu_surv_one_arm <- function(
   sided = 2,
   method = c("arcsin", "log-log", "logit", "log", "log-swog", "identity"),
   error = NA_real_
-){
-
+) {
   method <- arg_match(method)
 
   tryCatch(
@@ -109,11 +108,11 @@ wrapper$rashnu_surv_one_arm <- function(
         p2 = surv_t**hr,
         accrualTime = accrual_time,
         followTime = follow_up_time,
-        alpha = alpha/sided,
+        alpha = alpha / sided,
         power = power,
-        side = ifelse(sided==2, "two.sided", "one.sided"),
+        side = ifelse(sided == 2, "two.sided", "one.sided"),
         method = method
-    )
+      )
       return(tibble(e = NA_real_, n = sample_size_info[1]))
     },
 

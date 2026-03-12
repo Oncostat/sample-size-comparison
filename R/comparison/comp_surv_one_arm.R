@@ -34,7 +34,7 @@ oa2s <-
   mutate(
     nested_res = pmap_vec(params$table, oa2s_wrapper, .progress = TRUE)
   ) |>
-  unnest(nested_res) |> 
+  unnest(nested_res) |>
   ssc_results(design = design_surv_one_arm, method = "oa2s")
 cli_alert_success("OneArm2stage results")
 
@@ -45,7 +45,7 @@ sssas <-
   mutate(
     nested_res = pmap_vec(params$table, sssas_wrapper, .progress = TRUE)
   ) |>
-  unnest(nested_res) |> 
+  unnest(nested_res) |>
   ssc_results(design = design_surv_one_arm, method = "sssas")
 cli_alert_success("SampleSizeSingleArmSurvival results")
 
@@ -90,9 +90,11 @@ nquery <-
       .default = NA_real_
     ),
     across(c(e, n), as.numeric)
-  ) |> 
-  arrange(alpha, hr, surv_t, power)  |> 
-  mutate(power = rep(params$list$power, times = n()/length(params$list$power))) |> 
+  ) |>
+  arrange(alpha, hr, surv_t, power) |>
+  mutate(
+    power = rep(params$list$power, times = n() / length(params$list$power))
+  ) |>
   select(-mc, -e) |>
   ssc_results(design = design_surv_one_arm, method = "nquery")
 cli_alert_success("nQuery results")
@@ -106,15 +108,15 @@ combined <-
     \(x, y) {
       full_join(x, y, by = join_by(alpha, power, hr, surv_t))
     }
-  ) |> 
-  select(where(~ !all(is.na(.)))) |> 
+  ) |>
+  select(where(~ !all(is.na(.)))) |>
   mutate(relevancy = evaluate_relevancy_surv(alpha, power, hr)) |>
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_one_arm, method = "combined")
 
-n_ratio <- 
+n_ratio <-
   combined |>
-  get_tbl() |> 
+  get_tbl() |>
   filter(n_nquery < 200000) |> # nQuery plateau at N >= 200 000
   get_n_ratio(ref = "nquery")
 
@@ -123,15 +125,15 @@ cli_alert_success("Combined results")
 # Tables and figures ----
 title <- "N-Ratio 1-Arm Survival"
 ## Tables ----
-table_n_ratio <- 
-  n_ratio |> 
+table_n_ratio <-
+  n_ratio |>
   gt_n_ratio(title = title, ref_name = "nQuery")
 
 tables <- lst(table_n_ratio)
 
 ## Figures ----
-p_n_ratio <- 
-  n_ratio |> 
+p_n_ratio <-
+  n_ratio |>
   plot_n_ratio(title = title, ref_name = "nQuery")
 
 plots <- lst(p_n_ratio)
@@ -154,4 +156,3 @@ comp_surv_one_arm <- lst(
 )
 
 # write_rds(comp_surv_one_arm, "outputs/comp_surv_one_arm.rds")
-

@@ -32,13 +32,16 @@ ssc_design <-
     validator = function(self) {
       if (self@endpoint == "binary") {
         if (
-          length(self@computation) == 0 || !(self@computation %in% c("exact", "pooled", "unpooled"))
+          length(self@computation) == 0 ||
+            !(self@computation %in% c("exact", "pooled", "unpooled"))
         ) {
           "@computation should be one of exact, pooled or unpooled."
         }
       } else if (length(self@computation) != 0) {
         "@computation should be NULL for survival endpoint"
-      } else if (length(self@params$list) == 0 || length(self@params$table) == 0) {
+      } else if (
+        length(self@params$list) == 0 || length(self@params$table) == 0
+      ) {
         "@params should contains at least $list and $table."
       }
     }

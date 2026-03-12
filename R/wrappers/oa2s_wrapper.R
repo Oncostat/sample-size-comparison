@@ -1,5 +1,5 @@
 wrapper$oa2s <- function(
-  alpha, 
+  alpha,
   power,
   surv_t,
   hr,
@@ -8,8 +8,8 @@ wrapper$oa2s <- function(
   follow_up_time = 3,
   sided = 2,
   error = NA_real_
-){
-   tryCatch(
+) {
+  tryCatch(
     {
       # Times are in year NOT months
       sample_size_info <- OneArm2stage::phase2.TTE(
@@ -19,7 +19,7 @@ wrapper$oa2s <- function(
         hr = hr,
         tf = follow_up_time,
         ta = accrual_time,
-        alpha = alpha/2 * sided, #always two-sided
+        alpha = alpha / 2 * sided, #always two-sided
         beta = 1 - power
       )
       return(tibble(e = NA_real_, n = sample_size_info$Single_stage$nsingle))

@@ -211,7 +211,8 @@ wrapper$rpact_bin_gs <- function(
   error = NA_real_
 ) {
   tryCatch(
-    {sample_size_info <- rpact::getSampleSizeRates(
+    {
+      sample_size_info <- rpact::getSampleSizeRates(
         design = rpact::getDesignGroupSequential(
           sided = sided,
           alpha = alpha,
@@ -245,15 +246,17 @@ wrapper$rpact_bin_one_arm <- function(
   delta_pi,
   sided = 1,
   error = NA_real_
-){tryCatch(
-    {sample_size_info <- rpact::getSampleSizeRates(
-    thetaH0 = pi_c,
-    pi1 = pi_c + delta_pi,
-    alpha = alpha/sided,
-    beta = 1 - power,
-    sided = 1,
-    groups = 1
-  )
+) {
+  tryCatch(
+    {
+      sample_size_info <- rpact::getSampleSizeRates(
+        thetaH0 = pi_c,
+        pi1 = pi_c + delta_pi,
+        alpha = alpha / sided,
+        beta = 1 - power,
+        sided = 1,
+        groups = 1
+      )
       return(ceiling(sample_size_info$nFixed))
     },
     error = function(er) {

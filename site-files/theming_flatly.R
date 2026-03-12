@@ -1,18 +1,22 @@
-#* GGPLOT2 and GT Themes for Flatly 
+#* GGPLOT2 and GT Themes for Flatly
 
 # Flatly palette (Bootswatch) ----
-  # source: https://github.com/thomaspark/bootswatch/blob/v5/dist/flatly/_variables.scss
-  flatly_primary      <- "#2C3E50"
-  flatly_secondary    <- "#18BC9C"
-  flatly_body_color   <- "#2C3E50"
-  flatly_body_bg      <- "#FFFFFF"
+# source: https://github.com/thomaspark/bootswatch/blob/v5/dist/flatly/_variables.scss
+flatly_primary <- "#2C3E50"
+flatly_secondary <- "#18BC9C"
+flatly_body_color <- "#2C3E50"
+flatly_body_bg <- "#FFFFFF"
 
 # Flatly ggplot theme ----
 theme_flatly <- function(
   base_size = 10,
   base_family = "Lato"
-){
-  theme_minimal(base_size = base_size, base_family = base_family, ink = flatly_body_color) +
+) {
+  theme_minimal(
+    base_size = base_size,
+    base_family = base_family,
+    ink = flatly_body_color
+  ) +
     theme(
       text = element_text(
         family = base_family,

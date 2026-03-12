@@ -51,7 +51,7 @@ cli_alert_success("Rashnu results")
 
 ## GsDesign2
 gsdesign2_wrapper <- partial(wrapper$gsdesign2_surv_fixed, !!!params$additional)
-gsdesign2 <- 
+gsdesign2 <-
   params$table |>
   mutate(
     nested_res = pmap_vec(params$table, gsdesign2_wrapper, .progress = TRUE)
@@ -149,14 +149,14 @@ combined <-
   mutate(relevancy = fct_relevel(relevancy, c("high", "medium", "low"))) |>
   ssc_results(design = design_surv_fixed, method = "combined")
 
-n_ratio <- 
+n_ratio <-
   combined |>
-  get_tbl() |> 
+  get_tbl() |>
   get_n_ratio(ref = "east")
 
 e_ratio <-
-  combined |> 
-  get_tbl() |> 
+  combined |>
+  get_tbl() |>
   get_e_ratio(ref = "east")
 
 cli_alert_success("Combined results")
@@ -166,23 +166,23 @@ title_er <- "E-Ratio 2-Arms Survival"
 title_nr <- "N-Ratio 2-Arms Survival"
 
 ## Tables ----
-table_e_ratio <- 
-  e_ratio |> 
+table_e_ratio <-
+  e_ratio |>
   gt_e_ratio(title = title_er, ref_name = "East")
 
-table_n_ratio <- 
-  n_ratio |> 
+table_n_ratio <-
+  n_ratio |>
   gt_n_ratio(title = title_nr, ref_name = "East")
 
 tables <- lst(table_e_ratio, table_n_ratio)
 
 ## Figures ----
-p_e_ratio <- 
-  e_ratio |> 
+p_e_ratio <-
+  e_ratio |>
   plot_e_ratio(title = title_er, ref_name = "East")
 
-p_n_ratio <- 
-  n_ratio |> 
+p_n_ratio <-
+  n_ratio |>
   plot_n_ratio(title = title_nr, ref_name = "East")
 
 plots <- lst(p_e_ratio, p_n_ratio)

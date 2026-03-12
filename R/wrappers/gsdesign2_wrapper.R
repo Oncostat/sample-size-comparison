@@ -24,7 +24,7 @@ wrapper$gsdesign2_surv_fixed <- function(
       )
       fail_rate <- gsDesign2::define_fail_rate(
         duration = Inf, #consider lambda and HR constant during trial.
-        fail_rate = -log(surv_t)/event_time, # get lambda from surv-t and event_time
+        fail_rate = -log(surv_t) / event_time, # get lambda from surv-t and event_time
         hr = hr,
         dropout_rate = dropout_rate
       )
@@ -79,11 +79,16 @@ wrapper$gsdesign2_surv_gs <- function(
       )
       fail_rate <- gsDesign2::define_fail_rate(
         duration = Inf, #consider lambda and HR constant during trial.
-        fail_rate = -log(surv_t)/event_time, # get lambda from surv-t and event_time
+        fail_rate = -log(surv_t) / event_time, # get lambda from surv-t and event_time
         hr = hr,
         dropout_rate = dropout_rate
       )
-      par <- list(sf = gsDesign::sfLDOF, total_spend = alpha / 2, param = NULL, timing = NULL)
+      par <- list(
+        sf = gsDesign::sfLDOF,
+        total_spend = alpha / 2,
+        param = NULL,
+        timing = NULL
+      )
       trial_duration <- accrual_time + follow_up_time # Planned trial duration
       # Information fraction at analyses
       info_frac <- if (equally_spaced) {

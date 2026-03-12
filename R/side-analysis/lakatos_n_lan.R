@@ -80,7 +80,7 @@ cli_alert_success("Rashnu results")
 
 ## GsDesign2
 gsdesign2_wrapper <- partial(wrapper$gsdesign2_surv_fixed, !!!params$additional)
-gsdesign2 <- 
+gsdesign2 <-
   params$table |>
   mutate(
     nested_res = pmap_vec(params$table, gsdesign2_wrapper, .progress = TRUE)
@@ -112,7 +112,7 @@ east <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  mutate(follow_up_time = 10 - accrual_time) |> 
+  mutate(follow_up_time = 10 - accrual_time) |>
   ssc_results(design = design_surv_fixed_lnl, method = "east")
 cli_alert_success("East results")
 
@@ -162,7 +162,7 @@ nquery <-
       closest(x, params$list[[cur_column()]])
     })
   ) |>
-  mutate(follow_up_time = 10 - accrual_time) |> 
+  mutate(follow_up_time = 10 - accrual_time) |>
   ssc_results(design = design_surv_fixed_lnl, method = "nquery")
 cli_alert_success("nQuery results")
 
@@ -186,19 +186,19 @@ combined <-
 cli_alert_success("Combined results")
 
 # Tables & figures
-low_cols  <- c("n_rpact","n_rashnu","n_gsdesign2","n_east","n_nquery")
-high_cols <- c("n_L","n_F","n_RGS")
+low_cols <- c("n_rpact", "n_rashnu", "n_gsdesign2", "n_east", "n_nquery")
+high_cols <- c("n_L", "n_F", "n_RGS")
 
-gt_lakatos_n_lan <- 
-  combined |> 
-  get_tbl() |> 
-  select(-starts_with("power_"), -follow_up_time) |> 
-  rename(Survival = surv_t, HR = hr, Accrual = accrual_time) |> 
+gt_lakatos_n_lan <-
+  combined |>
+  get_tbl() |>
+  select(-starts_with("power_"), -follow_up_time) |>
+  rename(Survival = surv_t, HR = hr, Accrual = accrual_time) |>
   gt() |>
   tab_header(
-      title = "Lakatos & Lan (1992) comparison with East, nQuery and R packages",
-      subtitle = "Survival at 10 years; Study duration = 10 years; α = 0.05;  β = 0.1"
-  ) |> 
+    title = "Lakatos & Lan (1992) comparison with East, nQuery and R packages",
+    subtitle = "Survival at 10 years; Study duration = 10 years; α = 0.05;  β = 0.1"
+  ) |>
   tab_style(
     style = cell_fill(color = "#75cec6ff"),
     location = cells_body(columns = all_of(low_cols))
@@ -206,30 +206,42 @@ gt_lakatos_n_lan <-
   tab_style(
     style = cell_fill(color = "#ce9d75ff"),
     location = cells_body(columns = all_of(high_cols))
-  ) |> 
-  tab_footnote(md("<span style='color:#75cec6ff'>**Blue**</span>: Computed sample sizes")) |> 
-  tab_footnote(md("<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article"))
+  ) |>
+  tab_footnote(md(
+    "<span style='color:#75cec6ff'>**Blue**</span>: Computed sample sizes"
+  )) |>
+  tab_footnote(md(
+    "<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article"
+  ))
 
 plot_lakatos_n_lan <-
-  combined  |> 
-  get_tbl()  |> 
-  rename(n_Freedman = n_F, n_Lakatos = n_L) |> 
-  mutate(across(starts_with("n_"), ~ ./n_east)) |> 
-  select(-n_east) |> 
-  pivot_longer(cols = starts_with("n_"), names_to ="method", values_to = "N")  |> 
+  combined |>
+  get_tbl() |>
+  rename(n_Freedman = n_F, n_Lakatos = n_L) |>
+  mutate(across(starts_with("n_"), ~ . / n_east)) |>
+  select(-n_east) |>
+  pivot_longer(
+    cols = starts_with("n_"),
+    names_to = "method",
+    values_to = "N"
+  ) |>
   mutate(method = str_remove(method, "n_")) |>
   ggplot() +
-  aes(x = paste0("HR: ",hr,", Accrual", accrual_time), y = N, color = method) +
+  aes(
+    x = paste0("HR: ", hr, ", Accrual", accrual_time),
+    y = N,
+    color = method
+  ) +
   geom_jitter(height = 0, width = 0.1) +
   geom_hline(yintercept = 1 + c(-1, 1) * er_rate, linetype = "dashed") +
-  geom_hline(yintercept = 1) + 
+  geom_hline(yintercept = 1) +
   facet_wrap(surv_t ~ ., scales = "free") +
   scale_color_ssc() +
   labs(
-    title ="N-Ratio by method",
-    subtitle ="For both 0.2 and 0.8 survival",
+    title = "N-Ratio by method",
+    subtitle = "For both 0.2 and 0.8 survival",
     x = NULL,
-    y = "N / N-East", 
+    y = "N / N-East",
   )
 
 # Put into the scc object

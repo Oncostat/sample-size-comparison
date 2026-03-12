@@ -1,7 +1,7 @@
 #' Compute sample size for a Two-Sample Exact Test
 #'
 #' @description
-#' Wrapper around [Exact::power.exact.test] to compute total 
+#' Wrapper around [Exact::power.exact.test] to compute total
 #' sample size (for a 1:1 randomization)
 #'
 #' @author Dan Chaltiel
@@ -12,40 +12,44 @@ sample_size_extact_test <- function(
   power,
   interval = c(2, 500),
   alternative = c("two.sided", "less", "greater"),
-  ...){
-  f <- function(n){
-    n_split <- round(n/2)
+  ...
+) {
+  f <- function(n) {
+    n_split <- round(n / 2)
     p <- Exact::power.exact.test(
       p1,
       p2,
       n_split,
       n_split,
-      alpha = alpha, 
-      alternative = alternative, 
-      ...)$power
-    
-    if(p < power) return(.Machine$double.xmax)
-    abs(p - power)
-  }
-
-  n_optimal <- 
-    f |>
-    optimize(interval) |> 
-    purrr::pluck("minimum")|> 
-    ceiling()
-
-  power_computed <- 
-    Exact::power.exact.test(
-      p1,
-      p2,
-      n_optimal/2,
-      n_optimal/2,
-      alpha = alpha, 
+      alpha = alpha,
       alternative = alternative,
       ...
     )$power
-  
-  if(power_computed < power){
+
+    if (p < power) {
+      return(.Machine$double.xmax)
+    }
+    abs(p - power)
+  }
+
+  n_optimal <-
+    f |>
+    optimize(interval) |>
+    purrr::pluck("minimum") |>
+    ceiling()
+
+  power_computed <-
+    Exact::power.exact.test(
+      p1,
+      p2,
+      n_optimal / 2,
+      n_optimal / 2,
+      alpha = alpha,
+      alternative = alternative,
+      ...
+    )$power
+
+  if (power_computed < power) {
     m <-
       c(
         "Optimization failed for {.val p1={p1}}, {.val p2={p2}}, {.val alpha={alpha}}, {.val power={power}}.",
@@ -70,8 +74,9 @@ sset_wrapper <- function(
   interval = c(2, 500),
   alternative = c("two.sided", "less", "greater"),
   error = NA,
-  ...){
-tryCatch(
+  ...
+) {
+  tryCatch(
     {
       return(
         sample_size_extact_test(
