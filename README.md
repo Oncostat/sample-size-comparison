@@ -117,8 +117,9 @@ R/
 
 ## License
 
-<a href="https://github.com/Oncostat/sample-size-comparison">Sample Size
-Comparison</a> © 2026 by
-<a href="https://github.com/Oncostat">Oncostat</a> is licensed under
-<a href="https://creativecommons.org/licenses/by/4.0/">CC BY
-4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+[Sample Size
+Comparison](https://github.com/Oncostat/sample-size-comparison) © 2026
+by [Oncostat](https://oncostat.github.io/) is licensed under [CC BY
+4.0](http://creativecommons.org/licenses/by/4.0/)
+
+[![](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
