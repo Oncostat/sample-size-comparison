@@ -255,7 +255,8 @@ window.Quarto = {
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -268,6 +269,14 @@ window.Quarto = {
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -598,23 +607,23 @@ Scenarios falling outside the high and low regions, representing plausible but l
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="vatlmzurtv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vatlmzurtv table {
+<div id="tfbxdeyuek" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tfbxdeyuek table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vatlmzurtv thead, #vatlmzurtv tbody, #vatlmzurtv tfoot, #vatlmzurtv tr, #vatlmzurtv td, #vatlmzurtv th {
+#tfbxdeyuek thead, #tfbxdeyuek tbody, #tfbxdeyuek tfoot, #tfbxdeyuek tr, #tfbxdeyuek td, #tfbxdeyuek th {
   border-style: none;
 }
 
-#vatlmzurtv p {
+#tfbxdeyuek p {
   margin: 0;
   padding: 0;
 }
 
-#vatlmzurtv .gt_table {
+#tfbxdeyuek .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -640,12 +649,12 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-left-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_caption {
+#tfbxdeyuek .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vatlmzurtv .gt_title {
+#tfbxdeyuek .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -657,7 +666,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-width: 0;
 }
 
-#vatlmzurtv .gt_subtitle {
+#tfbxdeyuek .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -669,7 +678,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-top-width: 0;
 }
 
-#vatlmzurtv .gt_heading {
+#tfbxdeyuek .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -681,13 +690,13 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_bottom_border {
+#tfbxdeyuek .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_col_headings {
+#tfbxdeyuek .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -702,7 +711,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_col_heading {
+#tfbxdeyuek .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -722,7 +731,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   overflow-x: hidden;
 }
 
-#vatlmzurtv .gt_column_spanner_outer {
+#tfbxdeyuek .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -734,15 +743,15 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 4px;
 }
 
-#vatlmzurtv .gt_column_spanner_outer:first-child {
+#tfbxdeyuek .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vatlmzurtv .gt_column_spanner_outer:last-child {
+#tfbxdeyuek .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vatlmzurtv .gt_column_spanner {
+#tfbxdeyuek .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -754,11 +763,11 @@ Scenarios falling outside the high and low regions, representing plausible but l
   width: 100%;
 }
 
-#vatlmzurtv .gt_spanner_row {
+#tfbxdeyuek .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vatlmzurtv .gt_group_heading {
+#tfbxdeyuek .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -784,7 +793,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   text-align: left;
 }
 
-#vatlmzurtv .gt_empty_group_heading {
+#tfbxdeyuek .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -799,15 +808,15 @@ Scenarios falling outside the high and low regions, representing plausible but l
   vertical-align: middle;
 }
 
-#vatlmzurtv .gt_from_md > :first-child {
+#tfbxdeyuek .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vatlmzurtv .gt_from_md > :last-child {
+#tfbxdeyuek .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vatlmzurtv .gt_row {
+#tfbxdeyuek .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -826,7 +835,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   overflow-x: hidden;
 }
 
-#vatlmzurtv .gt_stub {
+#tfbxdeyuek .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -839,7 +848,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#vatlmzurtv .gt_stub_row_group {
+#tfbxdeyuek .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -853,15 +862,15 @@ Scenarios falling outside the high and low regions, representing plausible but l
   vertical-align: top;
 }
 
-#vatlmzurtv .gt_row_group_first td {
+#tfbxdeyuek .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vatlmzurtv .gt_row_group_first th {
+#tfbxdeyuek .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vatlmzurtv .gt_summary_row {
+#tfbxdeyuek .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -871,16 +880,16 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#vatlmzurtv .gt_first_summary_row {
+#tfbxdeyuek .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_first_summary_row.thick {
+#tfbxdeyuek .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vatlmzurtv .gt_last_summary_row {
+#tfbxdeyuek .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -890,7 +899,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_grand_summary_row {
+#tfbxdeyuek .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -900,7 +909,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#vatlmzurtv .gt_first_grand_summary_row {
+#tfbxdeyuek .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -910,7 +919,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-top-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_last_grand_summary_row_top {
+#tfbxdeyuek .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -920,11 +929,11 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_striped {
+#tfbxdeyuek .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#vatlmzurtv .gt_table_body {
+#tfbxdeyuek .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -933,7 +942,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_footnotes {
+#tfbxdeyuek .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -947,7 +956,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_footnote {
+#tfbxdeyuek .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -956,7 +965,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#vatlmzurtv .gt_sourcenotes {
+#tfbxdeyuek .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -970,7 +979,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#vatlmzurtv .gt_sourcenote {
+#tfbxdeyuek .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -978,72 +987,72 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#vatlmzurtv .gt_left {
+#tfbxdeyuek .gt_left {
   text-align: left;
 }
 
-#vatlmzurtv .gt_center {
+#tfbxdeyuek .gt_center {
   text-align: center;
 }
 
-#vatlmzurtv .gt_right {
+#tfbxdeyuek .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vatlmzurtv .gt_font_normal {
+#tfbxdeyuek .gt_font_normal {
   font-weight: normal;
 }
 
-#vatlmzurtv .gt_font_bold {
+#tfbxdeyuek .gt_font_bold {
   font-weight: bold;
 }
 
-#vatlmzurtv .gt_font_italic {
+#tfbxdeyuek .gt_font_italic {
   font-style: italic;
 }
 
-#vatlmzurtv .gt_super {
+#tfbxdeyuek .gt_super {
   font-size: 65%;
 }
 
-#vatlmzurtv .gt_footnote_marks {
+#tfbxdeyuek .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vatlmzurtv .gt_asterisk {
+#tfbxdeyuek .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vatlmzurtv .gt_indent_1 {
+#tfbxdeyuek .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vatlmzurtv .gt_indent_2 {
+#tfbxdeyuek .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vatlmzurtv .gt_indent_3 {
+#tfbxdeyuek .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vatlmzurtv .gt_indent_4 {
+#tfbxdeyuek .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vatlmzurtv .gt_indent_5 {
+#tfbxdeyuek .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vatlmzurtv .katex-display {
+#tfbxdeyuek .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vatlmzurtv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#tfbxdeyuek div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1120,23 +1129,23 @@ Scenarios falling outside the high and low regions, representing plausible but l
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="khqrmazomn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#khqrmazomn table {
+<div id="csvafvbjuv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#csvafvbjuv table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#khqrmazomn thead, #khqrmazomn tbody, #khqrmazomn tfoot, #khqrmazomn tr, #khqrmazomn td, #khqrmazomn th {
+#csvafvbjuv thead, #csvafvbjuv tbody, #csvafvbjuv tfoot, #csvafvbjuv tr, #csvafvbjuv td, #csvafvbjuv th {
   border-style: none;
 }
 
-#khqrmazomn p {
+#csvafvbjuv p {
   margin: 0;
   padding: 0;
 }
 
-#khqrmazomn .gt_table {
+#csvafvbjuv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1162,12 +1171,12 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-left-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_caption {
+#csvafvbjuv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#khqrmazomn .gt_title {
+#csvafvbjuv .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1179,7 +1188,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-width: 0;
 }
 
-#khqrmazomn .gt_subtitle {
+#csvafvbjuv .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1191,7 +1200,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-top-width: 0;
 }
 
-#khqrmazomn .gt_heading {
+#csvafvbjuv .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -1203,13 +1212,13 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_bottom_border {
+#csvafvbjuv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_col_headings {
+#csvafvbjuv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1224,7 +1233,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_col_heading {
+#csvafvbjuv .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1244,7 +1253,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   overflow-x: hidden;
 }
 
-#khqrmazomn .gt_column_spanner_outer {
+#csvafvbjuv .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1256,15 +1265,15 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 4px;
 }
 
-#khqrmazomn .gt_column_spanner_outer:first-child {
+#csvafvbjuv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#khqrmazomn .gt_column_spanner_outer:last-child {
+#csvafvbjuv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#khqrmazomn .gt_column_spanner {
+#csvafvbjuv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1276,11 +1285,11 @@ Scenarios falling outside the high and low regions, representing plausible but l
   width: 100%;
 }
 
-#khqrmazomn .gt_spanner_row {
+#csvafvbjuv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#khqrmazomn .gt_group_heading {
+#csvafvbjuv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1306,7 +1315,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   text-align: left;
 }
 
-#khqrmazomn .gt_empty_group_heading {
+#csvafvbjuv .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1321,15 +1330,15 @@ Scenarios falling outside the high and low regions, representing plausible but l
   vertical-align: middle;
 }
 
-#khqrmazomn .gt_from_md > :first-child {
+#csvafvbjuv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#khqrmazomn .gt_from_md > :last-child {
+#csvafvbjuv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#khqrmazomn .gt_row {
+#csvafvbjuv .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1348,7 +1357,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   overflow-x: hidden;
 }
 
-#khqrmazomn .gt_stub {
+#csvafvbjuv .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1361,7 +1370,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#khqrmazomn .gt_stub_row_group {
+#csvafvbjuv .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1375,15 +1384,15 @@ Scenarios falling outside the high and low regions, representing plausible but l
   vertical-align: top;
 }
 
-#khqrmazomn .gt_row_group_first td {
+#csvafvbjuv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#khqrmazomn .gt_row_group_first th {
+#csvafvbjuv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#khqrmazomn .gt_summary_row {
+#csvafvbjuv .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1393,16 +1402,16 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#khqrmazomn .gt_first_summary_row {
+#csvafvbjuv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_first_summary_row.thick {
+#csvafvbjuv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#khqrmazomn .gt_last_summary_row {
+#csvafvbjuv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1412,7 +1421,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_grand_summary_row {
+#csvafvbjuv .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1422,7 +1431,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#khqrmazomn .gt_first_grand_summary_row {
+#csvafvbjuv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1432,7 +1441,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-top-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_last_grand_summary_row_top {
+#csvafvbjuv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1442,11 +1451,11 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_striped {
+#csvafvbjuv .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#khqrmazomn .gt_table_body {
+#csvafvbjuv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1455,7 +1464,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-bottom-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_footnotes {
+#csvafvbjuv .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1469,7 +1478,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_footnote {
+#csvafvbjuv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1478,7 +1487,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#khqrmazomn .gt_sourcenotes {
+#csvafvbjuv .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1492,7 +1501,7 @@ Scenarios falling outside the high and low regions, representing plausible but l
   border-right-color: #D3D3D3;
 }
 
-#khqrmazomn .gt_sourcenote {
+#csvafvbjuv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1500,72 +1509,72 @@ Scenarios falling outside the high and low regions, representing plausible but l
   padding-right: 5px;
 }
 
-#khqrmazomn .gt_left {
+#csvafvbjuv .gt_left {
   text-align: left;
 }
 
-#khqrmazomn .gt_center {
+#csvafvbjuv .gt_center {
   text-align: center;
 }
 
-#khqrmazomn .gt_right {
+#csvafvbjuv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#khqrmazomn .gt_font_normal {
+#csvafvbjuv .gt_font_normal {
   font-weight: normal;
 }
 
-#khqrmazomn .gt_font_bold {
+#csvafvbjuv .gt_font_bold {
   font-weight: bold;
 }
 
-#khqrmazomn .gt_font_italic {
+#csvafvbjuv .gt_font_italic {
   font-style: italic;
 }
 
-#khqrmazomn .gt_super {
+#csvafvbjuv .gt_super {
   font-size: 65%;
 }
 
-#khqrmazomn .gt_footnote_marks {
+#csvafvbjuv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#khqrmazomn .gt_asterisk {
+#csvafvbjuv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#khqrmazomn .gt_indent_1 {
+#csvafvbjuv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#khqrmazomn .gt_indent_2 {
+#csvafvbjuv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#khqrmazomn .gt_indent_3 {
+#csvafvbjuv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#khqrmazomn .gt_indent_4 {
+#csvafvbjuv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#khqrmazomn .gt_indent_5 {
+#csvafvbjuv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#khqrmazomn .katex-display {
+#csvafvbjuv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#khqrmazomn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#csvafvbjuv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

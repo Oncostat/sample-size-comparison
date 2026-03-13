@@ -255,7 +255,8 @@ window.Quarto = {
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -268,6 +269,14 @@ window.Quarto = {
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -618,23 +627,23 @@ Scenarios with <span class="math display">\[
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="dwkhvspbtg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dwkhvspbtg table {
+<div id="wjnbqliged" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wjnbqliged table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dwkhvspbtg thead, #dwkhvspbtg tbody, #dwkhvspbtg tfoot, #dwkhvspbtg tr, #dwkhvspbtg td, #dwkhvspbtg th {
+#wjnbqliged thead, #wjnbqliged tbody, #wjnbqliged tfoot, #wjnbqliged tr, #wjnbqliged td, #wjnbqliged th {
   border-style: none;
 }
 
-#dwkhvspbtg p {
+#wjnbqliged p {
   margin: 0;
   padding: 0;
 }
 
-#dwkhvspbtg .gt_table {
+#wjnbqliged .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -660,12 +669,12 @@ Scenarios with <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_caption {
+#wjnbqliged .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dwkhvspbtg .gt_title {
+#wjnbqliged .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -677,7 +686,7 @@ Scenarios with <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#dwkhvspbtg .gt_subtitle {
+#wjnbqliged .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -689,7 +698,7 @@ Scenarios with <span class="math display">\[
   border-top-width: 0;
 }
 
-#dwkhvspbtg .gt_heading {
+#wjnbqliged .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -701,13 +710,13 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_bottom_border {
+#wjnbqliged .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_col_headings {
+#wjnbqliged .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -722,7 +731,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_col_heading {
+#wjnbqliged .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -742,7 +751,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#dwkhvspbtg .gt_column_spanner_outer {
+#wjnbqliged .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -754,15 +763,15 @@ Scenarios with <span class="math display">\[
   padding-right: 4px;
 }
 
-#dwkhvspbtg .gt_column_spanner_outer:first-child {
+#wjnbqliged .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dwkhvspbtg .gt_column_spanner_outer:last-child {
+#wjnbqliged .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dwkhvspbtg .gt_column_spanner {
+#wjnbqliged .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -774,11 +783,11 @@ Scenarios with <span class="math display">\[
   width: 100%;
 }
 
-#dwkhvspbtg .gt_spanner_row {
+#wjnbqliged .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dwkhvspbtg .gt_group_heading {
+#wjnbqliged .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -804,7 +813,7 @@ Scenarios with <span class="math display">\[
   text-align: left;
 }
 
-#dwkhvspbtg .gt_empty_group_heading {
+#wjnbqliged .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -819,15 +828,15 @@ Scenarios with <span class="math display">\[
   vertical-align: middle;
 }
 
-#dwkhvspbtg .gt_from_md > :first-child {
+#wjnbqliged .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dwkhvspbtg .gt_from_md > :last-child {
+#wjnbqliged .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dwkhvspbtg .gt_row {
+#wjnbqliged .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -846,7 +855,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#dwkhvspbtg .gt_stub {
+#wjnbqliged .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -859,7 +868,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#dwkhvspbtg .gt_stub_row_group {
+#wjnbqliged .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -873,15 +882,15 @@ Scenarios with <span class="math display">\[
   vertical-align: top;
 }
 
-#dwkhvspbtg .gt_row_group_first td {
+#wjnbqliged .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dwkhvspbtg .gt_row_group_first th {
+#wjnbqliged .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dwkhvspbtg .gt_summary_row {
+#wjnbqliged .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -891,16 +900,16 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#dwkhvspbtg .gt_first_summary_row {
+#wjnbqliged .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_first_summary_row.thick {
+#wjnbqliged .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dwkhvspbtg .gt_last_summary_row {
+#wjnbqliged .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -910,7 +919,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_grand_summary_row {
+#wjnbqliged .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -920,7 +929,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#dwkhvspbtg .gt_first_grand_summary_row {
+#wjnbqliged .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -930,7 +939,7 @@ Scenarios with <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_last_grand_summary_row_top {
+#wjnbqliged .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -940,11 +949,11 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_striped {
+#wjnbqliged .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#dwkhvspbtg .gt_table_body {
+#wjnbqliged .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -953,7 +962,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_footnotes {
+#wjnbqliged .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -967,7 +976,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_footnote {
+#wjnbqliged .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -976,7 +985,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#dwkhvspbtg .gt_sourcenotes {
+#wjnbqliged .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -990,7 +999,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#dwkhvspbtg .gt_sourcenote {
+#wjnbqliged .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -998,72 +1007,72 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#dwkhvspbtg .gt_left {
+#wjnbqliged .gt_left {
   text-align: left;
 }
 
-#dwkhvspbtg .gt_center {
+#wjnbqliged .gt_center {
   text-align: center;
 }
 
-#dwkhvspbtg .gt_right {
+#wjnbqliged .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dwkhvspbtg .gt_font_normal {
+#wjnbqliged .gt_font_normal {
   font-weight: normal;
 }
 
-#dwkhvspbtg .gt_font_bold {
+#wjnbqliged .gt_font_bold {
   font-weight: bold;
 }
 
-#dwkhvspbtg .gt_font_italic {
+#wjnbqliged .gt_font_italic {
   font-style: italic;
 }
 
-#dwkhvspbtg .gt_super {
+#wjnbqliged .gt_super {
   font-size: 65%;
 }
 
-#dwkhvspbtg .gt_footnote_marks {
+#wjnbqliged .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dwkhvspbtg .gt_asterisk {
+#wjnbqliged .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dwkhvspbtg .gt_indent_1 {
+#wjnbqliged .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dwkhvspbtg .gt_indent_2 {
+#wjnbqliged .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dwkhvspbtg .gt_indent_3 {
+#wjnbqliged .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dwkhvspbtg .gt_indent_4 {
+#wjnbqliged .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dwkhvspbtg .gt_indent_5 {
+#wjnbqliged .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dwkhvspbtg .katex-display {
+#wjnbqliged .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dwkhvspbtg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wjnbqliged div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1167,23 +1176,23 @@ Scenarios with <span class="math display">\[
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="vmhynlbixm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vmhynlbixm table {
+<div id="xdssplxuhi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xdssplxuhi table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vmhynlbixm thead, #vmhynlbixm tbody, #vmhynlbixm tfoot, #vmhynlbixm tr, #vmhynlbixm td, #vmhynlbixm th {
+#xdssplxuhi thead, #xdssplxuhi tbody, #xdssplxuhi tfoot, #xdssplxuhi tr, #xdssplxuhi td, #xdssplxuhi th {
   border-style: none;
 }
 
-#vmhynlbixm p {
+#xdssplxuhi p {
   margin: 0;
   padding: 0;
 }
 
-#vmhynlbixm .gt_table {
+#xdssplxuhi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1209,12 +1218,12 @@ Scenarios with <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_caption {
+#xdssplxuhi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vmhynlbixm .gt_title {
+#xdssplxuhi .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1226,7 +1235,7 @@ Scenarios with <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#vmhynlbixm .gt_subtitle {
+#xdssplxuhi .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1238,7 +1247,7 @@ Scenarios with <span class="math display">\[
   border-top-width: 0;
 }
 
-#vmhynlbixm .gt_heading {
+#xdssplxuhi .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -1250,13 +1259,13 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_bottom_border {
+#xdssplxuhi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_col_headings {
+#xdssplxuhi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1271,7 +1280,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_col_heading {
+#xdssplxuhi .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1291,7 +1300,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#vmhynlbixm .gt_column_spanner_outer {
+#xdssplxuhi .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1303,15 +1312,15 @@ Scenarios with <span class="math display">\[
   padding-right: 4px;
 }
 
-#vmhynlbixm .gt_column_spanner_outer:first-child {
+#xdssplxuhi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vmhynlbixm .gt_column_spanner_outer:last-child {
+#xdssplxuhi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vmhynlbixm .gt_column_spanner {
+#xdssplxuhi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1323,11 +1332,11 @@ Scenarios with <span class="math display">\[
   width: 100%;
 }
 
-#vmhynlbixm .gt_spanner_row {
+#xdssplxuhi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vmhynlbixm .gt_group_heading {
+#xdssplxuhi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1353,7 +1362,7 @@ Scenarios with <span class="math display">\[
   text-align: left;
 }
 
-#vmhynlbixm .gt_empty_group_heading {
+#xdssplxuhi .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1368,15 +1377,15 @@ Scenarios with <span class="math display">\[
   vertical-align: middle;
 }
 
-#vmhynlbixm .gt_from_md > :first-child {
+#xdssplxuhi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vmhynlbixm .gt_from_md > :last-child {
+#xdssplxuhi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vmhynlbixm .gt_row {
+#xdssplxuhi .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1395,7 +1404,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#vmhynlbixm .gt_stub {
+#xdssplxuhi .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1408,7 +1417,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#vmhynlbixm .gt_stub_row_group {
+#xdssplxuhi .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1422,15 +1431,15 @@ Scenarios with <span class="math display">\[
   vertical-align: top;
 }
 
-#vmhynlbixm .gt_row_group_first td {
+#xdssplxuhi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vmhynlbixm .gt_row_group_first th {
+#xdssplxuhi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vmhynlbixm .gt_summary_row {
+#xdssplxuhi .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1440,16 +1449,16 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#vmhynlbixm .gt_first_summary_row {
+#xdssplxuhi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_first_summary_row.thick {
+#xdssplxuhi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vmhynlbixm .gt_last_summary_row {
+#xdssplxuhi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1459,7 +1468,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_grand_summary_row {
+#xdssplxuhi .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1469,7 +1478,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#vmhynlbixm .gt_first_grand_summary_row {
+#xdssplxuhi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1479,7 +1488,7 @@ Scenarios with <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_last_grand_summary_row_top {
+#xdssplxuhi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1489,11 +1498,11 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_striped {
+#xdssplxuhi .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#vmhynlbixm .gt_table_body {
+#xdssplxuhi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1502,7 +1511,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_footnotes {
+#xdssplxuhi .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1516,7 +1525,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_footnote {
+#xdssplxuhi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1525,7 +1534,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#vmhynlbixm .gt_sourcenotes {
+#xdssplxuhi .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1539,7 +1548,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#vmhynlbixm .gt_sourcenote {
+#xdssplxuhi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1547,72 +1556,72 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#vmhynlbixm .gt_left {
+#xdssplxuhi .gt_left {
   text-align: left;
 }
 
-#vmhynlbixm .gt_center {
+#xdssplxuhi .gt_center {
   text-align: center;
 }
 
-#vmhynlbixm .gt_right {
+#xdssplxuhi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vmhynlbixm .gt_font_normal {
+#xdssplxuhi .gt_font_normal {
   font-weight: normal;
 }
 
-#vmhynlbixm .gt_font_bold {
+#xdssplxuhi .gt_font_bold {
   font-weight: bold;
 }
 
-#vmhynlbixm .gt_font_italic {
+#xdssplxuhi .gt_font_italic {
   font-style: italic;
 }
 
-#vmhynlbixm .gt_super {
+#xdssplxuhi .gt_super {
   font-size: 65%;
 }
 
-#vmhynlbixm .gt_footnote_marks {
+#xdssplxuhi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vmhynlbixm .gt_asterisk {
+#xdssplxuhi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vmhynlbixm .gt_indent_1 {
+#xdssplxuhi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vmhynlbixm .gt_indent_2 {
+#xdssplxuhi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vmhynlbixm .gt_indent_3 {
+#xdssplxuhi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vmhynlbixm .gt_indent_4 {
+#xdssplxuhi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vmhynlbixm .gt_indent_5 {
+#xdssplxuhi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vmhynlbixm .katex-display {
+#xdssplxuhi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vmhynlbixm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xdssplxuhi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1736,23 +1745,23 @@ Scenarios with <span class="math display">\[
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="mywigqzusv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mywigqzusv table {
+<div id="gboalehdbr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gboalehdbr table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mywigqzusv thead, #mywigqzusv tbody, #mywigqzusv tfoot, #mywigqzusv tr, #mywigqzusv td, #mywigqzusv th {
+#gboalehdbr thead, #gboalehdbr tbody, #gboalehdbr tfoot, #gboalehdbr tr, #gboalehdbr td, #gboalehdbr th {
   border-style: none;
 }
 
-#mywigqzusv p {
+#gboalehdbr p {
   margin: 0;
   padding: 0;
 }
 
-#mywigqzusv .gt_table {
+#gboalehdbr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1778,12 +1787,12 @@ Scenarios with <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_caption {
+#gboalehdbr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mywigqzusv .gt_title {
+#gboalehdbr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1795,7 +1804,7 @@ Scenarios with <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#mywigqzusv .gt_subtitle {
+#gboalehdbr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1807,7 +1816,7 @@ Scenarios with <span class="math display">\[
   border-top-width: 0;
 }
 
-#mywigqzusv .gt_heading {
+#gboalehdbr .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1819,13 +1828,13 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_bottom_border {
+#gboalehdbr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_col_headings {
+#gboalehdbr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1840,7 +1849,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_col_heading {
+#gboalehdbr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1860,7 +1869,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#mywigqzusv .gt_column_spanner_outer {
+#gboalehdbr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1872,15 +1881,15 @@ Scenarios with <span class="math display">\[
   padding-right: 4px;
 }
 
-#mywigqzusv .gt_column_spanner_outer:first-child {
+#gboalehdbr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mywigqzusv .gt_column_spanner_outer:last-child {
+#gboalehdbr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mywigqzusv .gt_column_spanner {
+#gboalehdbr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1892,11 +1901,11 @@ Scenarios with <span class="math display">\[
   width: 100%;
 }
 
-#mywigqzusv .gt_spanner_row {
+#gboalehdbr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mywigqzusv .gt_group_heading {
+#gboalehdbr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1922,7 +1931,7 @@ Scenarios with <span class="math display">\[
   text-align: left;
 }
 
-#mywigqzusv .gt_empty_group_heading {
+#gboalehdbr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1937,15 +1946,15 @@ Scenarios with <span class="math display">\[
   vertical-align: middle;
 }
 
-#mywigqzusv .gt_from_md > :first-child {
+#gboalehdbr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mywigqzusv .gt_from_md > :last-child {
+#gboalehdbr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mywigqzusv .gt_row {
+#gboalehdbr .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1964,7 +1973,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#mywigqzusv .gt_stub {
+#gboalehdbr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1977,7 +1986,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#mywigqzusv .gt_stub_row_group {
+#gboalehdbr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1991,15 +2000,15 @@ Scenarios with <span class="math display">\[
   vertical-align: top;
 }
 
-#mywigqzusv .gt_row_group_first td {
+#gboalehdbr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mywigqzusv .gt_row_group_first th {
+#gboalehdbr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mywigqzusv .gt_summary_row {
+#gboalehdbr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2009,16 +2018,16 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#mywigqzusv .gt_first_summary_row {
+#gboalehdbr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_first_summary_row.thick {
+#gboalehdbr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mywigqzusv .gt_last_summary_row {
+#gboalehdbr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2028,7 +2037,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_grand_summary_row {
+#gboalehdbr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2038,7 +2047,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#mywigqzusv .gt_first_grand_summary_row {
+#gboalehdbr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2048,7 +2057,7 @@ Scenarios with <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_last_grand_summary_row_top {
+#gboalehdbr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2058,11 +2067,11 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_striped {
+#gboalehdbr .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#mywigqzusv .gt_table_body {
+#gboalehdbr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2071,7 +2080,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_footnotes {
+#gboalehdbr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2085,7 +2094,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_footnote {
+#gboalehdbr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2094,7 +2103,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#mywigqzusv .gt_sourcenotes {
+#gboalehdbr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2108,7 +2117,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#mywigqzusv .gt_sourcenote {
+#gboalehdbr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2116,72 +2125,72 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#mywigqzusv .gt_left {
+#gboalehdbr .gt_left {
   text-align: left;
 }
 
-#mywigqzusv .gt_center {
+#gboalehdbr .gt_center {
   text-align: center;
 }
 
-#mywigqzusv .gt_right {
+#gboalehdbr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mywigqzusv .gt_font_normal {
+#gboalehdbr .gt_font_normal {
   font-weight: normal;
 }
 
-#mywigqzusv .gt_font_bold {
+#gboalehdbr .gt_font_bold {
   font-weight: bold;
 }
 
-#mywigqzusv .gt_font_italic {
+#gboalehdbr .gt_font_italic {
   font-style: italic;
 }
 
-#mywigqzusv .gt_super {
+#gboalehdbr .gt_super {
   font-size: 65%;
 }
 
-#mywigqzusv .gt_footnote_marks {
+#gboalehdbr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mywigqzusv .gt_asterisk {
+#gboalehdbr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mywigqzusv .gt_indent_1 {
+#gboalehdbr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mywigqzusv .gt_indent_2 {
+#gboalehdbr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mywigqzusv .gt_indent_3 {
+#gboalehdbr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mywigqzusv .gt_indent_4 {
+#gboalehdbr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mywigqzusv .gt_indent_5 {
+#gboalehdbr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#mywigqzusv .katex-display {
+#gboalehdbr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#mywigqzusv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gboalehdbr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2263,23 +2272,23 @@ Scenarios with <span class="math display">\[
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="zwkmsbezev" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zwkmsbezev table {
+<div id="mmunaahxyc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mmunaahxyc table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zwkmsbezev thead, #zwkmsbezev tbody, #zwkmsbezev tfoot, #zwkmsbezev tr, #zwkmsbezev td, #zwkmsbezev th {
+#mmunaahxyc thead, #mmunaahxyc tbody, #mmunaahxyc tfoot, #mmunaahxyc tr, #mmunaahxyc td, #mmunaahxyc th {
   border-style: none;
 }
 
-#zwkmsbezev p {
+#mmunaahxyc p {
   margin: 0;
   padding: 0;
 }
 
-#zwkmsbezev .gt_table {
+#mmunaahxyc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2305,12 +2314,12 @@ Scenarios with <span class="math display">\[
   border-left-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_caption {
+#mmunaahxyc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zwkmsbezev .gt_title {
+#mmunaahxyc .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -2322,7 +2331,7 @@ Scenarios with <span class="math display">\[
   border-bottom-width: 0;
 }
 
-#zwkmsbezev .gt_subtitle {
+#mmunaahxyc .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -2334,7 +2343,7 @@ Scenarios with <span class="math display">\[
   border-top-width: 0;
 }
 
-#zwkmsbezev .gt_heading {
+#mmunaahxyc .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -2346,13 +2355,13 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_bottom_border {
+#mmunaahxyc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_col_headings {
+#mmunaahxyc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2367,7 +2376,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_col_heading {
+#mmunaahxyc .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2387,7 +2396,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#zwkmsbezev .gt_column_spanner_outer {
+#mmunaahxyc .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2399,15 +2408,15 @@ Scenarios with <span class="math display">\[
   padding-right: 4px;
 }
 
-#zwkmsbezev .gt_column_spanner_outer:first-child {
+#mmunaahxyc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zwkmsbezev .gt_column_spanner_outer:last-child {
+#mmunaahxyc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zwkmsbezev .gt_column_spanner {
+#mmunaahxyc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2419,11 +2428,11 @@ Scenarios with <span class="math display">\[
   width: 100%;
 }
 
-#zwkmsbezev .gt_spanner_row {
+#mmunaahxyc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zwkmsbezev .gt_group_heading {
+#mmunaahxyc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2449,7 +2458,7 @@ Scenarios with <span class="math display">\[
   text-align: left;
 }
 
-#zwkmsbezev .gt_empty_group_heading {
+#mmunaahxyc .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -2464,15 +2473,15 @@ Scenarios with <span class="math display">\[
   vertical-align: middle;
 }
 
-#zwkmsbezev .gt_from_md > :first-child {
+#mmunaahxyc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zwkmsbezev .gt_from_md > :last-child {
+#mmunaahxyc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zwkmsbezev .gt_row {
+#mmunaahxyc .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -2491,7 +2500,7 @@ Scenarios with <span class="math display">\[
   overflow-x: hidden;
 }
 
-#zwkmsbezev .gt_stub {
+#mmunaahxyc .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2504,7 +2513,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#zwkmsbezev .gt_stub_row_group {
+#mmunaahxyc .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -2518,15 +2527,15 @@ Scenarios with <span class="math display">\[
   vertical-align: top;
 }
 
-#zwkmsbezev .gt_row_group_first td {
+#mmunaahxyc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zwkmsbezev .gt_row_group_first th {
+#mmunaahxyc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zwkmsbezev .gt_summary_row {
+#mmunaahxyc .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2536,16 +2545,16 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#zwkmsbezev .gt_first_summary_row {
+#mmunaahxyc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_first_summary_row.thick {
+#mmunaahxyc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zwkmsbezev .gt_last_summary_row {
+#mmunaahxyc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2555,7 +2564,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_grand_summary_row {
+#mmunaahxyc .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -2565,7 +2574,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#zwkmsbezev .gt_first_grand_summary_row {
+#mmunaahxyc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2575,7 +2584,7 @@ Scenarios with <span class="math display">\[
   border-top-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_last_grand_summary_row_top {
+#mmunaahxyc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2585,11 +2594,11 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_striped {
+#mmunaahxyc .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#zwkmsbezev .gt_table_body {
+#mmunaahxyc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2598,7 +2607,7 @@ Scenarios with <span class="math display">\[
   border-bottom-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_footnotes {
+#mmunaahxyc .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2612,7 +2621,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_footnote {
+#mmunaahxyc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2621,7 +2630,7 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#zwkmsbezev .gt_sourcenotes {
+#mmunaahxyc .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -2635,7 +2644,7 @@ Scenarios with <span class="math display">\[
   border-right-color: #D3D3D3;
 }
 
-#zwkmsbezev .gt_sourcenote {
+#mmunaahxyc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2643,72 +2652,72 @@ Scenarios with <span class="math display">\[
   padding-right: 5px;
 }
 
-#zwkmsbezev .gt_left {
+#mmunaahxyc .gt_left {
   text-align: left;
 }
 
-#zwkmsbezev .gt_center {
+#mmunaahxyc .gt_center {
   text-align: center;
 }
 
-#zwkmsbezev .gt_right {
+#mmunaahxyc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zwkmsbezev .gt_font_normal {
+#mmunaahxyc .gt_font_normal {
   font-weight: normal;
 }
 
-#zwkmsbezev .gt_font_bold {
+#mmunaahxyc .gt_font_bold {
   font-weight: bold;
 }
 
-#zwkmsbezev .gt_font_italic {
+#mmunaahxyc .gt_font_italic {
   font-style: italic;
 }
 
-#zwkmsbezev .gt_super {
+#mmunaahxyc .gt_super {
   font-size: 65%;
 }
 
-#zwkmsbezev .gt_footnote_marks {
+#mmunaahxyc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zwkmsbezev .gt_asterisk {
+#mmunaahxyc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zwkmsbezev .gt_indent_1 {
+#mmunaahxyc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zwkmsbezev .gt_indent_2 {
+#mmunaahxyc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zwkmsbezev .gt_indent_3 {
+#mmunaahxyc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zwkmsbezev .gt_indent_4 {
+#mmunaahxyc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zwkmsbezev .gt_indent_5 {
+#mmunaahxyc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zwkmsbezev .katex-display {
+#mmunaahxyc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zwkmsbezev div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mmunaahxyc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

@@ -275,7 +275,8 @@ window.Quarto = {
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -288,6 +289,14 @@ window.Quarto = {
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -663,23 +672,23 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
 <div class="light-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="fhdyqasqmj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fhdyqasqmj table {
+<div id="saebpbeyhs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#saebpbeyhs table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fhdyqasqmj thead, #fhdyqasqmj tbody, #fhdyqasqmj tfoot, #fhdyqasqmj tr, #fhdyqasqmj td, #fhdyqasqmj th {
+#saebpbeyhs thead, #saebpbeyhs tbody, #saebpbeyhs tfoot, #saebpbeyhs tr, #saebpbeyhs td, #saebpbeyhs th {
   border-style: none;
 }
 
-#fhdyqasqmj p {
+#saebpbeyhs p {
   margin: 0;
   padding: 0;
 }
 
-#fhdyqasqmj .gt_table {
+#saebpbeyhs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -705,12 +714,12 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-left-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_caption {
+#saebpbeyhs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fhdyqasqmj .gt_title {
+#saebpbeyhs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -722,7 +731,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-width: 0;
 }
 
-#fhdyqasqmj .gt_subtitle {
+#saebpbeyhs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -734,7 +743,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-top-width: 0;
 }
 
-#fhdyqasqmj .gt_heading {
+#saebpbeyhs .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -746,13 +755,13 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_bottom_border {
+#saebpbeyhs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_col_headings {
+#saebpbeyhs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -767,7 +776,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_col_heading {
+#saebpbeyhs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -787,7 +796,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   overflow-x: hidden;
 }
 
-#fhdyqasqmj .gt_column_spanner_outer {
+#saebpbeyhs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -799,15 +808,15 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 4px;
 }
 
-#fhdyqasqmj .gt_column_spanner_outer:first-child {
+#saebpbeyhs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fhdyqasqmj .gt_column_spanner_outer:last-child {
+#saebpbeyhs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fhdyqasqmj .gt_column_spanner {
+#saebpbeyhs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -819,11 +828,11 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   width: 100%;
 }
 
-#fhdyqasqmj .gt_spanner_row {
+#saebpbeyhs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fhdyqasqmj .gt_group_heading {
+#saebpbeyhs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -849,7 +858,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   text-align: left;
 }
 
-#fhdyqasqmj .gt_empty_group_heading {
+#saebpbeyhs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -864,15 +873,15 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   vertical-align: middle;
 }
 
-#fhdyqasqmj .gt_from_md > :first-child {
+#saebpbeyhs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fhdyqasqmj .gt_from_md > :last-child {
+#saebpbeyhs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fhdyqasqmj .gt_row {
+#saebpbeyhs .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -891,7 +900,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   overflow-x: hidden;
 }
 
-#fhdyqasqmj .gt_stub {
+#saebpbeyhs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -904,7 +913,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#fhdyqasqmj .gt_stub_row_group {
+#saebpbeyhs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -918,15 +927,15 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   vertical-align: top;
 }
 
-#fhdyqasqmj .gt_row_group_first td {
+#saebpbeyhs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fhdyqasqmj .gt_row_group_first th {
+#saebpbeyhs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fhdyqasqmj .gt_summary_row {
+#saebpbeyhs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -936,16 +945,16 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#fhdyqasqmj .gt_first_summary_row {
+#saebpbeyhs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_first_summary_row.thick {
+#saebpbeyhs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fhdyqasqmj .gt_last_summary_row {
+#saebpbeyhs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -955,7 +964,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_grand_summary_row {
+#saebpbeyhs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -965,7 +974,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#fhdyqasqmj .gt_first_grand_summary_row {
+#saebpbeyhs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -975,7 +984,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-top-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_last_grand_summary_row_top {
+#saebpbeyhs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -985,11 +994,11 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_striped {
+#saebpbeyhs .gt_striped {
   background-color: rgba(44, 62, 80, 0.04);
 }
 
-#fhdyqasqmj .gt_table_body {
+#saebpbeyhs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -998,7 +1007,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_footnotes {
+#saebpbeyhs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1012,7 +1021,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_footnote {
+#saebpbeyhs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1021,7 +1030,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#fhdyqasqmj .gt_sourcenotes {
+#saebpbeyhs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1035,7 +1044,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#fhdyqasqmj .gt_sourcenote {
+#saebpbeyhs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1043,72 +1052,72 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#fhdyqasqmj .gt_left {
+#saebpbeyhs .gt_left {
   text-align: left;
 }
 
-#fhdyqasqmj .gt_center {
+#saebpbeyhs .gt_center {
   text-align: center;
 }
 
-#fhdyqasqmj .gt_right {
+#saebpbeyhs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fhdyqasqmj .gt_font_normal {
+#saebpbeyhs .gt_font_normal {
   font-weight: normal;
 }
 
-#fhdyqasqmj .gt_font_bold {
+#saebpbeyhs .gt_font_bold {
   font-weight: bold;
 }
 
-#fhdyqasqmj .gt_font_italic {
+#saebpbeyhs .gt_font_italic {
   font-style: italic;
 }
 
-#fhdyqasqmj .gt_super {
+#saebpbeyhs .gt_super {
   font-size: 65%;
 }
 
-#fhdyqasqmj .gt_footnote_marks {
+#saebpbeyhs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fhdyqasqmj .gt_asterisk {
+#saebpbeyhs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fhdyqasqmj .gt_indent_1 {
+#saebpbeyhs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fhdyqasqmj .gt_indent_2 {
+#saebpbeyhs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fhdyqasqmj .gt_indent_3 {
+#saebpbeyhs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fhdyqasqmj .gt_indent_4 {
+#saebpbeyhs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fhdyqasqmj .gt_indent_5 {
+#saebpbeyhs .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fhdyqasqmj .katex-display {
+#saebpbeyhs .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fhdyqasqmj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#saebpbeyhs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1244,23 +1253,23 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
 <div class="dark-content">
 <div class="cell">
 <div class="cell-output-display">
-<div id="gcgdnowrok" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gcgdnowrok table {
+<div id="oglweigxmi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oglweigxmi table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gcgdnowrok thead, #gcgdnowrok tbody, #gcgdnowrok tfoot, #gcgdnowrok tr, #gcgdnowrok td, #gcgdnowrok th {
+#oglweigxmi thead, #oglweigxmi tbody, #oglweigxmi tfoot, #oglweigxmi tr, #oglweigxmi td, #oglweigxmi th {
   border-style: none;
 }
 
-#gcgdnowrok p {
+#oglweigxmi p {
   margin: 0;
   padding: 0;
 }
 
-#gcgdnowrok .gt_table {
+#oglweigxmi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1286,12 +1295,12 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-left-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_caption {
+#oglweigxmi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gcgdnowrok .gt_title {
+#oglweigxmi .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -1303,7 +1312,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-width: 0;
 }
 
-#gcgdnowrok .gt_subtitle {
+#oglweigxmi .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -1315,7 +1324,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-top-width: 0;
 }
 
-#gcgdnowrok .gt_heading {
+#oglweigxmi .gt_heading {
   background-color: #222222;
   text-align: left;
   border-bottom-color: #222222;
@@ -1327,13 +1336,13 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_bottom_border {
+#oglweigxmi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_col_headings {
+#oglweigxmi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1348,7 +1357,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_col_heading {
+#oglweigxmi .gt_col_heading {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1368,7 +1377,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   overflow-x: hidden;
 }
 
-#gcgdnowrok .gt_column_spanner_outer {
+#oglweigxmi .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1380,15 +1389,15 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 4px;
 }
 
-#gcgdnowrok .gt_column_spanner_outer:first-child {
+#oglweigxmi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gcgdnowrok .gt_column_spanner_outer:last-child {
+#oglweigxmi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gcgdnowrok .gt_column_spanner {
+#oglweigxmi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1400,11 +1409,11 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   width: 100%;
 }
 
-#gcgdnowrok .gt_spanner_row {
+#oglweigxmi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gcgdnowrok .gt_group_heading {
+#oglweigxmi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1430,7 +1439,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   text-align: left;
 }
 
-#gcgdnowrok .gt_empty_group_heading {
+#oglweigxmi .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #222222;
@@ -1445,15 +1454,15 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   vertical-align: middle;
 }
 
-#gcgdnowrok .gt_from_md > :first-child {
+#oglweigxmi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gcgdnowrok .gt_from_md > :last-child {
+#oglweigxmi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gcgdnowrok .gt_row {
+#oglweigxmi .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -1472,7 +1481,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   overflow-x: hidden;
 }
 
-#gcgdnowrok .gt_stub {
+#oglweigxmi .gt_stub {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1485,7 +1494,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#gcgdnowrok .gt_stub_row_group {
+#oglweigxmi .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #222222;
   font-size: 100%;
@@ -1499,15 +1508,15 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   vertical-align: top;
 }
 
-#gcgdnowrok .gt_row_group_first td {
+#oglweigxmi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gcgdnowrok .gt_row_group_first th {
+#oglweigxmi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gcgdnowrok .gt_summary_row {
+#oglweigxmi .gt_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1517,16 +1526,16 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#gcgdnowrok .gt_first_summary_row {
+#oglweigxmi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_first_summary_row.thick {
+#oglweigxmi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gcgdnowrok .gt_last_summary_row {
+#oglweigxmi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1536,7 +1545,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_grand_summary_row {
+#oglweigxmi .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #222222;
   text-transform: inherit;
@@ -1546,7 +1555,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#gcgdnowrok .gt_first_grand_summary_row {
+#oglweigxmi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1556,7 +1565,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-top-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_last_grand_summary_row_top {
+#oglweigxmi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1566,11 +1575,11 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_striped {
+#oglweigxmi .gt_striped {
   background-color: rgba(68, 68, 68, 0.75);
 }
 
-#gcgdnowrok .gt_table_body {
+#oglweigxmi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1579,7 +1588,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-bottom-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_footnotes {
+#oglweigxmi .gt_footnotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1593,7 +1602,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_footnote {
+#oglweigxmi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1602,7 +1611,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#gcgdnowrok .gt_sourcenotes {
+#oglweigxmi .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #222222;
   border-bottom-style: none;
@@ -1616,7 +1625,7 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   border-right-color: #D3D3D3;
 }
 
-#gcgdnowrok .gt_sourcenote {
+#oglweigxmi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1624,72 +1633,72 @@ Scenarios not meeting the criteria for high or low relevance; these represent pl
   padding-right: 5px;
 }
 
-#gcgdnowrok .gt_left {
+#oglweigxmi .gt_left {
   text-align: left;
 }
 
-#gcgdnowrok .gt_center {
+#oglweigxmi .gt_center {
   text-align: center;
 }
 
-#gcgdnowrok .gt_right {
+#oglweigxmi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gcgdnowrok .gt_font_normal {
+#oglweigxmi .gt_font_normal {
   font-weight: normal;
 }
 
-#gcgdnowrok .gt_font_bold {
+#oglweigxmi .gt_font_bold {
   font-weight: bold;
 }
 
-#gcgdnowrok .gt_font_italic {
+#oglweigxmi .gt_font_italic {
   font-style: italic;
 }
 
-#gcgdnowrok .gt_super {
+#oglweigxmi .gt_super {
   font-size: 65%;
 }
 
-#gcgdnowrok .gt_footnote_marks {
+#oglweigxmi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gcgdnowrok .gt_asterisk {
+#oglweigxmi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gcgdnowrok .gt_indent_1 {
+#oglweigxmi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gcgdnowrok .gt_indent_2 {
+#oglweigxmi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gcgdnowrok .gt_indent_3 {
+#oglweigxmi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gcgdnowrok .gt_indent_4 {
+#oglweigxmi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gcgdnowrok .gt_indent_5 {
+#oglweigxmi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gcgdnowrok .katex-display {
+#oglweigxmi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gcgdnowrok div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#oglweigxmi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

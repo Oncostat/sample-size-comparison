@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-11">
+<meta name="dcterms.date" content="2026-03-13">
 
 <title>Clean Wrapper Functions for Sample Size Calculations</title>
 <style>
@@ -260,7 +260,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -273,6 +274,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -371,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-the-rpact-wrapper-for-2-arm-survival-fixed-designs" id="toc-example-the-rpact-wrapper-for-2-arm-survival-fixed-designs" class="nav-link active" data-scroll-target="#example-the-rpact-wrapper-for-2-arm-survival-fixed-designs">Example: the <code>rpact</code> wrapper for 2-arm survival fixed designs</a></li>
+  <li><a href="#example-the-rpact-wrapper-for-2-arm-survival-fixed-designs" id="toc-example-the-rpact-wrapper-for-2-arm-survival-fixed-designs" class="nav-link active" data-scroll-target="#example-the-rpact-wrapper-for-2-arm-survival-fixed-designs">Example: the <strong>rpact</strong> wrapper for 2-arm survival fixed designs</a></li>
   <li><a href="#integration-into-the-pipeline" id="toc-integration-into-the-pipeline" class="nav-link" data-scroll-target="#integration-into-the-pipeline">Integration into the pipeline</a>
   <ul class="collapse">
   <li><a href="#mapping-the-parameter-grid" id="toc-mapping-the-parameter-grid" class="nav-link" data-scroll-target="#mapping-the-parameter-grid">Mapping the parameter grid</a></li>
@@ -398,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 11, 2026</p>
+      <p class="date">March 13, 2026</p>
     </div>
   </div>
   
@@ -421,7 +430,7 @@ same inputs, same naming, same output format, and reliable error handling.</p>
 </ul>
 <p>Below is an example.</p>
 <section id="example-the-rpact-wrapper-for-2-arm-survival-fixed-designs" class="level2">
-<h2 class="anchored" data-anchor-id="example-the-rpact-wrapper-for-2-arm-survival-fixed-designs">Example: the <code>rpact</code> wrapper for 2-arm survival fixed designs</h2>
+<h2 class="anchored" data-anchor-id="example-the-rpact-wrapper-for-2-arm-survival-fixed-designs">Example: the <strong>rpact</strong> wrapper for 2-arm survival fixed designs</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -533,7 +542,7 @@ More details:</p>
 <section id="memoisation" class="level2">
 <h2 class="anchored" data-anchor-id="memoisation">Memoisation</h2>
 <p>Some sample size functions are computationally expensive.<br>
-To speed up the pipeline, all wrappers are <strong>memoised</strong>, meaning that if a function is called again with the same inputs, the cached result is returned immediately.</p>
+To speed up the pipeline, all wrappers are <a href="https://memoise.r-lib.org/"><strong>memoised</strong></a>, meaning that if a function is called again with the same inputs, the cached result is returned immediately.</p>
 <p>All wrappers are stored in a list named <code>wrapper</code>, so memoisation can be applied with a single call:</p>
 <div class="cell">
 <details class="code-fold">
