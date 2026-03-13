@@ -8,6 +8,7 @@ format:
 
 <!-- badges: start -->
 [![Oncostat-affiliation](https://img.shields.io/badge/Oncostat-green.svg)](https://oncostat.github.io/)
+[![CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
 
 This repository presents a systematic comparison of **sample size calculations implemented in R** with those from two widely used commercial tools: **East** and **nQuery**.
 
@@ -104,3 +105,7 @@ R/
     ├── rpact_wrapper.R
     └── sssas_wrapper.R
 ```
+
+## License
+
+<a href="https://github.com/Oncostat/sample-size-comparison">Sample Size Comparison</a> © 2026 by <a href="https://github.com/Oncostat">Oncostat</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
