@@ -12,8 +12,8 @@ execute:
 R offers several object‑oriented systems (S3, S4, R6), and S7 is the most recent addition: a modern, lightweight, and more predictable approach to defining classes and methods. For statistical workflows—especially those involving complex design objects, parameter grids, and multi‑software comparisons—S7 brings a clean and explicit structure.
 In this post, I walk through how I use S7 to define two core objects in my sample‑size comparison pipeline:
 
-- [ssc_design](https://github.com/Oncostat/sample-size-comparison/blob/dev/R/S7/ssc_design.R): represents a study design (endpoint, type, parameters, computation rules).
-- [ssc_results](https://github.com/Oncostat/sample-size-comparison/blob/dev/R/S7/ssc_results.R): stores the associated sample size results produced by different software tools.
+- [ssc_design](https://github.com/Oncostat/sample-size-comparison/blob/main/R/S7/ssc_design.R): represents a study design (endpoint, type, parameters, computation rules).
+- [ssc_results](https://github.com/Oncostat/sample-size-comparison/blob/main/R/S7/ssc_results.R): stores the associated sample size results produced by different software tools.
 
 See the official [S7 Documentation](https://rconsortium.github.io/S7/.)
 

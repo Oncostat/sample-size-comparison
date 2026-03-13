@@ -10,7 +10,7 @@ execute:
   eval: false
 ---
 
-The entire internship workflow can be launched from a single file, [`main.R`](https://github.com/Oncostat/sample-size-comparison/blob/dev/R/main.R), which executes the full pipeline.  
+The entire internship workflow can be launched from a single file, [`main.R`](https://github.com/Oncostat/sample-size-comparison/blob/main/R/main.R), which executes the full pipeline.  
 In this article, I walk through how the pipeline is structured and how each component contributes to the final sample size comparison results.
 
 ```{r}
