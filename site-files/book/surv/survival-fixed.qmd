@@ -147,7 +147,7 @@ The design space was intentionally chosen to span both conventional trial settin
 - **Medium‑relevancy** scenarios introduce slightly more dispersion, but deviations remain small (generally within a few percent) and without systematic over‑ or under‑estimation.
 - **Low‑relevancy** cases exhibit the largest discrepancies. These extreme designs make N‑ratios mechanically unstable and are not clinically meaningful.
 - When ignoring these outlier regions, all four implementations again converge tightly around 1.00.
-- Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See [Lakatos and Lan](../lakatos_n_lan.qmd) post for more details)
+- Rashnu uses a Lakatos-based approach, but the difference in results is not significant here.(See [Lakatos and Lan](../../additional_content/lakatos_n_lan.qmd) post for more details)
 
 ```{r}
 x <- read_rds("../../../outputs/comp_surv_fixed.rds")

@@ -63,7 +63,7 @@ Each of these designs is covered in depth throughout the website, with dedicated
 
 -   [**Two‑arm Fixed**](surv/survival-fixed.qmd) — Log‑rank methods
 -   [**Two‑arm Group‑Sequential**](surv/survival-gs.qmd) — Log‑rank with interim monitoring
--   [**One‑arm Fixed**](surv/survial-one-arm.qmd) — Log‑rank–based single‑arm methods
+-   [**One‑arm Fixed**](surv/survival-one-arm.qmd) — Log‑rank–based single‑arm methods
 
 ### [**Binary designs**](bin/binary-endpoints.qmd)
 
