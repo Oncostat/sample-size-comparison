@@ -40,7 +40,7 @@ Legend:
 
 ------------------------------------------------------------------------
 
-## [Website](https://github.com/Oncostat/sample-size-comparison)
+## [Website](https://oncostat.github.io/sample-size-comparison/)
 
 Browse the interactive website to explore results, methodology, and
 reproducible R code.
