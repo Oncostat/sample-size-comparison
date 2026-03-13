@@ -12,7 +12,18 @@ ssc_results <-
     constructor = function(
       tbl,
       design,
-      method = c("rpact", "nquery", "east", "rashnu", "gsdesign2", "bbssr", "combined")
+      method = c(
+        "rpact",
+        "nquery",
+        "east",
+        "rashnu",
+        "gsdesign2",
+        "bbssr",
+        "oa2s",
+        "sssas",
+        "ahern",
+        "combined"
+      )
     ) {
       method <- arg_match(method)
       new_object(
@@ -21,6 +32,28 @@ ssc_results <-
         design = design,
         method = method
       )
+    },
+    # VALIDATOR
+    validator = function(self) {
+      if (nrow(self@tbl) > nrow(self@design@params$table)) {
+        "@tbl has to much rows according to the parameters."
+      }
+      params_names <- names(self@design@params$list)
+      cond_duplicate <-
+        self@tbl |>
+        select(all_of(params_names)) |>
+        duplicated() |>
+        any()
+      if (cond_duplicate) {
+        "@tbl should not contains any duplicate of input combinaisons."
+      }
+      cond_in_params <-
+        self@tbl |>
+        anti_join(self@design@params$table, by = params_names) |>
+        nrow()
+      if (cond_in_params > 0) {
+        "@tbl should not contain an input combinaison not in @params$table."
+      }
     }
   )
 
@@ -36,7 +69,6 @@ method(show_params, ssc_results) <- function(x) {
 method(get_endpoint, ssc_results) <- function(x) {
   x |> get_design() |> get_endpoint()
 }
-
 
 method(print, ssc_results) <- function(x) {
   design <- get_design(x)

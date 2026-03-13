@@ -1,0 +1,57 @@
+---
+title: "Binary Endpoints"
+---
+
+::: {.light-content}
+```{mermaid}
+---
+config:
+  theme: neutral
+---
+flowchart TB
+  AB[Binary Endpoints] --> ABA(Two-Arm)
+    ABA --> ABAA(Fixed Design)
+      ABAA --> ABAAA([Exact Computation])
+      ABAA --> ABAAB([Z-pooled])
+    ABA --> ABAB(Group-Sequential Design)
+      ABAB --> ABABA([Z-pooled])
+  AB ---> ABB(One-Arm)
+    ABB --> ABBA([Exact Computation])
+    ABB --> ABBB([Non-exact Computation])
+```
+:::
+
+::: {.dark-content}
+```{mermaid}
+---
+config:
+  theme: dark
+---
+flowchart TB
+  AB[Binary Endpoints] --> ABA(Two-Arm)
+    ABA --> ABAA(Fixed Design)
+      ABAA --> ABAAA([Exact Computation])
+      ABAA --> ABAAB([Z-pooled])
+    ABA --> ABAB(Group-Sequential Design)
+      ABAB --> ABABA([Z-pooled])
+  AB ---> ABB(One-Arm)
+    ABB --> ABBA([Exact Computation])
+    ABB --> ABBB([Non-exact Computation])
+```
+:::
+
+In many clinical trials, the primary endpoint is **binary**, such as response vs. no response to a treatment.  
+Most commonly, these studies compare **two parallel arms**: a *control group* receiving the standard of care, and an *experimental group* receiving a new drug expected to improve outcomes. In such settings, the natural parameter of interest is the **proportion of responders** in each arm, and the key statistical question is whether these proportions differ.
+
+This chapter focuses on methods for **testing differences in proportions** and on how various statistical software implement these methods under different trial designs.
+
+More specifically:
+
+- In [**Binary Tests**](binary-methods.qmd), we introduce the main hypothesis tests used in two-arm trials with binary endpoints (Z-test, exact test) and briefly discuss their assumptions and limitations.
+
+- In [**Two-Arm Fixed Design with Binary Endpoints**](binary-fixed.qmd), we compare sample size calculations and test results across commonly used software and R packages for trials *without* interim analyses.
+
+- In [**Two-Arm Group-Sequential Design with Binary Endpoints**](binary-gs.qmd), we extend the previous comparison to designs including interim analyses (group-sequential designs), highlighting differences in spending functions, boundary calculations, and implementation across tools.
+
+- Finally, in [**One-Arm Fixed Design with Binary Endpoints**](binary-one-arm.qmd), we compare sample size calculations in single-arm studies, which are frequently employed in rare diseases where recruitment is limited and comparing two groups becomes impractical.
+

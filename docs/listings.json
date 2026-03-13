@@ -1,0 +1,19 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/presentation/presentation-fr.html",
+      "/site-files/additional-content/lakatos_n_lan.html",
+      "/site-files/additional-content/bin2arms-exact.html"
+    ]
+  },
+  {
+    "listing": "/site-files/explain-code/code-home.html",
+    "items": [
+      "/site-files/explain-code/structure.html",
+      "/site-files/explain-code/pipeline.html",
+      "/site-files/explain-code/S7.html",
+      "/site-files/explain-code/wrapper.html"
+    ]
+  }
+]

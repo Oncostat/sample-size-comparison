@@ -1,0 +1,98 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  image: man/figure/oreilly-ssc.png
+  favicon: man/figures/ssc-favicon.png 
+  open-graph: true
+  navbar:
+    logo: man/figures/ssc-flatly-banner.png 
+    left:
+      - text: "Book"
+        href: index.qmd
+      - text: "Interactive"
+        href: site-files/interactive/interactive.qmd
+      - text: "More"
+        menu:
+          - text: "Slides (french)"
+            href: presentation/presentation-fr.qmd
+            target: _blank
+          - text: "About Exact test"
+            href: site-files/additional-content/bin2arms-exact.qmd
+          - text: "Lakatos & Lan"
+            href: site-files/additional-content/lakatos_n_lan.qmd
+          - text: "Required Events"
+            href: site-files/additional-content/survival-event-comparison.qmd
+      - text: "Code"
+        href: "site-files/explain-code/code-home.qmd"
+    right:
+      - text: "About"
+        href: site-files/about.qmd
+    tools:
+      - icon: globe
+        href: https://oncostat.github.io/
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/Oncostat/sample-size-comparison
+          - text: Report a Bug
+            href: https://github.com/Oncostat/sample-size-comparison/issues/new
+  sidebar:
+    - title : "Book"
+      style: "docked"
+      contents:
+        - text: "Welcome"
+          href: index.qmd
+        - text: "Introduction"
+          href: site-files/book/introduction.qmd
+        - section: "Survival endpoints"
+          contents:
+            - text: Introduction
+              href: site-files/book/surv/survival-endpoint.qmd
+            - text: "Method: Survival Sample Size Computation"
+              href: site-files/book/surv/survival-methods.qmd
+            - text: "Two-arm Fixed Design"
+              href: site-files/book/surv/survival-fixed.qmd
+            - text: "Two-arm GS-Design"
+              href: site-files/book/surv/survival-gs.qmd
+            - text: "One-arm Fixed Design"
+              href: site-files/book/surv/survival-one-arm.qmd
+        - section: "Binary endpoints"
+          contents:
+            - text: Introduction
+              href: site-files/book/bin/binary-endpoints.qmd
+            - text: "Method: Binary Tests"
+              href: site-files/book/bin/binary-methods.qmd
+            - text: "Two-arm Fixed Design"
+              href: site-files/book/bin/binary-fixed.qmd
+            - text: "Two-arm GS-Design"
+              href: site-files/book/bin/binary-gs.qmd
+            - text: "One-arm Fixed Design"
+              href: site-files/book/bin/binary-one-arm.qmd
+        - text: "Conclusion"
+          href: site-files/book/conclusion.qmd
+        - text: "References"
+          href: site-files/book/references.qmd
+
+format:
+  html:
+    page-navigation: true
+    highlight-style: github
+    code-fold: true
+    execute:
+      echo: false
+      warning: false
+      message: false
+    theme:
+      light: flatly
+      dark: [darkly, custom-dark.scss]
+    respect-user-color-scheme: true
+    toc: true
+    css: styles.css
+fig-format: svg
+mermaid-format: svg
+
+
+
+

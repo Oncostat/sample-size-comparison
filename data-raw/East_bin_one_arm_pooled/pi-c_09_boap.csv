@@ -1,0 +1,21 @@
+﻿Sr. No.,ID,Design Type,No. of Looks,Test Type,Specified α,Power,Sample Size,π0,π1,Variance
+1,Des1,Superiority,1,1-Sided,0.005,0.512214795485357,243,0.9,0.95,Under Null Hypothesis
+2,Des2,Superiority,1,1-Sided,0.025,0.510483573622966,141,0.9,0.95,Under Null Hypothesis
+3,Des3,Superiority,1,1-Sided,0.05,0.511976652310821,100,0.9,0.95,Under Null Hypothesis
+4,Des4,Superiority,1,1-Sided,0.1,0.51106747421729,61,0.9,0.95,Under Null Hypothesis
+5,Des5,Superiority,1,1-Sided,0.245,0.519856633211707,19,0.9,0.95,Under Null Hypothesis
+6,Des6,Superiority,1,1-Sided,0.005,0.800488330819663,366,0.9,0.95,Under Null Hypothesis
+7,Des7,Superiority,1,1-Sided,0.025,0.802004183450676,239,0.9,0.95,Under Null Hypothesis
+8,Des8,Superiority,1,1-Sided,0.05,0.801729386919414,184,0.9,0.95,Under Null Hypothesis
+9,Des9,Superiority,1,1-Sided,0.1,0.802807819055982,130,0.9,0.95,Under Null Hypothesis
+10,Des10,Superiority,1,1-Sided,0.245,0.804060583627482,62,0.9,0.95,Under Null Hypothesis
+11,Des11,Superiority,1,1-Sided,0.005,0.900258864082901,443,0.9,0.95,Under Null Hypothesis
+12,Des12,Superiority,1,1-Sided,0.025,0.900137381473777,301,0.9,0.95,Under Null Hypothesis
+13,Des13,Superiority,1,1-Sided,0.05,0.900175000042053,239,0.9,0.95,Under Null Hypothesis
+14,Des14,Superiority,1,1-Sided,0.1,0.901149515479177,177,0.9,0.95,Under Null Hypothesis
+15,Des15,Superiority,1,1-Sided,0.245,0.900754341612207,95,0.9,0.95,Under Null Hypothesis
+16,Des16,Superiority,1,1-Sided,0.005,0.990104721722925,656,0.9,0.95,Under Null Hypothesis
+17,Des17,Superiority,1,1-Sided,0.025,0.990053699547553,480,0.9,0.95,Under Null Hypothesis
+18,Des18,Superiority,1,1-Sided,0.05,0.990094669459095,401,0.9,0.95,Under Null Hypothesis
+19,Des19,Superiority,1,1-Sided,0.1,0.990017900118354,318,0.9,0.95,Under Null Hypothesis
+20,Des20,Superiority,1,1-Sided,0.245,0.990004209753054,204,0.9,0.95,Under Null Hypothesis

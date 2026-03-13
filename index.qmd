@@ -1,54 +1,63 @@
 ---
-title: R vs East & nQuery 
-subtitle: Utilisation de R comme alternative aux logiciels propriétaires East et nQuery pour le calcul de Sample Size.
-author:
-  - name: AROCENA Thomas 
-    orcid: 0009-0002-7014-220X
-abstract: |
-  {{< lipsum 1 >}}
-brand: brand\_brand.yml
-format: 
-  html
-date: today
-date-format: full
-execute:
-  echo: false
-lang: "fr"
+title: "Sample Size Comparison"
+subtitle: "Arocena Thomas, Chaltiel Dan & Lourdessamy Anne"
+date: last-modified
+other-links:
+  - text: Slides (in french)
+    href: https://oncostat.github.io/sample-size-comparison/presentation/presentation-fr
+    icon: file-slides-fill
+listing:
+  id: sample-listings
+  type: grid
+  contents:
+    - "site-files/additional-content/bin2arms-exact.qmd"
+    - "presentation/presentation-fr.qmd"
+    - "site-files/additional-content/lakatos_n_lan.qmd"
 ---
 
-```{r}
-source("R/main.R")
-```
+::: {.columns}
 
-Le but est de légitimer l'utilisation de R comme alternative au logiciel propriétaire East et nQuery en faisant une comparaison des différents logiciels et des écarts entre les résultats
+::: {.column width="60%"}
+**Welcome** to the website dedicated to presenting the results of the *Sample Size Comparison* project.
+This site brings together several complementary sections designed to guide you through the work:
 
-# Calcul de Sample Size dans le cas d'un outcome binaire
-## Fixed
-## GS
+- [**Book**](index.qmd) — the core of the project, where each study design is documented with its methodology, assumptions, and comparative results.
+- [**Interactive**](site-files/interactive/interactive.qmd) — dynamic visualisations that allow you to explore the results in more detail, adjust parameters, and better understand how sample size choices influence performance.
+- **More** — additional material related to the main topic, including slides and side analyses.
+- [**Code**](site-files/explain-code/code-home.qmd) — a transparent view into the full computational workflow, from simulation engines to plotting functions, ensuring reproducibility and openness.
 
-# Calcul de Sample Size dans le cas d'un outcome de survie
-## Fixed 
-### Algorithmes
-#### Méthode de Schoenfeld
+Together, these sections provide a unified space to navigate the project, understand the methodological insights, and interact directly with the underlying analyses.
+:::
 
-Le calcul de la taille d'échantillon de Schoenfeld, comme les autres méthodes de log rank se fait sous les hypothèses de loi exponentielles et de proportional hazard qui ne sont pas complètement satisfaisantes dans certain cas mais complètement ancré dans l'analyse de survie en générale.
+::: {.column width="40%"}
+<div class="shadow-box">
+  ![](man/figures/oreilly-ssc.png)
+</div>
+:::
 
-Prenons $\alpha$ l'erreur de type I et $\beta$ l'erreur de type II. Alors, en notant $e$ le nombre d'evènement nécessaire, la formule (simple) de Schoenfeld donne :
+:::
 
-$$
-e = 2\times\frac{2(z_{1-\alpha/2} + z_{1 - \beta})^2}{\log(\text{HR})}
-$${#eq-schoenfeld}
+## Results summary
 
-Où $z_x$ est le [z-score](https://en.wikipedia.org/wiki/Standard_score) de $x$, égale au quantile $(1-x)$ de la distribution normale standard.
+Below is a concise overview of the main findings from the *Sample Size Comparison* project.  
+This summary is intended for readers who want the key takeaways without exploring the full “Book” section.
 
-#### Lakatos
-Chaine de Markov, mouvement brownien.
-### Comparaison des résultats
-```{r}
-combined_res
-combined_res_ll
-```
+The table compares, for each endpoint and design type, the statistical test used, and how well the implemented R calculations matched the software(East or nQuery) reference values. 
 
-## Groupes Sequential Design
-### Lan-DeMets spending functions
-### Comparaison des résultats
+| Endpoints | Design type                   | Test         | R/Software matching |
+| :-------- | :---------------------------- | :----------- | :------------------ |
+| survival  | 2‑Arm fixed design            | Log‑rank     | 🟢 Perfect          |
+| survival  | 2‑Arm group‑sequential design | Log‑rank     | 🟡 Good             |
+| survival  | 1‑Arm fixed design            | Log‑rank     | 🔵 Poor             |
+| Binary    | 2‑Arm fixed design            | Exact        | 🟡 Good             |
+| Binary    | 2‑Arm fixed design            | Z‑Pooled     | 🟢 Perfect          |
+| Binary    | 2‑Arm group‑sequential design | Z‑Pooled     | 🟢 Perfect          |
+| Binary    | 1‑Arm fixed design            | Exact        | 🟡 Good             |
+| Binary    | 1‑Arm fixed design            | 1‑Arm Z test | 🟢 Perfect          |
+
+
+## Additional content:
+
+::: {#sample-listings}
+:::
+

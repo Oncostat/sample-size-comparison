@@ -18,7 +18,7 @@
 #'   power = 0.9,
 #'   hr = 0.8
 #' )
-evaluate_relevancy <- function(
+evaluate_relevancy_surv <- function(
   alpha,
   power,
   hr
@@ -27,12 +27,25 @@ evaluate_relevancy <- function(
   check_probability(c(alpha, power, hr))
 
   relevancy = case_when(
-    # Not really relevant parameter
-    alpha >= 0.4 | power <= 0.51 | power >= 0.99 | hr >= 0.99 ~ "low",
-    # Quite extreme paramters but could occur in some specific trials
-    alpha >= 0.20 | hr <= 0.1 | hr >= 0.9 ~ "medium",
-    # Common parameters used in clinical trials
-    .default = "high"
+    alpha > 0.2 | power < 0.6 | power >= 0.99 | hr < 0.5 | hr > 0.9 ~ "low",
+    alpha > 0.02 & alpha < 0.15 & power > 0.75 & hr >= 0.7 & hr < 0.99 ~ "high",
+    .default = "medium"
+  )
+
+  relevancy
+}
+
+evaluate_relevancy_bin <- function(
+  alpha,
+  power
+) {
+  # Check that all parameters are between 0 and 1 (excluded).
+  check_probability(c(alpha, power))
+
+  relevancy = case_when(
+    alpha > 0.2 | power < 0.6 | power >= 0.99 ~ "low",
+    alpha > 0.02 & alpha < 0.15 & power > 0.75 ~ "high",
+    .default = "medium"
   )
 
   relevancy

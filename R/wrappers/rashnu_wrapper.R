@@ -1,0 +1,136 @@
+#' Wrapper around rashnu's `lakatosSampleSize`.
+#'
+#' @param alpha Type I error, a numerical value in ]0, 1[.
+#' @param power Power, a numerical value in ]0, 1[. Represent (1 - beta),
+#' where beta is the Type II error.
+#' @param hr Hazard ratio. a numerical value in ]0, 1[.
+#' Represent the fraction of lambdas from two groups, saying if a group
+#' has better or worse survival probability.
+#' @param surv_t Survival probability of control group at event time t.
+#' Default value for `event_time` is 3.
+#' So without event time specification, correspond to 3-year survival.
+#' @param event_time Time at which we evaluate survival probability. Default is 3.
+#' @param accrual_time Time of accrual. Default is 3.
+#' @param follow_up_time (Minimal) follow-up time. Default is 3.
+#' Study duration correspond to `accrual_time` + `follow_up_time`.
+#' @param sided One of c(1, 2). Is the test one-sided or two-sided. Default is 2
+#' @param method One of c("logrank", "gehan", "tarone-ware").
+#' @param allocation_ratio Allocation ratio of sample size between control and testing group (Test/control).
+#' Default is 1 corresponding to same allocation in control and testing group.
+#' @param error What should be returned for needed number of events and sample size
+#' when an error occured. Default is `NA_real_`.
+#'
+#' @returns A tibble with e = number of needed event and n = required sample size.
+#'
+#' @references
+#' References
+#' Lakatos E. (1988). Sample sizes based on the log-rank statistic in complex clinical trials. Biometrics, 44, 229–241.
+#'
+#' Lakatos E, Lan KK. (1992). A comparison of sample size methods for the logrank statistic. Statistics in Medicine, 11(2), 179–191.
+#'
+#' Web calculator (Superiority): https://nshi.jp/en/js/twosurvyr/
+#' @examples
+#' rashnu_wrapper(
+#'   alpha = 0.05,
+#'   power = 0.9,
+#'   hr = 0.8,
+#'   surv_t = 0.6,
+#'   event_time = 3
+#' )
+wrapper$rashnu_surv_fixed <- function(
+  alpha,
+  power,
+  hr,
+  surv_t,
+  event_time = 3,
+  accrual_time = 3,
+  follow_up_time = 3,
+  sided = 2,
+  allocation_ratio = 1,
+  method = c("logrank", "gehan", "tarone-ware"),
+  b = 24,
+  error = NA_real_
+) {
+  # Check that those parameters are between 0 and 1 (excluded).
+  check_probability(c(alpha, power, hr, surv_t))
+
+  method <- arg_match(method)
+
+  tryCatch(
+    {
+      sample_size_info <- rashnu::lakatosSampleSize(
+        alpha = alpha,
+        power = power,
+        syear = event_time,
+        yrsurv1 = surv_t,
+        yrsurv2 = surv_t**hr,
+        side = ifelse(sided == 2, "two.sided", "one.sided"),
+        accrualTime = accrual_time,
+        followTime = follow_up_time,
+        alloc = allocation_ratio,
+        method = method,
+        b = b
+      )
+      return(
+        tibble(
+          e = ceiling(sample_size_info$Total_expected_event_numbers),
+          n = ceiling(sample_size_info$Total_sample_size)
+        )
+      )
+    },
+
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
+  )
+}
+
+wrapper$rashnu_surv_one_arm <- function(
+  alpha,
+  power,
+  surv_t,
+  hr,
+  event_time = 3,
+  accrual_time = 3,
+  follow_up_time = 3,
+  sided = 2,
+  method = c("arcsin", "log-log", "logit", "log", "log-swog", "identity"),
+  error = NA_real_
+) {
+  method <- arg_match(method)
+
+  tryCatch(
+    {
+      # Times are in year NOT months
+      sample_size_info <- rashnu::oneSurvSampleSize(
+        survTime = event_time,
+        p1 = surv_t,
+        p2 = surv_t**hr,
+        accrualTime = accrual_time,
+        followTime = follow_up_time,
+        alpha = alpha / sided,
+        power = power,
+        side = ifelse(sided == 2, "two.sided", "one.sided"),
+        method = method
+      )
+      return(tibble(e = NA_real_, n = sample_size_info[1]))
+    },
+
+    error = function(er) {
+      return(tibble(e = error, n = error))
+    }
+  )
+}
+
+# Another way to do one-sample (Rashnu has potential).
+# rashnu::oneSurvSampleSize(
+#     survTime = 3,
+#     p1 = 0.2,
+#     p2 = 0.2**0.6,
+#     accrualTime = 3,
+#     followTime = 3,
+#     alpha = 0.05,
+#     power = 0.8,
+#     side = "two.sided",
+#     method = "arcsin"
+# )

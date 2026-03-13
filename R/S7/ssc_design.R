@@ -38,10 +38,10 @@ ssc_design <-
           "@computation should be one of exact, pooled or unpooled."
         }
       } else if (length(self@computation) != 0) {
-        # NOT WORKING, DON'T KNOW WHY
         "@computation should be NULL for survival endpoint"
-      }
-      if (length(self@params$list) == 0 | length(self@params$table) == 0) {
+      } else if (
+        length(self@params$list) == 0 || length(self@params$table) == 0
+      ) {
         "@params should contains at least $list and $table."
       }
     }

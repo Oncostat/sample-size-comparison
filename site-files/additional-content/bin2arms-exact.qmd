@@ -1,0 +1,125 @@
+---
+title: "What Do East and nQuery Compute *Exactly* ?"
+subtitle: "*A short empirical exploration of sample‑size exact engines for two‑sample binomials*"
+image: "../../man/figures/exact.png"
+bibliography: ../references.bibtex
+author:
+  - name: Arocena Thomas
+    orcid: 0009-0002-7014-220X
+    email: arocena.thomas@gmail.com
+    role: "Stagiaire"
+    affiliations: Oncostat
+  - name: Dan Chaltiel
+    email: dan.chaltiel@gustaveroussy.fr
+    orcid: 0000-0003-3488-779X
+    role: "Encadrant"
+  - name: Anne Lourdessamy
+    email: anne.lourdessamy@gustaveroussy.fr
+    orcid: 0009-0006-9051-3302
+    role: "Encadrante"
+date: last-modified
+format: html
+lightbox:
+  match: auto
+  effect: fade
+  desc-position: right
+---
+```{r}
+#| label: setup
+source("additional-content-setup.R")
+```
+
+```{r}
+x <- readr::read_rds("../../outputs/explore_bin2exact.rds")
+```
+
+
+Sample‑size software often labels a design simply as “exact,” but different exact tests can lead to noticeably different sample sizes. We explored what **nQuery** and **East** are *exactly* doing by comparing their outputs to transparent reference implementations from the [**bbssr**](https://github.com/gosukehommaEX/bbssr) R package.
+
+## What we compared
+
+To understand how nQuery and East behave, we compared their sample‑size outputs with several well‑established exact and asymptotic tests implemented transparently in the [**bbssr**](https://github.com/gosukehommaEX/bbssr) R package. Specifically, we examined:
+
+*   **Pearson Chi‑squared Test**
+*   **Fisher Exact Test**
+*   **Fisher Mid‑p Test**
+*   **Z‑pooled Exact Unconditional Test**
+*   **Boschloo Exact Unconditional Test**
+
+These methods cover both **conditional** (Fisher) and **unconditional** families, as well as an asymptotic benchmark (chi‑squared). Short, clear explanations of each test are available in Gosuke Homma’s documentation: [*Statistical methods explained*](https://htmlpreview.github.io/?https://github.com/gosukehommaEX/bbssr/blob/main/doc/bbssr-statistical-methods.html)
+
+## How did we compare
+
+*   **nQuery** states explicitly in the UI that its two‑proportion exact design uses **Fisher’s exact test**.
+*   **East**, as documented in its User Manual (p3314), uses an **unconditional exact superiority test** based on maximizing the probability of rejecting the null over all nuisance parameters (a score‑type unconditional approach, not Fisher’s conditional test).
+
+To see whether the software behaves as expected, we computed an **N‑ratio** comparing each exact method to the sample size returned by the software.
+
+$$
+\text{N‑ratio} = \frac{N_{\text{method}}}{N_{\text{software}}}.
+$$
+
+If the software truly corresponds to a given test, that test’s N‑ratio should cluster around 1.
+
+## Comparison results
+
+### nQuery: pattern matches Fisher's exact
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x$tables$gt_n_ratio_nquery)
+x$plots$p_n_ratio_nquery + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x$tables$gt_n_ratio_nquery)
+x$plots$p_n_ratio_nquery + theme_darkly()
+```
+:::
+
+
+In the nQuery plot, Fisher’s N‑ratio sits tightly around 1 across all scenarios.  
+Unconditional tests (Boschloo, mid‑p, Z‑pooled) systematically fall below 1, as expected given their higher power.
+
+### East: behaves like an unconditional exact test
+
+East’s documentation makes it *clear*^[East 6 User Manual, Appendix U: Theory-Design - Binomial Two-Sample Exact Tests, U.2 Power of Unconditional Test of Superiority, p3314] that the method is **unconditional**. The empirical results confirm this:
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x$tables$gt_n_ratio_east)
+x$plots$p_n_ratio_east + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x$tables$gt_n_ratio_east)
+x$plots$p_n_ratio_east + theme_darkly()
+```
+:::
+
+*   Unconditional method **Z‑pooled** lies very close to N‑ratio = 1.
+*   Fisher’s test tends to produce values *above* 1 because Fisher is more conservative, requiring slightly larger sample sizes.
+
+This is the signature of an **unconditional exact** design.
+
+
+## Conclusion
+
+NQuery implements a classical Fisher’s exact test, whereas East uses a more powerful unconditional exact test.
+
+Because the East's UI does not explicitly state which test should be used, users may default to the well-known Fisher’s exact test. If the sample size was calculated for the more powerful pooled-z test, this mismatch results in an underpowered trial, with potentially serious consequences.
+
+---
+
+We highly recommend exploring the excellent work of **Gosuke Homma** on exact tests, implemented in the **{bbssr}** package:  
+➡️ <https://github.com/gosukehommaEX/bbssr>
+
+His work provides a clear and practical overview of [*how to choose the appropriate exact test based on study design and sample size*]((https://htmlpreview.github.io/?https://github.com/gosukehommaEX/bbssr/blob/main/doc/bbssr-statistical-methods.html#choosing-the-right-test)), along with R implementations for each method.

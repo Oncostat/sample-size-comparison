@@ -1,0 +1,176 @@
+---
+title: "One-Arm Fixed Design with Binary endpoints"
+bibliography: ../../references.bibtex
+---
+
+```{r}
+#| label: setup
+source("../results-setup.R")
+```
+
+## Design space explored
+
+All comparisons were performed for a **one‑arm, fixed‑design clinical trial** with a **binary primary endpoint**. Such designs are often used in rare diseases or early‑phase settings where recruiting a concurrent control group is not feasible. The objective of this section is to compare **sample size calculations** across software implementations using two types of analyses:
+
+1.  a **Z‑pooled large‑sample test** for a single proportion, and
+2.  an **exact computation** method.
+
+Both approaches were evaluated over the same factorial design space used in the preceding two‑arm sections.
+
+### Varying design parameters
+
+The same four parameters were systematically varied:
+
+-   **Type I error rate ($\alpha$, two-sided):**  
+    $\alpha \in {0.01,\ 0.05,\ 0.10,\ 0.20,\ 0.49}$
+
+-   **Power ($1 - \beta$):**  
+    $1 - \beta \in {0.51,\ 0.80,\ 0.90,\ 0.99}$
+
+-   **Control (historical) response rate:**  
+    $\pi_c \in {0.10,\ 0.30,\ 0.50,\ 0.80,\ 0.90}$
+
+-   **Minimum clinically important improvement:**  
+    $\Delta\pi \in {0.05,\ 0.15,\ 0.25,\ 0.49}$
+
+The experimental response rate target for design purposes was defined as:
+
+$$
+\pi_e = \pi_c + \Delta\pi,
+$$
+
+and scenarios yielding $\pi_e > 1$ were discarded.
+A total of **300 valid design scenarios** were evaluated.
+
+
+### Fixed design assumptions
+
+To ensure comparability between methods and isolate software‑level differences, the following assumptions were fixed across all scenarios:
+
+-   **Design type:** one‑arm fixed design
+-   **Test sidedness:** two‑sided
+-   **Statistical tests evaluated:**
+    -   **One‑sample Z-test**
+    -   **Exact computation** method (implementation‑dependent)
+-   **No continuity correction** unless imposed by a specific tool
+-   **No interim analyses or stopping rules**
+-   **Outcomes:** independent Bernoulli variables without overdispersion
+
+No adjustments for stratification, covariates, or missingness were included. The focus is strictly on sample size determination under the assumed null response rate $\pi_c$.
+
+### Relevancy classification of design scenarios
+
+Relevancy was determined using the same rule‑based criteria applied in the two‑arm sections, relying only on α and power:
+
+*   **High relevance**  
+    Scenarios satisfying
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75.
+    $$
+    These constitute realistic one‑arm designs often used in phase II or rare‑disease contexts.
+
+*   **Medium relevance**  
+    Scenarios not meeting criteria for high or low relevance, representing plausible but less standard combinations of α and power.
+
+*   **Low relevance**  
+    Scenarios with
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    Such settings are operationally uncommon but included to stress‑test asymptotic and exact methods across extreme operating conditions.
+
+The classification is used purely for interpretability and does not impact sample size computations.
+
+## One‑sample Z-test
+
+### Methods compared
+
+- East : Single Proportion test [PN-1S-SP]
+- nQuery : POT0 / Chi Square Test for One Proportion
+- `rpact::getSampleSizeRates(group = 1)`
+
+### Results
+
+📌**Overall:** for one‑arm binary fixed designs using the Z‑test, `rpact` and `nQuery` are **fully concordant** with East, yielding identical sample sizes across the full design space.
+
+- Across **all relevancy levels**, `nQuery` and `rpact` produce **identical** sample sizes, with N‑ratios effectively equal to 1.00 for every design.
+
+```{r}
+x_pooled <- read_rds("../../../outputs/comp_bin_one_arm_pooled.rds")
+```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x_pooled$tables$table_n_ratio)
+x_pooled$plots$p_n_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x_pooled$tables$table_n_ratio) 
+x_pooled$plots$p_n_ratio + theme_darkly()
+```
+:::
+
+## Exact computation
+
+### Methods compared
+
+- East : Single Proportion test [PN-1S-SP]
+- @A'Hern_2001 implementation (see [A'Hern validation](https://github.com/DanChaltiel/sample_size/blob/main/files_binary/ahern.md) for more details on implementation)
+
+### Results
+
+📌**Overall:** A’Hern increasingly diverges from East as relevancy drops, shifting from mild underestimation to wider underestimation.
+
+- Across all relevancy levels, the A’Hern method shows **substantial deviations** from East, with N‑ratios ranging from marked underestimation to clear overestimation depending on the scenario.
+- In **high‑relevancy** designs, A’Hern’s sample sizes tend to be **slightly smaller** than East's, with ratios mostly between 0.9 and 1.0 but still showing noticeable spread.
+- In the **medium** range, the dispersion increases and the method oscillates more widely around the 1.00 reference, reflecting sensitivity to exact‑test discreteness.
+- In **low‑relevancy** designs, deviations become the largest, with ratios extending well below 0.9.
+
+```{r}
+x_exact <- read_rds("../../../outputs/comp_bin_one_arm_exact.rds")
+```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x_exact$tables$table_n_ratio)
+x_exact$plots$p_n_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x_exact$tables$table_n_ratio) 
+x_exact$plots$p_n_ratio + theme_darkly()
+```
+:::
+
+### Likely source of divergence 
+
+A’Hern’s design is based on a **single‑stage exact binomial test with integer‑grid optimisation** of $(n, r)$ pairs targeting feasibility and minimax or optimality criteria.  
+East, by contrast, uses an **exact unconditional power calculation** (not the A’Hern grid search) and optimises $n$ directly to meet the power constraint.  
+These two formulations:
+
+- use **different objective functions**,  
+- evaluate **different rejection boundaries**,  
+- and respond differently to **discreteness** in the exact binomial test.  
+
+Because of these structural differences, **A’Hern is not expected to match East**, even though your A’Hern implementation is correct (it reproduces the original published tables).
+
+**Overall:** the observed discrepancies reflect **fundamental differences in how exact one‑arm binary designs are defined and optimised**.
+
+## Interactive results
+
+You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
+
+**➡️ [*“Interactive results”*](../../interactive/interactive.qmd)**

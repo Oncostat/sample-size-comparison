@@ -1,0 +1,108 @@
+/** BIGGER LOGO */
+/* 1) Make the logo actually bigger: kill max-height and set height */
+.navbar-brand .navbar-logo,
+.navbar .navbar-brand img.navbar-logo {
+  max-height: none !important;   /* <-- this is the blocker in many Quarto themes */
+  height: 50px !important;       /* set your desired height */
+  width: auto !important;
+  display: block;                /* avoid inline-image baseline gap */
+  margin: 0.5rem !important;
+}
+
+/* 2) Tighten spacing around the brand area */
+.navbar-brand {
+  padding: 0 !important;          /* remove default link padding */
+  margin-right: 0.25rem !important; /* shrink gap before first menu item */
+  display: flex;
+  align-items: center;
+}
+
+/* 3) Reduce vertical padding on the navbar so a tall logo fits */
+.navbar {
+  --bs-navbar-padding-y: 0rem;    /* Bootstrap 5 variable */
+  min-height: unset !important;    /* in case the theme fixes a min-height */
+}
+
+/* 4) (Optional) Bring nav links closer to the logo */
+.navbar-nav .nav-link {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
+/* 5) (Optional) If the container adds side padding you don’t want */
+.navbar .container,
+.navbar .container-fluid {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* 6) Responsive tweak so it doesn’t overwhelm on mobile */
+@media (max-width: 991.98px) {
+  .navbar-brand .navbar-logo {
+    height: 56px !important;
+  }
+}
+
+/** DETAILS */
+/* source: https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/details */
+details {
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+}
+
+summary {
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+
+details[open] {
+  padding: 0.5em;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 0.5em;
+}
+
+/** GT TABLE*/
+.gt_table {
+  margin-left: 1.5rem !important;
+  margin-right: auto !important;
+}
+
+/** BSLIB CARDS */
+.bslib-full-screen-exit {
+    margin-top: 60px;
+}
+
+.bslib-card[data-full-screen="true"] {
+    margin-top: 60px;
+}
+
+.bslib-sidebar{
+  top: 0px !important;
+  max-height: 100vh !important;
+}
+
+
+/** SHADOW BOX FOR COVER*/
+.shadow-box {
+  padding: 0.5em;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 5px 30px var(--bs-light);
+  border: 1px solid var(--bs-light);
+}
+
+.shadow-box img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+/** SIDEBAR ACTIVE COLOR & BORDER*/
+.sidebar-item-container .active {
+  border-bottom: 1px double var(--bs-success);
+  color: var(--bs-success) !important;
+}

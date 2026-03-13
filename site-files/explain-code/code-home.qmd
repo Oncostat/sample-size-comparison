@@ -1,0 +1,14 @@
+---
+title: "My R Code explained"
+subtitle: "All the internship code in a nutshell"
+date: last-modified
+listing:
+  id: code-listings
+  sort: false
+  type: grid
+  contents:
+    - "structure.qmd"
+    - "pipeline.qmd"
+    - "S7.qmd"
+    - "wrapper.qmd"
+---

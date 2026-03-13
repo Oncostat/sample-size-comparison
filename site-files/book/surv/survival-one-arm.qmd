@@ -1,0 +1,165 @@
+---
+title: "One-Arm Fixed Design with Survival endpoints"
+bibliography: ../../references.bibtex
+---
+```{r}
+#| label: setup
+source("../results-setup.R")
+```
+
+## Design space explored
+
+All comparisons were conducted for a **one-arm, fixed-design randomized clinical trial** with a **survival primary endpoint**, analyzed using the logrank test under a proportional hazards framework. The objective was to compare sample size and event calculations across commonly used software implementations over a broad but structured design space.
+
+### Varying design parameters
+
+Four key design parameters were varied systematically:
+
+- **Type I error rate ($\alpha$, two-sided):**  
+  $\alpha \in \{0.01, 0.05, 0.10, 0.20, 0.49\}$
+
+- **Power ($1 - \beta$):**  
+  $1 - \beta \in \{0.51, 0.80, 0.90, 0.99\}$
+
+- **Hazard ratio (HR):**  
+  $\text{HR} \in \{0.10, 0.50, 0.70, 0.90, 0.99\}$
+
+- **Survival probability at 3 years under null hypothesis:**  
+  $S_0(3\text{y}) \in \{0.10, 0.30, 0.60, 0.90\}$
+
+The 3-year survival probability was used to calibrate the baseline hazard under an exponential survival assumption, ensuring consistency across methods requiring explicit specification of the underlying survival distribution.
+
+The full factorial combination of these parameters yielded **400 distinct design scenarios**.
+
+### Fixed design assumptions
+
+```{r}
+p_study <- 
+  ggplot()+
+  geom_segment(aes(x = 0, y = 0, xend = 3, yend = 2))+
+  geom_segment(aes(x = 3, y = 2, xend = 6, yend = 2))+
+  annotate("text", x = 1.5, y = 0, label = "Accrual Time = 3") +
+  annotate("text", x = 4.5, y = 0, label = "Minimum Follow-up Time = 3") +
+  geom_segment(aes(x = 3, y = 0, xend = 3, yend = 2), linetype = "dashed")+
+  annotate("text", x = 3, y = -0.1, label = "Study duration = 6") +
+  geom_point(aes(x = 6, y = 2))+
+  labs(x = "Time in years", y = "Number of patients") +
+  scale_x_continuous(
+      breaks = c(0, 3, 6),
+      minor_breaks = 0:6,
+    )  +
+  scale_y_continuous(
+    breaks = NULL,
+    minor_breaks = NULL,
+    expand = c(0, 0.1)
+  )
+```
+
+To isolate the impact of the statistical method and software implementation, the following parameters were held constant across all scenarios:
+
+::: {.columns}
+::: {.column}
+
+- **Accrual duration:** 3 years  
+- **Additional follow-up after end of accrual:** 3 years   
+- **Test sidedness:** two-sided logrank test  
+
+Accrual was assumed to be uniform over the accrual period. Censoring arose solely from administrative study termination; no additional loss to follow-up, noncompliance, or competing risks were assumed.
+:::
+::: {.column}
+::: {.light-content}
+```{r}
+#| out-width: 100%
+p_study + theme_flatly(base_size = 15)
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+p_study + theme_darkly(base_size = 15)
+```
+:::
+:::
+:::
+<!-- end columns -->
+
+### Relevancy classification of design scenarios
+
+Each scenario was assigned a relevancy category based solely on the Type I error rate and power, following the same rule‑based system used for two‑arm designs:
+
+*   **High relevance**
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75.
+    $$
+    These represent realistic single‑arm designs commonly used in phase II studies, especially in rare‑disease contexts.
+
+*   **Medium relevance**  
+    Scenarios not meeting the criteria for high or low relevance; these represent plausible but less standard design choices.
+
+*   **Low relevance**
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    These combinations are rarely used in practice but included intentionally to explore numerical robustness across asymptotic and exact methods.
+
+The classification is descriptive only and does not filter or influence sample size computations.
+
+### Scope of the comparison
+
+For each of the 400 scenarios, all methods and software implementations were used to compute:
+
+1. The **required number of events** to achieve the target power under the specified hazard ratio, and  
+2. The corresponding **total sample size**, accounting for accrual and follow-up.
+
+The design space was intentionally chosen to span both conventional trial settings and extreme configurations, allowing a comprehensive assessment of agreement, divergence, and stability across methods.
+
+## Methods compared
+
+- nQuery : SOT1 / One Sample Log-Rank Test with Accrual
+- `OneArm2stage::phase2.TTE()`^[Our rewrite that accepts accrual time (see [Fork-repo](https://github.com/thomas-arocena/OneArm2stage/tree/accrual-time) for more details)]
+- `SampleSizeSingleArmSurvival::calcSampleSizeArcsine()` 
+- `rashnu::oneSurvSampleSize()`
+
+## Results 
+
+📌**Overall:** unlike the two‑arm survival settings, the one‑arm fixed survival framework shows **major method‑specific differences**, with no implementation providing close agreement with nQuery across realistic or extended design regions.
+
+- Across all relevancy levels, **none** of the evaluated methods reproduce nQuery’s sample sizes closely. Even our rewrite of `OneArm2Stage` (expected to match nQuery) shows systematic deviations, typically **below 1.00** in high‑ and medium‑relevancy settings.
+- The `rashnu` and `sssas` methods implement the approach of @Nagashima_Noma_Sato_Gosho_2020 based on an arcsin transformation of the **Kaplan–Meier estimator**. These two methods consistently yield **larger** sample sizes than nQuery, resulting in N‑ratios frequently well **above 1.00**, sometimes substantially so.
+- In **high‑relevancy** designs, all three methods already differ from nQuery, with `OneArm2Stage` underestimating and the Nagashima‑based methods overestimating. Dispersion is wide and no method stays close to the reference band.
+- In **medium** and **low‑relevancy** scenarios, discrepancies become even larger. Extreme deviations are driven by designs where nQuery outputs very large sample sizes, amplifying differences between formulas and underlying assumptions.
+- Overall pattern:  
+  - **OneArm2Stage < nQuery** (systematic underestimation)  
+  - **Nagashima‑based methods > nQuery** (systematic overestimation)  
+  - **No method aligns tightly with nQuery**.
+
+```{r}
+x <- read_rds("../../../outputs/comp_surv_one_arm.rds")
+```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x$tables$table_n_ratio)
+x$plots$p_n_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x$tables$table_n_ratio) 
+x$plots$p_n_ratio + theme_darkly()
+```
+:::
+
+## Interactive results
+
+You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
+
+**➡️ [*“Interactive results”*](../../interactive/interactive.qmd)**

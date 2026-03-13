@@ -1,0 +1,114 @@
+---
+title: "Two-Arm Group-Sequential-Design with Binary endpoints"
+bibliography: ../../references.bibtex
+---
+
+```{r}
+#| label: setup
+source("../results-setup.R")
+```
+
+## Design space explored
+
+All comparisons were performed for a **two‑arm, group‑sequential randomized clinical trial** with a **binary primary endpoint**. The aim was to evaluate the consistency of **sample size calculations** across commonly used software tools, over the same factorial design space used in the fixed‑design setting.
+
+### Varying design parameters
+
+The same four design parameters as in the fixed-design section were varied:
+
+-   **Type I error rate ($\alpha$, two-sided):**  
+    $\alpha \in {0.01,\ 0.05,\ 0.10,\ 0.20,\ 0.49}$
+
+-   **Power ($1 - \beta$):**  
+    $1 - \beta \in {0.51,\ 0.80,\ 0.90,\ 0.99}$
+
+-   **Control-group response rate:**  
+    $\pi_c \in {0.10,\ 0.30,\ 0.50,\ 0.80,\ 0.90}$
+
+-   **Treatment effect (difference in proportions):**  
+    $\Delta\pi \in {0.05,\ 0.15,\ 0.25,\ 0.49}$
+
+The experimental-group rate was defined as  
+$\pi_e = \pi_c + \Delta\pi$,  
+and scenarios with $\pi_e > 1$ were excluded.
+
+A total of **300 valid design scenarios** were obtained.
+
+### Group-sequential design assumptions
+
+To isolate differences attributable to software implementation and numerical methods, the group-sequential structure was fixed across all scenarios:
+
+-   **Number of analyses:** 4 looks
+-   **Spacing:** equally spaced by **information rate**
+-   **Type I error spending:**  
+    **Lan–DeMets O’Brien–Fleming–like** α‑spending function
+-   **Power spending (futility):**  
+    **Lan–DeMets O’Brien–Fleming–like** β‑spending, **non‑binding**
+-   **Test:** two-sided test for a **difference in proportions (pooled Z-statistic)**
+-   **Allocation ratio:** 1 : 1
+
+Stopping for futility followed a **non‑binding** rule so that crossing the futility boundary does not inflate the Type I error.
+
+### Relevancy classification of design scenarios
+
+As in the fixed‑design setting, each scenario was assigned a relevancy category based solely on α and power:
+
+*   **High relevance**
+    $$
+      0.02 < \alpha < 0.15 \quad\text{and}\quad \text{power} > 0.75.
+    $$
+    These settings correspond to realistic, routinely used confirmatory designs—now extended to the group-sequential framework.
+
+*   **Medium relevance**  
+    Scenarios falling outside the high and low regions, representing plausible but less typical combinations of α and power encountered in exploratory or early‑phase program designs.
+
+*   **Low relevance**
+    $$
+      \alpha > 0.20 
+      \quad\text{or}\quad 
+      \text{power} < 0.60 
+      \quad\text{or}\quad 
+      \text{power} \ge 0.99.
+    $$
+    These extreme configurations are not typical for group‑sequential confirmatory trials but are kept intentionally to examine numerical robustness of spending‑function implementations.
+
+The categorization is descriptive and plays no role in filtering or weighting the results; it serves purely to guide interpretation.
+
+## Method compared:
+
+- East: Difference of Proportions test [PN-2S-DI]
+- `rpact::getSampleSizeRates(design = rpact::getDesignGroupSequential)`
+
+## Results
+
+📌**Overall:** `rpact` reproduces East’s group‑sequential Z‑pooled binary sample sizes with **near‑perfect consistency**, including in extended design regions.
+
+- Across **all relevancy levels**, `rpact` shows **excellent agreement** with East, with N‑ratios clustering tightly around 1.00.
+- In **high** and **medium‑relevancy** scenarios, variation is minimal: nearly all designs fall within a very narrow band (≈0.98–1.02), indicating practical equivalence.
+- In the **low‑relevancy** region, a small number of mild deviations appear, but no systematic trend is observed. These differences stem from edge‑case parameter combinations rather than method behaviour.
+
+```{r}
+x_pooled <- read_rds("../../../outputs/comp_bin_gs_pooled.rds")
+```
+
+::: {.light-content}
+```{r}
+#| out-width: 100%
+gt_theme_flatly(x_pooled$tables$table_n_ratio)
+x_pooled$plots$p_n_ratio + theme_flatly()
+```
+:::
+
+::: {.dark-content}
+```{r}
+#| out-width: 100%
+gt_theme_darkly(x_pooled$tables$table_n_ratio) 
+x_pooled$plots$p_n_ratio + theme_darkly()
+```
+:::
+
+## Interactive results
+
+You can explore all results interactively, filter designs, compare methods, and inspect individual cases in the interactive section of the website.
+
+**➡️ [*“Interactive results”*](../../interactive/interactive.qmd)**
