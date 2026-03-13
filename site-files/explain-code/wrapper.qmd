@@ -21,7 +21,7 @@ For this reason, each package-specific function was **wrapped** so that:
 
 Below is an example.
 
-## Example: the `rpact` wrapper for 2-arm survival fixed designs
+## Example: the **rpact** wrapper for 2-arm survival fixed designs
 
 ```{r}
 wrapper$rpact_surv_fixed <- function(
@@ -129,7 +129,7 @@ At this point, the results are harmonised with all other methods.
 ## Memoisation
 
 Some sample size functions are computationally expensive.  
-To speed up the pipeline, all wrappers are **memoised**, meaning that if a function is called again with the same inputs, the cached result is returned immediately.
+To speed up the pipeline, all wrappers are [**memoised**](https://memoise.r-lib.org/), meaning that if a function is called again with the same inputs, the cached result is returned immediately.
 
 All wrappers are stored in a list named `wrapper`, so memoisation can be applied with a single call:
 
