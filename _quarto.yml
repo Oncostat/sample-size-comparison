@@ -87,6 +87,7 @@ format:
     theme:
       light: flatly
       dark: [darkly, custom-dark.scss]
+    respect-user-color-scheme: true
     toc: true
     css: styles.css
 fig-format: svg
