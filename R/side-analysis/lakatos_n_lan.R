@@ -214,6 +214,7 @@ gt_lakatos_n_lan <-
     "<span style='color:#ce9d75ff'>**Brown**</span>: Sample sizes from the 1992 article"
   ))
 
+set.seed(130326)
 plot_lakatos_n_lan <-
   combined |>
   get_tbl() |>
